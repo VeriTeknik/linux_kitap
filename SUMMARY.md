@@ -35,7 +35,7 @@
 * [BASH Programlama](bash/bash_programlama.md)
 * [Log Dosyaları](log/log_dosyalari.md)
    * [Log Dosyalarının Konumları](log/log_dosyalarinin_konumlari.md)
-   * Regular Expressions Kullanarak Log Ayıklama Egzersizleri
+   * [Regular Expressions Kullanarak Log Ayıklama Egzersizleri](log/log_ayiklama.md)
    * Logrotate Servisi
 * Apache
 * FTP
