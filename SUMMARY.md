@@ -55,4 +55,5 @@
    * dig
    * nslookup
    * route
+   * ifconfig
 
