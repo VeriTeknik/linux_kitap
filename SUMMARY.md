@@ -38,7 +38,7 @@
    * [Regular Expressions Kullanarak Log Ayıklama Egzersizleri](log/log_ayiklama.md)
    * [Logrotate Servisi](log/logrotate.md)
 * [Apache](apache/apache.md)
-* FTP
+* [FTP](ftp/ftp.md)
    * Komut Satırından ftp Kullanımı
    * VSFTP
    * PROFTP
