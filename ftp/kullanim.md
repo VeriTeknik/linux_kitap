@@ -1,0 +1,2 @@
+# Komut Satırından ftp Kullanımı
+
