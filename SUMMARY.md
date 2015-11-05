@@ -18,4 +18,5 @@
 * SSH
    * Uzak Sunucuya Bağlanma
    * sshd Konfigürasyonu
+   * sftp ve scp Kullanımı
 
