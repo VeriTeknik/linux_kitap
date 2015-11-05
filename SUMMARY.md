@@ -34,7 +34,7 @@
    * [Private ve Public Anahtarlar](ssh/anahtarlar.md)
 * [BASH Programlama](bash/bash_programlama.md)
 * [Log Dosyaları](log/log_dosyalari.md)
-   * Log Dosyalarının Konumları
+   * [Log Dosyalarının Konumları](log/log_dosyalarinin_konumlari.md)
    * Regular Expressions Kullanarak Log Ayıklama Egzersizleri
    * Logrotate Servisi
 * Apache
