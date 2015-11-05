@@ -18,7 +18,7 @@
    * [CentOS](dagitimlar/centos/centos.md)
        * [yum Paket Yöneticisi](dagitimlar/centos/yum.md)
        * [Repo Ayarları](dagitimlar/centos/repo.md)
-       * [Network Ayarları](chapter4/centos/centos_network.md)
+       * [Network Ayarları](dagitimlar/centos/network.md)
    * Debian
        * [aptitude Paket Yöneticisi](chapter4/debian/aptitude.md)
        * [Repo Ayarları](chapter4/debian/debin_repo.md)
