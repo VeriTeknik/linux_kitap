@@ -19,7 +19,7 @@
        * [yum Paket Yöneticisi](dagitimlar/centos/yum.md)
        * [Repo Ayarları](dagitimlar/centos/repo.md)
        * [Network Ayarları](dagitimlar/centos/network.md)
-   * Debian
+   * [Debian](dagitimlar/debian/debian.md)
        * [aptitude Paket Yöneticisi](chapter4/debian/aptitude.md)
        * [Repo Ayarları](chapter4/debian/debin_repo.md)
        * [Network Ayarları](chapter4/debian/debian_network.md)
