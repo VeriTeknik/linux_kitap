@@ -3,17 +3,6 @@
 * [Döküman Hakkında](README.md)
 * [Linux ve GNU'nun Geçmişi](chapter1/linux_ve_gnunun_gecmisi.md)
    * [RedHat, Debian ve FreeBSD Ana Sürümlerin Farkları](chapter1/anasurumlerin_farklari.md)
-* Temel Komutlar
-   * [Temel Terminal Komutları](chapter2/temel_terminal_komutlari.md)
-   * [Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar](chapter2/yetkiler.md)
-   * Dosya Düzenleme Araçları
-       * [nano ve pico](chapter2/nano_ve_pico.md)
-       * [vim](chapter2/vim.md)
-* Gelişmiş Terminal Komutları
-   * [Standart Girdi ve Çıktı Yönlendirme](chapter3/standart_girdi_ve_cikti_yonlendirme.md)
-   * [top, ps ile İşlem İzleme](chapter3/top_ps.md)
-   * [awk ve sed](chapter3/awk_ve_sed.md)
-   * [egrep ve Regular Expressions](chapter3/egrep_ve_regular_expressions.md)
 * Temel Dağıtımlar
    * CentOS
        * [yum Paket Yöneticisi](chapter4/centos/yum.md)
@@ -27,6 +16,17 @@
        * port ve pck_add Yönetimi
        * Güncelleme Teknikleri
        * Network Ayarları
+* Temel Komutlar
+   * [Temel Terminal Komutları](chapter2/temel_terminal_komutlari.md)
+   * [Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar](chapter2/yetkiler.md)
+   * Dosya Düzenleme Araçları
+       * [nano ve pico](chapter2/nano_ve_pico.md)
+       * [vim](chapter2/vim.md)
+* Gelişmiş Terminal Komutları
+   * [Standart Girdi ve Çıktı Yönlendirme](chapter3/standart_girdi_ve_cikti_yonlendirme.md)
+   * [top, ps ile İşlem İzleme](chapter3/top_ps.md)
+   * [awk ve sed](chapter3/awk_ve_sed.md)
+   * [egrep ve Regular Expressions](chapter3/egrep_ve_regular_expressions.md)
 * SSH
    * Uzak Sunucuya Bağlanma
    * sshd Konfigürasyonu
