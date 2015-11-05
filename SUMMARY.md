@@ -28,7 +28,7 @@
        * [Güncelleme Teknikleri](dagitimlar/freebsd/guncelleme_teknikleri.md)
        * [Network Ayarları](dagitimlar/freebsd/network.md)
 * [SSH](ssh/ssh.md)
-   * Uzak Sunucuya Bağlanma
+   * [Uzak Sunucuya Bağlanma](ssh/baglanma.md)
    * sshd Konfigürasyonu
    * sftp ve scp Kullanımı
    * Private ve Public Anahtarlar
