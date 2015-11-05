@@ -7,7 +7,7 @@ Aşağıda örnek bir Python kodu görülmektedir.
 ```python
 # ornek1.py
 cumle = "Python'un ismi Monty Python'dan gelir."
-if len(cumle) > 5:
+if len(cumle) > 30:
     print cumle
 ```
 Yukarıdaki programı ornek1.py ismiyle kaydedip çalıştırdığımızda aşağıdaki gibi bir sonuç alırız.
@@ -17,7 +17,7 @@ python ornek1.py
 Python'un ismi Monty Python'dan gelir.
 ```
 
-Yazılımın yaptığı işlem oldukça basittir. **cumle** değişkeninin değerinin uzunluğu 5 karakterdan fazlaysa, kendisini ekrana yazdırır.
+Yazılımın yaptığı işlem oldukça basittir. **cumle** değişkeninin değerinin uzunluğu 30 karakterdan fazlaysa, kendisini ekrana yazdırır.
 
 Burada dikkat edilmesi gereken nokta, Python'un "indentation" hassasiyetinin olmasıdır. Yani kullandığımız "if" bloğunu bir parantez içinde ifade edemezdik, Python bu bloğun içindeki karakterlerin hizalı olmasını ister. Bu hizalılık ister boşluk karakterleriyle, ister tab karakterleriyle verilmelidir, yeter ki programın tamamında tutarlı olunsun.
 
@@ -29,7 +29,7 @@ Burada dikkat edilmesi gereken nokta, Python'un "indentation" hassasiyetinin olm
 # ornek2.py
 isim = "Monty Python"
 cumle = "Python'un ismi %s'dan gelir." % isim
-if len(cumle) > 5:
+if len(cumle) > 30:
     print cumle[:-7] + "gelmez mi?"
 ```
 
