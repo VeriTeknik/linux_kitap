@@ -7,7 +7,7 @@
    * [Temel Terminal Komutları](chapter2/temel_terminal_komutlari.md)
    * [Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar](chapter2/yetkilermd.md)
    * Dosya Düzenleme Araçları
-       * nano ve pico
+       * [nano ve pico](chapter2/nano_ve_pico.md)
        * vim
 * Gelişmiş Terminal Komutları
    * Standart Girdi ve Çıktı Yönlendirme
