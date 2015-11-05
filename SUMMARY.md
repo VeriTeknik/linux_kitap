@@ -13,7 +13,7 @@
    * Standart Girdi ve Çıktı Yönlendirme
    * top, ps ile İşlem İzleme
    * awk ve sed
-   * egrep ve Düzenli İfadeler
+   * egrep ve Regular Expressions
 * BASH Programlama
 * SSH
    * Uzak Sunucuya Bağlanma
