@@ -22,3 +22,21 @@ man du
 ```
 yazmak yeterli olacaktır. Bu durumda terminalde du komutunun manual dosyaları görülür. Bu dosyalar artık standartlaştığı için, internetten de bulunabilir. Örneğin du için manual dosyasına şu adresten erişebilirsiniz: http://man7.org/linux/man-pages/man1/du.1.html
 
+Bir diğer önemli nokta, Linux dizin yapısının anlaşılmasındadır. Linuxta dizin gösteriminin birkaç yolu vardır. Örneğin pek çoğumuzun aşina olduğu, "bir üst dizine çıkma" işlemi aşağıdaki şekilde yapılır.
+
+```bash
+cd ..
+```
+
+Bu komutu uygularken aslında yaptığımız işlem ".. isimli dizine gir" demek oluyor. Linux dizin yapısında her zaman ".." isimli dizin, mevcut dizinin bir üst dizinine işaret ettiği için üst dizine çıkmış oluruz. Dolayısıyla eğer iki üst dizine çıkmak isteseydik
+```bash
+cd ../..
+```
+komutu yeterli olacaktı. Benzer şekilde tek nokta ile ifade edilen dizin "." her zaman mevcut dizindir. Dolayısıyla mevcut dizin ile ilgili bir işlem yapmak istiyorsak, "." koymamız yeterli olacaktır.
+
+Örneğin hosts dosyamızı mevcut dizine kopyalamak istiyorsak aşağıdaki komutu uygulamamız gerekir.
+```bash
+cp /etc/hosts .
+```
+Çoğunlukla Linux dizin yapısına yeni başlayan kişilerin karıştırdığı nokta, göreli dizinlerdir. Yukarıdaki örnekte /etc/hosts şeklinde dizin ifade ettik. Eğer bunu başındaki / olmadan yazsaydık, yani "etc/hosts" şeklinde yazsaydık, mevcut dizinin altında bir etc klasörü, onun da altında bir hosts dosyası arayacaktı sistem. Dolayısıyla mevcut dizinimize göre (yani göreli) bir gösterim kullanmış olacaktık.
+
