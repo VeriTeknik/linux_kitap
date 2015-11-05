@@ -51,6 +51,7 @@
    * Basit SQL Sorguları
    * mysqldump ile Yedekleme
    * Yedekleri İçeri Alma
+   * Replikasyon Teknikleri
 * Zamanlanmış Görevler
    * crontab
    * at
