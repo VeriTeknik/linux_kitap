@@ -70,7 +70,7 @@
    * [Kütüphane Oluşturma](python/kutuphane_olusturma.md)
    * [Diziler ve Döngüler](python/diziler_ve_donguler.md)
    * [Sistem ve Dosya İşlemleri](python/sistem_ve_dosya.md)
-   * Regular Expressions
+   * [Regular Expressions](python/regexp.md)
    * MySQL Bağlantısı
    * Python 2 ve Python 3 Ayrımı
 * Güvenlik
