@@ -56,4 +56,5 @@
    * nslookup
    * route
    * ifconfig
+   * nmap
 
