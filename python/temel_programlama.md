@@ -47,7 +47,7 @@ Bu örneği daha parametrik hale getirmek istersek,
 ```python
 # ornek3.py
 def yazdir(isim):
-    cumle = "Python'un ismi %s'dan gelir." % inc
+    cumle = "Python'un ismi %s'dan gelir." % isim
     if len(cumle) > 37:
         print cumle
     else:
@@ -64,7 +64,7 @@ Tanımladığımız fonksiyonun ekrana yazdırmasını sağlamak yerine, değeri
 ```python
 # ornek3.py
 def yazdir(isim):
-    cumle = "Python'un ismi %s'dan gelir." % inc
+    cumle = "Python'un ismi %s'dan gelir." % isim
     if len(cumle) > 37:
         return cumle
     else:
@@ -73,3 +73,10 @@ def yazdir(isim):
 print yazdir("Monty Python")
 print yazdir("Rossum") 
 ```
+
+Python programları doğru teknikle yazıldığında, hem kütüphane olarak kullanılabilir, hem de tek başlarına program olarak kullanılabilir. Örneğin yukarıda yazdığımız ornek3.py programını Python terminalinden çağırmak için aşağıdaki komutları uygulayabiliriz. ornek3.py dosyasının bulunduğu dizinde terminalinizden python programını çalıştırın, ve ardından:
+
+```python
+import ornek3
+Python'un ismi Monty Python'dan gelir
+Py
