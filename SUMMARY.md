@@ -36,4 +36,5 @@
 * Log Dosyaları
    * Log Dosyalarının Konumları
    * Regular Expressions Kullanarak Log Ayıklama Egzersizleri
+   * Logrotate Servisi
 
