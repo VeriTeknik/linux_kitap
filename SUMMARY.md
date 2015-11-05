@@ -46,7 +46,7 @@
    * Named
    * Bind
 * DHCP
-* MySQL
+* İstemci Kullanımı
 * Zamanlanmış Görevler
    * crontab
    * at
