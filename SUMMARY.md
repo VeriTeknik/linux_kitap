@@ -12,7 +12,7 @@
 * Gelişmiş Terminal Komutları
    * [Standart Girdi ve Çıktı Yönlendirme](chapter3/standart_girdi_ve_cikti_yonlendirme.md)
    * [top, ps ile İşlem İzleme](chapter3/top_ps.md)
-   * awk ve sed
+   * [awk ve sed](chapter3/awk_ve_sed.md)
    * egrep ve Regular Expressions
 * Temel Dağıtımlar
    * CentOS
