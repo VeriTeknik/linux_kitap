@@ -66,7 +66,7 @@
 * Python
    * Temel Programlama
    * Sistem ve Dosya İşlemleri
-   * Python ve Regular Expressions
+   * Regular Expressions
    * Python ile MySQL Bağlantısı
    * Python 2 ve Python 3 Ayrımı
 
