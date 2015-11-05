@@ -79,6 +79,7 @@
    * Optimizasyon Teknikleri
    * Yedekleme ve Yedekten Geri Dönme Politikaları
    * Başka Bir Sunucuda Sistemin Canlı Yedeğini Tutma
+   * Felaket Sonrası Sunucuyu Tekrar Çalışır Hale Getirme
 * Kaynak Kod Derleme
 * Hata Takibi
    * PHP, MySQL ve Apache Kütük Yapılandırması
