@@ -47,7 +47,7 @@
    * Bind
 * DHCP
 * MySQL
-   * İstemci Kullanımı
+   * Temel Tablo Oluşturma
 * Zamanlanmış Görevler
    * crontab
    * at
