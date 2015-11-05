@@ -20,4 +20,5 @@
    * sshd Konfigürasyonu
    * sftp ve scp Kullanımı
    * Private ve Public Anahtarlar
+* Temel Dağıtımlar
 
