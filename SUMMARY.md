@@ -41,7 +41,7 @@
 * [FTP](ftp/ftp.md)
    * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
    * [VSFTP](ftp/vsftp.md)
-   * PROFTP
+   * [PROFTP](ftp/proftp.md)
 * Nameserver Servisleri
    * Named
    * Bind
