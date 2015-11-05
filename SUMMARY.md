@@ -24,4 +24,5 @@
    * CentOS
        * yum Paket Yöneticisi
        * Repo Ayarları
+       * Network Ayarları
 
