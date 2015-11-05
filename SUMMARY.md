@@ -68,8 +68,9 @@
    * Python 2 ve Python 3 Ayrımı
 * Güvenlik
    * IPTables
-      * Temel İzinler
-      * IP ve Port Engelleme
+       * Temel İzinler
+       * IP ve Port Engelleme
+   * selinux
 * Kaynak Kod Derleme
 * Hata Takibi
    * PHP, MySQL ve Apache Kütük Yapılandırması
