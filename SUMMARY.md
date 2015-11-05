@@ -58,4 +58,5 @@
    * ifconfig
    * nmap
    * netcat
+   * tcpdump
 
