@@ -29,4 +29,5 @@
        * aptitude Paket Yöneticisi
        * Repo Ayarları
        * Network Ayarları
+   * FreeBSD
 
