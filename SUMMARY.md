@@ -16,7 +16,7 @@
    * [egrep ve Regular Expressions](chapter3/egrep_ve_regular_expressions.md)
 * Temel Dağıtımlar
    * CentOS
-       * yum Paket Yöneticisi
+       * [yum Paket Yöneticisi](chapter4/centos/yum.md)
        * Repo Ayarları
        * Network Ayarları
    * Debian
