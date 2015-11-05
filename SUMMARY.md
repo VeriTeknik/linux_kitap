@@ -53,4 +53,5 @@
 * Gelişmiş Network Komutları
    * ping
    * dig
+   * nslookup
 
