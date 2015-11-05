@@ -26,4 +26,5 @@
        * Repo Ayarları
        * Network Ayarları
    * Debian
+       * aptitude Paket Yöneticisi
 
