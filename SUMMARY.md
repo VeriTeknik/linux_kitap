@@ -65,4 +65,5 @@
    * IP ve Port Engelleme
 * Python
    * Temel Python Programlama
+   * Python ile Sistem ve Dosya İşlemleri
 
