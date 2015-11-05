@@ -31,7 +31,7 @@
    * [Uzak Sunucuya Bağlanma](ssh/baglanma.md)
    * [sshd Konfigürasyonu](ssh/sshd_konfigurasyonu.md)
    * [sftp ve scp Kullanımı](ssh/sftp_scp.md)
-   * Private ve Public Anahtarlar
+   * [Private ve Public Anahtarlar](ssh/anahtarlar.md)
 * BASH Programlama
 * Log Dosyaları
    * Log Dosyalarının Konumları
