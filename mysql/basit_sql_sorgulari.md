@@ -1,0 +1,2 @@
+# Basit SQL Sorguları
+
