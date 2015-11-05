@@ -66,11 +66,11 @@
    * Regular Expressions
    * MySQL Bağlantısı
    * Python 2 ve Python 3 Ayrımı
+* IPTables
+   * Temel İzinler
+   * IP ve Port Engelleme
 * Güvenlik
 * Kaynak Kod Derleme
 * Hata Takibi
    * PHP, MySQL ve Apache Kütük Yapılandırması
-* IPTables
-   * Temel İzinler
-   * IP ve Port Engelleme
 
