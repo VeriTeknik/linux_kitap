@@ -45,7 +45,7 @@
 * [Nameserver Servisleri](nameserver/nameserver_servisleri.md)
    * [Named](nameserver/named.md)
    * [Bind](nameserver/bind.md)
-* DHCP
+* [DHCP](dhcp/dhcp.md)
 * MySQL
    * Temel Tablo Oluşturma
    * Basit SQL Sorguları
