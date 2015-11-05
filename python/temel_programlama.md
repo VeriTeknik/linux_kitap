@@ -38,11 +38,11 @@ python ornek2.py
 Python'un ismi Monty Python'dan gelmez mi?
 ```
 
-Bu örnekte birkaç işlemi bir arada kullandık. Öncelikle 
+Bu örnekte birkaç işlemi bir arada kullandık. Öncelikle **isim** değişkeni tanımladık, daha sonra bu değişkenin değerini **cumle** değişkeninin içinde kullandık. Kısacası **cumle** değişkeninin değeri ornek1.py'deki gibi oldu. Ancak cümleyi ekrana yazdırırken, cümlenin son 7 karakterini almadan kullandık, sonra da peşine "gelmez mi?" ifadesini ekledik.
 
+Bu örneği daha parametrik hale getirmek istersek,
 
 ```python
 # ornek3.py
-def test(inc):
-    if len(inc) > 3:
-        print "Sonuc: %s" % inc```
+def yazdir(isim):
+    print "Python'un ismi %s'dan gelir." % inc```
