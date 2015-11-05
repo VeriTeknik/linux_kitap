@@ -44,7 +44,7 @@
    * [PROFTP](ftp/proftp.md)
 * [Nameserver Servisleri](nameserver/nameserver_servisleri.md)
    * [Named](nameserver/named.md)
-   * Bind
+   * [Bind](nameserver/bind.md)
 * DHCP
 * MySQL
    * Temel Tablo Oluşturma
