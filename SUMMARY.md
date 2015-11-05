@@ -20,7 +20,7 @@
        * [Repo Ayarları](dagitimlar/centos/repo.md)
        * [Network Ayarları](dagitimlar/centos/network.md)
    * [Debian](dagitimlar/debian/debian.md)
-       * [aptitude Paket Yöneticisi](chapter4/debian/aptitude.md)
+       * [aptitude Paket Yöneticisi](dagitimlar/debian/aptitude.md)
        * [Repo Ayarları](chapter4/debian/debin_repo.md)
        * [Network Ayarları](chapter4/debian/debian_network.md)
    * FreeBSD
