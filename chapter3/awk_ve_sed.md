@@ -1,2 +1,0 @@
-# awk ve sed
-
