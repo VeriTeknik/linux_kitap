@@ -64,4 +64,5 @@
    * Temel İzinler
    * IP ve Port Engelleme
 * Python
+   * Temel Python Programlama
 
