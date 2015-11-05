@@ -27,12 +27,12 @@
        * port ve pck_add Yönetimi
        * Güncelleme Teknikleri
        * Network Ayarları
-* BASH Programlama
 * SSH
    * Uzak Sunucuya Bağlanma
    * sshd Konfigürasyonu
    * sftp ve scp Kullanımı
    * Private ve Public Anahtarlar
+* BASH Programlama
 * Log Dosyaları
    * Log Dosyalarının Konumları
    * Regular Expressions Kullanarak Log Ayıklama Egzersizleri
