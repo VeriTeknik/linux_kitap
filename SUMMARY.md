@@ -4,7 +4,7 @@
 * [Linux ve GNU'nun Geçmişi](chapter1/linux_ve_gnunun_gecmisi.md)
    * [RedHat, Debian ve FreeBSD Ana Sürümlerin Farkları](chapter1/anasurumlerin_farklari.md)
 * Temel Komutlar
-   * [Temel Terminal Komutları](chapter2/temel_terminal_komutlari.md)
+   * [Temel Terminal Komutları](temel_komutlar/temel_komutlar.md)
    * [Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar](chapter2/yetkiler.md)
    * Dosya Düzenleme Araçları
        * [nano ve pico](chapter2/nano_ve_pico.md)
