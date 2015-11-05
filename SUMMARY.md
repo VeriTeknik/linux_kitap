@@ -40,7 +40,7 @@
 * [Apache](apache/apache.md)
 * [FTP](ftp/ftp.md)
    * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
-   * VSFTP
+   * [VSFTP](ftp/vsftp.md)
    * PROFTP
 * Nameserver Servisleri
    * Named
