@@ -36,7 +36,7 @@
 * [Log Dosyaları](log/log_dosyalari.md)
    * [Log Dosyalarının Konumları](log/log_dosyalarinin_konumlari.md)
    * [Regular Expressions Kullanarak Log Ayıklama Egzersizleri](log/log_ayiklama.md)
-   * Logrotate Servisi
+   * [Logrotate Servisi](log/logrotate.md)
 * Apache
 * FTP
    * Komut Satırından ftp Kullanımı
