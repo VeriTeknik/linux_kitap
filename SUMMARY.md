@@ -20,7 +20,7 @@
        * [Repo Ayarları](chapter4/centos/centos_repo.md)
        * [Network Ayarları](chapter4/centos/centos_network.md)
    * Debian
-       * aptitude Paket Yöneticisi
+       * [aptitude Paket Yöneticisi](chapter4/debian/aptitude.md)
        * Repo Ayarları
        * Network Ayarları
    * FreeBSD
