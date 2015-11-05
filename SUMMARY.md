@@ -50,6 +50,7 @@
    * Temel Tablo Oluşturma
    * Basit SQL Sorguları
    * mysqldump ile Yedekleme
+   * Yedekleri İçeri Alma
 * Zamanlanmış Görevler
    * crontab
    * at
