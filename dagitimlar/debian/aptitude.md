@@ -1,0 +1,2 @@
+# aptitude Paket Yöneticisi
+
