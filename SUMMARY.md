@@ -15,7 +15,7 @@
    * [awk ve sed](gelismis_terminal/awk_ve_sed.md)
    * [egrep ve Regular Expressions](gelismis_terminal/egrep_regexp.md)
 * [Temel Dağıtımlar](dagitimlar/temel_dagitimlar.md)
-   * CentOS
+   * [CentOS](dagitimlar/centos/centos.md)
        * [yum Paket Yöneticisi](chapter4/centos/yum.md)
        * [Repo Ayarları](chapter4/centos/centos_repo.md)
        * [Network Ayarları](chapter4/centos/centos_network.md)
