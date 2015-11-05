@@ -5,4 +5,5 @@
    * RedHat, Debian ve FreeBSD sürümlerinin farkları
 * Temel Komutlar
    * Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar
+   * Dosya Düzenleme Araçları
 
