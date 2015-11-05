@@ -68,4 +68,5 @@
    * Python ile Sistem ve Dosya İşlemleri
    * Python ile MySQL Bağlantısı
    * Python ve Regular Expressions
+   * Python 2 ve Python 3 Ayrımı
 
