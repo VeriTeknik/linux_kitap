@@ -62,4 +62,5 @@
    * WireShark
 * IPTables
    * Temel İzinler
+   * IP ve Port Engelleme
 
