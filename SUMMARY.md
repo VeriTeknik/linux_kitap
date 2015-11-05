@@ -33,7 +33,7 @@
    * [sftp ve scp Kullanımı](ssh/sftp_scp.md)
    * [Private ve Public Anahtarlar](ssh/anahtarlar.md)
 * [BASH Programlama](bash/bash_programlama.md)
-* Log Dosyaları
+* [Log Dosyaları](log/log_dosyalari.md)
    * Log Dosyalarının Konumları
    * Regular Expressions Kullanarak Log Ayıklama Egzersizleri
    * Logrotate Servisi
