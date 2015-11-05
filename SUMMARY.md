@@ -17,7 +17,7 @@
 * [Temel Dağıtımlar](dagitimlar/temel_dagitimlar.md)
    * [CentOS](dagitimlar/centos/centos.md)
        * [yum Paket Yöneticisi](dagitimlar/centos/yum.md)
-       * [Repo Ayarları](chapter4/centos/centos_repo.md)
+       * [Repo Ayarları](dagitimlar/centos/repo.md)
        * [Network Ayarları](chapter4/centos/centos_network.md)
    * Debian
        * [aptitude Paket Yöneticisi](chapter4/debian/aptitude.md)
