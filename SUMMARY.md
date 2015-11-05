@@ -50,4 +50,5 @@
 * Zamanlanmış Görevler
    * crontab
    * at
+* Gelişmiş Network Komutları
 
