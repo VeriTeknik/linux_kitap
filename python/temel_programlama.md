@@ -74,7 +74,7 @@ print yazdir("Monty Python")
 print yazdir("Rossum") 
 ```
 
-Python programları doğru teknikle yazıldığında, hem kütüphane olarak kullanılabilir, hem de tek başlarına program olarak kullanılabilir. Örneğin yukarıda yazdığımız ornek3.py programını Python terminalinden çağırmak için aşağıdaki komutları uygulayabiliriz. ornek3.py dosyasının bulunduğu dizinde terminalinizden python programını çalıştırın, ve ardından:
+Python programları doğru teknikle yazıldığında, hem kütüphane olarak kullanılabilir, hem de tek başlarına program olarak kullanılabilir. Örneğin önceki bölümde yazdığımız ornek3.py programını Python terminalinden çağırmak için aşağıdaki komutları uygulayabiliriz. ornek3.py dosyasının bulunduğu dizinde terminalinizden python programını çalıştırın, ve ardından:
 
 ```python
 Python 2.7.6 (default, Jun 22 2015, 17:58:13) 
@@ -120,5 +120,31 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> import ornek3
 >>> sonuc = ornek3.yazdir("deneme")
 >>> print sonuc
+Python'un ismi deneme'dan gelmez mi?
+```
+
+Dikkatinizi çekmişse, kütüphanemizdeki fonksiyona ornek3.yazdir şeklinde eriştik. Bu her ne kadar tavsiye edilen yöntem olsa da, kütüphaneleri yüklerken fonksiyonları dilediğimiz gibi yükletebiliriz.
+
+```python
+from ornek3 import yazdir
+yazdir("deneme")
+Python'un ismi deneme'dan gelmez mi?
+```
+
+```python
+from ornek3 import yazdir
+yazdir("deneme")
+Python'un ismi deneme'dan gelmez mi?
+```
+
+```python
+import ornek3 as calisma
+calisma.yazdir("deneme")
+Python'un ismi deneme'dan gelmez mi?
+```
+
+```python
+from ornek3 import yazdir as dizgi
+dizgi("deneme")
 Python'un ismi deneme'dan gelmez mi?
 ```
