@@ -5,7 +5,7 @@
    * [RedHat, Debian ve FreeBSD Ana Sürümlerin Farkları](chapter1/anasurumlerin_farklari.md)
 * Temel Komutlar
    * [Temel Terminal Komutları](chapter2/temel_terminal_komutlari.md)
-   * [Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar](yetkiler.md)
+   * [Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar](chapter2/yetkilermd.md)
    * Dosya Düzenleme Araçları
        * nano ve pico
        * vim
