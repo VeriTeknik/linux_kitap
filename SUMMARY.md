@@ -13,7 +13,7 @@
    * [Standart Girdi ve Çıktı Yönlendirme](gelismis_terminal/standart_girdi_ve_cikti_yonlendirme.md)
    * [top, ps ile İşlem İzleme](gelismis_terminal/top.md)
    * [awk ve sed](gelismis_terminal/awk_ve_sed.md)
-   * [egrep ve Regular Expressions](chapter3/egrep_ve_regular_expressions.md)
+   * [egrep ve Regular Expressions](gelismis_terminal/egrep_regexp.md)
 * Temel Dağıtımlar
    * CentOS
        * [yum Paket Yöneticisi](chapter4/centos/yum.md)
