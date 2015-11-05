@@ -77,6 +77,7 @@
        * IP ve Port Engelleme
    * selinux
    * Optimizasyon Teknikleri
+   * Yedekleme ve Yedekten Geri Dönme Politikaları
 * Kaynak Kod Derleme
 * Hata Takibi
    * PHP, MySQL ve Apache Kütük Yapılandırması
