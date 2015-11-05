@@ -18,7 +18,7 @@
    * CentOS
        * [yum Paket Yöneticisi](chapter4/centos/yum.md)
        * [Repo Ayarları](chapter4/centos/centos_repo.md)
-       * Network Ayarları
+       * [Network Ayarları](chapter4/centos/centos_network.md)
    * Debian
        * aptitude Paket Yöneticisi
        * Repo Ayarları
