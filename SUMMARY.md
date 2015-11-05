@@ -1,6 +1,6 @@
 # Summary
 
-* [Linux ve GNU Tarihi](README.md)
+* [Döküman Hakkında](README.md)
 * Temel Komutlar
    * Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar
    * Dosya Düzenleme Araçları
