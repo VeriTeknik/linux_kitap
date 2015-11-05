@@ -1,0 +1,2 @@
+# Temel Tablo Oluşturma
+
