@@ -14,12 +14,6 @@
    * top, ps ile İşlem İzleme
    * awk ve sed
    * egrep ve Regular Expressions
-* BASH Programlama
-* SSH
-   * Uzak Sunucuya Bağlanma
-   * sshd Konfigürasyonu
-   * sftp ve scp Kullanımı
-   * Private ve Public Anahtarlar
 * Temel Dağıtımlar
    * CentOS
        * yum Paket Yöneticisi
@@ -33,6 +27,12 @@
        * port ve pck_add Yönetimi
        * Güncelleme Teknikleri
        * Network Ayarları
+* BASH Programlama
+* SSH
+   * Uzak Sunucuya Bağlanma
+   * sshd Konfigürasyonu
+   * sftp ve scp Kullanımı
+   * Private ve Public Anahtarlar
 * Log Dosyaları
    * Log Dosyalarının Konumları
    * Regular Expressions Kullanarak Log Ayıklama Egzersizleri
