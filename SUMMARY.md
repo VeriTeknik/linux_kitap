@@ -42,4 +42,5 @@
    * Komut Satırından ftp Kullanımı
    * VSFTP
    * PROFTP
+* Nameserver Servisleri
 
