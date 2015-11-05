@@ -72,4 +72,5 @@
 * Kaynak Kod Derleme
 * Hata Takibi
    * PHP, MySQL ve Apache Kütük Yapılandırması
+* Güvenlik
 
