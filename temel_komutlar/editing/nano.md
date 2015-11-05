@@ -1,0 +1,2 @@
+# nano ve pico
+
