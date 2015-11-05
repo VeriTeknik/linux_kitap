@@ -2,7 +2,7 @@
 
 * [Döküman Hakkında](README.md)
 * [Linux ve GNU'nun Geçmişi](chapter1/linux_ve_gnunun_gecmisi.md)
-   * RedHat, Debian ve FreeBSD Ana Sürümlerin Farkları
+   * [RedHat, Debian ve FreeBSD Ana Sürümlerin Farkları](chapter1/redhat,_debian_ve_freebsd_ana_surumlerin_farklari.md)
 * Temel Komutlar
    * Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar
    * Dosya Düzenleme Araçları
