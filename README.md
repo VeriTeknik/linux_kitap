@@ -7,4 +7,6 @@ Döküman içeriği zamanla şekillenecek ve yapısını/hiyerarşisini değişt
 
 Döküman veya GNU/Linux hakkında herhangi sorunuz için bize iletisim@veriteknik.com adresinden ulaşabilirsiniz.
 
+
+
 Cem Karaca & M. Emre Aydın
