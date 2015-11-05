@@ -71,6 +71,7 @@
    * Regular Expressions
    * MySQL Bağlantısı
    * Python 2 ve Python 3 Ayrımı
+   * Döngüler ve Kontrol İfadeleri
 * Güvenlik
    * IPTables
        * Temel İzinler
