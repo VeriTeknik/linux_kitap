@@ -1,0 +1,2 @@
+# Logrotate Servisi
+
