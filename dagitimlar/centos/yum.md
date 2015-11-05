@@ -1,0 +1,2 @@
+# yum Paket Yöneticisi
+
