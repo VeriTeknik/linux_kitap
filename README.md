@@ -10,3 +10,5 @@ Döküman veya GNU/Linux hakkında herhangi sorunuz için bize iletisim@veritekn
 
 
 Cem Karaca & M. Emre Aydın
+
+Copyright 2015 VeriTeknik Bilişim Ltd. Şti. izinsiz alıntı yapılamaz, kopyalanamaz ve çoğaltılamaz.
