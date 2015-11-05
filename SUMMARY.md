@@ -65,7 +65,7 @@
    * IP ve Port Engelleme
 * Python
    * Temel Programlama
-   * Python ile Sistem ve Dosya İşlemleri
+   * Sistem ve Dosya İşlemleri
    * Python ve Regular Expressions
    * Python ile MySQL Bağlantısı
    * Python 2 ve Python 3 Ayrımı
