@@ -25,7 +25,7 @@
        * [Network Ayarları](dagitimlar/debian/network.md)
    * [FreeBSD](dagitimlar/freebsd/freebsd.md)
        * [port ve pck_add Yönetimi](dagitimlar/freebsd/ports.md)
-       * Güncelleme Teknikleri
+       * [Güncelleme Teknikleri](dagitimlar/freebsd/guncelleme_teknikleri.md)
        * Network Ayarları
 * SSH
    * Uzak Sunucuya Bağlanma
