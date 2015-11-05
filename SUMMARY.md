@@ -61,4 +61,5 @@
    * tcpdump
    * WireShark
 * IPTables
+   * Temel İzinler
 
