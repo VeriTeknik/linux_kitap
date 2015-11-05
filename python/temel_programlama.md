@@ -48,6 +48,28 @@ Bu örneği daha parametrik hale getirmek istersek,
 # ornek3.py
 def yazdir(isim):
     cumle = "Python'un ismi %s'dan gelir." % inc
-    if len(cumle) > 30:
+    if len(cumle) > 37:
         print cumle
+    else:
+        print cumle[:-7] + " gelmez mi?"
+
+yazdir("Monty Python")
+yazdir("Rossum") 
+```
+
+Koddan anlaşılacağı üzere, önce bir fonksiyon tanımladık. Bu fonksiyon aldığı değeri cümlemizin içine yerleştiriyor. Sonra oluşan uzunluğa göre karar veriyor: Eğer oluşan cümle 37 karakter'den uzunsa doğrudan ekrana yazdırıyor, değilse farklı bir cümle yazdırıyor.
+
+Tanımladığımız fonksiyonun ekrana yazdırmasını sağlamak yerine, değeri döndürmesini de sağlayabilirdik. Bu durumda dönen değeri ayrıca ekrana yazmamız gerekirdi. Aynı kodun değiştirilmiş aşağıdaki hali bu paragrafı daha anlamlı kılacaktır.
+
+```python
+# ornek3.py
+def yazdir(isim):
+    cumle = "Python'un ismi %s'dan gelir." % inc
+    if len(cumle) > 37:
+        return cumle
+    else:
+        return cumle[:-7] + " gelmez mi?"
+
+print yazdir("Monty Python")
+print yazdir("Rossum") 
 ```
