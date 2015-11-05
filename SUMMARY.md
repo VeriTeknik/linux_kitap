@@ -24,7 +24,7 @@
        * [Repo Ayarları](dagitimlar/debian/repo.md)
        * [Network Ayarları](dagitimlar/debian/network.md)
    * [FreeBSD](dagitimlar/freebsd/freebsd.md)
-       * port ve pck_add Yönetimi
+       * [port ve pck_add Yönetimi](dagitimlar/freebsd/ports.md)
        * Güncelleme Teknikleri
        * Network Ayarları
 * SSH
