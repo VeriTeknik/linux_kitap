@@ -14,7 +14,7 @@
    * [top, ps ile İşlem İzleme](gelismis_terminal/top.md)
    * [awk ve sed](gelismis_terminal/awk_ve_sed.md)
    * [egrep ve Regular Expressions](gelismis_terminal/egrep_regexp.md)
-* Temel Dağıtımlar
+* [Temel Dağıtımlar](dagitimlar/temel_dagitimlar.md)
    * CentOS
        * [yum Paket Yöneticisi](chapter4/centos/yum.md)
        * [Repo Ayarları](chapter4/centos/centos_repo.md)
