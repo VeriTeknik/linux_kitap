@@ -67,11 +67,11 @@
    * WireShark
 * Python
    * [Temel Programlama](python/temel_programlama.md)
+   * Kütüphane Oluşturma
    * Sistem ve Dosya İşlemleri
    * Regular Expressions
    * MySQL Bağlantısı
    * Python 2 ve Python 3 Ayrımı
-   * Kütüphane Oluşturma
 * Güvenlik
    * IPTables
        * Temel İzinler
