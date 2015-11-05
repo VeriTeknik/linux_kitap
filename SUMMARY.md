@@ -57,4 +57,5 @@
    * route
    * ifconfig
    * nmap
+   * netcat
 
