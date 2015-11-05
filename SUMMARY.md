@@ -12,4 +12,5 @@
 * Gelişmiş Terminal Komutları
    * Standart Girdi ve Çıktı Yönlendirme
    * top, ps ile İşlem İzleme
+   * awk ve sed
 
