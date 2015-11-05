@@ -42,7 +42,7 @@
    * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
    * [VSFTP](ftp/vsftp.md)
    * [PROFTP](ftp/proftp.md)
-* Nameserver Servisleri
+* [Nameserver Servisleri](nameserver/nameserver_servisleri.md)
    * Named
    * Bind
 * DHCP
