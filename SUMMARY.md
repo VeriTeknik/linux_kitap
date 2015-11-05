@@ -14,4 +14,5 @@
    * top, ps ile İşlem İzleme
    * awk ve sed
    * egrep ve Düzenli İfadeler
+* BASH Programlama
 
