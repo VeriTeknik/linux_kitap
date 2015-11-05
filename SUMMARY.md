@@ -54,4 +54,5 @@
    * ping
    * dig
    * nslookup
+   * route
 
