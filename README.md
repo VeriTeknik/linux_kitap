@@ -1,4 +1,8 @@
-My Awesome Book
+Döküman Hakkında
 =======
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
+Linux Yönetimi dökümanı VeriTeknik ekibinin verdiği eğitimlerde yardımcı olması amacıyla hazırlanmaktadır.
+
+Döküman içeriği zamanla şekillenecek ve yapısını/hiyerarşisini değiştirecektir.
+
+Döküman veya GNU/Linux hakkında herhangi sorunuz için bize iletisim@veriteknik.com adresinden ulaşabilirsiniz.
