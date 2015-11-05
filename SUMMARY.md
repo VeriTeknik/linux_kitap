@@ -68,7 +68,7 @@
 * Python
    * [Temel Programlama](python/temel_programlama.md)
    * [Kütüphane Oluşturma](python/kutuphane_olusturma.md)
-       * Diziler ve Döngüler
+   * Diziler ve Döngüler
    * Sistem ve Dosya İşlemleri
    * Regular Expressions
    * MySQL Bağlantısı
