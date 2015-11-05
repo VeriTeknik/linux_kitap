@@ -16,4 +16,5 @@
    * egrep ve Düzenli İfadeler
 * BASH Programlama
 * SSH
+   * Uzak Sunucuya Bağlanma
 
