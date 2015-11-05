@@ -17,10 +17,32 @@ python ornek1.py
 Python'un ismi Monty Python'dan gelir.
 ```
 
+Yazılımın yaptığı işlem oldukça basittir. **cumle** değişkeninin değerinin uzunluğu 5 karakterdan fazlaysa, kendisini ekrana yazdırır.
 
+Burada dikkat edilmesi gereken nokta, Python'un "indentation" hassasiyetinin olmasıdır. Yani kullandığımız "if" bloğunu bir parantez içinde ifade edemezdik, Python bu bloğun içindeki karakterlerin hizalı olmasını ister. Bu hizalılık ister boşluk karakterleriyle, ister tab karakterleriyle verilmelidir, yeter ki programın tamamında tutarlı olunsun.
+
+* Indentation için kullanılan standart genellikle 4 karakter olup tab yerine boşluk kullanmaktır.
+
+Şimdi aşağıdaki örneğe bakalım.
 
 ```python
 # ornek2.py
+isim = "Monty Python"
+cumle = "Python'un ismi %s'dan gelir." % isim
+if len(cumle) > 5:
+    print cumle[:-7] + "gelmez mi?"
+```
+
+```
+python ornek2.py
+Python'un ismi Monty Python'dan gelmez mi?
+```
+
+Bu örnekte birkaç işlemi bir arada kullandık. Öncelikle 
+
+
+```python
+# ornek3.py
 def test(inc):
     if len(inc) > 3:
         print "Sonuc: %s" % inc```
