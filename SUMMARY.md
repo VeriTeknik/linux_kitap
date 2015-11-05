@@ -23,7 +23,7 @@
        * [aptitude Paket Yöneticisi](dagitimlar/debian/aptitude.md)
        * [Repo Ayarları](dagitimlar/debian/repo.md)
        * [Network Ayarları](dagitimlar/debian/network.md)
-   * FreeBSD
+   * [FreeBSD](dagitimlar/freebsd/freebsd.md)
        * port ve pck_add Yönetimi
        * Güncelleme Teknikleri
        * Network Ayarları
