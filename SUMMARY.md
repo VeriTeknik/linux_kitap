@@ -71,4 +71,5 @@
    * Python 2 ve Python 3 Ayrımı
 * Kaynak Kod Derleme
 * Hata Takibi
+   * PHP, MySQL ve Apache Kütük Yapılandırması
 
