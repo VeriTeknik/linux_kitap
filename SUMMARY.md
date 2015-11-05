@@ -22,4 +22,5 @@
    * Private ve Public Anahtarlar
 * Temel Dağıtımlar
    * CentOS
+       * yum Paket Yöneticisi
 
