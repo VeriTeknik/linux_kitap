@@ -72,7 +72,7 @@
    * [Sistem ve Dosya İşlemleri](python/sistem_ve_dosya.md)
    * [Regular Expressions](python/regexp.md)
    * MySQL Bağlantısı
-   * Python 2 ve Python 3 Ayrımı
+   * [Python 2 ve Python 3 Ayrımı](python/py_2v3.md)
 * Güvenlik
    * IPTables
        * Temel İzinler
