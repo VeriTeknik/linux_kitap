@@ -39,4 +39,5 @@
    * Logrotate Servisi
 * Apache
 * FTP
+   * Komut Satırından ftp Kullanımı
 
