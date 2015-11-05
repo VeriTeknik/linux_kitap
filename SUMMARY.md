@@ -39,7 +39,7 @@
    * [Logrotate Servisi](log/logrotate.md)
 * [Apache](apache/apache.md)
 * [FTP](ftp/ftp.md)
-   * Komut Satırından ftp Kullanımı
+   * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
    * VSFTP
    * PROFTP
 * Nameserver Servisleri
