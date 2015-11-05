@@ -67,11 +67,11 @@
    * WireShark
 * Python
    * [Temel Programlama](python/temel_programlama.md)
+   * Döngüler ve Kontrol İfadeleri
    * Sistem ve Dosya İşlemleri
    * Regular Expressions
    * MySQL Bağlantısı
    * Python 2 ve Python 3 Ayrımı
-   * Döngüler ve Kontrol İfadeleri
 * Güvenlik
    * IPTables
        * Temel İzinler
