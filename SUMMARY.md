@@ -66,7 +66,7 @@
    * Regular Expressions
    * MySQL Bağlantısı
    * Python 2 ve Python 3 Ayrımı
-* Güvenlik
+* Güvenlik ve Güvenirlik
    * IPTables
        * Temel İzinler
        * IP ve Port Engelleme
