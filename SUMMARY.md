@@ -33,4 +33,5 @@
        * port ve pck_add Yönetimi
        * Güncelleme Teknikleri
        * Network Ayarları
+* Log Dosyaları
 
