@@ -1,2 +1,0 @@
-# egrep ve Regular Expressions
-
