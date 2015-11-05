@@ -56,7 +56,7 @@
    * crontab
    * at
 * Gelişmiş Network Komutları
-   * ping
+   * ping ve mtr
    * dig
    * nslookup
    * route
