@@ -71,12 +71,16 @@
    * Regular Expressions
    * MySQL Bağlantısı
    * Python 2 ve Python 3 Ayrımı
-* Güvenlik ve Güvenirlik
+* Güvenlik
    * IPTables
        * Temel İzinler
        * IP ve Port Engelleme
    * selinux
+   * nmap ile Açık Arama Testleri
+* Güvenilirlik
    * Optimizasyon Teknikleri
+       * Apache/PHP
+       * MySQL
    * Yedekleme ve Yedekten Geri Dönme Politikaları
    * Başka Bir Sunucuda Sistemin Canlı Yedeğini Tutma
    * Felaket Sonrası Sunucuyu Tekrar Çalışır Hale Getirme
