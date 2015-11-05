@@ -71,6 +71,7 @@
        * Temel İzinler
        * IP ve Port Engelleme
    * selinux
+   * Optimizasyon Teknikleri
 * Kaynak Kod Derleme
 * Hata Takibi
    * PHP, MySQL ve Apache Kütük Yapılandırması
