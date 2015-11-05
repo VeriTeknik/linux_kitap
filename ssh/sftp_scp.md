@@ -1,0 +1,2 @@
+# sftp ve scp Kullanımı
+
