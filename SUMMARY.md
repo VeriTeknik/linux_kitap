@@ -10,7 +10,7 @@
        * [nano ve pico](chapter2/nano_ve_pico.md)
        * [vim](chapter2/vim.md)
 * Gelişmiş Terminal Komutları
-   * Standart Girdi ve Çıktı Yönlendirme
+   * [Standart Girdi ve Çıktı Yönlendirme](chapter3/standart_girdi_ve_cikti_yonlendirme.md)
    * top, ps ile İşlem İzleme
    * awk ve sed
    * egrep ve Regular Expressions
