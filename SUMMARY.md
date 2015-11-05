@@ -43,7 +43,7 @@
    * [VSFTP](ftp/vsftp.md)
    * [PROFTP](ftp/proftp.md)
 * [Nameserver Servisleri](nameserver/nameserver_servisleri.md)
-   * Named
+   * [Named](nameserver/named.md)
    * Bind
 * DHCP
 * MySQL
