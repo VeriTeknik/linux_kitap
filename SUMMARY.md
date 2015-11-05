@@ -52,4 +52,5 @@
    * at
 * Gelişmiş Network Komutları
    * ping
+   * dig
 
