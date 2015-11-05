@@ -1,7 +1,7 @@
 # Summary
 
 * [Döküman Hakkında](README.md)
-* Linux ve GNU'nun Geçmişi
+* [Linux ve GNU'nun Geçmişi](chapter1/linux_ve_gnunun_gecmisi.md)
    * RedHat, Debian ve FreeBSD Ana Sürümlerin Farkları
 * Temel Komutlar
    * Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar
