@@ -47,4 +47,5 @@
    * Bind
 * DHCP
 * MySQL
+* Zamanlanmış Görevler
 
