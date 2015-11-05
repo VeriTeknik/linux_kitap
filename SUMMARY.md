@@ -49,7 +49,7 @@
 * [MySQL](mysql/mysql.md)
    * [Temel Tablo Oluşturma](mysql/temel_tablo_olusturma.md)
    * [Basit SQL Sorguları](mysql/basit_sql_sorgulari.md)
-   * mysqldump ile Yedekleme
+   * [mysqldump ile Yedekleme](mysql/mysqldump.md)
    * Yedekleri İçeri Alma
    * Replikasyon Teknikleri
 * Zamanlanmış Görevler
