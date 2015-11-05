@@ -67,7 +67,7 @@
    * WireShark
 * Python
    * [Temel Programlama](python/temel_programlama.md)
-   * Kütüphane Oluşturma
+   * [Kütüphane Oluşturma](python/kutuphane_olusturma.md)
    * Sistem ve Dosya İşlemleri
    * Regular Expressions
    * MySQL Bağlantısı
