@@ -29,7 +29,7 @@
        * [Network Ayarları](dagitimlar/freebsd/network.md)
 * [SSH](ssh/ssh.md)
    * [Uzak Sunucuya Bağlanma](ssh/baglanma.md)
-   * sshd Konfigürasyonu
+   * [sshd Konfigürasyonu](ssh/sshd_konfigurasyonu.md)
    * sftp ve scp Kullanımı
    * Private ve Public Anahtarlar
 * BASH Programlama
