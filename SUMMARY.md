@@ -64,7 +64,7 @@
    * Temel İzinler
    * IP ve Port Engelleme
 * Python
-   * Temel Python Programlama
+   * Temel Programlama
    * Python ile Sistem ve Dosya İşlemleri
    * Python ve Regular Expressions
    * Python ile MySQL Bağlantısı
