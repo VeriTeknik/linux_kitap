@@ -21,7 +21,7 @@
        * [Network Ayarları](chapter4/centos/centos_network.md)
    * Debian
        * [aptitude Paket Yöneticisi](chapter4/debian/aptitude.md)
-       * Repo Ayarları
+       * [Repo Ayarları](chapter4/debian/debin_repo.md)
        * Network Ayarları
    * FreeBSD
        * port ve pck_add Yönetimi
