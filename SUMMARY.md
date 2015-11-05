@@ -60,9 +60,6 @@
    * netcat
    * tcpdump
    * WireShark
-* IPTables
-   * Temel İzinler
-   * IP ve Port Engelleme
 * Python
    * Temel Programlama
    * Sistem ve Dosya İşlemleri
@@ -72,5 +69,8 @@
 * Kaynak Kod Derleme
 * Hata Takibi
    * PHP, MySQL ve Apache Kütük Yapılandırması
+* IPTables
+   * Temel İzinler
+   * IP ve Port Engelleme
 * Güvenlik
 
