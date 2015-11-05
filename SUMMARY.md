@@ -46,7 +46,7 @@
    * [Named](nameserver/named.md)
    * [Bind](nameserver/bind.md)
 * [DHCP](dhcp/dhcp.md)
-* MySQL
+* [MySQL](mysql/mysql.md)
    * Temel Tablo Oluşturma
    * Basit SQL Sorguları
    * mysqldump ile Yedekleme
