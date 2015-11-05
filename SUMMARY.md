@@ -22,7 +22,7 @@
    * Debian
        * [aptitude Paket Yöneticisi](chapter4/debian/aptitude.md)
        * [Repo Ayarları](chapter4/debian/debin_repo.md)
-       * Network Ayarları
+       * [Network Ayarları](chapter4/debian/debian_network.md)
    * FreeBSD
        * port ve pck_add Yönetimi
        * Güncelleme Teknikleri
