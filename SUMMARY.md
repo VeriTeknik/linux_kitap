@@ -50,7 +50,7 @@
    * [Temel Tablo Oluşturma](mysql/temel_tablo_olusturma.md)
    * [Basit SQL Sorguları](mysql/basit_sql_sorgulari.md)
    * [mysqldump ile Yedekleme](mysql/mysqldump.md)
-   * Yedekleri İçeri Alma
+   * [Yedekleri İçeri Alma](mysql/import.md)
    * Replikasyon Teknikleri
 * Zamanlanmış Görevler
    * crontab
