@@ -31,4 +31,5 @@
        * Network Ayarları
    * FreeBSD
        * port ve pck_add Yönetimi
+       * Güncelleme Teknikleri
 
