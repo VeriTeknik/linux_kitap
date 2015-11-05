@@ -17,4 +17,5 @@
 * BASH Programlama
 * SSH
    * Uzak Sunucuya Bağlanma
+   * sshd Konfigürasyonu
 
