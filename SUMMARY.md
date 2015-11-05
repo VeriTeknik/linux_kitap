@@ -69,4 +69,5 @@
    * Regular Expressions
    * MySQL Bağlantısı
    * Python 2 ve Python 3 Ayrımı
+* Kaynak Kod Derleme
 
