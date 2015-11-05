@@ -67,7 +67,6 @@
    * WireShark
 * Python
    * [Temel Programlama](python/temel_programlama.md)
-   * Döngüler ve Kontrol İfadeleri
    * Sistem ve Dosya İşlemleri
    * Regular Expressions
    * MySQL Bağlantısı
