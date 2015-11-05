@@ -44,4 +44,5 @@
    * PROFTP
 * Nameserver Servisleri
    * Named
+   * Bind
 
