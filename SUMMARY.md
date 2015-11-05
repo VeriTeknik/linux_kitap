@@ -8,7 +8,7 @@
    * [Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar](chapter2/yetkilermd.md)
    * Dosya Düzenleme Araçları
        * [nano ve pico](chapter2/nano_ve_pico.md)
-       * vim
+       * [vim](chapter2/vim.md)
 * Gelişmiş Terminal Komutları
    * Standart Girdi ve Çıktı Yönlendirme
    * top, ps ile İşlem İzleme
