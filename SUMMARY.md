@@ -51,4 +51,5 @@
    * crontab
    * at
 * Gelişmiş Network Komutları
+   * ping
 
