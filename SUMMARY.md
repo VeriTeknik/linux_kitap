@@ -48,6 +48,7 @@
 * DHCP
 * MySQL
    * Temel Tablo Oluşturma
+   * Basit SQL Sorguları
 * Zamanlanmış Görevler
    * crontab
    * at
