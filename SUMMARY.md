@@ -17,7 +17,7 @@
 * Temel Dağıtımlar
    * CentOS
        * [yum Paket Yöneticisi](chapter4/centos/yum.md)
-       * Repo Ayarları
+       * [Repo Ayarları](chapter4/centos/centos_repo.md)
        * Network Ayarları
    * Debian
        * aptitude Paket Yöneticisi
