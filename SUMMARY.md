@@ -8,7 +8,7 @@
    * [Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar](temel_komutlar/yetkiler.md)
    * [Dosya Düzenleme Araçları](temel_komutlar/editing/dosya_duzenleme_araclari.md)
        * [nano ve pico](temel_komutlar/editing/nano.md)
-       * [vim](chapter2/vim.md)
+       * [vi](temel_komutlar/editing/vi.md)
 * Gelişmiş Terminal Komutları
    * [Standart Girdi ve Çıktı Yönlendirme](chapter3/standart_girdi_ve_cikti_yonlendirme.md)
    * [top, ps ile İşlem İzleme](chapter3/top_ps.md)
