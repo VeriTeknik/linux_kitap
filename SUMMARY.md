@@ -34,4 +34,5 @@
        * Güncelleme Teknikleri
        * Network Ayarları
 * Log Dosyaları
+   * Log Dosyalarının Konumları
 
