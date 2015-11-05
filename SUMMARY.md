@@ -6,4 +6,5 @@
 * Temel Komutlar
    * Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar
    * Dosya Düzenleme Araçları
+   * Gelişmiş Terminal Komutları
 
