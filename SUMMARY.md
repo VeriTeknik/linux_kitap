@@ -66,4 +66,5 @@
 * Python
    * Temel Python Programlama
    * Python ile Sistem ve Dosya İşlemleri
+   * Python ile MySQL Bağlantısı
 
