@@ -90,6 +90,7 @@
        * ext
        * zfs
        * lvm
+       * RAID
 * Kaynak Kod Derleme
 * Hata Takibi
    * PHP, MySQL ve Apache Kütük Yapılandırması
