@@ -88,7 +88,7 @@
    * [Felaket Sonrası Sunucuyu Tekrar Çalışır Hale Getirme](guvenilirlik/felaket.md)
    * [Disk Sistemleri](guvenilirlik/disk/disk_sistemleri.md)
        * [ext](guvenilirlik/disk/ext.md)
-       * zfs
+       * [zfs](guvenilirlik/disk/zfs.md)
        * lvm
        * RAID
 * Kaynak Kod Derleme
