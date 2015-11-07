@@ -7,7 +7,7 @@ Her şeyin bir dosya olması, beraberinde bu dosyalara erişim yetkilerini de ge
 ```bash
 eaydin@eaydin ~/devel/crc $ ls -l
 total 4
--rwxrwxr-- 1 eaydin plugdev 1925 Nov  4 01:36 crc8.py
+-rwxr-xr-- 1 eaydin plugdev 1925 Nov  4 01:36 crc8.py
 ```
 
 Yukarıdaki örnekte, ~/devel/crc dizininin içindeki dosyalar yetki ve izinleriyle birlikte listeleniyor. Linux üzerinde "~" karakteri özel bir dizin işaretçisidir. Bu işaret ile mevcut kullanıcının "home" dizini kastedilir. Örneğin *eaydin* kullanıcısı için ~ dizini her zaman /home/eaydin dizinine işaret eder, oysa *root* kullanıcısı için "/root" dizinine işaret eder.
@@ -19,7 +19,9 @@ ls komutu çıktısının üçüncü ve dördüncü sütunlarında bu dosyanın 
 ls komutu çıktısının ilk sütunu ise bu kullanıcı ve grubun hangi yetkilere sahip olduğunu belirtiyor.
 
 ```bash
--rwxrwxr--
+-rwxr-xr--
 ```
 
-Burada ilk karakter, dosyanın tipini gösterir. 
+Buradaki ilk karakter ("-") şimdilik bir kenara bırakırsak, diğer karakterler 3'erli olarak sırasıyla dosya sahibinin, grubunun ve diğer kullanıcıların yetkilerini göstermektedir. Kısacası *rwx* yazan kısım *eaydin* kullanıcısının yetkilerini, *r-x* yazan kısım *plugdev* grubunun yetkilerini, *r--* yazan kısım için sistemde geriye kalan bütün kullanıcıların yetkilerini göstermektedir.
+
+Bu yetkiler çeşitli anlamların kısaltmalarıdır. *r* harfi okuma yetkisi (read), *w* yazma yetkisi (write) ve *x* çalıştırma yetkisi (execute) anlamına gelmektedir. 
