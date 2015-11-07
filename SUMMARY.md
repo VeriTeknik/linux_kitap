@@ -71,7 +71,7 @@
    * [Diziler ve Döngüler](python/diziler_ve_donguler.md)
    * [Sistem ve Dosya İşlemleri](python/sistem_ve_dosya.md)
    * [Regular Expressions](python/regexp.md)
-   * MySQL Bağlantısı
+   * [MySQL Bağlantısı](python/mysql_baglantisi.md)
    * [Python 2 ve Python 3 Ayrımı](python/py_2v3.md)
 * [Güvenlik](guvenlik/guvenlik.md)
    * [IPTables](guvenlik/iptables/iptables.md)
