@@ -91,7 +91,7 @@
        * [zfs](guvenilirlik/disk/zfs.md)
        * [lvm](guvenilirlik/disk/lvm.md)
        * [RAID](guvenilirlik/disk/raid.md)
-* Kaynak Kod Derleme
+* [Kaynak Kod Derleme](kaynak_kod_derleme.md)
 * Hata Takibi
    * PHP, MySQL ve Apache Kütük Yapılandırması
 
