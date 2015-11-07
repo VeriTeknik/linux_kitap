@@ -48,8 +48,11 @@ chmod 754 crc8.py
 
 Dizin yetkilendirmeleri, dosya yetkilendirmelerinden farklı anlamlar taşır.
 
-
-
+| Yetki | Rakamsal Gösterim | Anlamı |
+| -- | -- | -- |
+| Okuma | 4 | Kullanıcının, dizinin içini görüntüleyebileceği anlamına gelir. Örneğin ls komutu ile içeriği görüntülenebilir |
+| Yazma | 2 | Kullanıcının, dizinin içinde yeni dosya oluşturabileceği veya mevcut dosyaları silebileceği anlamına gelir. (Aşağıdaki önemli notu inceleyin) |
+| Çalıştırma | 1 | Kullanıcının ilgili dizine girebileceği (cd) anlamına gelir. |
 
 ## Garip Yetkilendirme Durumları
 
