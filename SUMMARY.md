@@ -79,7 +79,7 @@
        * [IP ve Port Engelleme](guvenlik/iptables/engelleme.md)
    * [selinux](guvenlik/selinux.md)
    * [nmap ile Açık Arama Testleri](guvenlik/nmap.md)
-* Güvenilirlik
+* [Güvenilirlik](guvenilirlik/guvenilirlik.md)
    * Optimizasyon Teknikleri
        * Apache/PHP
        * MySQL
