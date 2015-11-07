@@ -86,7 +86,7 @@
    * [Yedekleme ve Yedekten Geri Dönme Politikaları](guvenilirlik/yedekleme.md)
    * [Başka Bir Sunucuda Sistemin Canlı Yedeğini Tutma](guvenilirlik/canli_yedek.md)
    * [Felaket Sonrası Sunucuyu Tekrar Çalışır Hale Getirme](guvenilirlik/felaket.md)
-   * Disk Sistemleri
+   * [Disk Sistemleri](guvenilirlik/disk/disk_sistemleri.md)
        * ext
        * zfs
        * lvm
