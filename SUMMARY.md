@@ -80,7 +80,7 @@
    * [selinux](guvenlik/selinux.md)
    * [nmap ile Açık Arama Testleri](guvenlik/nmap.md)
 * [Güvenilirlik](guvenilirlik/guvenilirlik.md)
-   * Optimizasyon Teknikleri
+   * [Optimizasyon Teknikleri](guvenilirlik/optimizasyon/optimizasyon.md)
        * Apache/PHP
        * MySQL
    * Yedekleme ve Yedekten Geri Dönme Politikaları
