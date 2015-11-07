@@ -19,6 +19,8 @@ Burada dosyamızın içeriğini görüyoruz. Kullandığımız dağıtımda nano
 
 Alt iki satırda gördüğünüz komutlar, klavye kısayollarıyla erişiliyor. Komutlara erişmek için CTRL ile birlikte ilgili kısayolu kullanmak gerekiyor. Örneğin "Get Help" fonksiyonunu çağırmak için CTRL+g tuşlarına basmak gerekiyor. Gelen menüden nano için kullanılabilecek bütün komutları görebilirsiniz.
 
+![](nano2.png)
+
 nano içerisinde gezinmek için ok tuşlarını kullanmanız yeterli. Değiştirmek/eklemek/silmek istediğiniz noktaya imleci getirdiğinizde istediğiniz değişikliği yaptıktan sonra dosyayı kaydetmek için CTRL+o programdan çıkmak içinse CTRL+x tuşlarını kullanmanız yeterlidir.
 
 
