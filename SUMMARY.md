@@ -85,7 +85,7 @@
        * [MySQL](guvenilirlik/optimizasyon/mysql.md)
    * [Yedekleme ve Yedekten Geri Dönme Politikaları](guvenilirlik/yedekleme.md)
    * [Başka Bir Sunucuda Sistemin Canlı Yedeğini Tutma](guvenilirlik/canli_yedek.md)
-   * Felaket Sonrası Sunucuyu Tekrar Çalışır Hale Getirme
+   * [Felaket Sonrası Sunucuyu Tekrar Çalışır Hale Getirme](guvenilirlik/felaket.md)
    * Disk Sistemleri
        * ext
        * zfs
