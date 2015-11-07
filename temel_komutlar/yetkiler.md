@@ -44,10 +44,20 @@ chmod ile bu yetkilendirmeyi vermek için aşağıdaki komutu uygulayabiliriz.
 chmod 754 crc8.py
 ```
 
+## Dizin Yetkilendirmesi
+
+Dizin yetkilendirmeleri, dosya yetkilendirmelerinden farklı anlamlar taşır.
+
+
+
+
 ## Garip Yetkilendirme Durumları
 
 Bazı dosyaların yetkileri pek alışıldık durumda olmayabilir. Dosyanızı bu şekilde tutmanızın pek bir anlamı yoktur.
 
 * **100 veya 300:** Dosyanın 1 veya 3 yetkisinin olması (yani *--x* veya *-wx* yetkisinin olması) hiçbir anlam ifade etmeyecektir. Çünkü bu dosyanın kişi tarafından çalıştırılabileceği ancak okunamayacağı anlamına gelir. Linux üzerinde bir dosya okunamazsa, çalıştırılamaz da.
 * **200:** Bu durum bir dosyaya yazabileceğiniz, ancak okuyamayacağınız anlamına gelir. Belki kullanıcının okumasını istemediğiniz, ancak yazmasını istediğiniz log/rapor dosyaları için kullanılabilir, ancak pek rastlanan bir durum değildir.
-* **000:** Dosyaya kimsenin bir şey yapamayacağı anlamına gelir. 
+* **007:** Bu dosya sahibi ve grubu tarafından hiçbir şekilde erişilemezken geri kalan tüm kullanıcılar tarafından erişilebilir. Potansiyel güvenlik açığıdır ve durumun incelenmesi gerekir.
+* **000:** Dosyaya kimsenin bir şey yapamayacağı anlamına gelir. Sadece root kullanıcısı dosyayı okuyabilir veya yazabilir. Öte yandan dosyanın sahibi dosyanın izinlerini değiştirebilir. Dolayısıyla bazı programlar dosyanın geçici süre koruma altında olması için bu durumu seçebilir.
+
+* Önemli NOT: Bir dosyaya yazma yetkinizin olmaması, onu silemeyeceğiniz anlamına gelmez. Dizin yetkileri dosya yetkilerinden farklıdır ve bir dizine yazma yetkinizin olması, o dizin içindeki dosyaları silebileceğiniz anlamına gelmektedir. Kısacası dosyanın izinleri **000** olsa bile, dizinde yazma yetkiniz varsa, o dosyayı silebilirsiniz.
