@@ -44,3 +44,10 @@ chmod ile bu yetkilendirmeyi vermek için aşağıdaki komutu uygulayabiliriz.
 chmod 754 crc8.py
 ```
 
+## Garip Yetkilendirme Durumları
+
+Bazı dosyaların yetkileri pek alışıldık durumda olmayabilir. Dosyanızı bu şekilde tutmanızın pek bir anlamı yoktur.
+
+* **100 veya 300:** Dosyanın 1 veya 3 yetkisinin olması (yani *--x* veya *-wx* yetkisinin olması) hiçbir anlam ifade etmeyecektir. Çünkü bu dosyanın kişi tarafından çalıştırılabileceği ancak okunamayacağı anlamına gelir. Linux üzerinde bir dosya okunamazsa, çalıştırılamaz da.
+* **200:** Bu durum bir dosyaya yazabileceğiniz, ancak okuyamayacağınız anlamına gelir. Belki kullanıcının okumasını istemediğiniz, ancak yazmasını istediğiniz log/rapor dosyaları için kullanılabilir, ancak pek rastlanan bir durum değildir.
+* **000:** Dosyaya kimsenin bir şey yapamayacağı anlamına gelir. 
