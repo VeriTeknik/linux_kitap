@@ -1,0 +1,2 @@
+# Optimizasyon Teknikleri
+
