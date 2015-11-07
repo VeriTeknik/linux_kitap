@@ -170,3 +170,9 @@ Sistemdeki bütün gruplar, /etc/group dosyasında yer alır, aşağıdaki komut
 ```bash
 cut -d: -f1 /etc/group
 ```
+
+Benzer şekilde sistemdeki tüm kullanıcıları aşağıdaki gibi görüntüleyebilirsiniz.
+
+```bash
+cut -d: -f1 /etc/passwd
+```
