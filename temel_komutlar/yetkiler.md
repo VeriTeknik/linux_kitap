@@ -14,4 +14,4 @@ Yukarıdaki örnekte, ~/devel/crc dizininin içindeki dosyalar yetki ve izinleri
 
 Bu örnete dizinimizde tek dosya olduğunu görüyoruz, evet sadece bu dosyanın özelliklerine bakmak isteseydik, parametre olarak dosyanın ismini verebilirdik.
 
-ls komutu çıktısının üçüncü ve dördüncü sütunlarında bu dosyanın hangi kullanıcı ve hangi gruba ait olduğu görülüyor. crc8.py dosyası **eaydin** kullanıcısına ve **plugdev** grubuna aitmiş.
+ls komutu çıktısının üçüncü ve dördüncü sütunlarında bu dosyanın hangi kullanıcı ve hangi gruba ait olduğu görülüyor. *crc8.py* dosyası *eaydin* kullanıcısına ve *plugdev* grubuna aitmiş.
