@@ -1,2 +1,0 @@
-# Replikasyon Teknikleri
-
