@@ -90,7 +90,7 @@
        * [ext](guvenilirlik/disk/ext.md)
        * [zfs](guvenilirlik/disk/zfs.md)
        * [lvm](guvenilirlik/disk/lvm.md)
-       * RAID
+       * [RAID](guvenilirlik/disk/raid.md)
 * Kaynak Kod Derleme
 * Hata Takibi
    * PHP, MySQL ve Apache Kütük Yapılandırması
