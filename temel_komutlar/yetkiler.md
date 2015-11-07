@@ -164,3 +164,9 @@ Bir kullanıcıyı, *primary group* haricindeki tüm gruplardan (yani tüm *seco
 ```bash
 usermod -G "" eaydin
 ```
+
+Sistemdeki bütün gruplar, /etc/group dosyasında yer alır, aşağıdaki komut ile tamamı listelenebilir. Komutun çalışma prensibi **Gelişmiş Terminal Komutları** bölümünde incelenecektir.
+
+```bash
+cut -d: -f1 /etc/group
+```
