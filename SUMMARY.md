@@ -88,6 +88,7 @@
    * Felaket Sonrası Sunucuyu Tekrar Çalışır Hale Getirme
    * Disk Sistemleri
        * ext
+       * zfs
 * Kaynak Kod Derleme
 * Hata Takibi
    * PHP, MySQL ve Apache Kütük Yapılandırması
