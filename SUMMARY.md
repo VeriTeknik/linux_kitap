@@ -10,7 +10,7 @@
        * [nano ve pico](temel_komutlar/editing/nano.md)
        * [vi](temel_komutlar/editing/vi.md)
 * [Gelişmiş Terminal Komutları](gelismis_terminal/gelismis_terminal_komutlari.md)
-   * [Standart Girdi ve Çıktı Yönlendirme](gelismis_terminal/standart_girdi_ve_cikti_yonlendirme.md)
+   * [Standart Girdi ve Çıktı Yönlendirme](gelismis_terminal/stdio.md)
    * [top, ps ile İşlem İzleme](gelismis_terminal/top.md)
    * [awk ve sed](gelismis_terminal/awk_ve_sed.md)
    * [egrep ve Regular Expressions](gelismis_terminal/egrep_regexp.md)
