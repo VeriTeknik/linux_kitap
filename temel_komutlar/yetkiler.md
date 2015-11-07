@@ -76,8 +76,8 @@ Dosya izinlerini incelerken, ls -l komut çıktısının ilk sütunundaki ilk ka
 | -- | -- |
 | - | Normal dosya. |
 | l | Sembolik link. Dosyanın bir link olduğu, işaret ettiği dosyanın farklı noktada olduğunu belirtir. |
-| d | directory: Bir dizin olduğunu gösterir. |
-| t | sticky bit:  |
+| b | Dosyanın bir blok dosyası olduğu anlamına gelir. Kısacası bu dosyaya yazarken (ve okurken) bloklar halinde yazılmalıdır. Genellikle /dev altındaki sabit disk dosyalarında görülür. |
+| c | Dosyanın bir karakter özel dosyası olduğu anlamına gelir. Yani blok dosyalarına benzerdir ancak yazıp okuma işlemlerinde karakter kullanılmalıdır. Örneğin /dev altındaki seri port cihazları bu özelliğe sahiptir.  |
 | s | setuid:  |
 | 0:5 | 1:5 |
 
@@ -94,3 +94,4 @@ Bir başka yetki biçimi sticky bit'tir. Dosya izinlerinden bağımsız olarak, 
 ```bash
 drwxrwxrwt 1 eaydin plugdev    144 Nov  7 16:00 crc
 ```
+
