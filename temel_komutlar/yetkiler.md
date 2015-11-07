@@ -99,7 +99,14 @@ drwxrwxrwt 1 eaydin plugdev    144 Nov  7 16:00 crc
 Linux üzerinde bir kullanıcı eklemek son derece kolaydır. **root** yetkisine sahip olduğunuzda aşağıdaki komutu çalıştırırsanız **veriteknik** isimli bir kullanıcı oluşturulacaktır.
 
 ```bash
-useradd veriteknik
+eaydin ~ # useradd veriteknik
 ```
 
+**veriteknik** kullanıcısını şifresini tanımlamak için aşağıdaki komut çalıştırılmalı, ardından iki kere şifre girilmelidir.
 
+```bash
+eaydin ~ # passwd veriteknik
+Enter new UNIX password: 
+Retype new UNIX password: 
+passwd: password updated successfully
+```
