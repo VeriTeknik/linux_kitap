@@ -10,6 +10,11 @@ adresinden ulaşabilirsiniz.
 
 
 
-Cem Karaca & M. Emre Aydın
+**Cem Karaca** & **M. Emre Aydın**
+
+
+
+---
+
 
 Copyright 2015 VeriTeknik Bilişim Ltd. Şti. izinsiz alıntı yapılamaz, kopyalanamaz ve çoğaltılamaz.
