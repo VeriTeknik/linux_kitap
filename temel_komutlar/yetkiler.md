@@ -68,3 +68,13 @@ Bazı dosyaların yetkileri pek alışıldık durumda olmayabilir. Dosyanızı b
 ||Bir dosyaya yazma yetkinizin olmaması, onu silemeyeceğiniz anlamına gelmez. Dizin yetkileri dosya yetkilerinden farklıdır ve bir dizine yazma yetkinizin olması, o dizin içindeki dosyaları silebileceğiniz anlamına gelmektedir. Kısacası dosyanın izinleri **000** olsa bile, dizinde yazma yetkiniz varsa, o dosyayı silebilirsiniz. ||
 |||||
 
+## Diğer Dosya Yetkileri
+
+Dosya izinlerini incelerken, ls -l komut çıktısının ilk sütunundaki ilk karakteri şimdilik gözardı etmiştik. Bu karakter dosya hakkındaki bazı özel durumları göstermektedir. Aşağıdaki değerleri alabilir:
+
+| Gösterim | Açıklaması |
+| -- | -- |
+| d | directory: Bir dizin olduğunu gösterir. |
+| t | sticky bit: Dosya izinlerinden bağımsız olarak, sadece sahibinin (ve root'un) dosyayı silebileceği anlamına gelir. |
+| s | setuid: Bu yetki verildiğinde, dosyayı çalıştıran kişiler, sanki dosyanın sahibiymiş gibi çalıştırabilirler. Örneğin root kullanıcısına ait ancak **apache** grubuna ait bir dosya, +s izni verildiğinde, apache tarafından çalıştırılınca root etkisiyle çalışır. Dikkatli kullanılmazsa sistemde |
+| 0:5 | 1:5 |
