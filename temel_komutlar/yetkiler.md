@@ -63,4 +63,8 @@ Bazı dosyaların yetkileri pek alışıldık durumda olmayabilir. Dosyanızı b
 * **007:** Bu dosya sahibi ve grubu tarafından hiçbir şekilde erişilemezken geri kalan tüm kullanıcılar tarafından erişilebilir. Potansiyel güvenlik açığıdır ve durumun incelenmesi gerekir.
 * **000:** Dosyaya kimsenin bir şey yapamayacağı anlamına gelir. Sadece root kullanıcısı dosyayı okuyabilir veya yazabilir. Öte yandan dosyanın sahibi dosyanın izinlerini değiştirebilir. Dolayısıyla bazı programlar dosyanın geçici süre koruma altında olması için bu durumu seçebilir.
 
-* Önemli NOT: Bir dosyaya yazma yetkinizin olmaması, onu silemeyeceğiniz anlamına gelmez. Dizin yetkileri dosya yetkilerinden farklıdır ve bir dizine yazma yetkinizin olması, o dizin içindeki dosyaları silebileceğiniz anlamına gelmektedir. Kısacası dosyanın izinleri **000** olsa bile, dizinde yazma yetkiniz varsa, o dosyayı silebilirsiniz.
+||Önemli NOT||
+|-|-|-|
+||Bir dosyaya yazma yetkinizin olmaması, onu silemeyeceğiniz anlamına gelmez. Dizin yetkileri dosya yetkilerinden farklıdır ve bir dizine yazma yetkinizin olması, o dizin içindeki dosyaları silebileceğiniz anlamına gelmektedir. Kısacası dosyanın izinleri **000** olsa bile, dizinde yazma yetkiniz varsa, o dosyayı silebilirsiniz. ||
+|||||
+
