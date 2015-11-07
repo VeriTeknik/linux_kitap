@@ -84,7 +84,7 @@
        * [Apache/PHP](guvenilirlik/optimizasyon/apache_php.md)
        * [MySQL](guvenilirlik/optimizasyon/mysql.md)
    * [Yedekleme ve Yedekten Geri Dönme Politikaları](guvenilirlik/yedekleme.md)
-   * Başka Bir Sunucuda Sistemin Canlı Yedeğini Tutma
+   * [Başka Bir Sunucuda Sistemin Canlı Yedeğini Tutma](guvenilirlik/canli_yedek.md)
    * Felaket Sonrası Sunucuyu Tekrar Çalışır Hale Getirme
    * Disk Sistemleri
        * ext
