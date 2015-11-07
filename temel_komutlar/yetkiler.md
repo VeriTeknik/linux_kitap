@@ -74,6 +74,8 @@ Dosya izinlerini incelerken, ls -l komut çıktısının ilk sütunundaki ilk ka
 
 | Gösterim | Açıklaması |
 | -- | -- |
+| - | Normal dosya. |
+| l | Sembolik link. Dosyanın bir link olduğu, işaret ettiği dosyanın farklı noktada olduğunu belirtir. |
 | d | directory: Bir dizin olduğunu gösterir. |
 | t | sticky bit: Dosya izinlerinden bağımsız olarak, sadece sahibinin (ve root'un) dosyayı silebileceği anlamına gelir. |
 | s | setuid:  |
