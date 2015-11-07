@@ -96,26 +96,26 @@ drwxrwxrwt 1 eaydin plugdev    144 Nov  7 16:00 crc
 
 ## Kullanıcı Ekleme
 
-Linux üzerinde bir kullanıcı eklemek son derece kolaydır. **root** yetkisine sahip olduğunuzda aşağıdaki komutu çalıştırırsanız **ckaraca** isimli bir kullanıcı oluşturulacaktır.
+Linux üzerinde bir kullanıcı eklemek son derece kolaydır. **root** yetkisine sahip olduğunuzda aşağıdaki komutu çalıştırırsanız **eaydin** isimli bir kullanıcı oluşturulacaktır.
 
 ```bash
 useradd veriteknik
 ```
 
-**ckaraca** kullanıcısını şifresini tanımlamak için aşağıdaki komut çalıştırılmalı, ardından iki kere şifre girilmelidir.
+**eaydin** kullanıcısını şifresini tanımlamak için aşağıdaki komut çalıştırılmalı, ardından iki kere şifre girilmelidir.
 
 ```bash
-passwd ckaraca
+passwd eaydin
 Enter new UNIX password: 
 Retype new UNIX password: 
 passwd: password updated successfully
 ```
 
-Şimdi sistemimizde bir **veriteknik** grubu tanımlayacağız, ardından **ckaraca** kullanıcısını bu gruba ekleyeceğiz.
+Şimdi sistemimizde bir **veriteknik** grubu tanımlayacağız, ardından **eaydin** kullanıcısını bu gruba ekleyeceğiz.
 
 ```bash
 groupadd veriteknik
-usermod -a -G veriteknik ckaraca
+usermod -a -G veriteknik eaydin
 ```
 
 Yukarıdaki tekniklerle kullanıcı ve grup ayrı ayrı oluşturulur. Örneğin aşağıdaki komut, mevcut gruba yeni bir kullanıcı oluşturup ekler.
@@ -134,14 +134,14 @@ groupdel veriteknik
 Bir kullanıcının hangi gruplarda yer aldığını görüntülemek için **id** komutu kullanılabilir.
 
 ```bash
-id ckaraca
-uid=1001(ckaraca) gid=1002(ckaraca) groups=1002(ckaraca),1001(veriteknik)
+id eaydin
+uid=1001(eaydin) gid=1002(eaydin) groups=1002(eaydin),1001(veriteknik)
 ```
 
-Gördüğünüz gibi **ckaraca** kullanıcısı hem **ckaraca** grubunda, hem de **veriteknik** grubunda yer almaktadır. Her kullanıcının kendi grubu da bulunur ve bu gruplar silinemez, bu gruplara *primary group* denilir.
+Gördüğünüz gibi **eaydin** kullanıcısı hem **eaydin** grubunda, hem de **veriteknik** grubunda yer almaktadır. Her kullanıcının kendi grubu da bulunur ve bu gruplar silinemez, bu gruplara *primary group* denilir.
 
 ```bash
-groupdel ckaraca
-groupdel: cannot remove the primary group of user 'ckaraca'
+groupdel eaydin
+groupdel: cannot remove the primary group of user 'eaydin'
 ```
 
