@@ -152,3 +152,9 @@ deluser eaydin veriteknik
 Removing user `eaydin' from group `veriteknik' ...
 Done.
 ```
+
+Bir kullanıcıyı, *primary group* haricindeki tüm gruplardan (yani tüm *secondary group*lardan) silmek içinse aşağıdaki komut uygulanabilir.
+
+```bash
+usermod -G "" eaydin
+```
