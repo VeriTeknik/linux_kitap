@@ -73,7 +73,7 @@
    * [Regular Expressions](python/regexp.md)
    * MySQL Bağlantısı
    * [Python 2 ve Python 3 Ayrımı](python/py_2v3.md)
-* Güvenlik
+* [Güvenlik](guvenlik/guvenlik.md)
    * IPTables
        * Temel İzinler
        * IP ve Port Engelleme
