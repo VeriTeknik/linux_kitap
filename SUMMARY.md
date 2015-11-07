@@ -89,7 +89,7 @@
    * [Disk Sistemleri](guvenilirlik/disk/disk_sistemleri.md)
        * [ext](guvenilirlik/disk/ext.md)
        * [zfs](guvenilirlik/disk/zfs.md)
-       * lvm
+       * [lvm](guvenilirlik/disk/lvm.md)
        * RAID
 * Kaynak Kod Derleme
 * Hata Takibi
