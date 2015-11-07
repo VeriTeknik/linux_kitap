@@ -76,7 +76,7 @@
 * [Güvenlik](guvenlik/guvenlik.md)
    * [IPTables](guvenlik/iptables/iptables.md)
        * [Temel İzinler](guvenlik/iptables/temel_izinler.md)
-       * IP ve Port Engelleme
+       * [IP ve Port Engelleme](guvenlik/iptables/engelleme.md)
    * selinux
    * nmap ile Açık Arama Testleri
 * Güvenilirlik
