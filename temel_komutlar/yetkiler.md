@@ -117,3 +117,31 @@ passwd: password updated successfully
 groupadd veriteknik
 usermod -a -G veriteknik ckaraca
 ```
+
+Yukarıdaki tekniklerle kullanıcı ve grup ayrı ayrı oluşturulur. Örneğin aşağıdaki komut, mevcut gruba yeni bir kullanıcı oluşturup ekler.
+
+```bash
+useradd -G veriteknik okaya
+```
+
+Sistemden kullanıcı ve grup silmek içinse aşağıdaki komutlar uygulanabilir.
+
+```bash
+userdel okaya
+groupdel veriteknik
+```
+
+Bir kullanıcının hangi gruplarda yer aldığını görüntülemek için **id** komutu kullanılabilir.
+
+```bash
+id ckaraca
+uid=1001(ckaraca) gid=1002(ckaraca) groups=1002(ckaraca),1001(veriteknik)
+```
+
+Gördüğünüz gibi **ckaraca** kullanıcısı hem **ckaraca** grubunda, hem de **veriteknik** grubunda yer almaktadır. Her kullanıcının kendi grubu da bulunur ve bu gruplar silinemez, bu gruplara *primary group* denilir.
+
+```bash
+groupdel ckaraca
+groupdel: cannot remove the primary group of user 'ckaraca'
+```
+
