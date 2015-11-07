@@ -83,7 +83,7 @@
    * [Optimizasyon Teknikleri](guvenilirlik/optimizasyon/optimizasyon.md)
        * [Apache/PHP](guvenilirlik/optimizasyon/apache_php.md)
        * [MySQL](guvenilirlik/optimizasyon/mysql.md)
-   * Yedekleme ve Yedekten Geri Dönme Politikaları
+   * [Yedekleme ve Yedekten Geri Dönme Politikaları](guvenilirlik/yedekleme.md)
    * Başka Bir Sunucuda Sistemin Canlı Yedeğini Tutma
    * Felaket Sonrası Sunucuyu Tekrar Çalışır Hale Getirme
    * Disk Sistemleri
