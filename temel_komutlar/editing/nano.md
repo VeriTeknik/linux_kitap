@@ -6,7 +6,17 @@ Aslında pico için özgür lisanslı bir yazılım amacıyla Chris Allegretta t
 
 nano ve pico farklarının yaratacağı kafa karışıklığını giderdiysek, programın genel kullanımına bakabiliriz.
 
-Önceki bölümde crc8.py dosyamızın yetkilerini görüntülemiştik. Şimdi dosyanın içeriğine göz atalım. Dosyaya GNU/Linux üzerinde cat, less, more, head gibi komutlarla göz atabiliriz. Ancak dosyanın içeriğini değiştirmek için bu yöntemler pratik olmayacaktır. Dosyanın bulunduğu dizinde aşağıdaki komutlardan birini çalıştırarak dosyayı nano ile açabiliriz.
+Önceki bölümde crc8.py dosyamızın yetkilerini görüntülemiştik.
+
+Eğer aşağıdaki örnekleri gerçek crc8.py dosyasıyla kullanmak istiyorsanız **wget** ile dosyayı edinebilirsiniz.
+
+```bash
+wget http://bit.ly/1kBiBAE -O crc8.py
+```
+
+Yukarıdaki komut, *github* üzerinde ilgili *gist*'i indirip mevcut dizinin *crc8.py* dosyasına yazacaktır.
+
+Şimdi dosyanın içeriğine göz atalım. Dosyaya GNU/Linux üzerinde cat, less, more, head gibi komutlarla göz atabiliriz. Ancak dosyanın içeriğini değiştirmek için bu yöntemler pratik olmayacaktır. Dosyanın bulunduğu dizinde aşağıdaki komutlardan birini çalıştırarak dosyayı nano ile açabiliriz.
 
 ```bash
 nano crc8.py
