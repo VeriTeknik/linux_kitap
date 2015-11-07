@@ -32,4 +32,15 @@ Bu yetkiler çeşitli anlamların kısaltmalarıdır. *r* harfi okuma yetkisi (r
 chmod +w crc8.py
 ```
 
-Öte yandan, *rwx* yetkilendirme biçiminin farklı bir notasyonu bulunmaktadır. 
+Öte yandan, *rwx* yetkilendirme biçiminin farklı bir notasyonu bulunmaktadır. Okuma, yazma ve çalıştırma işlemlerinin her biri farklı bir rakamla ifade edilmek üzere, toplamları bir dosya için tüm yetkileri gösterebilir.
+
+Örnekle açıklamak gerekirse, okuma işlemi için 4 sayısı, yazma işlemi için 2 sayısı ve çalıştırma işlemi için 1 sayısı tahsis edilmiştir. Bu durumda Dosyanın hem okunması, hem yazılması hem de çalıştırılması için 7 sayısı (4+2+1=7) yetkilendirmeyi ifade edebilir. Veya sadece okuma ve çalıştırma yetkisi vermek için 5 sayısı (4+1=5) yeterli olacaktır.
+
+Bu durumda crc8.py dosyamızın rwxr-xr-- yetkisini rakamla ifade etmek istersek, 754 sayısı yeterli olacaktır. İlk rakam olan 7 dosya sahibi eaydin kullanıcısının rwx yetkisine, ikinci rakam olan 5 dosyayla ilişkilendirilen plugdev grubunun r-x yetkisine, 4 sayısı ise sistemde geri kalan tüm kullanıcıların r-- yetkisine işaret etmektedir.
+
+chmod ile bu yetkilendirmeyi vermek için aşağıdaki komutu uygulayabiliriz.
+
+```bash
+chmod 754 crc8.py
+```
+
