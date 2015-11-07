@@ -24,4 +24,12 @@ ls komutu çıktısının ilk sütunu ise bu kullanıcı ve grubun hangi yetkile
 
 Buradaki ilk karakter ("-") şimdilik bir kenara bırakırsak, diğer karakterler 3'erli olarak sırasıyla dosya sahibinin, grubunun ve diğer kullanıcıların yetkilerini göstermektedir. Kısacası *rwx* yazan kısım *eaydin* kullanıcısının yetkilerini, *r-x* yazan kısım *plugdev* grubunun yetkilerini, *r--* yazan kısım için sistemde geriye kalan bütün kullanıcıların yetkilerini göstermektedir.
 
-Bu yetkiler çeşitli anlamların kısaltmalarıdır. *r* harfi okuma yetkisi (read), *w* yazma yetkisi (write) ve *x* çalıştırma yetkisi (execute) anlamına gelmektedir. 
+Bu yetkiler çeşitli anlamların kısaltmalarıdır. *r* harfi okuma yetkisi (read), *w* yazma yetkisi (write) ve *x* çalıştırma yetkisi (execute) anlamına gelmektedir. Bu durumda sistemimizdeki crc8.py dosyasını herkes okuyabiliyor, dosya içeriğini sadece *eaydin* kullanıcısı değiştirebiliyor, dosyayı *eaydin* kullanıcısı ve *plugdev* grubuna dahil bütün kullanıcılar çalıştırabiliyor demektir.
+
+*rwx* yetkilendirme kullanımını *chmod* komutuyla yapabiliriz. Örneğin dosyaya herkesin yazmasını sağlamak istiyorsak aşağıdaki komut yeterli olacaktır.
+
+```bash
+chmod +w crc8.py
+```
+
+Öte yandan, *rwx* yetkilendirme biçiminin farklı bir notasyonu bulunmaktadır. 
