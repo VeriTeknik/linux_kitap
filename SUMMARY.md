@@ -51,7 +51,7 @@
    * [Basit SQL Sorguları](mysql/basit_sql_sorgulari.md)
    * [mysqldump ile Yedekleme](mysql/mysqldump.md)
    * [Yedekleri İçeri Alma](mysql/import.md)
-   * Replikasyon Teknikleri
+   * [Replikasyon Teknikleri](mysql/replikasyon.md)
 * Zamanlanmış Görevler
    * crontab
    * at
