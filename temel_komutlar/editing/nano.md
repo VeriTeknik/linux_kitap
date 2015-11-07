@@ -11,5 +11,5 @@ nano crc8.py
 pico crc8.py
 ```
 
-![](nano1.png)
+![](../../images/nano/nano1.png)
 
