@@ -81,7 +81,7 @@
    * [nmap ile Açık Arama Testleri](guvenlik/nmap.md)
 * [Güvenilirlik](guvenilirlik/guvenilirlik.md)
    * [Optimizasyon Teknikleri](guvenilirlik/optimizasyon/optimizasyon.md)
-       * Apache/PHP
+       * [Apache/PHP](guvenilirlik/optimizasyon/apache_php.md)
        * MySQL
    * Yedekleme ve Yedekten Geri Dönme Politikaları
    * Başka Bir Sunucuda Sistemin Canlı Yedeğini Tutma
