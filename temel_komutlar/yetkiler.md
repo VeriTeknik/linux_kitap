@@ -36,9 +36,9 @@ chmod +w crc8.py
 
 Örnekle açıklamak gerekirse, okuma işlemi için 4 sayısı, yazma işlemi için 2 sayısı ve çalıştırma işlemi için 1 sayısı tahsis edilmiştir. Bu durumda Dosyanın hem okunması, hem yazılması hem de çalıştırılması için 7 sayısı (4+2+1=7) yetkilendirmeyi ifade edebilir. Veya sadece okuma ve çalıştırma yetkisi vermek için 5 sayısı (4+1=5) yeterli olacaktır.
 
-Bu durumda crc8.py dosyamızın rwxr-xr-- yetkisini rakamla ifade etmek istersek, 754 sayısı yeterli olacaktır. İlk rakam olan 7 dosya sahibi eaydin kullanıcısının rwx yetkisine, ikinci rakam olan 5 dosyayla ilişkilendirilen plugdev grubunun r-x yetkisine, 4 sayısı ise sistemde geri kalan tüm kullanıcıların r-- yetkisine işaret etmektedir.
+Bu durumda crc8.py dosyamızın **rwxr-xr--** yetkisini rakamla ifade etmek istersek, 754 sayısı yeterli olacaktır. İlk rakam olan 7 dosya sahibi eaydin kullanıcısının **rwx** yetkisine, ikinci rakam olan 5 dosyayla ilişkilendirilen plugdev grubunun **r-x** yetkisine, 4 sayısı ise sistemde geri kalan tüm kullanıcıların **r--** yetkisine işaret etmektedir.
 
-chmod ile bu yetkilendirmeyi vermek için aşağıdaki komutu uygulayabiliriz.
+**chmod** ile bu yetkilendirmeyi vermek için aşağıdaki komutu uygulayabiliriz.
 
 ```bash
 chmod 754 crc8.py
@@ -70,7 +70,7 @@ Bazı dosyaların yetkileri pek alışıldık durumda olmayabilir. Dosyanızı b
 
 ## Diğer Dosya Yetkileri
 
-Dosya izinlerini incelerken, ls -l komut çıktısının ilk sütunundaki ilk karakteri şimdilik gözardı etmiştik. Bu karakter dosya hakkındaki bazı özel durumları göstermektedir. Aşağıdaki değerleri alabilir:
+Dosya izinlerini incelerken, *ls -l* komut çıktısının ilk sütunundaki ilk karakteri şimdilik gözardı etmiştik. Bu karakter dosya hakkındaki bazı özel durumları göstermektedir. Aşağıdaki değerleri alabilir:
 
 | Gösterim | Açıklaması |
 | -- | -- |
@@ -80,13 +80,13 @@ Dosya izinlerini incelerken, ls -l komut çıktısının ilk sütunundaki ilk ka
 | c | Dosyanın bir karakter özel dosyası olduğu anlamına gelir. Yani blok dosyalarına benzerdir ancak yazıp okuma işlemlerinde karakter kullanılmalıdır. Örneğin /dev altındaki seri port cihazları bu özelliğe sahiptir.  |
 | s | Soket dosyası. Programların birbirleri ile iletişim kurarken, doğrudan dosya işaretçisi aracılığıyla veri iletmelerini sağlar.  |
 
-Öte yandan *setuid* özelliği, dosyanın çalıştırma izninin yerine geçebilir. Bu yetki verildiğinde, dosyayı çalıştıran kişiler, sanki dosyanın sahibiymiş gibi çalıştırabilirler. Örneğin root kullanıcısına ait ancak **apache** grubuna ait bir dosya, +s izni verildiğinde, apache tarafından çalıştırılınca root etkisiyle çalışır. Dikkatli kullanılmazsa sistemde açıklara neden olabilir. Öte yandan setuid izni dizinlerde farklı davranır. Bir dizine +s yetkisi verildiğinde, bu dizin içine kim dosya oluşturursa oluştursun, dosya dizin sahibi tarafından yaratılmış gibi davranır. crc8.py dosyamızın setuid olması durumunda ls -l çıktısı aşağıdaki gibi olurdu:
+Öte yandan *setuid* özelliği, dosyanın çalıştırma izninin yerine geçebilir. Bu yetki verildiğinde, dosyayı çalıştıran kişiler, sanki dosyanın sahibiymiş gibi çalıştırabilirler. Örneğin root kullanıcısına ait ancak **apache** grubuna ait bir dosya, **+s** izni verildiğinde, apache tarafından çalıştırılınca root etkisiyle çalışır. Dikkatli kullanılmazsa sistemde açıklara neden olabilir. Öte yandan setuid izni dizinlerde farklı davranır. Bir dizine **+s** yetkisi verildiğinde, bu dizin içine kim dosya oluşturursa oluştursun, dosya dizin sahibi tarafından yaratılmış gibi davranır. *crc8.py* dosyamızın setuid olması durumunda *ls -l* çıktısı aşağıdaki gibi olurdu:
 
 ```bash
 -rwsr-Sr-- 1 eaydin plugdev 1925 Nov  4 01:36 crc8.py
 ```
 
-Yukarıdaki örnekte, s'lerden birinin küçük, diğerinin büyük harf olduğu dikkatinizi çekmiştir. Büyük harf olan, dosyanın setuid izninin olduğu ancak çalıştırma izninin olmadığı anlamına gelir. Kısacası setuid belirlemek anlamsızdır, dolayısıyla sistem bizi uyarmak için o harif büyük yapar. Özetle yukarıdaki örnekte crc8.py dosyasının grup izninde setupid tanımlanmış ama çalıştırma izni verilmemiştir.
+Yukarıdaki örnekte, **s**'lerden birinin küçük, diğerinin büyük harf olduğu dikkatinizi çekmiştir. Büyük harf olan, dosyanın setuid izninin olduğu ancak çalıştırma izninin olmadığı anlamına gelir. Kısacası setuid belirlemek anlamsızdır, dolayısıyla sistem bizi uyarmak için o harfi büyük yapar. Özetle yukarıdaki örnekte crc8.py dosyasının grup izninde setupid tanımlanmış ama çalıştırma izni verilmemiştir.
 
 Bir başka yetki biçimi sticky bit'tir. Dosya izinlerinden bağımsız olarak, sadece sahibinin (ve root'un) dosyayı silebileceği anlamına gelir. Yetki dizininin son karakterinde görülür.
 
