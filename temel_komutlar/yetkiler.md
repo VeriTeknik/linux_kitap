@@ -96,17 +96,24 @@ drwxrwxrwt 1 eaydin plugdev    144 Nov  7 16:00 crc
 
 ## Kullanıcı Ekleme
 
-Linux üzerinde bir kullanıcı eklemek son derece kolaydır. **root** yetkisine sahip olduğunuzda aşağıdaki komutu çalıştırırsanız **veriteknik** isimli bir kullanıcı oluşturulacaktır.
+Linux üzerinde bir kullanıcı eklemek son derece kolaydır. **root** yetkisine sahip olduğunuzda aşağıdaki komutu çalıştırırsanız **ckaraca** isimli bir kullanıcı oluşturulacaktır.
 
 ```bash
 useradd veriteknik
 ```
 
-**veriteknik** kullanıcısını şifresini tanımlamak için aşağıdaki komut çalıştırılmalı, ardından iki kere şifre girilmelidir.
+**ckaraca** kullanıcısını şifresini tanımlamak için aşağıdaki komut çalıştırılmalı, ardından iki kere şifre girilmelidir.
 
 ```bash
-passwd veriteknik
+passwd ckaraca
 Enter new UNIX password: 
 Retype new UNIX password: 
 passwd: password updated successfully
+```
+
+Şimdi sistemimizde bir **veriteknik** grubu tanımlayacağız, ardından **ckaraca** kullanıcısını bu gruba ekleyeceğiz.
+
+```bash
+groupadd veriteknik
+usermod -a -G veriteknik ckaraca
 ```
