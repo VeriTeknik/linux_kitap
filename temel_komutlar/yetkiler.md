@@ -78,8 +78,7 @@ Dosya izinlerini incelerken, ls -l komut çıktısının ilk sütunundaki ilk ka
 | l | Sembolik link. Dosyanın bir link olduğu, işaret ettiği dosyanın farklı noktada olduğunu belirtir. |
 | b | Dosyanın bir blok dosyası olduğu anlamına gelir. Kısacası bu dosyaya yazarken (ve okurken) bloklar halinde yazılmalıdır. Genellikle /dev altındaki sabit disk dosyalarında görülür. |
 | c | Dosyanın bir karakter özel dosyası olduğu anlamına gelir. Yani blok dosyalarına benzerdir ancak yazıp okuma işlemlerinde karakter kullanılmalıdır. Örneğin /dev altındaki seri port cihazları bu özelliğe sahiptir.  |
-| s | setuid:  |
-| 0:5 | 1:5 |
+| s | Soket dosyası. Programların birbirleri ile iletişim kurarken, doğrudan dosya işaretçisi aracılığıyla veri iletmelerini sağlar.  |
 
 Öte yandan *setuid* özelliği, dosyanın çalıştırma izninin yerine geçebilir. Bu yetki verildiğinde, dosyayı çalıştıran kişiler, sanki dosyanın sahibiymiş gibi çalıştırabilirler. Örneğin root kullanıcısına ait ancak **apache** grubuna ait bir dosya, +s izni verildiğinde, apache tarafından çalıştırılınca root etkisiyle çalışır. Dikkatli kullanılmazsa sistemde açıklara neden olabilir. Öte yandan setuid izni dizinlerde farklı davranır. Bir dizine +s yetkisi verildiğinde, bu dizin içine kim dosya oluşturursa oluştursun, dosya dizin sahibi tarafından yaratılmış gibi davranır. crc8.py dosyamızın setuid olması durumunda ls -l çıktısı aşağıdaki gibi olurdu:
 
