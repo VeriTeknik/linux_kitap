@@ -77,7 +77,7 @@ Dosya izinlerini incelerken, ls -l komut çıktısının ilk sütunundaki ilk ka
 | - | Normal dosya. |
 | l | Sembolik link. Dosyanın bir link olduğu, işaret ettiği dosyanın farklı noktada olduğunu belirtir. |
 | d | directory: Bir dizin olduğunu gösterir. |
-| t | sticky bit: Dosya izinlerinden bağımsız olarak, sadece sahibinin (ve root'un) dosyayı silebileceği anlamına gelir. |
+| t | sticky bit:  |
 | s | setuid:  |
 | 0:5 | 1:5 |
 
@@ -88,3 +88,9 @@ Dosya izinlerini incelerken, ls -l komut çıktısının ilk sütunundaki ilk ka
 ```
 
 Yukarıdaki örnekte, s'lerden birinin küçük, diğerinin büyük harf olduğu dikkatinizi çekmiştir. Büyük harf olan, dosyanın setuid izninin olduğu ancak çalıştırma izninin olmadığı anlamına gelir. Kısacası setuid belirlemek anlamsızdır, dolayısıyla sistem bizi uyarmak için o harif büyük yapar. Özetle yukarıdaki örnekte crc8.py dosyasının grup izninde setupid tanımlanmış ama çalıştırma izni verilmemiştir.
+
+Bir başka yetki biçimi sticky bit'tir. Dosya izinlerinden bağımsız olarak, sadece sahibinin (ve root'un) dosyayı silebileceği anlamına gelir. Yetki dizininin son karakterinde görülür.
+
+```bash
+drwxrwxrwt 1 eaydin plugdev    144 Nov  7 16:00 crc
+```
