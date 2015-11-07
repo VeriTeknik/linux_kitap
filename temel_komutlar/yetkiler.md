@@ -4,3 +4,6 @@ Linux ve türevi işletim sistemlerinin en önemli özelliklerinden birisi, "her
 
 Her şeyin bir dosya olması, beraberinde bu dosyalara erişim yetkilerini de getirmiştir. Linux üzerinde dosyalarınızın yetkilerini görüntülemek için ls komutunu -l parametresiyle çalıştırabilirsiniz.
 
+```bash
+
+```
