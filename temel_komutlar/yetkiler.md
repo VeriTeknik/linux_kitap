@@ -137,6 +137,12 @@ Bir kullanıcının hangi gruplarda yer aldığını görüntülemek için **id*
 id eaydin
 uid=1001(eaydin) gid=1002(eaydin) groups=1002(eaydin),1001(veriteknik)
 ```
+Benzer şekilde **groups** komutu da kullanılabilir.
+
+```bash
+groups eaydin
+eaydin : eaydin adm cdrom sudo dip plugdev lpadmin sambashare veriteknik
+```
 
 Gördüğünüz gibi **eaydin** kullanıcısı hem **eaydin** grubunda, hem de **veriteknik** grubunda yer almaktadır. Her kullanıcının kendi grubu da bulunur ve bu gruplar silinemez, bu gruplara *primary group* denilir.
 
