@@ -74,7 +74,7 @@
    * MySQL Bağlantısı
    * [Python 2 ve Python 3 Ayrımı](python/py_2v3.md)
 * [Güvenlik](guvenlik/guvenlik.md)
-   * IPTables
+   * [IPTables](guvenlik/iptables.md)
        * Temel İzinler
        * IP ve Port Engelleme
    * selinux
