@@ -87,6 +87,7 @@
    * Başka Bir Sunucuda Sistemin Canlı Yedeğini Tutma
    * Felaket Sonrası Sunucuyu Tekrar Çalışır Hale Getirme
    * Disk Sistemleri
+       * ext
 * Kaynak Kod Derleme
 * Hata Takibi
    * PHP, MySQL ve Apache Kütük Yapılandırması
