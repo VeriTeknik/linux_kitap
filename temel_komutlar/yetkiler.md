@@ -121,13 +121,13 @@ usermod -a -G veriteknik eaydin
 Yukarıdaki tekniklerle kullanıcı ve grup ayrı ayrı oluşturulur. Örneğin aşağıdaki komut, mevcut gruba yeni bir kullanıcı oluşturup ekler.
 
 ```bash
-useradd -G veriteknik okaya
+useradd -G veriteknik ckaraca
 ```
 
 Sistemden kullanıcı ve grup silmek içinse aşağıdaki komutlar uygulanabilir.
 
 ```bash
-userdel okaya
+userdel ckaraca
 groupdel veriteknik
 ```
 
@@ -145,3 +145,10 @@ groupdel eaydin
 groupdel: cannot remove the primary group of user 'eaydin'
 ```
 
+**eaydin** kullanıcısını **veriteknik** grubundan silmek için **deluser** komutu kullanılır.
+
+```bash
+deluser eaydin veriteknik
+Removing user `eaydin' from group `veriteknik' ...
+Done.
+```
