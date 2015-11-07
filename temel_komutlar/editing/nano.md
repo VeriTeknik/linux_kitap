@@ -33,5 +33,13 @@ Alt iki satırda gördüğünüz komutlar, klavye kısayollarıyla erişiliyor. 
 
 nano içerisinde gezinmek için ok tuşlarını kullanmanız yeterli. Değiştirmek/eklemek/silmek istediğiniz noktaya imleci getirdiğinizde istediğiniz değişikliği yaptıktan sonra dosyayı kaydetmek için CTRL+o programdan çıkmak içinse CTRL+x tuşlarını kullanmanız yeterlidir.
 
+Dosyamızın en başında # işaretleriyle başlayan bir dizi satır görülüyor. Bu satırlar açıklama satırlarıdır, yani Python yorumlayıcısı tarafından bu satırlar gözardı edilecektir. Çoğu programlama dilinde ve çoğu ayar dosyasında açıklama satırları # işareti ile başlar.
 
+nano, açıklama satırlarını istersek hizalı hale getirebilir. Bunun için 
+*Justify* ve *Unjustify* komutları kullanılabilir.
 
+İmleci açıklama satırlarının olduğu bölgeye getirip CTRL+j ile satırları hizalayabiliriz. 
+
+![](nano3.png)
+
+Ekranda *Can now UnJustify!* yazısı belirdi. Değişikliği gördükten sonra CTRL+u ile tekrar eski haline getirebiliriz.
