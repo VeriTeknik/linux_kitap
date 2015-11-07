@@ -94,7 +94,7 @@ Bir başka yetki biçimi sticky bit'tir. Dosya izinlerinden bağımsız olarak, 
 drwxrwxrwt 1 eaydin plugdev    144 Nov  7 16:00 crc
 ```
 
-## Kullanıcı Ekleme
+## Kullanıcı ve Grup Düzenleme
 
 Linux üzerinde bir kullanıcı eklemek son derece kolaydır. **root** yetkisine sahip olduğunuzda aşağıdaki komutu çalıştırırsanız **eaydin** isimli bir kullanıcı oluşturulacaktır.
 
