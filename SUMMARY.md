@@ -87,7 +87,7 @@
    * [Başka Bir Sunucuda Sistemin Canlı Yedeğini Tutma](guvenilirlik/canli_yedek.md)
    * [Felaket Sonrası Sunucuyu Tekrar Çalışır Hale Getirme](guvenilirlik/felaket.md)
    * [Disk Sistemleri](guvenilirlik/disk/disk_sistemleri.md)
-       * ext
+       * [ext](guvenilirlik/disk/ext.md)
        * zfs
        * lvm
        * RAID
