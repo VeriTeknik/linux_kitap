@@ -75,7 +75,7 @@
    * [Python 2 ve Python 3 Ayrımı](python/py_2v3.md)
 * [Güvenlik](guvenlik/guvenlik.md)
    * [IPTables](guvenlik/iptables/iptables.md)
-       * Temel İzinler
+       * [Temel İzinler](guvenlik/iptables/temel_izinler.md)
        * IP ve Port Engelleme
    * selinux
    * nmap ile Açık Arama Testleri
