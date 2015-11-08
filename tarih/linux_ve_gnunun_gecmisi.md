@@ -16,6 +16,11 @@ Ayrıca **Unix felsefesi** olarak adlandırılan yapısı sistemi rahat gelişti
 
 C programlama dili, Dennis Ritchi tarafından Unix işletim sistemi için geliştirilmiştir. Unix işletim sisteminin büyük çoğunluğu C ile yazılmıştır. C programlama dili, hem pek çok donanım üzerinde çalışabildiğinden, hem de öncülleri BCPL veya B gibi tip kullanmayan (typeless) bir dil olmadığından, ideal bir *sistem programlama dili* olarak nitelendirilir.
 
+![](c.jpg) 
+
+C programlama dilinin yaygınlaşmasına yardımcı olması dışında, bilgisayar bilimlerine yaptığı katkılardan ötürü Brian Kernighan ve Dennis Ritchie'nin yazdığı *The C Programming Language* kitabının yayımlanması da bir dönüm noktası kabul edilir.
+
+
 ## GNU
 
 Bir yandan Ken Thompson ve Dennis Ritchie C ve Unix'i geliştirirken, Richard Stallman 1971 yılında MIT Yapay Zeka Laboratuvarlarında çalışmaya başlamıştı. Burada çalıştığı yıllarda, özellikle bir Xerox Lazer Yazıcı'nın sürücüsünün kaynak kodunun paylaşılmaması, ve beraberinde etrafında çalışan programcıların kendi geliştirdiği kodları Gizlilik Sözleşmeleri (Non-Disclosure Agreement) dahilinde satmaya başlamasıyla yazılımın özgür olması gerektiğini savunmaya başladı. Aslında o yıllarda programların kaynak kodlarıyla birlikte dağıtılıyor olması yaygındı ancak bu durum ticari kaygılarla ve firmalar arası rekabetle ortadan kalkmaya başlayınca, Richard Stallman bunun aksini savunmak için gerekli argümanlarını yeterince gözden geçirmediğini, inşa etmemiş olduğunu fark etti.
