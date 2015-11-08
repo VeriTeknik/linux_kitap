@@ -69,3 +69,23 @@ muntrace (3)         - malloc tracing
 whatis malloc
 malloc (3)           - allocate and free dynamic memory
 ```
+
+## man Dosyalarının Yolu
+
+Her ne kadar Dosya Sistemi Hiyerarşi Standardında man dosyalarının yolu için **/usr/share/man** belirlenmişse de, her zaman buna uyulmaz, ve sistem birden fazla noktayı tarar.
+
+Sisteminizde man dosyalarının nerelerde olduğunu öğrenmek için **manpath** komutunu kullanabilirsiniz.
+
+```bash
+manpath
+/usr/local/man:/usr/local/share/man:/usr/share/man
+```
+
+Yukarıdaki örnekte **:** ile ayrılmış değerler, farklı dizinlere işaret eder. Eğer özellikle bir komutun man sayfalarının nerede olduğunu öğrenmek isterseniz **man -wa foo** komutunu kullanabilirsiniz (burada **foo** herhangi bir komutu temsil eder, yaygın bir kullanımdır).
+
+```bash
+man -wa mkdir
+/usr/share/man/man1/mkdir.1.gz
+/usr/share/man/man2/mkdir.2.gz
+```
+
