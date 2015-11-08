@@ -5,3 +5,4 @@ Geleneksel UNIX sistemlerde yardım dosyaları **man** komutu kullanılarak eri�
 ![](https://imgs.xkcd.com/comics/manual_override.png)
 
 *Kaynak: https://xkcd.com/912/*
+
