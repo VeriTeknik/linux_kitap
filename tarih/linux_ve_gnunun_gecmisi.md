@@ -14,4 +14,15 @@ C programlama dili, Dennis Ritchi tarafından Unix işletim sistemi için geliş
 
 ## GNU
 
-Bir yandan Ken Thompson ve Dennis Ritchie C ve Unix'i geliştirirken, Richard Stallman 1971 yılında MIT Yapay Zeka Laboratuvarlarında çalışmaya başlamıştı.
+Bir yandan Ken Thompson ve Dennis Ritchie C ve Unix'i geliştirirken, Richard Stallman 1971 yılında MIT Yapay Zeka Laboratuvarlarında çalışmaya başlamıştı. Burada çalıştığı yıllarda, özellikle bir Xerox Lazer Yazıcı'nın sürücüsünün kaynak kodunun paylaşılmaması, ve beraberinde etrafında çalışan programcıların kendi geliştirdiği kodları Gizlilik Sözleşmeleri (Non-Disclosure Agreement) dahilinde satmaya başlamasıyla yazılımın özgür olması gerektiğini savunmaya başladı. Aslında o yıllarda programların kaynak kodlarıyla birlikte dağıtılıyor olması yaygındı ancak bu durum ticari kaygılarla ve firmalar arası rekabetle ortadan kalkmaya başlayınca, Richard Stallman bunun aksini savunmak için gerekli argümanlarını yeterince gözden geçirmediğini, inşa etmemiş olduğunu fark etti.
+
+1980'lerden hemen her yazılım "değiştirilmeye ve kullanıcıları tarafından geliştirilmeye" yasak halde dağıtılıyordu. Bunun üzerine Richard Stallman Unix benzeri bir işletim sistemi ve bu sistemi çalıştıran yazılımlar grubu geliştirmeye karar verdi. Geliştirdiği bu yazılımları dağıtırken de daha önce karşılaştığı durumla başkalarının karşılaşmasını engellemek için özel bir lisanslama biçimi geliştirdi, lisanslama isminin adı GPL (General Public License) idi. Geliştirmeye başladığı sisteme ise "GNU is Not Unix"in kısaltması olarak GNU ismini verdi. Bu yazılımlar grubunu dağıtırken Özgür Yazılım Derneğ'ni (FSF: Free Software Foundation) kurmuş ve işinin MIT veya Yapay Zeka Laboratuvarları ile ilişkilendirilmemesi için MIT'den istifa etmiştir.
+
+GNU'nun geliştirilmesi, Unix felsefesi dahilinde olmuştur. İşletim sistemi Unix-benzeri bir sistem olacak, baştan yazılacak ancak Unix'in bazı eksiklikleri giderilecekti. İşletim sisteminin çekirdeğine **Hurd**, çevre yazılımlarına ise GNU Projesi dahilindeki yazılımlar olarak bakılıyordu. Çoğunlukla sistemin geliştirilmesine çevre yazılımlarla başlanılmıştır. Bunların başında C derleyicisi olan GNU C Compiler (gcc) gelir.
+
+## Linux
+
+1980'ler boyunca GNU'nun gelişmesiyle birlikte, 1991 yılında Finlandiya'lı bilgisayar bilimleri öğrencisi olan Linus Torvalds kendi işletim sistemi çekirdeğini yazmıştır. Bu çekirdeği tamamen hobi olarak geliştirmiştir ve duyurusunu Usenet üzerinden duyururken "GNU kadar gelişmiş ve profesyonel bir şey olmayacağını" da belirtmiştir. İlk geliştirdiği dağıtımda, sadece çekirdeği yazdığı için, çevre araçları (küçük programlar, derleyiciler ve kabuk) GNU Projesinden almıştır.
+
+Linus Torvalds'in geliştirdiği işletim sistemini ilk başta farklı bir lisansla dağıtmış olsa da, 1992'de GNU GPL ile dağıtmıştır ve sistem bundan sonra başka programcılar tarafından hızla geliştirilmeye başlanmıştır. 1993 yılında 100'den fazla programcı Linux çekirdeğini geliştirmekle uğraşmıştır. Çekirdeğin geliştirilmesi haricinde Linux'un GNU ortamı ile uyumlu çalışması sağlanılmış ve aynı yıl içerisinde Slackware, yılın ilerleyen aylarındaysa Debian dağıtımları piyasaya çıkmıştır. Bugün hala geliştirilen bu iki dağıtımtan Slackware en eski dağıtım olup, Debian ise en yaygın dağıtımlardan birisidir.
+
