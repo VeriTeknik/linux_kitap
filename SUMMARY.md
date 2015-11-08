@@ -5,11 +5,11 @@
    * [RedHat, Debian ve FreeBSD Ana Sürümlerin Farkları](tarih/anasurumlerin_farklari.md)
 * [Temel Komutlar](temel_komutlar/temel.md)
    * [Temel Terminal Komutları](temel_komutlar/temel_komutlar.md)
+   * Yardım Dosyaları
    * [Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar](temel_komutlar/yetkiler.md)
    * [Dosya Düzenleme Araçları](temel_komutlar/editing/dosya_duzenleme_araclari.md)
        * [nano ve pico](temel_komutlar/editing/nano.md)
        * [vi](temel_komutlar/editing/vi.md)
-   * Yardım Dosyaları
 * [Gelişmiş Terminal Komutları](gelismis_terminal/gelismis_terminal_komutlari.md)
    * [Standart Girdi ve Çıktı Yönlendirme](gelismis_terminal/stdio.md)
    * [top, ps ile İşlem İzleme](gelismis_terminal/top.md)
