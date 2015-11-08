@@ -37,6 +37,10 @@ GNU'nun geliştirilmesi, Unix felsefesi dahilinde olmuştur. İşletim sistemi U
 
 1980'ler boyunca GNU'nun gelişmesiyle birlikte, 1991 yılında Finlandiya'lı bilgisayar bilimleri öğrencisi olan Linus Torvalds kendi işletim sistemi çekirdeğini yazmıştır. Bu çekirdeği tamamen hobi olarak geliştirmiştir ve duyurusunu Usenet üzerinden duyururken "GNU kadar gelişmiş ve profesyonel bir şey olmayacağını" da belirtmiştir. İlk geliştirdiği dağıtımda, sadece çekirdeği yazdığı için, çevre araçları (küçük programlar, derleyiciler ve kabuk) GNU Projesinden almıştır.
 
+![](torvalds.jpg)
+
+*Linus Torvalds*
+
 Linus Torvalds'in geliştirdiği işletim sistemini ilk başta farklı bir lisansla dağıtmış olsa da, 1992'de GNU GPL ile dağıtmıştır ve sistem bundan sonra başka programcılar tarafından hızla geliştirilmeye başlanmıştır. 1993 yılında 100'den fazla programcı Linux çekirdeğini geliştirmekle uğraşmıştır. Çekirdeğin geliştirilmesi haricinde Linux'un GNU ortamı ile uyumlu çalışması sağlanılmış ve aynı yıl içerisinde Slackware, yılın ilerleyen aylarındaysa Debian dağıtımları piyasaya çıkmıştır. Bugün hala geliştirilen bu iki dağıtımtan Slackware en eski dağıtım olup, Debian ise en yaygın dağıtımlardan birisidir.
 
 Bugün GNU Hurd'ün geliştirilmesi hale devam etmektedir ancak Linux çekirdeği kadar yaygın bir kullanımı yoktur. Bugün piyasadaki yaygın sistemler, Linux çekirdeği etrafına GNU yazılımlarıyla dağıtılarak gelmektedir, dolayısıyla bu sistemlere **GNU/Linux** sistemler denilmektedir, ancak kolay söylenmesi amacıyla sistemin tamamına "Linux" denilmesi yaygındır. Richard Stallman 1995-1996 yıllarında bunun önüne geçilmesi için *LiGNUx* gibi bir terim önermiştir ancak bu söylem de tutmamıştır.
