@@ -9,4 +9,4 @@ Her programcı ve her sistem yöneticisinin favori metin editörü farklıdır. 
 
 ![](http://imgs.xkcd.com/comics/real_programmers.png)
 
-Kaynak: http://xkcd.com/378/
+*Kaynak: http://xkcd.com/378/*
