@@ -37,13 +37,13 @@ Oysa **mkdir** komutunun 2. bölümdeki sayfasına erişmek isteseydik, yazmamı
 man 2 mkdir
 ```
 
-## apropos
+## apropos ve whatis
 
 Herhangi bir konu hakkında yardım sayfalarını taramak istereniz, **apropos** komutunu kullanabilirsiniz. **man -k** ile aynı işi yapmaktadır, dolayısıyla aşağıdaki komutlar size aynı çıktıyı verecektir:
 
 ```bash
-man -k mkdir
-apropos mkdir
+man -k malloc
+apropos malloc
 __after_morecore_hook (3) - malloc debugging variables
 __free_hook (3)      - malloc debugging variables
 __malloc_hook (3)    - malloc debugging variables
@@ -61,4 +61,11 @@ malloc_usable_size (3) - obtain size of block of memory allocated from heap
 mtrace (1)           - Interpret output from MALLOC_TRACE
 mtrace (3)           - malloc tracing
 muntrace (3)         - malloc tracing
+```
+
+**whatis** komutu ise bir komut hakkında size kısa bilgi vermeyi amaçlamaktadır.
+
+```bash
+whatis malloc
+malloc (3)           - allocate and free dynamic memory
 ```
