@@ -36,3 +36,29 @@ Oysa **mkdir** komutunun 2. bölümdeki sayfasına erişmek isteseydik, yazmamı
 ```bash
 man 2 mkdir
 ```
+
+## apropos
+
+Herhangi bir konu hakkında yardım sayfalarını taramak istereniz, **apropos** komutunu kullanabilirsiniz. **man -k** ile aynı işi yapmaktadır, dolayısıyla aşağıdaki komutlar size aynı çıktıyı verecektir:
+
+```bash
+man -k mkdir
+apropos mkdir
+__after_morecore_hook (3) - malloc debugging variables
+__free_hook (3)      - malloc debugging variables
+__malloc_hook (3)    - malloc debugging variables
+__malloc_initialize_hook (3) - malloc debugging variables
+__memalign_hook (3)  - malloc debugging variables
+__realloc_hook (3)   - malloc debugging variables
+malloc (3)           - allocate and free dynamic memory
+malloc_get_state (3) - record and restore state of malloc implementation
+malloc_hook (3)      - malloc debugging variables
+malloc_info (3)      - export malloc state to a stream
+malloc_set_state (3) - record and restore state of malloc implementation
+malloc_stats (3)     - print memory allocation statistics
+malloc_trim (3)      - release free memory from the top of the heap
+malloc_usable_size (3) - obtain size of block of memory allocated from heap
+mtrace (1)           - Interpret output from MALLOC_TRACE
+mtrace (3)           - malloc tracing
+muntrace (3)         - malloc tracing
+```
