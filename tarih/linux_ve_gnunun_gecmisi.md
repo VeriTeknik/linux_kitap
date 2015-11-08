@@ -6,7 +6,7 @@
 
 ![](Ken_n_dennis.jpg)
 
-Ken Thompson (solda) ve Dennis Ritchie (sağda)
+*Ken Thompson (solda) ve Dennis Ritchie (sağda)*
 
 1990'ların başında AT&T Unix'in haklarını Novell'e satmıştır, Novell de 1995'te Santa Cruz Operations'a (SCO) satmıştır. Ancak günümüzde UNIX (büyük harflerle yazıldığında) endüstri standardı konsorsiyumu (The Open Group) tarafından tescillenmiştir ve ticari bir isim olarak kullanılmaktan ziyade, bir işletim sistemleri ailesi olarak anılmaktadır.
 
@@ -24,6 +24,10 @@ C programlama dilinin yaygınlaşmasına yardımcı olması dışında, bilgisay
 ## GNU
 
 Bir yandan Ken Thompson ve Dennis Ritchie C ve Unix'i geliştirirken, Richard Stallman 1971 yılında MIT Yapay Zeka Laboratuvarlarında çalışmaya başlamıştı. Burada çalıştığı yıllarda, özellikle bir Xerox Lazer Yazıcı'nın sürücüsünün kaynak kodunun paylaşılmaması, ve beraberinde etrafında çalışan programcıların kendi geliştirdiği kodları Gizlilik Sözleşmeleri (Non-Disclosure Agreement) dahilinde satmaya başlamasıyla yazılımın özgür olması gerektiğini savunmaya başladı. Aslında o yıllarda programların kaynak kodlarıyla birlikte dağıtılıyor olması yaygındı ancak bu durum ticari kaygılarla ve firmalar arası rekabetle ortadan kalkmaya başlayınca, Richard Stallman bunun aksini savunmak için gerekli argümanlarını yeterince gözden geçirmediğini, inşa etmemiş olduğunu fark etti.
+
+![](stallman.jpg)
+
+*Richard Stallman*
 
 1980'lerden hemen her yazılım "değiştirilmeye ve kullanıcıları tarafından geliştirilmeye" yasak halde dağıtılıyordu. Bunun üzerine Richard Stallman Unix benzeri bir işletim sistemi ve bu sistemi çalıştıran yazılımlar grubu geliştirmeye karar verdi. Geliştirdiği bu yazılımları dağıtırken de daha önce karşılaştığı durumla başkalarının karşılaşmasını engellemek için özel bir lisanslama biçimi geliştirdi, lisanslama isminin adı GPL (General Public License) idi. Geliştirmeye başladığı sisteme ise "GNU is Not Unix"in kısaltması olarak GNU ismini verdi. Bu yazılımlar grubunu dağıtırken Özgür Yazılım Derneğ'ni (FSF: Free Software Foundation) kurmuş ve işinin MIT veya Yapay Zeka Laboratuvarları ile ilişkilendirilmemesi için MIT'den istifa etmiştir.
 
