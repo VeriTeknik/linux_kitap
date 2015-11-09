@@ -88,4 +88,3 @@ man -wa mkdir
 /usr/share/man/man1/mkdir.1.gz
 /usr/share/man/man2/mkdir.2.gz
 ```
-
