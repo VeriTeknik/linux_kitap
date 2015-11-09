@@ -20,5 +20,7 @@ Geliştiricilerin, sunucu sistemi kullanıcılarının ve son kullanıcıların 
 Tablo dünyanın son gününe LINUX kullanıcıları arasında kadar tartışılacak olsa da genel kanı olarak stabilite ve sürdürülebilirlik göz önünde bulundurulduğunda FreeBSD tartışmasız lider konumundadır, ancak deneyimsiz ellerde tamamen felakete dönüşebilecek bu sistemi kullanmak yüksek bilgi ve deneyim gerektirir. 
 
 Debian ve CentOS arasında tercih yapmak ise, tutulan futbol takımı kadar rastlantısal olabilir, kullanıcıların ilk başarılı deneyimi bu iki sürüm arasında genelde tercih nedeni olmaktadır. Google trends üzerinden yaptığımız incelemede iki sürümünde aynı oranda popüler olduğunu göstermektedir:
-[CentOS ve Debian](capture_001_09112015_040419.jpg)
+![CentOS ve Debian](capture_001_09112015_040419.jpg)
+
+
 
