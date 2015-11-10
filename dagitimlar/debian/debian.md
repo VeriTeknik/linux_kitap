@@ -53,6 +53,11 @@ En son disk bölümlendirmemiz tamamlanmış bulunmakta. "Finish partitioning an
 
 ![](f13.jpg)
 
+Yüklemenin ilerleyen bölümlerinde GRUB loader seçenegini kendimize uygun şekilde hazırlıyoruz.
+
+![](d14.jpg)
+
+Yükleme tamamlanmıştır.
 
 
 
