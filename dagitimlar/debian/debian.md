@@ -1,4 +1,4 @@
-# Debian
+# Debian Yükleme Rehberi
 
 Debian kurulum cdsini boot ettikten sonra karşımıza gelen ekranda "Install Debian" seçeneğini tıklıyoruz.
 
