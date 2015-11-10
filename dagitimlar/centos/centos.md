@@ -1,4 +1,4 @@
-# CentOS
+# CentOS Yükleme Rehberi
 
 Bağlı bulunduğumuz sunucudan veyahut sistemden cdrom'u boot ederek başlıyoruz. Boot ettikten sonra önümüze gelen ilk ekranda 5 farklı seçenek olacak ve biz "Install CentOS 7" başlığını seçiyoruz.
 
