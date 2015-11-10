@@ -1,4 +1,4 @@
-# FreeBSD
+# FreeBSD Yükleme Rehberi
 
 FreeBSD yükleme CDsini boot ettikten sonra önümüzde çıkan ekranda 1 basarak işleme başlıyoruz.
 
