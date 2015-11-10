@@ -97,5 +97,5 @@
 * [Hata Takibi](hata_takibi/hata_takibi.md)
    * [PHP, MySQL ve Apache Kütük Yapılandırması](hata_takibi/kutuk_yapisi.md)
 * [Index](index.md)
-   * Linkler
+   * [Linkler](linkler.md)
 
