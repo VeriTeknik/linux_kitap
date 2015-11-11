@@ -99,5 +99,5 @@
 * [Index](index.md)
    * [Linkler](linkler.md)
    * [Notlar (silinecek)](notlar_silinecek.md)
-   * Araçlar
+   * [Araçlar](araclar.md)
 
