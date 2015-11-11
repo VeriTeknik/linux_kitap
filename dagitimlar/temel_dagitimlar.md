@@ -9,6 +9,8 @@ Kurulum yapılmadan önce sunucu altyapısı incelenmeli, RAID sistemi tasarlanm
 
 |Dizin | Boyut | Açıklama|
 |-- | -- | -- |
-|- /boot | 500 MB | Açılış Dizini |
+|/boot | 500 MB | Açılış Dizini |
 | SWAP | 2xRAM Miktarı | Disk Belleği |
+|/ | Geri Kalan Tüm Alan |Kök Dizin |
+
 
