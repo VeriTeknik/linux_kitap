@@ -98,4 +98,5 @@
    * [PHP, MySQL ve Apache Kütük Yapılandırması](hata_takibi/kutuk_yapisi.md)
 * [Index](index.md)
    * [Linkler](linkler.md)
+   * Notlar (silinecek)
 
