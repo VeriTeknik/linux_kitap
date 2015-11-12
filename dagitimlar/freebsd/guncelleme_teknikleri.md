@@ -24,3 +24,26 @@ cevap gelmiyorsa yüklemeyi yapınız:
 cd /usr/ports/ports-mgmt/portupgrade
 make install clean
 ```
+
+Major güncellemeyi başlatmak için FreeBSD sitesinden en son kararlı sürüm versiyonuna bakınız, daha sonra şu komutu yazınız:
+
+```bash
+freebsd-update upgrade -r 10.2-RELEASE
+#Fetching metadata signature for 10.1-RELEASE from update5.freebsd.org... done.
+#Fetching metadata index... done.
+#Fetching 1 metadata patches. done.
+#Applying metadata patches... done.
+#Inspecting system... done.
+#
+#The following components of FreeBSD seem to be installed:
+#kernel/generic world/base world/doc world/lib32
+#
+#The following components of FreeBSD do not seem to be installed:
+#src/src world/games
+#
+#Does this look reasonable (y/n)? y
+#.
+#.
+freebsd-update install
+```
+
