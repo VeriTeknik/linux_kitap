@@ -10,3 +10,10 @@ vi editörü aslında oldukça eskiye dayanan bir takım editörlerin evrilmesiy
 
 Yıllar sonra Bram Moolenaar tarafından *vi* kodu geliştirildi ve *vim* *(Vi IMproved)* açığa çıktı. Günümüz klavye ve sistemlerine en yatkın olanı olduğu gerekçesiyle biz de örneklerimizde *vim* kullanacağız.
 
+CentOS işletim sistemiyle birlikte gelen *vi* doğrudan *vim* olurken Debian ve Ubuntu türevlerinde durum böyle değildir. Eğer bu sistemlerde de *vim* kullanmak isterseniz aşağıdaki komutla önce yüklemeniz gerekir.
+
+```bash
+apt-get install vim
+```
+
+Ardından *vi* çalıştırıldığında doğrudan *vim* çalışacaktır. Yukarıdaki komutların ne anlama geldiğini merak ediyorsanız, Temel Dağıtımlar bölümünün
