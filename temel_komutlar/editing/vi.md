@@ -30,3 +30,5 @@ vi crc8.py
 
 Dosyayı açtıktan sonra **i** tuşuna basarsanız terminalinizin en alt satırında **--INSERT--** yazdığını görebilirsiniz. Bu, *düzenleme* modunda bulunduğunuzu gösterir. Bu durumdayken tuşlara bastığınızda, imlecin bulunduğu yere karakter eklemesi gerçekleşecektir. *düzenleme* moduna geçmek için **i** tuşunu kullanmak yerine, klavyelerin artık pek kullanılmayan **INSERT** tuşunu da kullanabilirsiniz.
 
+Düzenleme modundan çıkmak için klavyenizin **ESC** tuşuna basmanız gerekir. Düzenleme modundan çıkılınca tekrar komut moduna dönülür, aşağıdaki **--INSERT--** yazısının kaybolduğunu görebilirsiniz.
+
