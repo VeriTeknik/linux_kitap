@@ -28,5 +28,5 @@ Bu ekranda default bölümleme önümüze gelecektir. Burda dilerseniz silebilir
 
 ![](fr7.jpg)
 
-Yükleme ekranından sonra bilgisayar yeniden başlayarak FreeBSD yüklemesini tamamlayacaktır.
+Yükleme ekranından sonra bilgisayar yeniden başlayarak FreeBSD yüklemesin tamamlanacaktır.
 
