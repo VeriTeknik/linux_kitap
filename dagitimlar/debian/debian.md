@@ -57,7 +57,7 @@ Yüklemenin ilerleyen bölümlerinde GRUB loader seçenegini kendimize uygun şe
 
 ![](d14.jpg)
 
-Yükleme tamamlanmıştır.
+Yükleme ekranı bittikten sonra sistem yeniden başlayacak ve Debian yüklemesi tamamlanacaktır.
 
 
 
