@@ -57,6 +57,12 @@ Yükleme sonrası sistemin yeniden başlatılması istenmektedir, yeniden başla
 #Installing updates... done.
 ```
 
+Geçiş yapılan son versiyonu görüntülemek için:
+```bash
+uname -a
+# FreeBSD buildtest.veriteknik.com 10.2-RELEASE-p7 FreeBSD 10.2-RELEASE-p7 #0: Mon Nov  2 14:19:39 UTC 2015     root@amd64-builder.daemonology.net:/usr/obj/usr/src/sys/GENERIC  amd64
+```
+
 ### Minör Güncellemeler
 
 freebsd-update install komutu ile de indirilen paketlerin güncellemesi sağlanır, bu işlemden sonra ise daha önceki sürüm ile uyumlu olan portların güncellemesi yapılmalıdır.
