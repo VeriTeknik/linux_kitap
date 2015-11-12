@@ -17,3 +17,14 @@ apt-get install vim
 ```
 
 Ardından *vi* çalıştırıldığında doğrudan *vim* çalışacaktır. Yukarıdaki komutların ne anlama geldiğini merak ediyorsanız, *Temel Dağıtımlar* bölümünün *Debian* kısmının *aptitude Paket Yöneticisi* başlığını inceleyebilirsiniz.
+
+## Çalışma Modları
+
+vi'nın bir takım çalışma modları vardır, bu aslında *ed*'den kalan bir alışkanlıktır. vi ilk çalıştırıldığında *komut* modunda bulunur, *düzenleme* moduna geçmek için ayrıca işlem yapmanız gerekir.
+
+Dosyamızı vi ile aşağıdaki gibi açtığımızda, *komut* modundan *düzenleme* moduna geçmek için **i** tuşuna basmamız yeterlidir.
+
+```bash
+vi crc8.py
+```
+
