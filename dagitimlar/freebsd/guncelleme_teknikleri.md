@@ -4,3 +4,6 @@ Diğer dağıtımlarda olduğu gibi FreeBSD üzerinde de birden çok paket ve da
 
 Çoğunlukla bir update yönteminin çalışmadığı noktada diğer update yöntemi çalışacak ya da hangi update yöntemi ile başlanıldıysa onunla devam etmek doğru olacaktır.
 
+### Major Güncellemeler
+FreeBSD üzerinden Major (X.0) güncellemeleri yapılabilmektedir, portların uyumluluğu gözden geçirildikten sonra bir sorun yaşamadan büyük update gerçekleştirebilirsiniz.
+
