@@ -20,11 +20,13 @@ Ardından *vi* çalıştırıldığında doğrudan *vim* çalışacaktır. Yukar
 
 ## Çalışma Modları
 
-vi'nın bir takım çalışma modları vardır, bu aslında *ed*'den kalan bir alışkanlıktır. vi ilk çalıştırıldığında *komut* modunda bulunur, *düzenleme* moduna geçmek için ayrıca işlem yapmanız gerekir.
+vi'nın bir takım çalışma modları vardır, bu aslında *ed*'den kalan bir alışkanlıktır. vi ilk çalıştırıldığında *komut* modunda bulunur, *düzenleme* moduna geçmek için ayrıca işlem yapmanız gerekir. *komut* modundayken tuşlara basarsanız yazı yazamazsınız, ancak kopyalama, silme, dosya içinde gezinme benzeri işlemleri gerçekleştirebilirsiniz.
 
 Dosyamızı vi ile aşağıdaki gibi açtığımızda, *komut* modundan *düzenleme* moduna geçmek için **i** tuşuna basmamız yeterlidir.
 
 ```bash
 vi crc8.py
 ```
+
+Dosyayı açtıktan sonra **i** tuşuna basarsanız terminalinizin en alt satırında **--INSERT--** yazdığını görebilirsiniz. Bu, *düzenleme* modunda bulunduğunuzu gösterir. Bu durumdayken tuşlara bastığınızda, imlecin bulunduğu yere karakter eklemesi gerçekleşecektir. *düzenleme* moduna geçmek için **i** tuşunu kullanmak yerine, klavyelerin artık pek kullanılmayan **INSERT** tuşunu da kullanabilirsiniz.
 
