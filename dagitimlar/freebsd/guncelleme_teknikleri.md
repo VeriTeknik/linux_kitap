@@ -9,5 +9,18 @@ FreeBSD üzerinden Major (X.0) güncellemeleri yapılabilmektedir, portların uy
 
 Major sürüm güncellemesinden sonra tüm paketlerin sağlıklı bir şekilde yeni sürüme port edilebilmesi için portupgrade paketine ihtiyaç duyulmaktadır, eğer sistemde yüklü değilse portlardan kolaylıkla yükleyebilirsiniz:
 
+```bash
+which portupgrade
+```
+sorusuna aşağıdaki gibi bir cevap alıyorsanız, portupgrade yüklüdür:
 
+```bash
+#/usr/local/sbin/portupgrade
+```
 
+cevap gelmiyorsa yüklemeyi yapınız:
+
+```bash
+cd /usr/ports/ports-mgmt/portupgrade
+make install clean
+```
