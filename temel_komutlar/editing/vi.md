@@ -16,4 +16,4 @@ CentOS işletim sistemiyle birlikte gelen *vi* doğrudan *vim* olurken Debian ve
 apt-get install vim
 ```
 
-Ardından *vi* çalıştırıldığında doğrudan *vim* çalışacaktır. Yukarıdaki komutların ne anlama geldiğini merak ediyorsanız, Temel Dağıtımlar bölümünün
+Ardından *vi* çalıştırıldığında doğrudan *vim* çalışacaktır. Yukarıdaki komutların ne anlama geldiğini merak ediyorsanız, *Temel Dağıtımlar* bölümünün *Debian* kısmının *aptitude Paket Yöneticisi* başlığını inceleyebilirsiniz.
