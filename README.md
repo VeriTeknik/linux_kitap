@@ -9,6 +9,14 @@ Döküman veya GNU/Linux hakkında herhangi sorunuz için bize [iletisim@veritek
 adresinden ulaşabilirsiniz.
 
 
+## Notlar
+Dökümanda kullanılan kod ekranları kolay "kopyala-yapıştır" yapılabilmesi açısından komut satırları # işareti olmadan, cevapların ise bash tarafından "yorum" olarak algılanabilmesi için başında # işareti ile ifade edilmiştir, örneğin:
+```bash
+which vi
+#/usr/bin/vi
+#You have new mail.
+```
+
 
 **Cem Karaca** & **M. Emre Aydın**
 
