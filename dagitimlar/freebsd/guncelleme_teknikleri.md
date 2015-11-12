@@ -45,6 +45,17 @@ freebsd-update upgrade -r 10.2-RELEASE
 #.
 #.
 /usr/sbin/freebsd-update install
+#Installing updates...
+#Kernel updates have been installed.  Please reboot and run
+#"/usr/sbin/freebsd-update install" again to finish installing updates.
+reboot
 ```
+Yükleme sonrası sistemin yeniden başlatılması istenmektedir, yeniden başlattıktan sonra aynı komutu tekrar çalıştırmalısınız:
+
+```bash
+/usr/sbin/freebsd-update install
+```
+
+
 freebsd-update install komutu ile de indirilen paketlerin güncellemesi sağlanır, bu işlemden sonra ise daha önceki sürüm ile uyumlu olan portların güncellemesi yapılmalıdır.
 
