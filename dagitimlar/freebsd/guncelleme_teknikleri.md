@@ -57,6 +57,7 @@ Yükleme sonrası sistemin yeniden başlatılması istenmektedir, yeniden başla
 #Installing updates... done.
 ```
 
+### Minör Güncellemeler
 
 freebsd-update install komutu ile de indirilen paketlerin güncellemesi sağlanır, bu işlemden sonra ise daha önceki sürüm ile uyumlu olan portların güncellemesi yapılmalıdır.
 
