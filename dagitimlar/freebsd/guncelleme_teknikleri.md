@@ -72,5 +72,6 @@ rm /var/db/pkg/pkgdb.db /usr/ports/INDEX-*.db
 portupgrade -af
 ```
 
+Bu işlemden sonra tekrar freebsd-update çalıştırılır ve sisten yeniden başlatılır.
 
 
