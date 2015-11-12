@@ -44,7 +44,7 @@ freebsd-update upgrade -r 10.2-RELEASE
 #Does this look reasonable (y/n)? y
 #.
 #.
-freebsd-update install
+/usr/sbin/freebsd-update install
 ```
 freebsd-update install komutu ile de indirilen paketlerin güncellemesi sağlanır, bu işlemden sonra ise daha önceki sürüm ile uyumlu olan portların güncellemesi yapılmalıdır.
 
