@@ -60,3 +60,10 @@ Yükleme sonrası sistemin yeniden başlatılması istenmektedir, yeniden başla
 
 freebsd-update install komutu ile de indirilen paketlerin güncellemesi sağlanır, bu işlemden sonra ise daha önceki sürüm ile uyumlu olan portların güncellemesi yapılmalıdır.
 
+```bash
+rm /var/db/pkg/pkgdb.db /usr/ports/INDEX-*.db
+portupgrade -af
+```
+
+
+
