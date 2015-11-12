@@ -54,6 +54,7 @@ Yükleme sonrası sistemin yeniden başlatılması istenmektedir, yeniden başla
 
 ```bash
 /usr/sbin/freebsd-update install
+#Installing updates... done.
 ```
 
 
