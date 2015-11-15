@@ -24,3 +24,5 @@ Yukarıdaki yardım ekranından görülebileceği gibi, top ekranındaki değerl
 Yukarıdaki ekrandan **memory** seçerek **top** programının bellek tüketimine göre programları sıralaması sağlanabilir. Ardından **q** ile çıktığımızda ekranımız aşağıdakine benzer olacaktır.
 
 ![](top-memory.png)
+*Yukarıdaki örnekte python3 belleğin büyük çoğunluğun tüketirken görülüyor.*
+
