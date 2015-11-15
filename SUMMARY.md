@@ -15,6 +15,7 @@
    * [top, ps ile İşlem İzleme](gelismis_terminal/top.md)
    * [awk ve sed](gelismis_terminal/awk_sed.md)
    * [egrep ve Regular Expressions](gelismis_terminal/egrep.md)
+   * Tarih ve Saat Ayarlama
 * [Temel Dağıtımlar](dagitimlar/temel_dagitimlar.md)
    * [CentOS](dagitimlar/centos/centos.md)
        * [yum Paket Yöneticisi](dagitimlar/centos/yum.md)
