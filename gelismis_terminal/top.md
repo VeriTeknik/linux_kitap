@@ -28,6 +28,11 @@ Yukarıdaki ekrandan **memory** seçerek **top** programının bellek tüketimin
 ![](top-memory.png)
 *Yukarıdaki örnekte python3 belleğin büyük çoğunluğun tüketirken görülüyor.*
 
+**top** programının renklendirilmiş ve daha kolay kullanılır hale getirilmiş bir versiyonu **htop** bazı sistemlerde bulunabilir. Daha kolay kullanım ve daha alışıldık bir görünüm sağlar.
+
+![](htop.png)
+*htop ekran görüntüsü*
+
 ##free
 
 Sistemin genel bellek tüketimini görmek için **free** komutu kullanılabilir.
