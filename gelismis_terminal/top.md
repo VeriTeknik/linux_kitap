@@ -1,4 +1,6 @@
-# top, ps ile İşlem İzleme
+# İşlemci Yükünü İzleme
+
+##top
 
 Linux üzerinde sistem kaynaklarınızı tüketen yazılımları izlemek için kullanılan en pratik programlardan birisi **top** programıdır. Program doğrudan CPU kullanımına göre sıralandırılmış sonuçlar döndürür.
 
@@ -25,6 +27,8 @@ Yukarıdaki ekrandan **memory** seçerek **top** programının bellek tüketimin
 
 ![](top-memory.png)
 *Yukarıdaki örnekte python3 belleğin büyük çoğunluğun tüketirken görülüyor.*
+
+##free
 
 Sistemin genel bellek tüketimini görmek için **free** komutu kullanılabilir.
 
