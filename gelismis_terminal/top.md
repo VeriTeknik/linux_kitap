@@ -28,14 +28,14 @@ Yukarıdaki ekrandan **memory** seçerek **top** programının bellek tüketimin
 ![](top-memory.png)
 *Yukarıdaki örnekte python3 belleğin büyük çoğunluğun tüketirken görülüyor.*
 
-**top** kullanılırken işlemleri öldürmek mümkündür. Ekranda **k** tuşuna bastığınızda, doğrudan en üstteki işlem seçilecektir. Bunun dışında bir işlem öldürülmek istenirse, ilgili işlemin PID'si yazılabilir. Ardından hangi sinyal ile öldürüleceği belirtilmelidir. Genel kanı **9** sinyali ile öldürmektir.
+**top** kullanılırken işlemleri öldürmek mümkündür. Ekranda **k** tuşuna bastığınızda, doğrudan en üstteki işlem seçilecektir. Bunun dışında bir işlem öldürülmek istenirse, ilgili işlemin PID'si yazılabilir. Ardından hangi sinyal ile öldürüleceği belirtilmelidir. Genel kanı **15** sinyali ile öldürmektir.
 
 ![](top-pid.png)
 
 Aslında top programı arka planda aşağıdaki komutu çalıştırır.
 
 ```bash
-kill -9 6392
+kill -15 6392
 ```
 
 ##free
