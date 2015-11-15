@@ -12,7 +12,7 @@
        * [vi](temel_komutlar/editing/vi.md)
 * [Gelişmiş Terminal Komutları](gelismis_terminal/gelismis_terminal_komutlari.md)
    * [Tarih ve Saat Ayarlama](gelismis_terminal/tarih_ve_saat_ayarlama.md)
-   * [İşlemci Yükünü İzleme](gelismis_terminal/top.md)
+   * [Sistem Yükünü İzleme](gelismis_terminal/top.md)
    * [Standart Girdi ve Çıktı Yönlendirme](gelismis_terminal/stdio.md)
    * [awk ve sed](gelismis_terminal/awk_sed.md)
    * [egrep ve Regular Expressions](gelismis_terminal/egrep.md)
