@@ -11,7 +11,7 @@
        * [nano ve pico](temel_komutlar/editing/nano.md)
        * [vi](temel_komutlar/editing/vi.md)
 * [Gelişmiş Terminal Komutları](gelismis_terminal/gelismis_terminal_komutlari.md)
-   * Tarih ve Saat Ayarlama
+   * [Tarih ve Saat Ayarlama](gelismis_terminal/tarih_ve_saat_ayarlama.md)
    * [Standart Girdi ve Çıktı Yönlendirme](gelismis_terminal/stdio.md)
    * [top, ps ile İşlem İzleme](gelismis_terminal/top.md)
    * [awk ve sed](gelismis_terminal/awk_sed.md)
