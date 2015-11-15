@@ -105,3 +105,17 @@ service ntp start
 
 Buradaki **-g** parametresi ntp'ye "saatimiz okuduğun değerden çok farklıysa da değişikliği yap" bilgisini gönderir. **-q** ise değişikliğin ardından problemsiz çıkması (quit) gerektiğini ifade eder.
 
+İlk örneğimizde hangi NTP sunucuyu kullanmamız gerektiğini belirtmiş olmamıza rağmen, ikinci örnekte buna gerek olmadı. Çünkü **ntpd** programı kendi ayarlarında bulunan sunucular listesine sırasıyla ulaşmaya çalışmaktadır. Genellikle bu ayar dosyası **/etc/ntp.conf** yolunda bulunur. Dosyayı inceleyebilirsiniz.
+
+Bir diğer yöntemse **sntp** (Simple Network Time Protocol Program) kullanmaktır.
+
+```bash
+sntp in.pool.ntp.org
+15 Nov 19:52:17 sntp[8379]: Started sntp
+2015-11-15 19:52:18.033704 (-0200) +0.013936 +/- 0.094574 secs
+2015-11-15 19:52:18.240571 (-0200) +0.016590 +/- 0.146622 secs
+2015-11-15 19:52:18.598237 (-0200) +0.067291 +/- 0.111588 secs
+2015-11-15 19:52:18.953649 (-0200) +0.082531 +/- 0.049759 secs
+```
+
+Yukarıdaki komut sadece farkı gösterir. Eğer ayarlama yapmak istiyorsanız **-s** parametresini kullanabilirsiniz.
