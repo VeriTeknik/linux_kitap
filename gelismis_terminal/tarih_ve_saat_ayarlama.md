@@ -16,8 +16,15 @@ date +%d_%m_%Y
 
 Daha kompleks işlemler için boşluklu parametreleri çift tırnak içinde birleştirip tek parametre olarak programa sunmak gerekir.
 
-```
+```bash
 date +"Ay:%m / Yıl:%y"
 Ay:11 / Yıl:15
+```
+
+Saati ve tarihi ayarlamak içinse aşağıdaki gibi bir yol izlenebilir.
+
+```bash
+date -s "2 NOV 2014 17:45:12"
+Sun Nov 2 17:45:12 EET 2014
 ```
 
