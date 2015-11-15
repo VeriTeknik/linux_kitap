@@ -76,3 +76,8 @@ Sistemin ne zaman başlatıldığını görmek için ```who -b``` komutu da oldu
 **ps** programı sistem üzerinde çalışan yazılımları, işlemleri tespit etmek için kullanılır. Yaygınlıkla kullanılan parametreler ```ps aux``` ve ```ps -ef``` şeklindedir. Bu parametreler ile işlemleri listeleyip, farklarına bakabilirsiniz. İşlemler listesinin başını görmek için çıktınızı ```head``` ile sınırlandırın, veya ```more``` ile sayfalara bölün.
 
 İşlemlerin hiyerarşilerini görebilmek için ```ps axjf``` kullanılabilir. Böylece hangi işlemin, hangisinin **parent**ı olduğu görülebilir. Linux üzerinde her zaman 1 numaralı **PID**'ye (Process ID) sahip işlem *init*tir. Bütün işlemler bu program tarafından **spawn** edilir. Linux'ta bir işlemin **parent** işlemini öldürdüğünüzde, **child** işlemleri de ölecektir. Dolayısıyla örneğin bir şekilde **1** numaralı işlemimiz ölürse, bütün sistem duracaktır. Bu durumun önüne geçebilmek için *init* işlemi sistem tarafından korunur. *init* kendisine hangi sinyallerin gönderilebileceğine karar verir. Bu, yazılan Linux çekirdeklerine göre değişiklik gösterebilir, ancak hemen hepsi **kill** sinyaline izin vermez.
+
+##nice
+
+Linux üzerinde işlemlerin önceliği, onların ne kadar *nice* (iyi) olduklarıyla ifade edilir. Bir işlemin *nice* değeri ne kadar düşükse, o kadar "az iyi" olacağından, o kadar işlemci önceliği vardır, yani daha fazla sistem kaynağı tüketen işlemlerin *nice* değeri düşüktür. Önceliği düşük olan işlemleri daha *iyi*dir çünkü daha az sistem kaynağı tüketirler.
+
