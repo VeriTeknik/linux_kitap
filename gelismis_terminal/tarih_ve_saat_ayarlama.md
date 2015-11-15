@@ -82,3 +82,26 @@ hwclock -s
 ```bash
 hwclock -w
 ```
+
+## NTP ile Tarihin Güncellenmesi
+
+NTP (Network Time Protocol) tarih ve saatin ağ üzerinden hassas bir biçimde iletilmesini sağlamak amacıyla geliştirilmiştir. Bugün internete bağlı bütün cihazlar, ve yerel ağlarda çalışan bütün güvenlik sistemleri bu protokol yardımıyla tarihlerini güncel tutmaktadır.
+
+Sunucunuzun saatini ntp kullanarak güncellemek için aşağıdaki komutu kullanabilirsiniz.
+
+```bash
+ntpdate -v -b in.pool.ntp.org
+```
+
+Bu komut, saatin nereden ayarlanacağını belirtmektadır.
+
+Bazı sistemlerde **ntpdate** artık terk edilmekte (deprecated) ve yerine doğrudan **ntpd** kullanılmaktadır. Böyle bir sistem kullanıyorsanız, önce ntp servislerinizi durdurmanız, ardından ntp'ye zorla gidip saati kontrol ettirmeniz gerekmektedir.
+
+```
+service ntp stop
+ntpd -gq
+service ntp start
+```
+
+Buradaki **-g** parametresi ntp'ye "saatimiz okuduğun değerden çok farklıysa da değişikliği yap" bilgisini gönderir. **-q** ise değişikliğin ardından problemsiz çıkması (quit) gerektiğini ifade eder.
+
