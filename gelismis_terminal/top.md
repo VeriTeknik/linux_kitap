@@ -15,3 +15,12 @@ CPU kullanımı incelenirken dikkat edilmesi gereken nokta, toplam değeri %100'
 **h** tuşuna basılarak programın yardım ekranına erişilebilir.
 
 ![](top3.png)
+
+Yukarıdaki yardım ekranından görülebileceği gibi, top ekranındaki değerleri sıralamak için **f** tuşu kullanılabilirmiş.
+
+![](top-sort.png)
+*Hangi parametreye göre sıralanacağını gösteren ekran.*
+
+Yukarıdaki ekrandan **memory** seçerek **top** programının bellek tüketimine göre programları sıralaması sağlanabilir. Ardından **q** ile çıktığımızda ekranımız aşağıdakine benzer olacaktır.
+
+![](top-memory.png)
