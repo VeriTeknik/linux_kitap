@@ -55,3 +55,11 @@ kill -15 6392
 **15** numaralı sinyal, aslında programa **TERMINATION** sinyalini gönderir. Doğru yazılmış programlar bu sinyali işleyip kapanmaya çalışırlar. Örneğin açık dosyalarını kapatır, gerekli işlemlerini tamamlar vs. Eğer bir program bu sinyal ile ölmüyorsa, muhtemelen işlemleri arasında bir problem yaşamış demektir. Bu programları sonlandırmak için **KILL** sinyalini **9** ile göndermek gerekir. Bu sinyal her ne olursa olsun programın sonlandırılmasını sağlayacaktır.
 
 Sistem üzerinde pek çok sinyal bulunur. Sinyallerin bir listesini görmek için ```bash kill -l``` komutu kullanılabilir. Örneğin **2** numaralı sinyal, **INTERRUPT** sinyalidir, kısacası bir program çalışırken klavyenizle **CTRL+C** göndermekle aynı işi yapar. Bazı durumlarda bu sinyali göndermek, veya programlarınız test etmek için yararlı olabilir.
+
+##uptime
+
+Sistem hakkında bilgi edinmeyi sağlayan bir diğer komut **uptime** komutudur. Sistemin ne kadar zamandır çalıştığını, kaç kişinin (terminalin) açık olduğunu, son birkaç dakikanın işlemci yükünün ortalamasını gösterir.
+
+Sistemin ne zaman başlatıldığını görmek için ```bash who -b``` komutu da oldukça faydalıdır.
+
+Öte yandan sisteme bağlı terminallerin bir listesini elde etmek için `w` programı kullanılabilir.
