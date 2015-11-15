@@ -1,5 +1,7 @@
 # Tarih ve Saat Ayarlama
 
+##Sistem Saati
+
 Linux üzerinde tarih ve saat ayarlama işlemleri **date** komutu ile gerçekleştirilir. Komutu tek başına yazdığınızda tarih ve saati çıktı olarak verir.
 
 ```bash
@@ -41,6 +43,7 @@ Veya dilediğiniz biçimde tarih belirtmek için,
 ```bash
 date +%Y%m%d%T -s "20120423 09:15:12"
 ```
+## Fiziksel Saat
 
 Sistem üzerine yazılan saatler, bilgisayarın pil ile tutulan fiziksel saatine doğrudan kaydedilmez. Fiziksel saatteki bilgiye erişmek için **hwclock** komutu kullanılmalıdır.
 
