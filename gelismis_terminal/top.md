@@ -81,3 +81,18 @@ Sistemin ne zaman başlatıldığını görmek için ```who -b``` komutu da oldu
 
 Linux üzerinde işlemlerin önceliği, onların ne kadar *nice* (iyi) olduklarıyla ifade edilir. Bir işlemin *nice* değeri ne kadar düşükse, o kadar "az iyi" olacağından, o kadar işlemci önceliği vardır, yani daha fazla sistem kaynağı tüketen işlemlerin *nice* değeri düşüktür. Önceliği düşük olan işlemleri daha *iyi*dir çünkü daha az sistem kaynağı tüketirler.
 
+**top** komutu çıktısındaki **NI** sütunu, ilgili işlemin *nice* değerine karşılık gelir.
+
+*nice* değeri -19/-20 ile 19/20 arasında değişebilir. Üst ve alt limitlerin değeri sistemlere göre farklılık gösterir.
+
+Bir programı belirli bir *nice* değeri ile çalıştırmak istersek, programı çalıştırma esnasında bu değeri belirtmek gerekir.
+
+```bash
+nice -n 12 crc8
+```
+
+Öte yandan, mevcut bir programın *nice* değerini değiştirmek istersek, programın **PID** değerini parametre olarak vermek gerekir.
+
+```bash
+renice -3 5486
+```
