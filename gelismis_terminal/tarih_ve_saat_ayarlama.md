@@ -71,7 +71,7 @@ Hw clock time : 2015/11/15 17:39:39 = 1447609179 seconds since 1969
 Sun 15 Nov 2015 07:39:39 PM EET  -0.969248 seconds
 ```
 
-Fiziksel saatteki değeri okuyup, sistem saatinizi bununla güncellemek isteyebilirsiniz. Aslında bilgisayarlarınızın açılışta yaptığı bir işlemdir bu. Böylelikle sisteminize hiç enerji verilmediği durumlarda saat pili ile sistem geçen zamanı tutmaya devam eder, sisteminiz tekrar açıldığında bu cihazdan (RTC) saati okur ve kendi tarihini bu değerle günceller.
+Fiziksel saatteki değeri okuyup, sistem saatinizi bununla güncellemek isteyebilirsiniz. Aslında bilgisayarlarınızın açılışta yaptığı bir işlemdir bu. Böylelikle sisteminize hiç enerji verilmediği durumlarda saat pili ile sistem geçen zamanı tutmaya devam eder, sisteminiz tekrar açıldığında bu cihazdan (RTC: Real Time Clock) saati okur ve kendi tarihini bu değerle günceller.
 
 ```bash
 hwclock -s
