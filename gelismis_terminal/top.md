@@ -96,3 +96,9 @@ nice -n 12 crc8
 ```bash
 renice -3 5486
 ```
+
+Komutların mevcut nice değerini **ps** ile öğrenmek için, ps çıktısından bunu talep edebiliriz.
+
+```bash
+ps ax -o pid,ni,cmd
+```
