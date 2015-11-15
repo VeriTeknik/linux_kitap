@@ -102,3 +102,7 @@ Komutların mevcut nice değerini **ps** ile öğrenmek için, ps çıktısında
 ```bash
 ps ax -o pid,ni,cmd
 ```
+
+**PROBLEM:** Sistem üzerinde 20 dakikadan daha uzun süredir çalışan işlemleri bulun. **ps** komutunun uygun parametreleriyle elde edilebilir. Bu işlemi öldürün.
+
+Yukarıdaki problemi çözen bir Python yazılımı https://github.com/eaydin/timebomb adresinde görülebilir. Bu yazılım standart Linux komutlarını kullanmaktadır.
