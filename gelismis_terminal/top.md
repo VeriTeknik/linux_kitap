@@ -28,16 +28,6 @@ Yukarıdaki ekrandan **memory** seçerek **top** programının bellek tüketimin
 ![](top-memory.png)
 *Yukarıdaki örnekte python3 belleğin büyük çoğunluğun tüketirken görülüyor.*
 
-**top** kullanılırken işlemleri öldürmek mümkündür. Ekranda **k** tuşuna bastığınızda, doğrudan en üstteki işlem seçilecektir. Bunun dışında bir işlem öldürülmek istenirse, ilgili işlemin PID'si yazılabilir. Ardından hangi sinyal ile öldürüleceği belirtilmelidir. Genel kanı **15** sinyali ile öldürmektir.
-
-![](top-pid.png)
-
-Aslında top programı arka planda aşağıdaki komutu çalıştırır.
-
-```bash
-kill -15 6392
-```
-
 ##free
 
 Sistemin genel bellek tüketimini görmek için **free** komutu kullanılabilir.
@@ -50,4 +40,18 @@ Mem:       7947480    7095948     851532     482716       6864     781848
 Swap:      7193596        276    7193320
 ```
 
+##kill
 
+**top** kullanılırken işlemleri öldürmek mümkündür. Ekranda **k** tuşuna bastığınızda, doğrudan en üstteki işlem seçilecektir. Bunun dışında bir işlem öldürülmek istenirse, ilgili işlemin PID'si yazılabilir. Ardından hangi sinyal ile öldürüleceği belirtilmelidir. Genel kanı **15** sinyali ile öldürmektir.
+
+![](top-pid.png)
+
+Aslında top programı arka planda aşağıdaki komutu çalıştırır.
+
+```bash
+kill -15 6392
+```
+
+**15** numaralı sinyal, aslında programa **TERMINATION** sinyalini gönderir. Doğru yazılmış programlar bu sinyali işleyip kapanmaya çalışırlar. Örneğin açık dosyalarını kapatır, gerekli işlemlerini tamamlar vs. Eğer bir program bu sinyal ile ölmüyorsa, muhtemelen işlemleri arasında bir problem yaşamış demektir. Bu programları sonlandırmak için **KILL** sinyalini **9** ile göndermek gerekir. Bu sinyal her ne olursa olsun programın sonlandırılmasını sağlayacaktır.
+
+Sistem üzerinde pek çok sinyal bulunur. Sinyallerin bir listesini görmek için ```bash kill -l``` komutu kullanılabilir. Örneğin **2** numaralı sinyal, **INTERRUPT** sinyalidir, kısacası bir program çalışırken klavyenizle **CTRL+C** göndermekle aynı işi yapar. Bazı durumlarda bu sinyali göndermek, veya programlarınız test etmek için yararlı olabilir.
