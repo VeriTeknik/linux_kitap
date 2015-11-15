@@ -61,6 +61,8 @@ kill -15 6392
 
 Sistem üzerinde pek çok sinyal bulunur. Sinyallerin bir listesini görmek için ```kill -l``` komutu kullanılabilir. Örneğin **2** numaralı sinyal, **INTERRUPT** sinyalidir, kısacası bir program çalışırken klavyenizle **CTRL+C** göndermekle aynı işi yapar. Bazı durumlarda bu sinyali göndermek, veya programlarınız test etmek için yararlı olabilir.
 
+Bir diğer örnek Hang Up (HUP) sinyalidir. **1** numaralı sinyal olan HUP, pek çok *daemon* tarafından *restart* olarak işlenir. Örneğin *apache* bu sinyali alıp işleyen servislerden birisidir. Apache'nin PID'sine *HUP* sinyali gönderilirse, Apache kendisini yeniden başlatır.
+
 ##uptime
 
 Sistem hakkında bilgi edinmeyi sağlayan bir diğer komut **uptime** komutudur. Sistemin ne kadar zamandır çalıştığını, kaç kişinin (terminalin) açık olduğunu, son birkaç dakikanın işlemci yükünün ortalamasını gösterir.
