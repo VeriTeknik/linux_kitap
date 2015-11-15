@@ -71,4 +71,4 @@ Sistemin ne zaman başlatıldığını görmek için ```who -b``` komutu da oldu
 
 ##ps
 
-**ps** programı sistem üzerinde çalışan yazılımları, işlemleri tespit etmek için kullanılır. Yaygınlıkla kullanılan parametreler ```ps aux``` ve ```ps ef``` şeklindedir.
+**ps** programı sistem üzerinde çalışan yazılımları, işlemleri tespit etmek için kullanılır. Yaygınlıkla kullanılan parametreler ```ps aux``` ve ```ps -ef``` şeklindedir.
