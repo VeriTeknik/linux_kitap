@@ -1,4 +1,4 @@
-# İşlemci Yükünü İzleme
+# Sistem Yükünü İzleme
 
 ##top
 
