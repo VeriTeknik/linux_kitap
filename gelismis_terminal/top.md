@@ -26,3 +26,12 @@ Yukarıdaki ekrandan **memory** seçerek **top** programının bellek tüketimin
 ![](top-memory.png)
 *Yukarıdaki örnekte python3 belleğin büyük çoğunluğun tüketirken görülüyor.*
 
+Sistemin genel bellek tüketimini görmek için **free** komutu kullanılabilir.
+
+```bash
+free
+             total       used       free     shared    buffers     cached
+Mem:       7947480    7095948     851532     482716       6864     781848
+-/+ buffers/cache:    6307236    1640244
+Swap:      7193596        276    7193320
+```
