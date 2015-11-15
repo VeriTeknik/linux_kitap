@@ -42,3 +42,28 @@ Veya dilediğiniz biçimde tarih belirtmek için,
 date +%Y%m%d%T -s "20120423 09:15:12"
 ```
 
+Sistem üzerine yazılan saatler, bilgisayarın pil ile tutulan fiziksel saatine doğrudan kaydedilmez. Fiziksel saatteki bilgiye erişmek için **hwclock** komutu kullanılmalıdır.
+
+Fiziksel saatteki bilgiyi okumak için
+
+```bash
+hwclock -r
+Sun 15 Nov 2015 07:37:57 PM EET  -0.960295 seconds
+```
+
+Yukarıdaki çıktıda -0.960295 saniye'lik bir fark görünüyor. Bu komutu verdiğimiz an ile, cihazdan okuduğumuz saat arasındaki fark. Kısacası cihaz bize neredeyse 1 saniye içerisinde cevap vermiş. Bu süre zarfında hwclock komutunun yaptıklarını daha detaylı görmek için **-D** (debug) parametresiyle çalıştırabilirsiniz.
+
+```bash
+hwclock -D
+hwclock from util-linux 2.20.1
+Using /dev interface to clock.
+Last drift adjustment done at 1435275720 seconds after 1969
+Last calibration done at 1435275720 seconds after 1969
+Hardware clock is on UTC time
+Assuming hardware clock is kept in UTC time.
+Waiting for clock tick...
+...got clock tick
+Time read from Hardware Clock: 2015/11/15 17:39:39
+Hw clock time : 2015/11/15 17:39:39 = 1447609179 seconds since 1969
+Sun 15 Nov 2015 07:39:39 PM EET  -0.969248 seconds
+```
