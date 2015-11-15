@@ -119,3 +119,5 @@ sntp in.pool.ntp.org
 ```
 
 Yukarıdaki komut sadece farkı gösterir. Eğer ayarlama yapmak istiyorsanız **-s** parametresini kullanabilirsiniz.
+
+NTP ile de ayarlamalarınızı yaptıktan sonra, RTC modülünüzü **hwclock** komutuyla güncellemeyi unutmayın.
