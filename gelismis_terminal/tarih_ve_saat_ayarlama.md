@@ -28,3 +28,17 @@ date -s "2 NOV 2014 17:45:12"
 Sun Nov 2 17:45:12 EET 2014
 ```
 
+Sadece saati değiştirmek için,
+
+```bash
+date -s "15:12:13"
+Sun Nov 2 15:12:13 EET 2014
+```
+
+Veya dilediğiniz biçimde tarih belirtmek için,
+
+
+```bash
+date +%Y%m%d%T -s "20120423 09:15:12"
+```
+
