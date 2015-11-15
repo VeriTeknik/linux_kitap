@@ -63,3 +63,4 @@ Sistem hakkında bilgi edinmeyi sağlayan bir diğer komut **uptime** komutudur.
 Sistemin ne zaman başlatıldığını görmek için ```bash who -b``` komutu da oldukça faydalıdır.
 
 Öte yandan sisteme bağlı terminallerin bir listesini elde etmek için `w` programı kullanılabilir.
+
