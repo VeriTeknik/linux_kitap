@@ -216,7 +216,7 @@ Eğer sadece hangi paketlerin güncellemesinin mevcut olduğunu öğrenmek ister
 yum check-update
 ```
 
-# info
+## info
 
 Eğer bir paket hakkında bilgi edinmek istiyorsak, **info** parametresini kullanabiliriz.
 
@@ -263,7 +263,7 @@ Description :
 htop is an interactive process viewer for Linux.
 ```
 
-# provides
+## provides
 
 Bir paket yöneticisi kullanmanın en güzel yanı, belirli dosya veya kütüphaneleri hangi paketlerin sağladığının rahatlıkla bulunabilmesidir. yum ile bu işi *provides* ve *whatprovides* parametreleri yapar. Her iki parametre de aynı işi yapar, sadece farklı isimlerdir.
 
@@ -302,3 +302,5 @@ Other       : Provides-match: /etc/httpd/conf/httpd.conf
 ```
 
 Yukarıdaki sonuçlardan, dosyanın **httpd** paketi ile geldiğini görebiliyoruz.
+
+##
