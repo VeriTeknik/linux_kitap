@@ -20,4 +20,39 @@ php-lightopenid.noarch : PHP OpenID library
 
   Name and summary matches only, use "search all" for everything.
 ```
-  
+Görüleceği gibi içinde *htop* geçen iki paket bulundu, birisi bir php kütüphanesi olduğundan ilgimizi çekmiyor. Şimdi paketimizi yükleyebiliriz.
+
+```bash
+yum install htop
+Loaded plugins: fastestmirror, priorities, replace
+Setting up Install Process
+Loading mirror speeds from cached hostfile
+ * base: mirror.rackdc.com
+ * elrepo: mirrors.ircam.fr
+ * epel: ftp.linux.org.tr
+ * extras: mirror.rackdc.com
+ * rpmforge: mir01.syntis.net
+ * updates: mirror.rackdc.com
+ * webtatic: uk.repo.webtatic.com
+1445 packages excluded due to repository priority protections
+Resolving Dependencies
+--> Running transaction check
+---> Package htop.x86_64 0:1.0.3-1.el6.rf will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+============================================================================================================================
+ Package                  Arch                       Version                             Repository                    Size
+============================================================================================================================
+Installing:
+ htop                     x86_64                     1.0.3-1.el6.rf                      rpmforge                      87 k
+
+Transaction Summary
+============================================================================================================================
+Install       1 Package(s)
+
+Total download size: 87 k
+Installed size: 209 k
+Is this ok [y/N]: 
+```
