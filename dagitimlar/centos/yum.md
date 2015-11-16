@@ -56,3 +56,22 @@ Total download size: 87 k
 Installed size: 209 k
 Is this ok [y/N]: 
 ```
+
+Yukarıdaki soruya "yes" cevabı verirsek yükleme işlemi devam ediyor.
+
+```bash
+Is this ok [y/N]: y
+Downloading Packages:
+htop-1.0.3-1.el6.rf.x86_64.rpm                                                                       |  87 kB     00:00     
+Running rpm_check_debug
+Running Transaction Test
+Transaction Test Succeeded
+Running Transaction
+  Installing : htop-1.0.3-1.el6.rf.x86_64                                                                               1/1 
+  Verifying  : htop-1.0.3-1.el6.rf.x86_64                                                                               1/1 
+
+Installed:
+  htop.x86_64 0:1.0.3-1.el6.rf                                                                                              
+
+Complete!
+```
