@@ -121,3 +121,13 @@ sntp in.pool.ntp.org
 Yukarıdaki komut sadece farkı gösterir. Eğer ayarlama yapmak istiyorsanız **-s** parametresini kullanabilirsiniz.
 
 NTP ile de ayarlamalarınızı yaptıktan sonra, RTC modülünüzü **hwclock** komutuyla güncellemeyi unutmayın.
+
+## Saat Diliminin Seçilmesi
+
+Sistemde saat dilimi, **/etc/localtime** dosyasında tanımlanır. Bu dosya *binary* bir dosyadır. Mevcut saat dilimlerini görmek için **/usr/share/zoneinfo** dizinine göz atılabilir. Örneğin Türkiye için ayarlamak yapmak istiyorsak aşağıdaki şekilde **/usr/share/zoneinfo/Europe/Istanbul** dosyasını kopyalamak yeterli olacaktır.
+
+```bash
+cp -f /usr/share/zoneinfo/Europe/Istanbul /etc/localtime
+```
+
+**/etc/localtime** dosyasının silinmesi durumunda, sistem kendini UTC (GMT+0) saatine göre ayarlayacaktır.
