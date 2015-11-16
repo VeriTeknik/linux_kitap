@@ -1,6 +1,6 @@
 # yum Paket Yöneticisi
 
-RedHat sistemler yum (Yellowdow Updater Modified) paket yöneticisini kullanırlar. Sisteminiz için uygun yazılımları, bağımlılıkları (dependency) ile birlikte yüklemeye yarayan bu paket yöneticisinin kullanımı oldukça kolaydır. Örneğin *Gelişmiş Terminal Komutları* bölümünde karşılaştığımız **htop** programını yüklemek istiyorsak, öncelikle ilgili paketin ismini arayabiliriz.
+RedHat sistemler yum (Yellowdow Updater Modified) paket yöneticisini kullanırlar. Sisteminiz için uygun yazılımları, bağımlılıkları (dependency) ile birlikte yüklemeye yarayan bu paket yöneticisinin kullanımı oldukça kolaydır. yum bize rpm (RedHat Package Manager) dosyaları sağlar. Örneğin *Gelişmiş Terminal Komutları* bölümünde karşılaştığımız **htop** programını yüklemek istiyorsak, öncelikle ilgili paketin ismini arayabiliriz.
 
 ```bash
 yum search htop
@@ -57,7 +57,7 @@ Installed size: 209 k
 Is this ok [y/N]: 
 ```
 
-Yukarıdaki soruya "yes" cevabı verirsek yükleme işlemi devam ediyor.
+Yukarıdaki soruya "yes" cevabı verirsek yükleme işlemi devam ediyor (Eğer "Is this ok" sorusunu sormasını istemeseydik, *install* komutunu **-y** parametresiyle çalıştırabilirdik).
 
 ```bash
 Is this ok [y/N]: y
@@ -77,3 +77,31 @@ Complete!
 ```
 
 Bu kadar! Artık sistemimizde *htop* yüklü.
+
+Aynı paketi sistemimizden kaldırmak istersek,
+
+```bash
+yum remove htop
+Loaded plugins: fastestmirror, priorities, replace
+Setting up Remove Process
+Resolving Dependencies
+--> Running transaction check
+---> Package htop.x86_64 0:1.0.3-1.el6.rf will be erased
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package       Arch            Version                 Repository          Size
+================================================================================
+Removing:
+ htop          x86_64          1.0.3-1.el6.rf          @rpmforge          209 k
+
+Transaction Summary
+================================================================================
+Remove        1 Package(s)
+
+Installed size: 209 k
+Is this ok [y/N]:
+```
+
