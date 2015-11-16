@@ -105,3 +105,61 @@ Installed size: 209 k
 Is this ok [y/N]:
 ```
 
+Eğer belirli bir programı güncellemek istersek, **update** parametresini kullanabiliriz.
+
+```
+bash
+yum update vim
+Loaded plugins: fastestmirror, priorities, replace
+Setting up Update Process
+Loading mirror speeds from cached hostfile
+ * base: mirror.rackdc.com
+ * elrepo: mirrors.ircam.fr
+ * epel: ftp.linux.org.tr
+ * extras: mirror.rackdc.com
+ * rpmforge: mir01.syntis.net
+ * updates: mirror.rackdc.com
+ * webtatic: uk.repo.webtatic.com
+1445 packages excluded due to repository priority protections
+Resolving Dependencies
+--> Running transaction check
+---> Package vim-enhanced.x86_64 2:7.2.411-1.8.el6 will be updated
+---> Package vim-enhanced.x86_64 2:7.4.629-5.el6 will be an update
+--> Processing Dependency: vim-common = 2:7.4.629-5.el6 for package: 2:vim-enhanced-7.4.629-5.el6.x86_64
+--> Running transaction check
+---> Package vim-common.x86_64 2:7.2.411-1.8.el6 will be updated
+---> Package vim-common.x86_64 2:7.4.629-5.el6 will be an update
+--> Processing Dependency: vim-filesystem for package: 2:vim-common-7.4.629-5.el6.x86_64
+--> Running transaction check
+---> Package vim-filesystem.x86_64 2:7.4.629-5.el6 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===================================================================================================================
+ Package                        Arch                   Version                          Repository            Size
+===================================================================================================================
+Updating:
+ vim-enhanced                   x86_64                 2:7.4.629-5.el6                  base                 1.0 M
+Installing for dependencies:
+ vim-filesystem                 x86_64                 2:7.4.629-5.el6                  base                  15 k
+Updating for dependencies:
+ vim-common                     x86_64                 2:7.4.629-5.el6                  base                 6.7 M
+
+Transaction Summary
+===================================================================================================================
+Install       1 Package(s)
+Upgrade       2 Package(s)
+
+Total download size: 7.8 M
+Is this ok [y/N]:
+```
+
+Gördüğünüz gibi *vim* ile birlikte gerekli paketler de güncelleniyor.
+
+Öte yandan sistemimizdeki bütün paketlerin güncellenmesi için, paket ismi belirtmeden *update* komutunu kullanabilirdik.
+
+```bash
+yum update
+```
+
