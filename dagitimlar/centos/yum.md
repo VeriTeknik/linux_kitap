@@ -20,7 +20,25 @@ php-lightopenid.noarch : PHP OpenID library
 
   Name and summary matches only, use "search all" for everything.
 ```
-Görüleceği gibi içinde *htop* geçen iki paket bulundu, birisi bir php kütüphanesi olduğundan ilgimizi çekmiyor. Şimdi paketimizi yükleyebiliriz.
+Görüleceği gibi içinde *htop* geçen iki paket bulundu, birisi bir php kütüphanesi olduğundan ilgimizi çekmiyor. Eğer **search** yerine **list** komutunu kullansaydık, daha dar bir sonuç elde edecektik.
+
+```bash
+yum list htop
+Loaded plugins: fastestmirror, priorities, replace
+Loading mirror speeds from cached hostfile
+ * base: mirror.rackdc.com
+ * elrepo: mirrors.ircam.fr
+ * epel: ftp.linux.org.tr
+ * extras: mirror.rackdc.com
+ * rpmforge: mir01.syntis.net
+ * updates: mirror.rackdc.com
+ * webtatic: uk.repo.webtatic.com
+1445 packages excluded due to repository priority protections
+Available Packages
+htop.x86_64                                         1.0.3-1.el6.rf                                         rpmforge
+```
+
+Şimdi paketimizi yükleyebiliriz.
 
 ```bash
 yum install htop
