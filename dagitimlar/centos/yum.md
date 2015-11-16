@@ -50,6 +50,15 @@ yum list | more
 
 Benzer şekilde yüklü paketleri görüntüleyebiliriz.
 
+```bash
+yum list installed
+```
+
+Ancak yum ile yüklü paketleri görüntülemektense, **rpm** ile bu işi yapmak daha sağlıklıdır ve genellikle tercih edilir.
+
+```bash
+rpm -qa
+```
 
 
 # install
