@@ -210,6 +210,12 @@ Gördüğünüz gibi *vim* ile birlikte gerekli paketler de güncelleniyor.
 yum update
 ```
 
+Eğer sadece hangi paketlerin güncellemesinin mevcut olduğunu öğrenmek istersek aşağıdaki komutu kullanabiliriz.
+
+```bash
+yum check-update
+```
+
 # info
 
 Eğer bir paket hakkında bilgi edinmek istiyorsak, **info** parametresini kullanabiliriz.
@@ -256,3 +262,43 @@ Summary     : Interactive process viewer
 Description :
 htop is an interactive process viewer for Linux.
 ```
+
+# provides
+
+Bir paket yöneticisi kullanmanın en güzel yanı, belirli dosya veya kütüphaneleri hangi paketlerin sağladığının rahatlıkla bulunabilmesidir. yum ile bu işi *provides* ve *whatprovides* parametreleri yapar. Her iki parametre de aynı işi yapar, sadece farklı isimlerdir.
+
+Örneğin Sistemimizde ```/etc/httpd/conf/httpd.conf``` şeklinde bir dosya var ve bu dosyanın hangi paketle geldiğini öğrenmek istiyoruz,
+
+```bash
+yum provides /etc/httpd/conf/httpd.conf 
+Loaded plugins: fastestmirror, priorities, replace
+Loading mirror speeds from cached hostfile
+ * base: mirror.rackdc.com
+ * elrepo: mirrors.ircam.fr
+ * epel: ftp.linux.org.tr
+ * extras: mirror.rackdc.com
+ * rpmforge: mir01.syntis.net
+ * updates: mirror.rackdc.com
+ * webtatic: uk.repo.webtatic.com
+1445 packages excluded due to repository priority protections
+httpd-2.2.15-45.el6.centos.x86_64 : Apache HTTP Server
+Repo        : base
+Matched from:
+Filename    : /etc/httpd/conf/httpd.conf
+
+
+
+httpd-2.2.15-47.el6.centos.x86_64 : Apache HTTP Server
+Repo        : updates
+Matched from:
+Filename    : /etc/httpd/conf/httpd.conf
+
+
+
+httpd-2.2.15-39.el6.centos.x86_64 : Apache HTTP Server
+Repo        : installed
+Matched from:
+Other       : Provides-match: /etc/httpd/conf/httpd.conf
+```
+
+Yukarıdaki sonuçlardan, dosyanın **httpd** paketi ile geldiğini görebiliyoruz.
