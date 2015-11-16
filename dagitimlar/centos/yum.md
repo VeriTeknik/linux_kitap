@@ -2,7 +2,7 @@
 
 RedHat sistemler yum (Yellowdow Updater Modified) paket yöneticisini kullanırlar. Sisteminiz için uygun yazılımları, bağımlılıkları (dependency) ile birlikte yüklemeye yarayan bu paket yöneticisinin kullanımı oldukça kolaydır. yum bize rpm (RedHat Package Manager) dosyaları sağlar. Dolayısıyla istersek **rpm** paket dosyalarını edinip yükleyebiliriz, istersek paketleri **yum** ile yükleyebiliriz. Bu bölümde iki sistemi bir arada kullanmayı göreceğiz.
 
-##list ve search
+## list ve search
 
 Örneğin *Gelişmiş Terminal Komutları* bölümünde karşılaştığımız **htop** programını yüklemek istiyorsak, öncelikle ilgili paketin ismini arayabiliriz.
 
@@ -61,7 +61,7 @@ rpm -qa
 ```
 
 
-# install
+## install
 
 Şimdi paketimizi yükleyebiliriz.
 
@@ -121,6 +121,8 @@ Complete!
 
 Bu kadar! Artık sistemimizde *htop* yüklü.
 
+## remove
+
 Aynı paketi sistemimizden kaldırmak istersek,
 
 ```bash
@@ -147,6 +149,8 @@ Remove        1 Package(s)
 Installed size: 209 k
 Is this ok [y/N]:
 ```
+
+## update
 
 Eğer belirli bir programı güncellemek istersek, **update** parametresini kullanabiliriz.
 
