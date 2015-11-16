@@ -210,6 +210,8 @@ Gördüğünüz gibi *vim* ile birlikte gerekli paketler de güncelleniyor.
 yum update
 ```
 
+# info
+
 Eğer bir paket hakkında bilgi edinmek istiyorsak, **info** parametresini kullanabiliriz.
 
 ```bash
@@ -235,4 +237,22 @@ Summary     : Interactive process viewer
 URL         : http://htop.sourceforge.net/
 License     : GPL
 Description : htop is an interactive process viewer for Linux.
+```
+
+Benzer şekilde paket bilgisini **rpm** ile almak da mümkün.
+
+```bash
+rpm -qi htop
+Name        : htop                         Relocations: (not relocatable)
+Version     : 1.0.3                             Vendor: Dag Apt Repository, http://dag.wieers.com/apt/
+Release     : 1.el6.rf                      Build Date: Wed 07 May 2014 12:16:32 AM EEST
+Install Date: Mon 16 Nov 2015 11:48:37 PM EET      Build Host: lisse.hasselt.wieers.com
+Group       : Applications/System           Source RPM: htop-1.0.3-1.el6.rf.src.rpm
+Size        : 214070                           License: GPL
+Signature   : DSA/SHA1, Wed 07 May 2014 12:26:56 AM EEST, Key ID a20e52146b8d79e6
+Packager    : Dag Wieers <dag@wieers.com>
+URL         : http://htop.sourceforge.net/
+Summary     : Interactive process viewer
+Description :
+htop is an interactive process viewer for Linux.
 ```
