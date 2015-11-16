@@ -7,7 +7,7 @@ RedHat sistemler yum (Yellowdow Updater Modified) paket yöneticisini kullanırl
 Örneğin *Gelişmiş Terminal Komutları* bölümünde karşılaştığımız **htop** programını yüklemek istiyorsak, öncelikle ilgili paketin ismini arayabiliriz.
 
 ```bash
-yum search htop
+[root@emre ~]# yum search htop
 Loaded plugins: fastestmirror, priorities, replace
 Loading mirror speeds from cached hostfile
  * base: mirror.rackdc.com
@@ -27,7 +27,7 @@ php-lightopenid.noarch : PHP OpenID library
 Görüleceği gibi içinde *htop* geçen iki paket bulundu, birisi bir php kütüphanesi olduğundan ilgimizi çekmiyor. Eğer **search** yerine **list** parametersini kullansaydık, daha dar bir sonuç elde edecektik.
 
 ```bash
-yum list htop
+[root@emre ~]# yum list htop
 Loaded plugins: fastestmirror, priorities, replace
 Loading mirror speeds from cached hostfile
  * base: mirror.rackdc.com
@@ -45,19 +45,19 @@ htop.x86_64                                         1.0.3-1.el6.rf              
 yum ile yükleyebileceğiniz bütün paketleri, **list** parametersini paket ismi belirtmeden görebilirsiniz. Liste çok uzun olacağı için sayfa sayfa görüntülemekte fayda var.
 
 ```bash
-yum list | more
+[root@emre ~]# yum list | more
 ```
 
 Benzer şekilde yüklü paketleri görüntüleyebiliriz.
 
 ```bash
-yum list installed
+[root@emre ~]# yum list installed
 ```
 
 Ancak yum ile yüklü paketleri görüntülemektense, **rpm** ile bu işi yapmak daha sağlıklıdır ve genellikle tercih edilir.
 
 ```bash
-rpm -qa
+[root@emre ~]# rpm -qa
 ```
 
 
@@ -66,7 +66,7 @@ rpm -qa
 Şimdi paketimizi yükleyebiliriz.
 
 ```bash
-yum install htop
+[root@emre ~]# yum install htop
 Loaded plugins: fastestmirror, priorities, replace
 Setting up Install Process
 Loading mirror speeds from cached hostfile
@@ -126,7 +126,7 @@ Bu kadar! Artık sistemimizde *htop* yüklü.
 Aynı paketi sistemimizden kaldırmak istersek,
 
 ```bash
-yum remove htop
+[root@emre ~]# yum remove htop
 Loaded plugins: fastestmirror, priorities, replace
 Setting up Remove Process
 Resolving Dependencies
@@ -156,7 +156,7 @@ Eğer belirli bir programı güncellemek istersek, **update** parametresini kull
 
 ```
 bash
-yum update vim
+[root@emre ~]# yum update vim
 Loaded plugins: fastestmirror, priorities, replace
 Setting up Update Process
 Loading mirror speeds from cached hostfile
@@ -207,13 +207,13 @@ Gördüğünüz gibi *vim* ile birlikte gerekli paketler de güncelleniyor.
 Öte yandan sistemimizdeki bütün paketlerin güncellenmesi için, paket ismi belirtmeden *update* komutunu kullanabilirdik.
 
 ```bash
-yum update
+[root@emre ~]# yum update
 ```
 
 Eğer sadece hangi paketlerin güncellemesinin mevcut olduğunu öğrenmek istersek aşağıdaki komutu kullanabiliriz.
 
 ```bash
-yum check-update
+[root@emre ~]# yum check-update
 ```
 
 ## info
@@ -248,7 +248,7 @@ Description : htop is an interactive process viewer for Linux.
 Benzer şekilde paket bilgisini **rpm** ile almak da mümkün.
 
 ```bash
-rpm -qi htop
+[root@emre ~]# rpm -qi htop
 Name        : htop                         Relocations: (not relocatable)
 Version     : 1.0.3                             Vendor: Dag Apt Repository, http://dag.wieers.com/apt/
 Release     : 1.el6.rf                      Build Date: Wed 07 May 2014 12:16:32 AM EEST
@@ -270,7 +270,7 @@ Bir paket yöneticisi kullanmanın en güzel yanı, belirli dosya veya kütüpha
 Örneğin Sistemimizde ```/etc/httpd/conf/httpd.conf``` şeklinde bir dosya var ve bu dosyanın hangi paketle geldiğini öğrenmek istiyoruz,
 
 ```bash
-yum provides /etc/httpd/conf/httpd.conf 
+[root@emre ~]# yum provides /etc/httpd/conf/httpd.conf 
 Loaded plugins: fastestmirror, priorities, replace
 Loading mirror speeds from cached hostfile
  * base: mirror.rackdc.com
@@ -308,13 +308,13 @@ Yukarıdaki sonuçlardan, dosyanın **httpd** paketi ile geldiğini görebiliyor
 yum ile bazı paketler gruplandırılmıştır. Örneğin sık kullanılan masaüstü uygulamaları, veya ağ uygulamaları ayrı paketlerde bulunur. Yükleyebileceğimiz paketleri listelemek için **grouplist** parametresi kullanılır.
 
 ```bash
-yum grouplist
+[root@emre ~]# yum grouplist
 ```
 
 Listelenen gruplardan birisi hakkında bilgi edinmek istersek **groupinfo** parametresini kullanabiliriz.
 
 ```bash
-yum groupinfo "Networking Tools"
+[root@emre ~]# yum groupinfo "Networking Tools"
 Loaded plugins: fastestmirror, priorities, replace
 Setting up Group Process
 Loading mirror speeds from cached hostfile
@@ -361,9 +361,9 @@ Group: Networking Tools
  Bu grubu yüklemek, güncellemek veya kaldırmak için uygulayacağınız komutlar artık aşikar,
  
  ```bash
- yum groupinstall "Networking Tools"
- yum groupupdate "Networking Tools"
- yum groupremove "Networking Tools"
+ [root@emre ~]# yum groupinstall "Networking Tools"
+ [root@emre ~]# yum groupupdate "Networking Tools"
+ [root@emre ~]# yum groupremove "Networking Tools"
  ```
  
  ## Optional Packages
