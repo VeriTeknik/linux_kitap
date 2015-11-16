@@ -1,6 +1,10 @@
-# yum Paket Yöneticisi
+# yum Paket Yöneticisi ve rpm
 
-RedHat sistemler yum (Yellowdow Updater Modified) paket yöneticisini kullanırlar. Sisteminiz için uygun yazılımları, bağımlılıkları (dependency) ile birlikte yüklemeye yarayan bu paket yöneticisinin kullanımı oldukça kolaydır. yum bize rpm (RedHat Package Manager) dosyaları sağlar. Örneğin *Gelişmiş Terminal Komutları* bölümünde karşılaştığımız **htop** programını yüklemek istiyorsak, öncelikle ilgili paketin ismini arayabiliriz.
+RedHat sistemler yum (Yellowdow Updater Modified) paket yöneticisini kullanırlar. Sisteminiz için uygun yazılımları, bağımlılıkları (dependency) ile birlikte yüklemeye yarayan bu paket yöneticisinin kullanımı oldukça kolaydır. yum bize rpm (RedHat Package Manager) dosyaları sağlar. Dolayısıyla istersek **rpm** paket dosyalarını edinip yükleyebiliriz, istersek paketleri **yum** ile yükleyebiliriz. Bu bölümde iki sistemi bir arada kullanmayı göreceğiz.
+
+##list ve search
+
+Örneğin *Gelişmiş Terminal Komutları* bölümünde karşılaştığımız **htop** programını yüklemek istiyorsak, öncelikle ilgili paketin ismini arayabiliriz.
 
 ```bash
 yum search htop
@@ -42,7 +46,13 @@ yum ile yükleyebileceğiniz bütün paketleri, **list** parametersini paket ism
 
 ```bash
 yum list | more
+```
 
+Benzer şekilde yüklü paketleri görüntüleyebiliriz.
+
+
+
+# install
 
 Şimdi paketimizi yükleyebiliriz.
 
