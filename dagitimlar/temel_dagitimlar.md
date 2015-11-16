@@ -1,16 +1,17 @@
 # Temel Dağıtımlar ve Kurulum
 
-Veri Merkezlerinde ve sunucu sistemlerinde kullanılan temel dağtımların kurulum aşamaları bu bölümde verilmiştir. Bu versiyonların masaüstü dağıtımlarının (Fedora ve Ubuntu gibi) kurulumu da benzerlikler göstermektedir.
+Sunucularda kullanılan temel dağıtımların kurulum aşamaları bu bölümde anlatılmıştır. Bu versiyonların masaüstü dağıtımlarının (Fedora ve Ubuntu gibi) kurulumu da benzerlikler göstermektedir.
 
 
-## Kurulum yapımadan önce
+## Disk Biçimlendirme
 
-Kurulum yapılmadan önce sunucu altyapısı incelenmeli, RAID sistemi tasarlanmalıdır. Günümüzde standart kurulumlarda dizin yapısı asgari / dizini ve SWAP partisyonunu içermelidir ancak tavsiye edilen dizin yapısı şu şekildedir:
+Kurulumunuzu yapmadan önce, disklerinizi nasıl biçimlendireceğinize karar vermeniz gerekir. Disk yapınızın nasıl bir RAID yapısına sahip olacağı, hangi dizinlerin *mount* edileceği veya *swap space* kullanıp kullanmayacağı tercihinize bağlıdır ancak genellikle tavsiye edilen yapı aşağıdaki gibidir.
+
 
 |Dizin | Boyut | Açıklama|
 |-- | -- | -- |
 |/boot | 500 MB | Açılış Dizini |
-| SWAP | 2xRAM Miktarı | Disk Belleği |
+| swap | 2xRAM Miktarı | Alternatif Bellek Alanı |
 |/ | Geri Kalan Tüm Alan |Kök Dizin |
 
 
