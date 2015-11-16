@@ -365,3 +365,13 @@ Group: Networking Tools
  yum groupupdate "Networking Tools"
  yum groupremove "Networking Tools"
  ```
+ 
+ ## Optional Packages
+ 
+ Fark ettiyseniz *groupinfo* ile gelen sonuçta *Optional Packages* isimli bir bölüm mevcut. Normalde **groupinstall** komutunu uyguladığımızda bu paketler yüklenmeyecektir. yum'un bu paketleri yüklemesini sağlamak için ayar dosyasını düzenlemek gerekir. Ayar dosyası ```/etc/yum.conf``` yolunda yer alır. Bu dosyaya aşağıdaki gibi bir satır eklemeniz, grup yüklemelerinde hangi paketlerin dikkate alınacağını belirler.
+ 
+ ```group_package_types=default, mandatory, optional```
+ 
+ 
+ 
+ 
