@@ -358,4 +358,10 @@ Group: Networking Tools
    xprobe2
  ```
  
+ Bu grubu yüklemek, güncellemek veya kaldırmak için uygulayacağınız komutlar artık aşikar,
  
+ ```bash
+ yum groupinstall "Networking Tools"
+ yum groupupdate "Networking Tools"
+ yum groupremove "Networking Tools"
+ ```
