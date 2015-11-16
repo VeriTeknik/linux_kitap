@@ -76,3 +76,4 @@ Installed:
 Complete!
 ```
 
+Bu kadar! Artık sistemimizde *htop* yüklü.
