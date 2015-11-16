@@ -303,4 +303,59 @@ Other       : Provides-match: /etc/httpd/conf/httpd.conf
 
 Yukarıdaki sonuçlardan, dosyanın **httpd** paketi ile geldiğini görebiliyoruz.
 
-##
+## Paket Grupları
+
+yum ile bazı paketler gruplandırılmıştır. Örneğin sık kullanılan masaüstü uygulamaları, veya ağ uygulamaları ayrı paketlerde bulunur. Yükleyebileceğimiz paketleri listelemek için **grouplist** parametresi kullanılır.
+
+```bash
+yum grouplist
+```
+
+Listelenen gruplardan birisi hakkında bilgi edinmek istersek **groupinfo** parametresini kullanabiliriz.
+
+```bash
+yum groupinfo "Networking Tools"
+Loaded plugins: fastestmirror, priorities, replace
+Setting up Group Process
+Loading mirror speeds from cached hostfile
+ * base: mirror.rackdc.com
+ * elrepo: mirrors.ircam.fr
+ * epel: ftp.linux.org.tr
+ * extras: mirror.rackdc.com
+ * rpmforge: mir01.syntis.net
+ * updates: mirror.rackdc.com
+ * webtatic: uk.repo.webtatic.com
+1445 packages excluded due to repository priority protections
+
+Group: Networking Tools
+ Description: Tools for configuring and analyzing computer networks.
+ Mandatory Packages:
+   tcpdump
+ Default Packages:
+   nc
+   openswan
+ Optional Packages:
+   NetworkManager-openswan
+   arptables_jf
+   arpwatch
+   dropwatch
+   ebtables
+   ettercap
+   ipset
+   iptraf
+   iptstate
+   isic
+   lksctp-tools
+   mipv6-daemon
+   mrtg
+   netlabel_tools
+   nmap
+   openvpn
+   qstat
+   stunnel
+   vtun
+   wireshark
+   xprobe2
+ ```
+ 
+ 
