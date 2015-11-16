@@ -14,4 +14,8 @@ Kurulumunuzu yapmadan önce, disklerinizi nasıl biçimlendireceğinize karar ve
 | swap | 2xRAM Miktarı | Alternatif Bellek Alanı |
 |/ | Geri Kalan Tüm Alan |Kök Dizin |
 
+Bazı durumlarda, *tmp*, *home* gibi dizinlerin ayrıca partition olarak kullanıldığı görülebilir.
+
+Modern işletim sistemlerinde doğrudan *ext4* biçimlendirme tercih edilir, ancak kullandığınız disk SSD (Solid State Disk) ise *ext2* kullanmanızı tavsiye ederiz. ext2 ile journaling yapılmadığından ve SSD ile buna ihtiyaç duymayacağınızdan, boş yere disk işlemleri yapılmaz. SSD üzerinde yapılan her işlem diskin ömrünü kısalttığından, journaling yapılmaması daha uzun süreli kullanım anlamına gelecektir.
+
 
