@@ -181,3 +181,42 @@ Gördüğünüz gibi *vim* ile birlikte gerekli paketler de güncelleniyor.
 yum update
 ```
 
+Eğer bir paket hakkında bilgi edinmek istiyorsak, **info** parametresini kullanabiliriz.
+
+```bash
+yum list htop
+Loaded plugins: fastestmirror, priorities, replace
+Loading mirror speeds from cached hostfile
+ * base: mirror.rackdc.com
+ * elrepo: mirrors.ircam.fr
+ * epel: ftp.linux.org.tr
+ * extras: mirror.rackdc.com
+ * rpmforge: mir01.syntis.net
+ * updates: mirror.rackdc.com
+ * webtatic: uk.repo.webtatic.com
+1445 packages excluded due to repository priority protections
+Available Packages
+htop.x86_64                                         1.0.3-1.el6.rf                                         rpmforge
+[root@emre ~]# yum info htop
+Loaded plugins: fastestmirror, priorities, replace
+Loading mirror speeds from cached hostfile
+ * base: mirror.rackdc.com
+ * elrepo: mirrors.ircam.fr
+ * epel: ftp.linux.org.tr
+ * extras: mirror.rackdc.com
+ * rpmforge: mir01.syntis.net
+ * updates: mirror.rackdc.com
+ * webtatic: uk.repo.webtatic.com
+1445 packages excluded due to repository priority protections
+Available Packages
+Name        : htop
+Arch        : x86_64
+Version     : 1.0.3
+Release     : 1.el6.rf
+Size        : 87 k
+Repo        : rpmforge
+Summary     : Interactive process viewer
+URL         : http://htop.sourceforge.net/
+License     : GPL
+Description : htop is an interactive process viewer for Linux.
+```
