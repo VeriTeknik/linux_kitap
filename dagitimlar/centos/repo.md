@@ -16,4 +16,4 @@ EPEL reposunu sistemimize eklemek için, *wget* ile rpm dosyasını edinmek, ar�
 [root@emre ~]# rpm -ivh epel-release-6-8.noarch.rpm
 ```
 
-Yukarıdaki komutun ardından sistemimizde EPEL reposu aktif olacaktır. Yukarıdaki komutun RedHat/CentOS 6 için ve 64bit mimariler için olduğunu unutmayın. Kendi sisteminiz farklılık gösteriyorsa, farklı dosya indirmeniz gerekecektir.
+Yukarıdaki komutun ardından sistemimizde EPEL reposu aktif olacaktır. Örneğimiz için kullandığımız rpm dosyasının RedHat/CentOS 6 için ve 64bit mimariler için olduğunu unutmayın. Kendi sisteminiz farklılık gösteriyorsa, farklı dosya indirmeniz gerekecektir.
