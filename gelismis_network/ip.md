@@ -20,3 +20,8 @@ ip link set eth0 up
 ```bash
 ip link set eth0 down
 ```
+
+```bash
+ip route show
+```
+
