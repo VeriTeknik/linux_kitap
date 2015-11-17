@@ -26,3 +26,12 @@ yum repolist
 
 Bazı repolar geliştirilme süreçleri için kullanılırlar, böyle olmayan repolar genellikle kendiliğinden "enabled" durumda olurlar. Eğer enabled değillerse, bir paketi o repoyu kullanarak aramak için *yum* parametresi verilebilir.
 
+```bash
+yum --enablerepo="epel" list zmap
+```
+
+Sisteminizde birden fazla repo aktifse ve sadece bir repo üzerindeki paketleri listelemek istiyorsanız, aşağıdaki gibi bir komut kullanabilirsiniz.
+
+```bash
+yum --disablerepo="*" --enablerepo="epel" list available
+```
