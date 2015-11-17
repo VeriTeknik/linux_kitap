@@ -26,5 +26,14 @@ ip route show
 ```
 
 ```bash
+ip route add 10.2.19.0/24 via 192.168.16.1 dev eth0
+```
+
+```bash
+ip route del 10.2.19.0/24
+```
+
+
+```bash
 ip route add default via 192.168.16.1
 ```
