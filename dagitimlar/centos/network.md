@@ -31,8 +31,7 @@ Yukarıdaki örnekten, DHCP ile IP alan bir sistemi görmüş olduk. Eğer bu si
 
 Örneğin aşağıdaki dosya içeriği ile *eth0* cihazının ağ bilgileri farklı olacaktır.
 
-```
-bash
+```bash
 [root@localhost ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
 # Advanced Micro Devices [AMD] 79c970 [PCnet32 LANCE]
 DEVICE=eth0
