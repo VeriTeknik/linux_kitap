@@ -16,3 +16,7 @@ ip addr del 192.168.50.5 dev eth0
 ```bash
 ip link set eth0 up
 ```
+
+```bash
+ip link set eth0 down
+```
