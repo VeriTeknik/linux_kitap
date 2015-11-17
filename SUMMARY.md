@@ -68,6 +68,7 @@
    * netcat
    * tcpdump
    * WireShark
+   * ip
 * [Python](python/python.md)
    * [Temel Programlama](python/temel_programlama.md)
    * [Kütüphane Oluşturma](python/kutuphane_olusturma.md)
