@@ -18,3 +18,12 @@ ONBOOT=yes
 BOOTPROTO=dhcp
 HWADDR=00:0c:29:5a:96:3a
 ```
+
+**DEVICE**: Adından da anlaşılacağı gibi, ayarlarını yaptığımız network cihazının ismini gösteriyor.
+
+**ONBOOT**: Cihazın reboot sırasında devreye girip girmeyeceğini belirtiyor.
+
+**BOOTPROTO**: Cihaz ayağa kalktığında, nasıl bir protokol izleyeceğini belirtir. Buradaki örnekte *dhcp* tanımlanmış.
+
+**HWADDR**: Cihazımızın fiziksel adresi (MAC-Adresi). Kullanılması zorunlu değildir, birden fazla NIC (Network Interface Card) bulunduğunda kullanılması şart olabilir. **HWADDR** yerine **MACADDR** ifadesi de kullanılabilirdi, ancak ikisi bir arada kullanılmamalıdır.
+
