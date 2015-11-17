@@ -44,3 +44,6 @@ HWADDR=00:0c:29:5a:96:3a
 ```
 
 Dosyanın içeriğini yukarıdaki gibi değiştirdikten sonra, yeni değerlerin network servisi tarafından okunabilmesi için, daha önce gördüğümüz ```service network restart``` komutu ile servisin yeniden başlatılması gerekiyor.
+
+Yukarıdaki örnekte ```BROADCAST``` veya ```NETWORK``` gibi değerler tanımlamadık, ancak bu bilgileri de sağlayabilirdik. Bir network tanımı yapılması için IP adresi ve NETMASK bilgisinin yanısıra GATEWAY, BROADCAST veya NETWORK bilgilerinden birinin sağlanması yeterlidir.
+
