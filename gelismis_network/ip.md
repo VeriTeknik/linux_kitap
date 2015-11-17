@@ -5,12 +5,12 @@ ip addr show
 ```
 
 ```bash
-ip addr add 192.168.50.5 dev eth0
+ip addr add 192.168.16.5 dev eth0
 ```
 
 
 ```bash
-ip addr del 192.168.50.5 dev eth0
+ip addr del 192.168.16.5 dev eth0
 ```
 
 ```bash
@@ -25,3 +25,6 @@ ip link set eth0 down
 ip route show
 ```
 
+```bash
+ip route add default via 192.168.16.1
+```
