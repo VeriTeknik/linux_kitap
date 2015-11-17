@@ -12,6 +12,6 @@ EPEL reposunu sistemimize eklemek için, *wget* ile rpm dosyasını edinmek, ar�
 
 ```bash
 ## RHEL/CentOS 6 64-Bit ##
-wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-rpm -ivh epel-release-6-8.noarch.rpm
+[root@emre ~]# wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+[root@emre ~]# rpm -ivh epel-release-6-8.noarch.rpm
 ```
