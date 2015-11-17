@@ -27,3 +27,19 @@ HWADDR=00:0c:29:5a:96:3a
 
 **HWADDR**: Cihazımızın fiziksel adresi (MAC-Adresi). Kullanılması zorunlu değildir, birden fazla NIC (Network Interface Card) bulunduğunda kullanılması şart olabilir. **HWADDR** yerine **MACADDR** ifadesi de kullanılabilirdi, ancak ikisi bir arada kullanılmamalıdır.
 
+Yukarıdaki örnekten, DHCP ile IP alan bir sistemi görmüş olduk. Eğer bu sisteme kendimiz Network bilgilerini tanımlamak isteseydik, dosyanın içeriği farklı olmalıydı.
+
+Örneğin aşağıdaki dosya içeriği ile *eth0* cihazının ağ bilgileri farklı olacaktır.
+
+```
+bash
+[root@localhost ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+# Advanced Micro Devices [AMD] 79c970 [PCnet32 LANCE]
+DEVICE=eth0
+ONBOOT=yes
+BOOTPROTO=static
+IPADDR=172.20.10.3
+NETMASK=255.255.255.240
+GATEWAY=172.20.10.1
+HWADDR=00:0c:29:5a:96:3a
+```
