@@ -6,7 +6,7 @@ Repository (kısaca *repo*) ayarları Red Hat tabanlı sistemlerde ```/etc/yum.r
 
 Örneğin EPEL (Extra Packages for Enterprice Linux) repoları, resmen Redhat/CentOS parçası olmamakla birlikte, Linux kullanıcıları topluluğunun sağladığı pek çok pakedi barındırır.
 
-EPEL reposunu sistemimize eklediğimizde, daha önce erişemediğimiz pek çok pakete (örneğin phpmyadmin) erişebiliriz.
+EPEL reposunu sistemimize eklediğimizde, daha önce erişemediğimiz pek çok pakete (örneğin *redis*) erişebiliriz.
 
 EPEL reposunu sistemimize eklemek için, *wget* ile rpm dosyasını edinmek, arından bu rpm dosyasını sistemimize *yüklemek* gerekir.
 
@@ -17,3 +17,12 @@ EPEL reposunu sistemimize eklemek için, *wget* ile rpm dosyasını edinmek, ar�
 ```
 
 Yukarıdaki komutun ardından sistemimizde EPEL reposu aktif olacaktır. Örneğimiz için kullandığımız rpm dosyasının RedHat/CentOS 6 için ve 64bit mimariler için olduğunu unutmayın. Kendi sisteminiz farklılık gösteriyorsa, farklı dosya indirmeniz gerekecektir.
+
+Reponun sisteminize dahil olduğuna emin olmak için aşağıdaki komutun çıktısına bakabilirsiniz.
+
+```bash
+yum repolist
+```
+
+Bazı repolar geliştirilme süreçleri için kullanılırlar, böyle olmayan repolar genellikle kendiliğinden "enabled" durumda olurlar. Eğer enabled değillerse, bir paketi o repoyu kullanarak aramak için *yum* parametresi verilebilir.
+
