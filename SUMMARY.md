@@ -59,7 +59,7 @@
    * crontab
    * at
 * [Gelişmiş Network Komutları](gelismis_network/gelismis_network_komutlari.md)
-   * ip
+   * [ip](gelismis_network/ip.md)
    * ping ve mtr
    * dig
    * nslookup
