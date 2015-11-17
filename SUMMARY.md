@@ -58,7 +58,7 @@
 * Zamanlanmış Görevler
    * crontab
    * at
-* Gelişmiş Network Komutları
+* [Gelişmiş Network Komutları](gelismis_network/gelismis_network_komutlari.md)
    * ip
    * ping ve mtr
    * dig
