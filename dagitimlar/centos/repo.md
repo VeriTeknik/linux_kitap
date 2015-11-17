@@ -35,3 +35,12 @@ Sisteminizde birden fazla repo aktifse ve sadece bir repo üzerindeki paketleri 
 ```bash
 yum --disablerepo="*" --enablerepo="epel" list available
 ```
+
+Sisteminizden bir yum reposunu kaldırmak isterseniz, ```/etc/yum.conf.d/``` altındaki repo dosyasından ilgili reponun rpm paketini bulmanız, sonra rpm ile bu paketi kaldıracağınızı belirtmeniz gerekir.
+
+```bash
+[root@emre ~]# rpm -qf /etc/yum.repos.d/epel.repo
+epel-release-6-8.noarch
+[root@emre ~]# yum remove epel-release
+```
+
