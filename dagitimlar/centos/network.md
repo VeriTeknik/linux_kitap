@@ -42,3 +42,5 @@ NETMASK=255.255.255.240
 GATEWAY=172.20.10.1
 HWADDR=00:0c:29:5a:96:3a
 ```
+
+Dosyanın içeriğini yukarıdaki gibi değiştirdikten sonra, yeni değerlerin network servisi tarafından okunabilmesi için, daha önce gördüğümüz ```service network restart``` komutu ile servisin yeniden başlatılması gerekiyor.
