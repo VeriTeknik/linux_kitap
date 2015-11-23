@@ -18,10 +18,10 @@
    * [egrep ve Regular Expressions](gelismis_terminal/egrep.md)
 * [Temel Dağıtımlar](dagitimlar/temel_dagitimlar.md)
    * [CentOS](dagitimlar/centos/centos.md)
+       * rpm Paketleri
        * [yum Paket Yöneticisi](dagitimlar/centos/yum.md)
        * [Repo Ayarları](dagitimlar/centos/repo.md)
        * [Network Ayarları](dagitimlar/centos/network.md)
-       * rpm Paketleri
    * [Debian](dagitimlar/debian/debian.md)
        * [aptitude Paket Yöneticisi](dagitimlar/debian/aptitude.md)
        * [Repo Ayarları](dagitimlar/debian/repo.md)
