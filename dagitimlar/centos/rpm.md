@@ -71,9 +71,13 @@ rpm -Uvh paket-dosyası.rpm
 Bu seçenek ile paket kaldırılır. Eğer bu pakedin bağımlı olduğu paketler, başka bir paket tarafından kullanılıyorsa onlar da kaldırılır.
 
 ```
-rpm -evv paket-ismi
+rpm -ev paket-ismi
 ```
 
 ## Bir Pakedi Bağımlı Olduğu Diğer Paketlere Dokunmadan Kaldır
 
 Bu seçenek ile, paket kaldırılır ancak kendisinin bağımlığı olduğu paketlere dokunulmaz.
+
+```
+rpm -ev --nodeps paket-ismi
+```
