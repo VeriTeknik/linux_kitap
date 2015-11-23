@@ -14,5 +14,66 @@ RPM paketlerinin isimlendirmesinde genellikle aşağıdaki düzen izlenir.
 
 rpm dosyalarını pek çok yerden edinebilirsiniz. [rpmfind.net](http://rpmfind.net) bunlardan birisidir.
 
+## Yükle
 
+Bir rpm paketini yüklemek için:
 
+```
+rpm -ivh paket-dosyası.rpm
+```
+
+## Bağımlı Olduğu Paketleri Göster
+
+Bir rpm paketini yüklemeden, bu paketin bağımlı olduğu diğer paketleri öğrenmek için:
+
+```
+rpm -qpR paket-dosyası.rpm
+```
+
+## Bağımlı Olduğu Paketler Hariç Yükle
+
+Bir rpm paketini, bağımlı olduğu diğer paketleri gözardı ederek yükler. Çok sık gerekecek bir durum değildir, kimi zaman sisteminizdeki belirli kütüphanelerin değişmesini istemezseniz yapmanız gerekebilir.
+
+```
+rpm -ivh --nodeps paket-dosyası.rpm
+```
+
+## Yüklü Paketler Arasında Birini Sorgula
+
+Yüklü paketleriniz içinde örneğin **htop** olup olmadığını merak ediyorsanız,
+
+```
+rpm -q htop
+```
+
+## Yüklü Paketlerin Tamamını Göster
+
+```
+rpm -qa
+```
+
+## Yüklü Pakedin Tüm Dosyalarını Görüntüle
+
+Örneğin sisteminizdeki **nmap** paketinin hangi dosyaları yüklediğini merak ediyorsanız.
+
+```
+rpm -ql nmap
+```
+
+## Bir Pakedi Güncelle
+
+```
+rpm -Uvh paket-dosyası.rpm
+```
+
+## Bir Pakedi Sil
+
+Bu seçenek ile paket kaldırılır. Eğer bu pakedin bağımlı olduğu paketler, başka bir paket tarafından kullanılıyorsa onlar da kaldırılır.
+
+```
+rpm -evv paket-ismi
+```
+
+## Bir Pakedi Bağımlı Olduğu Diğer Paketlere Dokunmadan Kaldır
+
+Bu seçenek ile, paket kaldırılır ancak kendisinin bağımlığı olduğu paketlere dokunulmaz.
