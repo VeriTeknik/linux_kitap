@@ -30,6 +30,12 @@ Bir rpm paketini yüklemeden, bu paketin bağımlı olduğu diğer paketleri ö�
 rpm -qpR paket-dosyası.rpm
 ```
 
+## Paket Dosyası Hakkında Genel Bilgi Al
+
+```
+rpm -qip paket-dosyası.rpm
+```
+
 ## Bağımlı Olduğu Paketler Hariç Yükle
 
 Bir rpm paketini, bağımlı olduğu diğer paketleri gözardı ederek yükler. Çok sık gerekecek bir durum değildir, kimi zaman sisteminizdeki belirli kütüphanelerin değişmesini istemezseniz yapmanız gerekebilir.
