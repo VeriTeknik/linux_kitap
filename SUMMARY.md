@@ -100,7 +100,7 @@
 * [Kaynak Kod Derleme](kaynak_kod_derleme.md)
 * [Hata Takibi](hata_takibi/hata_takibi.md)
    * [PHP, MySQL ve Apache Kütük Yapılandırması](hata_takibi/kutuk_yapisi.md)
-   * Linux Rescue
+   * [Linux Rescue](hata_takibi/linux_rescue.md)
 * [Index](index.md)
    * [Linkler](linkler.md)
    * [Notlar (silinecek)](notlar_silinecek.md)
