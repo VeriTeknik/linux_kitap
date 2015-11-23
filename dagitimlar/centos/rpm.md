@@ -81,3 +81,14 @@ Bu seçenek ile, paket kaldırılır ancak kendisinin bağımlığı olduğu pak
 ```
 rpm -ev --nodeps paket-ismi
 ```
+
+## Bir Dosyanın Hangi Pakete Ait Olduğu
+
+Sisteminizde gördüğünüz bir dosyanın, hangi rpm pakediyle geldiğini öğrenmek istiyorsanız aşağıdaki gibi bir sorgulama yapabilirsiniz. Örneğin **/etc/my.cnf** dosyasının nereden geldiğini merak ediyorsak:
+
+
+```
+[root@emre /]# rpm -qf /etc/my.cnf
+mysql55w-libs-5.5.43-1.w6.x86_64
+```
+
