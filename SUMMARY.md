@@ -18,7 +18,7 @@
    * [egrep ve Regular Expressions](gelismis_terminal/egrep.md)
 * [Temel Dağıtımlar](dagitimlar/temel_dagitimlar.md)
    * [CentOS](dagitimlar/centos/centos.md)
-       * rpm Paketleri
+       * [rpm Paketleri](dagitimlar/centos/rpm.md)
        * [yum Paket Yöneticisi](dagitimlar/centos/yum.md)
        * [Repo Ayarları](dagitimlar/centos/repo.md)
        * [Network Ayarları](dagitimlar/centos/network.md)
