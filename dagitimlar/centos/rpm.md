@@ -52,7 +52,7 @@ rpm -q htop
 rpm -qa
 ```
 
-## Yüklü Pakedin Tüm Dosyalarını Görüntüle
+## Yüklü Paketin Tüm Dosyalarını Görüntüle
 
 Örneğin sisteminizdeki **nmap** paketinin hangi dosyaları yüklediğini merak ediyorsanız.
 
@@ -60,21 +60,21 @@ rpm -qa
 rpm -ql nmap
 ```
 
-## Bir Pakedi Güncelle
+## Bir Paketi Güncelle
 
 ```
 rpm -Uvh paket-dosyası.rpm
 ```
 
-## Bir Pakedi Sil
+## Bir Paketi Sil
 
-Bu seçenek ile paket kaldırılır. Eğer bu pakedin bağımlı olduğu paketler, başka bir paket tarafından kullanılıyorsa onlar da kaldırılır.
+Bu seçenek ile paket kaldırılır. Eğer bu paketin bağımlı olduğu paketler, başka bir paket tarafından kullanılıyorsa onlar da kaldırılır.
 
 ```
 rpm -ev paket-ismi
 ```
 
-## Bir Pakedi Bağımlı Olduğu Diğer Paketlere Dokunmadan Kaldır
+## Bir Paketi Bağımlı Olduğu Diğer Paketlere Dokunmadan Kaldır
 
 Bu seçenek ile, paket kaldırılır ancak kendisinin bağımlığı olduğu paketlere dokunulmaz.
 
@@ -84,11 +84,31 @@ rpm -ev --nodeps paket-ismi
 
 ## Bir Dosyanın Hangi Pakete Ait Olduğu
 
-Sisteminizde gördüğünüz bir dosyanın, hangi rpm pakediyle geldiğini öğrenmek istiyorsanız aşağıdaki gibi bir sorgulama yapabilirsiniz. Örneğin **/etc/my.cnf** dosyasının nereden geldiğini merak ediyorsak:
+Sisteminizde gördüğünüz bir dosyanın, hangi rpm paketiyle geldiğini öğrenmek istiyorsanız aşağıdaki gibi bir sorgulama yapabilirsiniz. Örneğin **/etc/my.cnf** dosyasının nereden geldiğini merak ediyorsak:
 
 
-```
+```bash
 [root@emre /]# rpm -qf /etc/my.cnf
 mysql55w-libs-5.5.43-1.w6.x86_64
 ```
 
+## Yüklenmiş bir RPM Paketi Hakkında Bilgi Almak
+
+```bash
+[root@emre /]# rpm -qi mysql55w
+Name        : mysql55w                     Relocations: (not relocatable)
+Version     : 5.5.43                            Vendor: Webtatic
+Release     : 1.w6                          Build Date: Wed 08 Apr 2015 11:04:32 AM EEST
+Install Date: Thu 07 May 2015 03:01:26 PM EEST      Build Host: mock.dev
+Group       : Applications/Databases        Source RPM: mysql55w-5.5.43-1.w6.src.rpm
+Size        : 29768594                         License: GPLv2 with exceptions
+Signature   : DSA/SHA1, Wed 08 Apr 2015 12:35:33 PM EEST, Key ID b7434b06cf4c4ff9
+Packager    : Andy Thompson <andy@webtatic.com>
+URL         : http://www.mysql.com
+Summary     : MySQL client programs and shared libraries
+Description :
+MySQL is a multi-user, multi-threaded SQL database server. MySQL is a
+client/server implementation consisting of a server daemon (mysqld)
+and many different client programs and libraries. The base package
+contains the standard MySQL client programs and generic MySQL files.
+```
