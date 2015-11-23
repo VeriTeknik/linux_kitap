@@ -1,6 +1,6 @@
 # yum Paket Yöneticisi ve rpm
 
-RedHat sistemler yum (Yellowdow Updater Modified) paket yöneticisini kullanırlar. Sisteminiz için uygun yazılımları, bağımlılıkları (dependency) ile birlikte yüklemeye yarayan bu paket yöneticisinin kullanımı oldukça kolaydır. yum bize rpm (RedHat Package Manager) dosyaları sağlar. Dolayısıyla istersek **rpm** paket dosyalarını edinip yükleyebiliriz, istersek paketleri **yum** ile yükleyebiliriz. Bu bölümde iki sistemi bir arada kullanmayı göreceğiz.
+Red Hat sistemler üzerinde, yum (Yellowdow Updater Modified) paket yöneticisi en yaygın kullanılanıdır. Sisteminiz için uygun yazılımları, bağımlılıkları (dependency) ile birlikte yüklemeye yarayan bu paket yöneticisinin kullanımı oldukça kolaydır. yum bize rpm (Red Hat Package Manager) dosyaları sağlar. Dolayısıyla istersek **rpm** paket dosyalarını edinip yükleyebiliriz, istersek paketleri **yum** ile yükleyebiliriz. Bu bölümde iki sistemi bir arada kullanmayı göreceğiz.
 
 ## list ve search
 
