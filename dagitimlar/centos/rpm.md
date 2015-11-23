@@ -7,5 +7,5 @@ RPM paketlerinin isimlendirmesinde genellikle aşağıdaki düzen izlenir.
 
 ```<name>-<version>-<release>.<architecture>.rpm```
 
-```<isim>-<versiyon>-<dağıtım>.<mimari>.rpm```
+
 
