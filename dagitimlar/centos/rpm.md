@@ -1,4 +1,4 @@
 # rpm Paketleri
 
-![](https://en.wikipedia.org/wiki/RPM_Package_Manager#/media/File:RPM_Logo.svg)
+Red Hat için geliştirilmiş paket yönetim sistemidir. Paketler -çoğunlukla olduğu gibi- doğrudan derlenmiş dosyalar olarak dağıtılabileceği gibi, kaynak kodların dağıtımını (srpm, spm) da sağlayabilir.
 
