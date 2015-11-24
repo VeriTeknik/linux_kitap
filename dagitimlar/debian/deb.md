@@ -1,6 +1,6 @@
 # deb Paketleri
 
-Red Hat sistemler üzerindeki **rpm** paketlerinin Debian sistemler üzerindeki karşılığı **deb** paketleridir.
+Red Hat sistemler üzerindeki **rpm** paketlerinin Debian (ve Ubuntu) sistemler üzerindeki karşılığı **deb** paketleridir.
 
 ## Yükle
 
