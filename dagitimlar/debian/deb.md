@@ -88,13 +88,13 @@ and dpkg --contents (= dpkg-deb --contents) to list their contents.
 Yüklü bir paketi kaldırmak için **-r** parametresi kullanılabilir.
 
 ```bash
-# dpkg -r htop
+dpkg -r htop
 ```
 
 Eğer ilgili paketin ayar dosyalarının (configuration files) beraberinde silinmesini istiyorsak, **-p** (purge) ile kaldırılabilir.
 
 ```bash
-# dpkg -p htop
+dpkg -p htop
 ```
 
 ## Bir Paket Dosyasının İçeriğini Görmek
