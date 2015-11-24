@@ -76,7 +76,7 @@ Homepage: http://htop.sourceforge.net
 ```
 
 ```bash
-dpkg -s atop
+# dpkg -s atop
 dpkg-query: package 'atop' is not installed and no information is available
 Use dpkg --info (= dpkg-deb --info) to examine archive files,
 and dpkg --contents (= dpkg-deb --contents) to list their contents.
