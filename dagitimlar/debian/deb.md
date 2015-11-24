@@ -50,6 +50,39 @@ Desired=Unknown/Install/Remove/Purge/Hold
 ii  htop               1.0.2-3        amd64          interactive processes viewer
 ```
 
+Paket hakkında bilgi almak için **-s** seçeneği kullanılabilir. Eğer paket yüklü değilse bunun bilgisini de verecektir.
+
+```bash
+dpkg -s htop
+Package: htop
+Status: install ok installed
+Priority: optional
+Section: utils
+Installed-Size: 184
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Architecture: amd64
+Version: 1.0.2-3
+Depends: libc6 (>= 2.15), libncursesw5 (>= 5.6+20070908), libtinfo5
+Suggests: strace, ltrace
+Description: interactive processes viewer
+ Htop is an ncursed-based process viewer similar to top, but it
+ allows one to scroll the list vertically and horizontally to see
+ all processes and their full command lines.
+ .
+ Tasks related to processes (killing, renicing) can be done without
+ entering their PIDs.
+Original-Maintainer: Eugene V. Lyubimkin <jackyf@debian.org>
+Homepage: http://htop.sourceforge.net
+```
+
+```bash
+dpkg -s atop
+dpkg-query: package 'atop' is not installed and no information is available
+Use dpkg --info (= dpkg-deb --info) to examine archive files,
+and dpkg --contents (= dpkg-deb --contents) to list their contents.
+```
+
+
 ## Bir Paketi Kaldırmak
 
 Yüklü bir paketi kaldırmak için **-r** parametresi kullanılabilir.
@@ -63,3 +96,12 @@ Eğer ilgili paketin ayar dosyalarının (configuration files) beraberinde silin
 ```bash
 dpkg -p htop
 ```
+
+## Bir Paket Dosyasının İçeriğini Görmek
+
+Paket dosyasının içeriğindeki dosyaları görmek için,
+
+```bash
+dpkg -c paket-dosyası.deb
+```
+
