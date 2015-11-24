@@ -27,3 +27,11 @@ Benzer şekilde, her işleminiz için farklı bir dosya oluşturup ```/etc/apt/s
 # cat /etc/apt/sources.list.d/spotify.list 
 deb http://repository.spotify.com stable non-free
 ```
+
+Repo eklemek için bu dosyalar düzenlenebileceği gibi, **add-apt-repository** programı da kullanılabilir.
+
+```bash
+add-apt-repository "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main"
+```
+
+Yukarıdaki komut, ```/etc/apt/sources.list``` dosyasına ilgili satırları ekleyecektir, ```/etc/apt/sources.list.d/``` dizinine yeni bir dosya oluşturmayacaktır.
