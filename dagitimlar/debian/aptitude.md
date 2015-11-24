@@ -44,3 +44,14 @@ Veya, sadece isminde **htop** ifadesi geçen paketleri arayabilirdik.
 htop - interactive processes viewer
 ```
 
+Eğer ilk harfi farklı olan, ama top ile biten, toplam 4 kelimelik paket isimlerini aramak isteseydik?
+
+```bash
+# apt-cache search --names-only ^.top$
+atop - Monitor for system resources and process activity
+htop - interactive processes viewer
+itop - simple top-like interrupt load monitor
+ntop - display network usage in web browser
+ptop - transitional dummy package
+```
+
