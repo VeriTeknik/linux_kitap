@@ -183,3 +183,18 @@ Abort.
 
 apt'nin bir diğer güzelliği, işlemlerinizi simüle edebilmesidir. Örneğin yükleme veya güncelleme işleminin tamamını simüle edebilir, ancak gerçekleştirmeyebilirsiniz.
 
+```bash
+# apt-get install -s atop
+NOTE: This is only a simulation!
+      apt-get needs root privileges for real execution.
+      Keep also in mind that locking is deactivated,
+      so don't depend on the relevance to the real current situation!
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following NEW packages will be installed:
+  atop
+0 upgraded, 1 newly installed, 0 to remove and 33 not upgraded.
+Inst atop (1.26-2 Ubuntu:14.04/trusty [amd64])
+Conf atop (1.26-2 Ubuntu:14.04/trusty [amd64])
+```
