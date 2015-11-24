@@ -55,3 +55,4 @@ ntop - display network usage in web browser
 ptop - transitional dummy package
 ```
 
+Gördüğünüz gibi böylece bir çok **top** türevi program keşfetmiş olduk.
