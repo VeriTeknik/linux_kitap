@@ -104,4 +104,3 @@ Paket dosyasının içeriğindeki dosyaları görmek için,
 ```bash
 dpkg -c paket-dosyası.deb
 ```
-
