@@ -156,3 +156,27 @@ Bu yöntem, ekstra paket yüklemeyecek, veya artık kullanılmayan paket/kütüp
 ```bash
 apt-get dist-upgrade
 ```
+
+Güncelleme işlemini yapmadan, güncellenecek paketler hakkında bilgi almak için aşağıdaki gibi bir yöntem izlenebilir.
+
+```bash
+# apt-get -u upgrade --assume-no
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Calculating upgrade... Done
+The following packages will be upgraded:
+  base-files gir1.2-gudev-1.0 grub-common grub-pc grub-pc-bin grub2-common
+  icedtea-7-plugin icedtea-netx icedtea-netx-common icedtea-plugin
+  libegl1-mesa libegl1-mesa-drivers libgbm1 libgl1-mesa-dri:i386
+  libgl1-mesa-dri libgl1-mesa-glx libgl1-mesa-glx:i386 libglapi-mesa:i386
+  libglapi-mesa libgles1-mesa libgles2-mesa libgudev-1.0-0 libgudev-1.0-0:i386
+  libopenvg1-mesa libpam-systemd libsystemd-daemon0 libsystemd-journal0
+  libsystemd-login0 libwayland-egl1-mesa libxatracker2 linux-firmware
+  linux-libc-dev systemd-services
+33 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Need to get 42,2 MB of archives.
+After this operation, 6.100 kB of additional disk space will be used.
+Do you want to continue? [Y/n] N
+Abort.
+```
