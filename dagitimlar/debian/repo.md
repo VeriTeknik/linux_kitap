@@ -35,3 +35,5 @@ add-apt-repository "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty 
 ```
 
 Yukarıdaki komut, ```/etc/apt/sources.list``` dosyasına ilgili satırları ekleyecektir, ```/etc/apt/sources.list.d/``` dizinine yeni bir dosya oluşturmayacaktır.
+
+Yeni bir repo ekledikten sonra, apt-cache ile yaptığımız aramalarda repo'nun paketlerinin de görüntülenmesi için, öncelikle ```apt-get upgrade``` komutu uygulanarak yerel listelerimizi güncellemeliyiz.
