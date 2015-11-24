@@ -2,3 +2,39 @@
 
 Red Hat sistemler üzerindeki **rpm** paketlerinin Debian sistemler üzerindeki karşılığı **deb** paketleridir.
 
+## Yükle
+
+deb paketlerini yüklemek için
+
+```bash
+dpkg -i paket-dosyası.deb
+```
+
+## Yüklü Paketleri Listele
+
+Mevcut paketleri liste halinde gösterir
+
+```bash
+dpkg -l
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+||/ Name                                        Version                                             Architecture Description
++++-===========================================-===================================================-============-=====================================================================================================================
+ii  accountsservice                             0.6.35-0ubuntu7.2                                   amd64        query and manipulate user account information
+ii  acl                                         2.2.52-1                                            amd64        Access control list utilities
+ii  acpi-support                                0.142                                               amd64        scripts for handling many ACPI events
+ii  acpid                                       1:2.0.21-1ubuntu2                                   amd64        Advanced Configuration and Power Interface event daemon
+ii  add-apt-key                                 1.0-0.5                                             all          Command line tool to add GPG keys to the APT keyring
+ii  adduser                                     3.113+nmu3ubuntu3                                   all          add and remove users and groups
+ii  adobe-flashplugin                           1:20151110.1-0trusty1                               amd64        Adobe Flash Player plugin
+ii  alsa-base                                   1.0.25+dfsg-0ubuntu4                                all          ALSA driver configuration files
+ii  alsa-utils                                  1.0.27.2-1ubuntu2                                   amd64        Utilities for configuring and using ALSA
+ii  anacron                                     2.3-20ubuntu1                                       amd64        cron-like program that doesn't go by time
+ii  apg                                         2.2.3.dfsg.1-2ubuntu1                               amd64        Automated Password Generator - Standalone version
+ii  apt                                         1.0.1ubuntu2.10                                     amd64        commandline package manager
+ii  apt-clone                                   0.3.1~ubuntu11.1                                    all          Script to create state bundles
+ii  apt-transport-https                         1.0.1ubuntu2.10                                     amd64        https download transport for APT
+ii  apt-utils                                   1.0.1ubuntu2.10                                     amd64        package management related utility programs
+```
+
