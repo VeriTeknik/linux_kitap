@@ -57,7 +57,7 @@ ptop - transitional dummy package
 
 Gördüğünüz gibi böylece bir çok **top** türevi program keşfetmiş olduk.
 
-## Paketleri Yüklemek
+## Paketleri Yüklemek ve Güncellemek
 
 Bulduğumuz bir paketi yüklemek için, apt-get komutunu kullanabiliriz.
 
@@ -82,3 +82,65 @@ Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
 Setting up htop (1.0.2-3) ...
 ```
 
+Bu komut aynı zamanda mevcut yüklü bir paketi güncellemeye de yarar.
+
+```bash
+# dpkg -l udev
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+||/ Name                     Version           Architecture      Description
++++-========================-=================-=================-=====================================================
+ii  udev                     204-5ubuntu20.12  amd64             /dev/ and hotplug management daemon
+```
+
+```bash
+# apt-get install udev
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following extra packages will be installed:
+  libudev1 libudev1:i386
+The following packages will be upgraded:
+  libudev1 libudev1:i386 udev
+3 upgraded, 0 newly installed, 0 to remove and 33 not upgraded.
+Need to get 803 kB of archives.
+After this operation, 4.096 B of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu/ trusty-updates/main udev amd64 204-5ubuntu20.15 [735 kB]
+Get:2 http://archive.ubuntu.com/ubuntu/ trusty-updates/main libudev1 i386 204-5ubuntu20.15 [34,3 kB]
+Get:3 http://archive.ubuntu.com/ubuntu/ trusty-updates/main libudev1 amd64 204-5ubuntu20.15 [33,4 kB]
+Fetched 803 kB in 2s (400 kB/s)    
+(Reading database ... 166440 files and directories currently installed.)
+Preparing to unpack .../udev_204-5ubuntu20.15_amd64.deb ...
+Adding 'diversion of /bin/udevadm to /bin/udevadm.upgrade by fake-udev'
+Unpacking udev (204-5ubuntu20.15) over (204-5ubuntu20.12) ...
+Preparing to unpack .../libudev1_204-5ubuntu20.15_i386.deb ...
+De-configuring libudev1:amd64 (204-5ubuntu20.12) ...
+Unpacking libudev1:i386 (204-5ubuntu20.15) over (204-5ubuntu20.12) ...
+Preparing to unpack .../libudev1_204-5ubuntu20.15_amd64.deb ...
+Unpacking libudev1:amd64 (204-5ubuntu20.15) over (204-5ubuntu20.12) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Processing triggers for ureadahead (0.100.0-16) ...
+Setting up libudev1:amd64 (204-5ubuntu20.15) ...
+Setting up libudev1:i386 (204-5ubuntu20.15) ...
+Setting up udev (204-5ubuntu20.15) ...
+udev stop/waiting
+udev start/running, process 22510
+Removing 'diversion of /bin/udevadm to /bin/udevadm.upgrade by fake-udev'
+update-initramfs: deferring update (trigger activated)
+Processing triggers for libc-bin (2.19-0ubuntu6.6) ...
+Processing triggers for initramfs-tools (0.103ubuntu4.2) ...
+update-initramfs: Generating /boot/initrd.img-3.16.0-38-generic
+Warning: No support for locale: en_US.utf8
+```
+
+```bash
+# dpkg -l udev
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+||/ Name                     Version           Architecture      Description
++++-========================-=================-=================-=====================================================
+ii  udev                     204-5ubuntu20.15  amd64             /dev/ and hotplug management daemon
+```
