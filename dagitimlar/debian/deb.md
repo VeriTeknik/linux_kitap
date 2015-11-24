@@ -38,7 +38,28 @@ ii  apt-transport-https                         1.0.1ubuntu2.10                 
 ii  apt-utils                                   1.0.1ubuntu2.10                                     amd64        package management related utility programs
 ```
 
+Belirli bir paketin yüklü olup olmadığını görmek için, paket ismi verebilirsiniz.
+
+```bash
+dpkg -l htop
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+||/ Name               Version        Architecture   Description
++++-==================-==============-==============-==========================================
+ii  htop               1.0.2-3        amd64          interactive processes viewer
+```
+
 ## Bir Paketi Kaldırmak
 
 Yüklü bir paketi kaldırmak için **-r** parametresi kullanılabilir.
 
+```bash
+dpkg -r htop
+```
+
+Eğer ilgili paketin ayar dosyalarının (configuration files) beraberinde silinmesini istiyorsak, **-p** (purge) ile kaldırılabilir.
+
+```bash
+dpkg -p htop
+```
