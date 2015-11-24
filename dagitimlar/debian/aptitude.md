@@ -14,3 +14,13 @@ apt ile paket listenizi güncellemek için **update** komutunu kullanabilirsiniz
 apt-get update
 ```
 
+Artık paket listeleri içerisinde arama yapabiliriz. Örneğin adında **htop** geçen bir paket ismi ararsak şöyle arama yapabiliriz.
+
+```bash
+# apt-cache search htop
+aha - ANSI color to HTML converter
+htop - interactive processes viewer
+libauthen-oath-perl - Perl module for OATH One Time Passwords
+```
+
+Tahmin edeceğiniz gibi bu çok uzun bir liste getirecektir, çünkü paket isminde, açıklamasında **top** geçen bütün paketleri listeler. Ancak burada regular expression kullanabilirdik, örneğin
