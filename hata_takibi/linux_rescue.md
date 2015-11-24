@@ -12,5 +12,18 @@ hdparm -I /dev/sda | grep Number:
 #        Serial Number:      WD-WMAYP1324321
 ```
 
+disklerin isimlerinden emin olduktan sonra aşağıdaki komut ile disk imajı çıkarabilirsiniz:
+
+Bir diskten diğerine:
+
+```bash
+dd if=/dev/sdb of=/dev/sdc bs=4M conv=noerror,sync
+```
+
+Kopyalama işlemininin durumunu görüntülemek için ayrı bir konsoldan dd işleminin pid numarasını bulun (pidof dd) ve kill komutu ile dd işlemine sinyal gönderin:
+
+```bash
+kill -USR1 pid_numarasi
+```
 
 
