@@ -223,3 +223,7 @@ Processing triggers for mime-support (3.54ubuntu1.1) ...
 
 Bu işlem **htop** için gerekli ayar dosyalarını ve deb dosyalarını kaldırmaz. Eğer bunları da kaldırmak isteseydik, **purge** komutunu kullanmamız gerekirdi.
 
+```bash
+apt-get purge htop
+```
+
