@@ -180,3 +180,6 @@ After this operation, 6.100 kB of additional disk space will be used.
 Do you want to continue? [Y/n] N
 Abort.
 ```
+
+apt'nin bir diğer güzelliği, işlemlerinizi simüle edebilmesidir. Örneğin yükleme veya güncelleme işleminin tamamını simüle edebilir, ancak gerçekleştirmeyebilirsiniz.
+
