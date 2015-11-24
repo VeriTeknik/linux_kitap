@@ -56,3 +56,29 @@ ptop - transitional dummy package
 ```
 
 Gördüğünüz gibi böylece bir çok **top** türevi program keşfetmiş olduk.
+
+## Paketleri YÜklemek
+
+Bulduğumuz bir paketi yüklemek için, apt-get komutunu kullanabiliriz.
+
+```bash
+# apt-get install htop
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following NEW packages will be installed:
+  htop
+0 upgraded, 1 newly installed, 0 to remove and 32 not upgraded.
+Need to get 0 B/68,0 kB of archives.
+After this operation, 188 kB of additional disk space will be used.
+Selecting previously unselected package htop.
+(Reading database ... 166430 files and directories currently installed.)
+Preparing to unpack .../htop_1.0.2-3_amd64.deb ...
+Unpacking htop (1.0.2-3) ...
+Processing triggers for gnome-menus (3.10.1-0ubuntu2) ...
+Processing triggers for desktop-file-utils (0.22-1ubuntu1) ...
+Processing triggers for mime-support (3.54ubuntu1.1) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Setting up htop (1.0.2-3) ...
+```
+
