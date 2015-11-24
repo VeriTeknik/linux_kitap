@@ -48,3 +48,9 @@ iface eth0 inet static
 auto eth1
 iface eth1 inet dhcp
 ```
+
+**Problem:**
+
+Birden fazla ethernet kartı üzerine farklı bloklardan IP'ler ekleyip tamamının aynı gateway üzerinden çıkmasını isteyebilirsiniz. Örneğin eth0 ve eth1 kartlarımız var, eth0 94.103.37.0/25 IP'lerini alacak, eth1 ise 192.168.25.128/25 IP'lerini alacak şekilde düzenlenebilir. Bu durumda ikisinin de internete 94.103.37.1 IP'si üzerinden çıkmasını isteyebilirsiniz. Bu gibi bir problemin çözümü için aşağıdaki makaleyi inceleyebilirsiniz.
+
+[http://www.plugged.in/linux/add-multiple-gateways-multiple-nics-ubuntu-server.html](http://www.plugged.in/linux/add-multiple-gateways-multiple-nics-ubuntu-server.html)
