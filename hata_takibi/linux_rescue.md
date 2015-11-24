@@ -6,9 +6,11 @@ Yeni ve kurtarılması gereken diskleri başka bir sunucuya takın, Diyelim ki k
 
 Eğer diskleriniz aynı boyutta ise fdisk ile alacağınız bilgi yeterli olmayacaktır, bu durumda aşağıdaki komut ile disklerin üretici bilgisi ve seri numarasını alabilirsiniz:
 
-^^^bash
+```bash
 hdparm -I /dev/sda | grep Number:
-        Model Number:       WDC WD5003ABYX-18WERA0                  
-        Serial Number:      WD-WMAYP1327681
-^^^
+#        Model Number:       WDC WD5003ABYX-18WERA0                  
+#        Serial Number:      WD-WMAYP1324321
+```
+
+
 
