@@ -20,7 +20,7 @@ Bir diskten diğerine:
 dd if=/dev/sdb of=/dev/sdc bs=4M conv=noerror,sync
 ```
 
-Kopyalama işlemininin durumunu görüntülemek için ayrı bir konsoldan dd işleminin pid numarasını bulun (pidof dd) ve kill komutu ile dd işlemine sinyal gönderin:
+Kopyalama işleminin durumunu görüntülemek için ayrı bir konsoldan dd işleminin pid numarasını bulun (pidof dd) ve kill komutu ile dd işlemine sinyal gönderin:
 
 ```bash
 kill -USR1 pid_numarasi
