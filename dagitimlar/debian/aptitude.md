@@ -4,7 +4,7 @@ Debian (ve Ubuntu) sistemlerde, Red Hat/CentOS için gördüğümüz rpm'in yum 
 
 apt-get, apt-cache araçları aptitude programı ile aynı repoları kullandığından, birini öğrenmek sorun teşkil etmez. Biz de bu bölümde yaygın kullanıma aşina olabilmek adına apt-get, apt-cache ve benzer araçlarla (kısaca apt) deb paket yönetimini göreceğiz.
 
-## Paket Listeleri
+## Paket Listelerini Güncellemek ve Aramak
 
 apt paket listelerini yum'dan farklı bir mekanizmayla tutar. Her arama yaptığınızda sunuculara bağlanmaz. Böylelikle daha hızlı sonuç verir ancak her defasında sonuçlarınız güncel olmayabilir. Güncel sonuç almak için listelerinizi güncellemeniz gerekir.
 
@@ -36,3 +36,6 @@ apt-cache search regular expression destekleyen bir yazılımdır. Örneğin sad
 # apt-cache search ^htop
 htop - interactive processes viewer
 ```
+
+Veya, sadece isminde **htop** ifadesi geçen paketleri arayabilirdik.
+
