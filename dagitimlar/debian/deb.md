@@ -53,7 +53,7 @@ ii  htop               1.0.2-3        amd64          interactive processes viewe
 Paket hakkında bilgi almak için **-s** seçeneği kullanılabilir. Eğer paket yüklü değilse bunun bilgisini de verecektir.
 
 ```bash
-dpkg -s htop
+# dpkg -s htop
 Package: htop
 Status: install ok installed
 Priority: optional
