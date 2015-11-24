@@ -39,3 +39,8 @@ htop - interactive processes viewer
 
 Veya, sadece isminde **htop** ifadesi geçen paketleri arayabilirdik.
 
+```bash
+# apt-cache search --names-only htop
+htop - interactive processes viewer
+```
+
