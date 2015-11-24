@@ -47,3 +47,8 @@ Dosyanın içeriğini yukarıdaki gibi değiştirdikten sonra, yeni değerlerin 
 
 Yukarıdaki örnekte ```BROADCAST``` veya ```NETWORK``` gibi değerler tanımlamadık, ancak bu bilgileri de sağlayabilirdik. Bir network tanımı yapılması için IP adresi ve NETMASK bilgisinin yanısıra GATEWAY, BROADCAST veya NETWORK bilgilerinden birinin sağlanması yeterlidir.
 
+**Makale:**
+
+Birden fazla cihaz üzerinde IPv4 ve IPv6 ayarlarının yapılması için detaylı anlatım içeren bir makaleyi aşağıdaki linkten okuyabilirsiniz.
+
+http://www.plugged.in/linux/bind-multiple-ip-addresses-on-a-single-network-card.html
