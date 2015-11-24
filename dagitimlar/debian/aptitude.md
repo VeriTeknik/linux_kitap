@@ -144,3 +144,15 @@ Desired=Unknown/Install/Remove/Purge/Hold
 +++-========================-=================-=================-=====================================================
 ii  udev                     204-5ubuntu20.15  amd64             /dev/ and hotplug management daemon
 ```
+
+Eğer sisteminizdeki bütün paketleri güncellemek isterseniz, **upgrade** komutunu kullanabilirsiniz.
+
+```bash
+apt-get upgrade
+```
+
+Bu yöntem, ekstra paket yüklemeyecek, veya artık kullanılmayan paket/kütüphaneleri kaldırmayacaktır. Eğer bunu önemsemiyorsanız, **dist-upgrade** komutunu kullanabilirsiniz.
+
+```bash
+apt-get dist-upgrade
+```
