@@ -46,6 +46,5 @@ iface eth0 inet static
 	gateway  94.103.47.1
 
 auto eth1
-allow-hotplug eth1
 iface eth1 inet dhcp
 ```
