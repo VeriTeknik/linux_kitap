@@ -23,7 +23,7 @@
        * [Repo Ayarları](dagitimlar/centos/repo.md)
        * [Network Ayarları](dagitimlar/centos/network.md)
    * [Debian](dagitimlar/debian/debian.md)
-       * deb Paketleri
+       * [deb Paketleri](dagitimlar/debian/deb.md)
        * [aptitude Paket Yöneticisi](dagitimlar/debian/aptitude.md)
        * [Repo Ayarları](dagitimlar/debian/repo.md)
        * [Network Ayarları](dagitimlar/debian/network.md)
