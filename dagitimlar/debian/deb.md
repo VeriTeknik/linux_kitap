@@ -94,7 +94,7 @@ Yüklü bir paketi kaldırmak için **-r** parametresi kullanılabilir.
 Eğer ilgili paketin ayar dosyalarının (configuration files) beraberinde silinmesini istiyorsak, **-p** (purge) ile kaldırılabilir.
 
 ```bash
-dpkg -p htop
+# dpkg -p htop
 ```
 
 ## Bir Paket Dosyasının İçeriğini Görmek
