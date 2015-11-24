@@ -41,7 +41,7 @@ ii  apt-utils                                   1.0.1ubuntu2.10                 
 Belirli bir paketin yüklü olup olmadığını görmek için, paket ismi verebilirsiniz.
 
 ```bash
-dpkg -l htop
+# dpkg -l htop
 Desired=Unknown/Install/Remove/Purge/Hold
 | Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
 |/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
