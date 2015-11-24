@@ -227,3 +227,9 @@ Bu işlem **htop** için gerekli ayar dosyalarını ve deb dosyalarını kaldır
 apt-get purge htop
 ```
 
+İndirilen deb dosyalarının sistemden temizliğini yapmak için **clean** komutu kullanılabilir. Bu komut yüklü bir şey silmez, sadece yüklemek üzere dpkg'nin kullanması için indirilen deb dosyalarını siler.
+
+```bash
+apt-get clean
+```
+
