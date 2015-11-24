@@ -30,3 +30,9 @@ Sonuca bakacak olursak, içinde **htop** paketinin yer alması dışında, ilgis
  want to publish the output of ls --color=yes, git diff, ccal or htop
 ```
 
+apt-cache search regular expression destekleyen bir yazılımdır. Örneğin sadece htop ile başlayan ifadeler arasaydık şöyle yapabilirdik.
+
+```bash
+# apt-cache search ^htop
+htop - interactive processes viewer
+```
