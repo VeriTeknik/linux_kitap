@@ -23,4 +23,10 @@ htop - interactive processes viewer
 libauthen-oath-perl - Perl module for OATH One Time Passwords
 ```
 
-Tahmin edeceğiniz gibi bu çok uzun bir liste getirecektir, çünkü paket isminde, açıklamasında **top** geçen bütün paketleri listeler. Ancak burada regular expression kullanabilirdik, örneğin
+Sonuca bakacak olursak, içinde **htop** paketinin yer alması dışında, ilgisi olmayan paketler de geldi. Aslında apt-cache search komutu, paketlerin açıklamalarının içerisinde de arama yaptığı için. Örneğin **aha** paketinin açıklamasına bakarsak htop geçen satırı görebiliriz.
+
+```bash
+# apt-cache show aha|grep htop
+ want to publish the output of ls --color=yes, git diff, ccal or htop
+```
+
