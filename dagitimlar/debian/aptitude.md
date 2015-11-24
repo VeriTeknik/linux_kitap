@@ -233,3 +233,20 @@ apt-get purge htop
 apt-get clean
 ```
 
+## Easter Eggs
+
+apt-get programının bir "easter egg"i bulunmaktadır. Buna karşılık insanların aptitude'dan easter egg beklentisi alaycı bir biçimde karşılanmıştır.
+
+Aşağıdaki komutlarla easter egglere ulaşabilirsiniz.
+
+```bash
+apt-get moo
+```
+
+```bash
+aptitude moo
+aptitude -v moo
+aptitude -vv moo
+```
+
+Linux'te bir programın "konuşkan" olması için **-v** (verbose) parametresi eklenir. Bazı programlar, kaç tane **-v** eklerseniz o kadar konuşkan olur. ```aptitude moo``` komutunu ```-vvv``` parametreleriyle giderek daha konuşkan hale getirmeyi deneyin... Umarız [Küçük Prens](https://en.wikipedia.org/wiki/The_Little_Prince)'i okumuşsunuzdur ;)
