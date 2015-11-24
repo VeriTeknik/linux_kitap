@@ -57,7 +57,7 @@ ptop - transitional dummy package
 
 Gördüğünüz gibi böylece bir çok **top** türevi program keşfetmiş olduk.
 
-## Paketleri YÜklemek
+## Paketleri Yüklemek
 
 Bulduğumuz bir paketi yüklemek için, apt-get komutunu kullanabiliriz.
 
