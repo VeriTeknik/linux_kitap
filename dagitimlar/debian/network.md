@@ -7,3 +7,8 @@ Red Hat'tekinden farklı olarak, bu dosyayı yöneten servisin adı **network** 
 ```bash
 service networking start
 ```
+veya
+```bash
+/etc/init.d/networking start
+```
+
