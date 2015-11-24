@@ -4,7 +4,7 @@ Red Hat sistemler üzerindeki **rpm** paketlerinin Debian (ve Ubuntu) sistemler 
 
 ## Yükle
 
-deb paketlerini yüklemek için
+deb paketlerini yüklemek için **-i** parametresi kullanılır.
 
 ```bash
 dpkg -i paket-dosyası.deb
@@ -12,7 +12,7 @@ dpkg -i paket-dosyası.deb
 
 ## Yüklü Paketleri Listele
 
-Mevcut paketleri liste halinde gösterir
+Mevcut paketleri liste halinde gösterir.
 
 ```bash
 dpkg -l
@@ -37,4 +37,8 @@ ii  apt-clone                                   0.3.1~ubuntu11.1                
 ii  apt-transport-https                         1.0.1ubuntu2.10                                     amd64        https download transport for APT
 ii  apt-utils                                   1.0.1ubuntu2.10                                     amd64        package management related utility programs
 ```
+
+## Bir Paketi Kaldırmak
+
+Yüklü bir paketi kaldırmak için **-r** parametresi kullanılabilir.
 
