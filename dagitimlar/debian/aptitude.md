@@ -198,3 +198,25 @@ The following NEW packages will be installed:
 Inst atop (1.26-2 Ubuntu:14.04/trusty [amd64])
 Conf atop (1.26-2 Ubuntu:14.04/trusty [amd64])
 ```
+
+## Paketleri Kaldırmak
+
+Kaldırma işlemi için **remove** komutu kullanılabilir.
+
+```bash
+# apt-get remove htop
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages will be REMOVED:
+  htop
+0 upgraded, 0 newly installed, 1 to remove and 33 not upgraded.
+After this operation, 188 kB disk space will be freed.
+Do you want to continue? [Y/n] y
+(Reading database ... 166439 files and directories currently installed.)
+Removing htop (1.0.2-3) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Processing triggers for gnome-menus (3.10.1-0ubuntu2) ...
+Processing triggers for desktop-file-utils (0.22-1ubuntu1) ...
+Processing triggers for mime-support (3.54ubuntu1.1) ...
+```
