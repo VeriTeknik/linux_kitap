@@ -23,10 +23,10 @@
        * [Repo Ayarları](dagitimlar/centos/repo.md)
        * [Network Ayarları](dagitimlar/centos/network.md)
    * [Debian](dagitimlar/debian/debian.md)
+       * deb Paketleri
        * [aptitude Paket Yöneticisi](dagitimlar/debian/aptitude.md)
        * [Repo Ayarları](dagitimlar/debian/repo.md)
        * [Network Ayarları](dagitimlar/debian/network.md)
-       * deb Paketleri
    * [FreeBSD](dagitimlar/freebsd/freebsd.md)
        * [port ve pck_add Yönetimi](dagitimlar/freebsd/ports.md)
        * [Güncelleme Teknikleri](dagitimlar/freebsd/guncelleme_teknikleri.md)
