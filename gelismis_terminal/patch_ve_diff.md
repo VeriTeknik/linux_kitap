@@ -31,4 +31,8 @@ eaydin@dixon ~/calisma $ diff -u test.txt test2.txt
 +ikinci baska satir
 ```
 
-Yukarıda, ```test.txt``` dosyasından ```test2.txt``` dosyası türetmek istiyorsak uygulanacak **patch** çıktısı görülüyor.
+Yukarıda, ```test.txt``` dosyasından ```test2.txt``` dosyası türetmek istiyorsak uygulanacak **patch** çıktısı görülüyor. Öyleyse bunu bir patch dosyası olarak kaydedebiliriz.
+
+```bash
+eaydin@dixon ~/calisma $ diff -u test.txt test2.txt > test1-2.patch
+```
