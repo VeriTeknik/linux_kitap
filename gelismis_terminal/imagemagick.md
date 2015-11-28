@@ -119,3 +119,6 @@ eaydin@dixon ~/calisma/im $ composite label:"xkcd.com" 1604.png labelled.png
 ```bash
 eaydin@dixon ~/calisma/im $ convert 1604.png -background Green label:'xkcd.com' -gravity center -append center-labelled.png
 ```
+
+![](images/center-labelled.png)
+
