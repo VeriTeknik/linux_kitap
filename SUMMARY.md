@@ -19,6 +19,7 @@
    * [awk ve sed](gelismis_terminal/awk_sed.md)
    * [egrep ve Regular Expressions](gelismis_terminal/egrep.md)
    * [rename](gelismis_terminal/rename.md)
+   * Imagemagick ve Görüntü Dosyaları
 * [Temel Dağıtımlar](dagitimlar/temel_dagitimlar.md)
    * [CentOS](dagitimlar/centos/centos.md)
        * [rpm Paketleri](dagitimlar/centos/rpm.md)
