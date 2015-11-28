@@ -32,3 +32,21 @@ eaydin@dixon ~/calisma/jpg $ ls
 
 Sonuçlarınızı test etmek için, öncesinde **-n** parametresini kullanabilirsiniz. Örneğin dosya adlarını büyük/küçük harf ile değiştirmek isteseydik,
 
+```bash
+eaydin@dixon ~/calisma/jpg $ ls
+0145.jpg  0146.jpg  3.jpg  897653.jpg
+eaydin@dixon ~/calisma/jpg $ rename -n 'y/a-z/A-Z/' *
+0145.jpg renamed as 0145.JPG
+0146.jpg renamed as 0146.JPG
+3.jpg renamed as 3.JPG
+897653.jpg renamed as 897653.JPG
+eaydin@dixon ~/calisma/jpg $ ls
+0145.jpg  0146.jpg  3.jpg  897653.jpg
+eaydin@dixon ~/calisma/jpg $ rename -v 'y/a-z/A-Z/' *
+0145.jpg renamed as 0145.JPG
+0146.jpg renamed as 0146.JPG
+3.jpg renamed as 3.JPG
+897653.jpg renamed as 897653.JPG
+eaydin@dixon ~/calisma/jpg $ ls
+0145.JPG  0146.JPG  3.JPG  897653.JPG
+```
