@@ -45,21 +45,21 @@ Kullanıcı: sshd
 Sitem üzerinde tanımlanmış değişkenleri alıp işleyebiliriz de.
 
 ```bash
-eaydin@dixon ~/calisma $ X=0
+eaydin@dixon ~/calisma $ X=10
 eaydin@dixon ~/calisma $ echo $X
-0
+10
 eaydin@dixon ~/calisma $ tail -n 5 /etc/passwd | \
 awk -F":" -v val=$X '{print val " Kullanıcı: "$1}'
-0 Kullanıcı: saned
-0 Kullanıcı: speech-dispatcher
-0 Kullanıcı: eaydin
-0 Kullanıcı: nvidia-persistenced
-0 Kullanıcı: sshd
+10 Kullanıcı: saned
+10 Kullanıcı: speech-dispatcher
+10 Kullanıcı: eaydin
+10 Kullanıcı: nvidia-persistenced
+10 Kullanıcı: sshd
 eaydin@dixon ~/calisma $ tail -n 5 /etc/passwd | \
 awk -F":" -v val=$X '{print val+1 " Kullanıcı: "$1;val=val+1}'
-1 Kullanıcı: saned
-2 Kullanıcı: speech-dispatcher
-3 Kullanıcı: eaydin
-4 Kullanıcı: nvidia-persistenced
-5 Kullanıcı: sshd
+11 Kullanıcı: saned
+12 Kullanıcı: speech-dispatcher
+13 Kullanıcı: eaydin
+14 Kullanıcı: nvidia-persistenced
+15 Kullanıcı: sshd
 ```
