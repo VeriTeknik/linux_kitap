@@ -146,3 +146,4 @@ eaydin@dixon ~/calisma/im $ convert -background '#0008' -fill white \
 ```
 
 ![](images/wm_trans.png)
+
