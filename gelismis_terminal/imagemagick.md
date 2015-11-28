@@ -144,3 +144,5 @@ eaydin@dixon ~/calisma/im $ convert -background '#0008' -fill white \
 -gravity center -size ${width}x30 caption:xkcd.com 1604.png +swap \ 
 -gravity south -composite wm_trans.png
 ```
+
+![](images/wm_trans.png)
