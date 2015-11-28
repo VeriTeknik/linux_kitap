@@ -100,3 +100,15 @@ eaydin@dixon ~/calisma $ ls *.txt | xargs -L 2 diff
 < dorduncu satir
 < besinci satir
 ```
+
+Yukarıdaki işlemin yaptığı, gelen ls çıktısını 2'li gruplar halinde diff programına sunmak olduk. Böylece diff önce test2.txt ve test3.txt dosyalarını karşılaştırıyor, ardından test4.txt ve test.txt dosyalarını karşılaştırıyor.
+
+Benzer şekilde sadece çıktıyı gruplandırmak isteseydik, **-n** argümanını kullanabilirdik.
+
+```bash
+eaydin@dixon ~/calisma $ echo {0..9} | xargs -n 3
+0 1 2
+3 4 5
+6 7 8
+9
+```
