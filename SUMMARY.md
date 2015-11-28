@@ -17,7 +17,7 @@
    * [xargs](gelismis_terminal/xargs.md)
    * [awk ve sed](gelismis_terminal/awk_sed.md)
    * [egrep ve Regular Expressions](gelismis_terminal/egrep.md)
-   * rename
+   * [rename](gelismis_terminal/rename.md)
 * [Temel Dağıtımlar](dagitimlar/temel_dagitimlar.md)
    * [CentOS](dagitimlar/centos/centos.md)
        * [rpm Paketleri](dagitimlar/centos/rpm.md)
