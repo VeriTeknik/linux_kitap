@@ -52,13 +52,17 @@ Yukarıdaki işlemin tam tersidir. Eğer dosya belirtilen limitlerden küçükse
 convert logo.jpg -resize 128x128\< logo_large.jpg
 ```
 
-## Döndörme İşlemleri
+## Döndürme İşlemleri
 
 Imagemagick ile görüntüyü döndürmek tahmin edileceği gibi **rotate** ile yapılır.
 
 ```bash
 convert logo.jpg -rotate 90 logo.jpg
 ```
+![Orijinal Görüntü](1604.png) ![Döndürülen görüntü](rotated90.png)
+
+
+## Aynalama İşlemleri
 
 Öte yandan aynalama işlemleri için **flip** ve **flop** seçenekleri kullanılır. **flip** görüntüyü başaşağı çevirir (x-ekseninde aynalama), **flop** ise soldan sağa doğru (y-ekseninde) çevirir.
 
