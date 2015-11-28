@@ -59,7 +59,7 @@ Imagemagick ile görüntüyü döndürmek tahmin edileceği gibi **rotate** ile 
 ```bash
 convert logo.jpg -rotate 90 logo.jpg
 ```
-![Orijinal Görüntü](images/1604.png) ![Döndürülen görüntü](rotated90.png)
+![Orijinal Görüntü](images/1604.png) ![Döndürülen görüntü](images/rotated90.png)
 
 
 ## Aynalama İşlemleri
@@ -72,4 +72,4 @@ eaydin@dixon ~/calisma/im $ convert 1604.png -flop flopped.png
 eaydin@dixon ~/calisma/im $ convert 1604.png -flip -flop flipflop.png
 ```
 
-![Orijinal görüntü](1604.png) ![Flip edilmiş görüntü](flipped.png) ![Flop edilmiş görüntü](flopped.png) ![Hem Flip hem de Flop edilmiş görüntü](flipflop.png)
+![Orijinal görüntü](images/1604.png) ![Flip edilmiş görüntü](images/flipped.png) ![Flop edilmiş görüntü](images/flopped.png) ![Hem Flip hem de Flop edilmiş görüntü](images/flipflop.png)
