@@ -29,3 +29,6 @@ goruntu_897653_dosyasi.jpg renamed as 897653.jpg
 eaydin@dixon ~/calisma/jpg $ ls
 0145.jpg  0146.jpg  3.jpg  897653.jpg
 ```
+
+Sonuçlarınızı test etmek için, öncesinde **-n** parametresini kullanabilirsiniz. Örneğin dosya adlarını büyük/küçük harf ile değiştirmek isteseydik,
+
