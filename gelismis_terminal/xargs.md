@@ -49,7 +49,8 @@ eaydin@dixon ~/devel/gkmv1 $ find . -name "*.py" | xargs wc -l
   Farkındaysanız xargs'ın yaptığı, standart girdiden gelenleri ilgili komutun sonuna yerleştirmek oldu. Ancak bazı durumlarda gelenleri sona değil, başka bir yere yerleştirmek isteyebiliriz. Aşağıdaki örnek açıklayıcı olacaktır.
   
 ```bash
-[root@test etc]# find /etc -maxdepth 1 -name "*.conf" -print0 | xargs -0 -I % echo Bulunan % dosyası
+[root@test etc]# find /etc -maxdepth 1 -name "*.conf" -print0 | xargs -0 \
+-I % echo Bulunan % dosyası
 Bulunan /etc/libuser.conf dosyası
 Bulunan /etc/host.conf dosyası
 Bulunan /etc/yum.conf dosyası
@@ -79,7 +80,8 @@ Yukarıda **-I** argümanından sonra **%** kullandığımız için, komut içer
 
 
 ```bash
-[root@test etc]# find /etc -maxdepth 1 -name "*.conf" -print0 | xargs -0 -I gelen echo Bulunan gelen dosyası
+[root@test etc]# find /etc -maxdepth 1 -name "*.conf" -print0 | xargs -0 \
+-I gelen echo Bulunan gelen dosyası
 ```
 
 ## Argümanları Gruplandırmak
@@ -125,7 +127,8 @@ eaydin@dixon ~/calisma $ getconf ARG_MAX
 Öte yandan xargs kendi limitlerine sahiptir. Bu limit normalde 4096 olarak belirlenmiştir ancak parametre kullanımıyla aşılabilir. **-s** parametersiyle bu limiti dilediğiniz sayıya (sistem limitleriniz dahilinde olmak şartıyla) çekebilirsiniz. Böylece, örneğin çok sayıda dosyanın bulunduğu dizinleri tararken limitlere takılmazsınız.
 
 ```bash
-find / -path "/mnt/backup" -prune -o -iname "*.jpg" -o -iname "*.jpeg" -print0 | xargs -0 -s 2000000 -I % cp % /mnt/backup
+find / -path "/mnt/backup" -prune -o -iname "*.jpg" -o \
+-iname "*.jpeg" -print0 | xargs -0 -s 2000000 -I % cp % /mnt/backup
 ```
 
 Yukarıdaki komut, ```/mnt/backup``` dizini hariç bütün dizinlerde **jpg** ve **jpeg** uzantılı (büyük/küçük harf duyarsız) dosyaları ```/mnt/backup``` dizinine kopyalar.
