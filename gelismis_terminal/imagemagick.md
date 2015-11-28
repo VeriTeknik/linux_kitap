@@ -1,0 +1,2 @@
+# Imagemagick ve Görüntü Dosyaları
+
