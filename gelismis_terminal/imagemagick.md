@@ -73,3 +73,13 @@ eaydin@dixon ~/calisma/im $ convert 1604.png -flip -flop flipflop.png
 ```
 
 ![Orijinal görüntü](images/1604.png) ![Flip edilmiş görüntü](images/flipped.png) ![Flop edilmiş görüntü](images/flopped.png) ![Hem Flip hem de Flop edilmiş görüntü](images/flipflop.png)
+
+## Filtreler
+
+Programın bir çok filtresi bulunuyor. Tamamının üzerine geçmek bu kitabın amacının çok dışında olacaktır dolayısıyal sadece birkaç örnek ile sonuçlarını göstermek istedik.
+```bash
+eaydin@dixon ~/calisma/im $ convert 1604.png -radial-blur 20 blurred.png
+```
+![](images/radial-blurred.png)
+
+![](images/charcoal.png)
