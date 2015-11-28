@@ -155,5 +155,7 @@ Aşaıdaki gibi bir komutla bu görüntüyü orijinal görüntümüzle birleşti
 
 ```bash
 eaydin@dixon ~/calisma/im $ composite -watermark 30% -gravity north \
--geometry +0+15 penguin.jpg 1604.png wm_pen.png```
+-geometry +0+15 penguin.jpg 1604.png wm_pen.png
+```
+![](images/wm_pen.png)
 
