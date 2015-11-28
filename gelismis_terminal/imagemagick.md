@@ -86,3 +86,12 @@ eaydin@dixon ~/calisma/im $ convert 1604.png -radial-blur 20 blurred.png
 eaydin@dixon ~/calisma/im $ convert 1604.png -charcoal 4 charcoal.png
 ```
 ![Charcoal](images/charcoal.png)
+
+## Görüntü Hakkında Bilgi Almak
+
+Yukarıdaki komutların tamamında birtakım işlemler yaptık ancak görüntü dosyası hakkında hiç bilgi almadık. Bunun için **identify** komutu kullanılabilir.
+
+```bash
+eaydin@dixon ~/calisma/im $ identify 1604.png 
+1604.png PNG 177x205 177x205+0+0 8-bit DirectClass 32.9KB 0.000u 0:00.000
+```
