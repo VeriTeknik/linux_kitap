@@ -18,5 +18,5 @@ eaydin@dixon ~/calisma $ diff test.txt test2.txt
 > ikinci baska satir
 ```
 
-diff çıktısına baktığımızda, dosyalar arasında fark olduğunu görebiliyoruz. Farkın belirtildiği satırın üstündeyse **3d2** gibi bir ifade var. Bu ifade **patch** programının yorumlaması için gerekiyor. Bir patch dosyasını oluşturmak için diff programının **-u** parametresi kullanılabilir.
+diff çıktısına baktığımızda, dosyalar arasında fark olduğunu görebiliyoruz. Farkın belirtildiği satırların üstündeyse **2,3c2** gibi bir ifade var. Bu ifade **patch** programının yorumlaması için gerekiyor. Bir patch dosyasını oluşturmak için diff programının **-u** parametresi kullanılabilir.
 
