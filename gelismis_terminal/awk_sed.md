@@ -86,3 +86,15 @@ eaydin@dixon ~/calisma $ awk '{print q $0 q}' q='"' liste
 "Go"
 "Perl"
 ```
+
+Aşağıdaki örnek, dosyayı okuyup ilk karaktere bakıyor, ilk karaker **P** ise bütün satırı yazdırıyor, değilse sadece ilk karakteri yazdırıyor.
+
+```bash
+eaydin@dixon ~/calisma $ awk '{ if(substr($0,0,1)=="P") {print $0} \
+else { print substr($0,0,1)}}' liste
+PHP
+Python
+R
+G
+Perl
+```
