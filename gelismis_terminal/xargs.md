@@ -27,7 +27,7 @@ eaydin@dixon ~/devel/gkmv1 $ find . -name "*.py" | xargs wc -l
   3279 total
   ```
   
-  Gördüğünüz gibi burada sondaki satır **total** değerini veriyor, Bu aslında ```wc``` programının bir özelliği, en sonda kendisine argüman olarak verilen bütün dosyaların satır sayılarının toplamını da verir. Örneğin şöyle bir kullanım yapsaydık da çalışacaktı, ama alt dizinleri kapsamayacaktı.
+  Gördüğünüz gibi burada sondaki satır **total** değerini veriyor, Bu aslında ```wc``` programının bir özelliği, en sonda kendisine argüman olarak verilen bütün dosyaların satır sayılarının toplamını da verir. Örneğin şöyle bir kullanım yapsaydık da çalışacaktı, ama alt dizinleri aramayacaktı.
   
   ```bash
   eaydin@dixon ~/devel/gkmv1 $ wc -l *.py
