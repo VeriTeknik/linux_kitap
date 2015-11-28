@@ -60,3 +60,12 @@ Imagemagick ile görüntüyü döndürmek tahmin edileceği gibi **rotate** ile 
 convert logo.jpg -rotate 90 logo.jpg
 ```
 
+Öte yandan aynalama işlemleri için **flip** ve **flop** seçenekleri kullanılır. **flip** görüntüyü başaşağı çevirir (x-ekseninde aynalama), **flop** ise soldan sağa doğru (y-ekseninde) çevirir.
+
+```bash
+eaydin@dixon ~/calisma/im $ convert 1604.png -flip flipped.png
+eaydin@dixon ~/calisma/im $ convert 1604.png -flop flopped.png
+eaydin@dixon ~/calisma/im $ convert 1604.png -flip -flop flipflop.png
+```
+
+![Orijinal görüntü](1604.png) ![Flip edilmiş görüntü](flipped.png) ![Flop edilmiş görüntü](flopped.png) ![Hem Flip hem de Flop edilmiş görüntü](flipflop.png)
