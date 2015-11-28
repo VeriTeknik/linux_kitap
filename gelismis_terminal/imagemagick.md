@@ -101,3 +101,8 @@ Dosya hakkında çok detaylı bilgi almak isterseniz **-verbose** seçeneğini k
 ```bash
 identify -verbose 1604.png
 ```
+
+## Watermark Eklemek
+
+Görüntülere kaynağını belirten birtakım ifadeler ekleyebilirsiniz. Bu kısımda watermarking yöntemlerini inceleyeceğiz.
+
