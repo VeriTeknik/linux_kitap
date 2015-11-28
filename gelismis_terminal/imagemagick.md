@@ -16,18 +16,24 @@ convert logo.png -quality 70 logo.jpg
 Imagemagick ile dosya boyutlarını değiştirmek kolaydır.
 
 ```bash
-convert logo.jpg 300x120 logo.jpg
+convert logo.jpg -resize 300x120 logo.jpg
 ```
 
 Yukarıdaki komut, görüntü oranını (aspect ratio) korur. Yani görüntüyü 300x120'lik bir dikdörtgen içerisine sığdırmaya çalışır. Eğer korumasını istemiyorsanız ve oran bozulsa bile tam olarak 300x120'lik çıktı elde etmek istiyorsanız bunu ünlem (!) koyarak belirtebilirsiniz.
 
 ```bash
-convert logo.jpg 300x120! logo.jpg
+convert logo.jpg -resize 300x120! logo.jpg
 ```
 
 Tabii oran korunarak boyutlandırma için sadece genişlik (width) veya yükseklik (height) belirtebilirdik.
 
 ```bash
-convert logo.jpg 300 logo.jpg
-convert logo.jpg x120 logo.jpg
+convert logo.jpg -resize 300 logo.jpg
+convert logo.jpg -resize x120 logo.jpg
+```
+
+Ayrıca yüzde belirterek küçültme işlemleri de yapılabilir.
+
+```bash
+convert logo.jpg -resize 50% logo.jpg
 ```
