@@ -18,3 +18,5 @@ eaydin@dixon ~/calisma/jpg $ ls
 goruntu_0145_dosyasi.jpg  goruntu_0146_dosyasi.jpg  goruntu_3_dosyasi.jpg  goruntu_897653_dosyasi.jpg
 ```
 
+Eğer işlemi geri almak isteseydik, yani başında **kelime_** ve sonunda **_başkakelime** olup ortasında rakam bulunan jpg dosyalarını **rakam.jpg** şeklinde değiştirmek isteseydik,
+
