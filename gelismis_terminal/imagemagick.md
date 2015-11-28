@@ -25,3 +25,9 @@ Yukarıdaki komut, görüntü oranını (aspect ratio) korur. Yani görüntüyü
 convert logo.jpg 300x120! logo.jpg
 ```
 
+Tabii oran korunarak boyutlandırma için sadece genişlik (width) veya yükseklik (height) belirtebilirdik.
+
+```bash
+convert logo.jpg 300 logo.jpg
+convert logo.jpg x120 logo.jpg
+```
