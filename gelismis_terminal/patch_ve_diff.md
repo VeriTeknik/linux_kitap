@@ -30,3 +30,5 @@ eaydin@dixon ~/calisma $ diff -u test.txt test2.txt
 -ucuncu satir
 +ikinci baska satir
 ```
+
+Yukarıda, ```test.txt``` dosyasından ```test2.txt``` dosyası türetmek istiyorsak uygulanacak **patch** çıktısı görülüyor.
