@@ -151,3 +151,9 @@ Bir diğer seçenek, farklı bir görüntüyü orijinal görüntümüz ile karı
 
 ![](images/penguin.jpg)
 
+Aşaıdaki gibi bir komutla bu görüntüyü orijinal görüntümüzle birleştirebiliriz.
+
+```bash
+eaydin@dixon ~/calisma/im $ composite -watermark 30% -gravity north \
+-geometry +0+15 penguin.jpg 1604.png wm_pen.png```
+
