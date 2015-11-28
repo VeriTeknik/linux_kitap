@@ -112,3 +112,20 @@ eaydin@dixon ~/calisma $ echo {0..9} | xargs -n 3
 6 7 8
 9
 ```
+
+## Maksimum Argüman Sayısı
+
+Kabuk ortamınızda kullanabileceğiniz maksimum argüman sayısı sisteminize göre değişiklik gösterebilir. Aşağıdaki komutu yazarak öğrenebilirsiniz.
+
+```bash
+eaydin@dixon ~/calisma $ getconf ARG_MAX
+2097152
+```
+
+Öte yandan xargs kendi limitlerine sahiptir. Bu limit normalde 4096 olarak belirlenmiştir ancak parametre kullanımıyla aşılabilir. **-s** parametersiyle bu limiti dilediğiniz sayıya (sistem limitleriniz dahilinde olmak şartıyla) çekebilirsiniz. Böylece, örneğin çok sayıda dosyanın bulunduğu dizinleri tararken limitlere takılmazsınız.
+
+```bash
+find / -path "/mnt/backup" -prune -o -iname "*.jpg" -o -iname "*.jpeg" -print0 | xargs -0 -s 2000000 -I % cp % /mnt/backup
+```
+
+Yukarıdaki komut, ```/mnt/backup``` dizini hariç bütün dizinlerde **jpg** ve **jpeg** uzantılı (büyük/küçük harf duyarsız) dosyaları ```/mnt/backup``` dizinine kopyalar.
