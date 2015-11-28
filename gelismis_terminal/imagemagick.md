@@ -106,3 +106,11 @@ identify -verbose 1604.png
 
 Görüntülere kaynağını belirten birtakım ifadeler ekleyebilirsiniz. Bu kısımda watermarking yöntemlerini inceleyeceğiz.
 
+En kolay yöntem, pek çok internet sitesinde gördüğünüz gibi, görüntünün köşesine bir not eklemektir.
+
+```bash
+eaydin@dixon ~/calisma/im $ composite label:"xkcd.com" 1604.png labelled.png
+```
+
+![](images/labelled.png)
+
