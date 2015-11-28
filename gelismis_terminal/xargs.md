@@ -38,4 +38,10 @@ eaydin@dixon ~/devel/gkmv1 $ find . -name "*.py" | xargs wc -l
   955 total
   ```
   
+  İçindeki boşluk karakteri geçen dosya isimlerinin kullanılabilmesi için **find** programı **-print0** argümanı ile çalıştırılmalı ve **xargs** programı ile **-0** argümanı kullanılmalıdır.
+  
+  ```bash
+  find . -name "*.py" -print0 | xargs -0 wc -l
+  ```
+  
   
