@@ -36,3 +36,18 @@ Yukarıda, ```test.txt``` dosyasından ```test2.txt``` dosyası türetmek istiyo
 ```bash
 eaydin@dixon ~/calisma $ diff -u test.txt test2.txt > test1-2.patch
 ```
+
+Şimdi patch dosyasını kullanabiliriz. Dosyanın içeriğinde patch'ın uygulanacağı dosya isimleri de belirtildiği için, doğrudan patch dosyasını programa standart girdi olarak vermemiz yeterli olacaktır.
+
+```bash
+eaydin@dixon ~/calisma $ patch < test1-2.patch 
+patching file test.txt
+eaydin@dixon ~/calisma $ cat test.txt 
+birinci satir
+ikinci baska satir
+eaydin@dixon ~/calisma $ cat test2.txt 
+birinci satir
+ikinci baska satir
+```
+
+Gördüğünüz gibi artık test.txt dosyasının içeriği, test2.txt dosyasının içeriği ile aynı oldu.
