@@ -80,9 +80,9 @@ Programın bir çok filtresi bulunuyor. Tamamının üzerine geçmek bu kitabın
 ```bash
 eaydin@dixon ~/calisma/im $ convert 1604.png -radial-blur 20 blurred.png
 ```
-![](images/radial-blurred.png)
+![Radial Blur](images/radial-blurred.png)
 
 ```bash
 eaydin@dixon ~/calisma/im $ convert 1604.png -charcoal 4 charcoal.png
 ```
-![](images/charcoal.png)
+![Charcoal](images/charcoal.png)
