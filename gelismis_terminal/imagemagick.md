@@ -95,3 +95,9 @@ Yukarıdaki komutların tamamında birtakım işlemler yaptık ancak görüntü 
 eaydin@dixon ~/calisma/im $ identify 1604.png 
 1604.png PNG 177x205 177x205+0+0 8-bit DirectClass 32.9KB 0.000u 0:00.000
 ```
+
+Dosya hakkında çok detaylı bilgi almak isterseniz **-verbose** seçeneğini kullanabilirsiniz. (Burada çıktıyı göstermiyoruz çünkü oldukça uzun)
+
+```bash
+identify -verbose 1604.png
+```
