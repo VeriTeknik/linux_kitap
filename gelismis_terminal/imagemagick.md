@@ -59,7 +59,7 @@ Imagemagick ile görüntüyü döndürmek tahmin edileceği gibi **rotate** ile 
 ```bash
 convert logo.jpg -rotate 90 logo.jpg
 ```
-![Orijinal Görüntü](1604.png) ![Döndürülen görüntü](rotated90.png)
+![Orijinal Görüntü](images/1604.png) ![Döndürülen görüntü](rotated90.png)
 
 
 ## Aynalama İşlemleri
