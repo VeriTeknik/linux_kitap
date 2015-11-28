@@ -147,3 +147,7 @@ eaydin@dixon ~/calisma/im $ convert -background '#0008' -fill white \
 
 ![](images/wm_trans.png)
 
+Bir diğer seçenek, farklı bir görüntüyü orijinal görüntümüz ile karıştırıp watermark oluşturmaktır. Örneğin aşağıdaki penguen görüntüsü bizim imzamız olsun ve karikatürümüzün üzerine yerleştirmek isteyelim.
+
+![](images/penguin.jpg)
+
