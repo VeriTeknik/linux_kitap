@@ -18,7 +18,7 @@
    * [awk ve sed](gelismis_terminal/awk_sed.md)
    * [egrep ve Regular Expressions](gelismis_terminal/egrep.md)
    * [rename](gelismis_terminal/rename.md)
-   * patch ve diff
+   * [patch ve diff](gelismis_terminal/patch_ve_diff.md)
 * [Temel Dağıtımlar](dagitimlar/temel_dagitimlar.md)
    * [CentOS](dagitimlar/centos/centos.md)
        * [rpm Paketleri](dagitimlar/centos/rpm.md)
