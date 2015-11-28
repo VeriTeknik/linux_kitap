@@ -41,3 +41,25 @@ Kullanıcı: eaydin
 Kullanıcı: nvidia-persistenced
 Kullanıcı: sshd
 ```
+
+Sitem üzerinde tanımlanmış değişkenleri alıp işleyebiliriz de.
+
+```bash
+eaydin@dixon ~/calisma $ X=0
+eaydin@dixon ~/calisma $ echo $X
+0
+eaydin@dixon ~/calisma $ tail -n 5 /etc/passwd | \
+awk -F":" -v val=$X '{print val " Kullanıcı: "$1}'
+0 Kullanıcı: saned
+0 Kullanıcı: speech-dispatcher
+0 Kullanıcı: eaydin
+0 Kullanıcı: nvidia-persistenced
+0 Kullanıcı: sshd
+eaydin@dixon ~/calisma $ tail -n 5 /etc/passwd | \
+awk -F":" -v val=$X '{print val " Kullanıcı: "$1}'
+0 Kullanıcı: saned
+0 Kullanıcı: speech-dispatcher
+0 Kullanıcı: eaydin
+0 Kullanıcı: nvidia-persistenced
+0 Kullanıcı: sshd
+```
