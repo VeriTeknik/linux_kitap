@@ -122,3 +122,10 @@ eaydin@dixon ~/calisma/im $ convert 1604.png -background Green label:'xkcd.com' 
 
 ![](images/center-labelled.png)
 
+**graviy** seçeneğini daha farklı biçimde kullanabilirdik.
+
+```bash
+eaydin@dixon ~/calisma/im $ convert 1604.png -pointsize 20 -draw "gravity east fill blue text 5,12 'xkcd' " east_wm1.png
+eaydin@dixon ~/calisma/im $ convert 1604.png -pointsize 20 -draw "gravity east fill blue text 5,12 'xkcd' fill white text 6,11 'xkcd'  " east_wm2.png
+```
+
