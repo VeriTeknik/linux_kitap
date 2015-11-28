@@ -49,5 +49,14 @@ convert logo.jpg -resize 128x128\> logo_thmb.jpg
 Yukarıdaki işlemin tam tersidir. Eğer dosya belirtilen limitlerden küçükse çalışır.
 
 ```bash
-logo.jpg -resize 128x128\< logo_large.jpg
+convert logo.jpg -resize 128x128\< logo_large.jpg
 ```
+
+## Döndörme İşlemleri
+
+Imagemagick ile görüntüyü döndürmek tahmin edileceği gibi **rotate** ile yapılır.
+
+```bash
+convert logo.jpg -rotate 90 logo.jpg
+```
+
