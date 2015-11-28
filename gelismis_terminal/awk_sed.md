@@ -63,3 +63,26 @@ awk -F":" -v val=$X '{print val+1 " Kullanıcı: "$1;val=val+1}'
 14 Kullanıcı: nvidia-persistenced
 15 Kullanıcı: sshd
 ```
+
+Dosya içeriğindeki satırları etrafında tırnakla gösterebilmek için, şöyle teknikler kullanılabilir.
+
+```bash
+eaydin@dixon ~/calisma $ cat liste
+PHP
+Python
+Ruby
+Go
+Perl
+eaydin@dixon ~/calisma $ awk '{print q $0 q}' q="'" liste
+'PHP'
+'Python'
+'Ruby'
+'Go'
+'Perl'
+eaydin@dixon ~/calisma $ awk '{print q $0 q}' q='"' liste
+"PHP"
+"Python"
+"Ruby"
+"Go"
+"Perl"
+```
