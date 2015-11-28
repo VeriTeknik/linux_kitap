@@ -37,3 +37,17 @@ Ayrıca yüzde belirterek küçültme işlemleri de yapılabilir.
 ```bash
 convert logo.jpg -resize 50% logo.jpg
 ```
+
+### Sadece Küçült
+Imagemagick ile sadece belirli boyuttan büyük olanları küçültmek için kullanılabilecek bir işaretçi var, büyüktür **>** işareti. Alışıla geldiğin tersinde bir gösterim ancak bunu şu şekilde okumak gerekir: "Sadece bu boyuttan **büyük** olan dosyalarda çalış".
+
+```bash
+convert logo.jpg -resize 128x128\> logo_thmb.jpg
+```
+
+### Sadece Büyüt
+Yukarıdaki işlemin tam tersidir. Eğer dosya belirtilen limitlerden küçükse çalışır.
+
+```bash
+logo.jpg -resize 128x128\< logo_large.jpg
+```
