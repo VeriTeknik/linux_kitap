@@ -14,6 +14,7 @@
    * [Tarih ve Saat Ayarlama](gelismis_terminal/tarih_ve_saat_ayarlama.md)
    * [Sistem Yükünü İzleme](gelismis_terminal/top.md)
    * [Standart Girdi ve Çıktı Yönlendirme](gelismis_terminal/stdio.md)
+       * xargs
    * [awk ve sed](gelismis_terminal/awk_sed.md)
    * [egrep ve Regular Expressions](gelismis_terminal/egrep.md)
 * [Temel Dağıtımlar](dagitimlar/temel_dagitimlar.md)
