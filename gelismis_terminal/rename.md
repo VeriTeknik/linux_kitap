@@ -20,3 +20,12 @@ goruntu_0145_dosyasi.jpg  goruntu_0146_dosyasi.jpg  goruntu_3_dosyasi.jpg  gorun
 
 Eğer işlemi geri almak isteseydik, yani başında **kelime_** ve sonunda **_başkakelime** olup ortasında rakam bulunan jpg dosyalarını **rakam.jpg** şeklinde değiştirmek isteseydik,
 
+```bash
+eaydin@dixon ~/calisma/jpg $ rename -v 's/.*_(\d*)_.*(\.jpg)$/$1$2/' *.jpg
+goruntu_0145_dosyasi.jpg renamed as 0145.jpg
+goruntu_0146_dosyasi.jpg renamed as 0146.jpg
+goruntu_3_dosyasi.jpg renamed as 3.jpg
+goruntu_897653_dosyasi.jpg renamed as 897653.jpg
+eaydin@dixon ~/calisma/jpg $ ls
+0145.jpg  0146.jpg  3.jpg  897653.jpg
+```
