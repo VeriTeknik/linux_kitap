@@ -132,3 +132,4 @@ fill blue text 5,12 'xkcd' \
 fill white text 6,11 'xkcd'  " east_wm2.png
 ```
 
+![](images/east_wm1.png) ![](images/east_wm2.png)
