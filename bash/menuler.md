@@ -81,3 +81,5 @@ else
     whiptail --msgbox "Yanılıyor olabilirsiniz" --ok-button Tamam 10 40
 fi
 ```
+![](images/yesno.png)
+
