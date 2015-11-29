@@ -137,7 +137,6 @@ Programımız sadece htop için çalışıyor, eğer herhangi bir program için 
 Bash ile gelen parametrelerin sayısını **$#** ile, gelen her parametreyi ise **$1 $2 $3 ...** şeklinde alabilirsiniz.
 
 ```bash
-eaydin@dixon ~/calisma/bash $ cat yukle.sh 
 #!/bin/bash
 # yukle.sh dosya icerigi
 
@@ -154,13 +153,13 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-# htop zaten yuklu mu?
-dpkg -l | grep htop > /dev/null
+# program zaten yuklu mu?
+dpkg -l | grep $1 > /dev/null
 if [ $? -eq 1 ]; then
     echo "Yukleme basliyor..."
-    apt-get install htop
+    apt-get install $1
 else
-    echo "htop zaten yuklu"
+    echo "$1 zaten yuklu"
 fi
     	
 exit 0
@@ -169,5 +168,25 @@ Parametre vermediniz
 Kullanım: yukle.sh program-adi
 eaydin@dixon ~/calisma/bash $ echo $?
 1
+eaydin@dixon ~/calisma/bash $ sudo ./yukle.sh htop
+htop zaten yuklu
+eaydin@dixon ~/calisma/bash $ sudo ./yukle.sh atop
+Yukleme basliyor...
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following NEW packages will be installed:
+  atop
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 0 B/102 kB of archives.
+After this operation, 281 kB of additional disk space will be used.
+Selecting previously unselected package atop.
+(Reading database ... 175134 files and directories currently installed.)
+Preparing to unpack .../archives/atop_1.26-2_amd64.deb ...
+Unpacking atop (1.26-2) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Processing triggers for ureadahead (0.100.0-16) ...
+Setting up atop (1.26-2) ...
+Processing triggers for ureadahead (0.100.0-16) ...
 ```
 
