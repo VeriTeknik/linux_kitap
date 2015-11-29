@@ -40,3 +40,12 @@ none            100M   20K  100M   1% /run/user
 #? 3
 eaydin@dixon ~/calisma/bash $
 ```
+
+## whiptail
+
+whiptail başlı başına incelenmesi gereken ve kompleks menüler sunmanızı sağlayan bir programdır. Burada temel olarak nasıl mesajlar sunabileceğinizin üzerinden geçeceğiz.
+
+### msgbox
+
+Aşağıdaki gibi bir komut ile görsel bir uyarı sağlayabilirsiniz.
+
