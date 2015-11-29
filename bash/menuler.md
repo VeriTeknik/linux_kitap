@@ -127,3 +127,5 @@ else
     echo "Dil seçmediniz"
 fi
 ```
+![](images/menu.png)
+
