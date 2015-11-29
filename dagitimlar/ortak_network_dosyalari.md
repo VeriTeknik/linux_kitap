@@ -6,9 +6,14 @@ Her ne kadar dağıtımların network ayarlarını yaparken farklılıklar oldu�
 
 Sistemin kendi ismini bilmesi için düzenlenmesi gereken iki dosyadan biridir. ```/etc/hostname``` yolundadır. Bu dosyanın içinde tek satır bulunur.
 
+```bash
+eaydin@dixon ~ $ cat /etc/hostname
+dixon
+```
+
 ## hosts
 
-Sistemin hem kendi ism
+Sistemin adreslere karşılık isim tuttuğu dosyadır. hostname içine yazılan değer 
 
 
 ## resolv.conf
