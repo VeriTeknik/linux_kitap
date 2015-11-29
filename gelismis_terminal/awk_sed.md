@@ -156,3 +156,33 @@ Perl
 
 Gördüğünüz gibi bu örneklerde, bulduğumuz satırı ifade eden karakter **&** ile göteriliyor.
 
+### Yaygın Sed Kullanımları
+
+#### Satır Numaralandırma
+
+```sed = dosyaismi``` kullanımı, her satırı tek tek yazdırıp, öncesine satır numarasını yazdırır. Örneğin
+
+```bash
+eaydin@dixon ~/calisma $ sed = liste
+1
+PHP
+2
+Python
+3
+Ruby
+4
+Go
+5
+Perl
+```
+
+Öyleyse sed ile bu satırlarda **\n** karakterlerini **\t** ile değiştirip tablarla satırlarımızı gösterebiliriz.
+
+```bash
+eaydin@dixon ~/calisma $ sed = liste | sed 'N;s/\n/\t/'
+1	PHP
+2	Python
+3	Ruby
+4	Go
+5	Perl
+```
