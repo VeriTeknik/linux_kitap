@@ -4,5 +4,12 @@ GNU/Linux üzerinde bugün en yaygın kullanılan kabuğun **bash** (Bourne Agai
 
 ## Temel Yapısı
 
-Bash scriptlerinin temel yapısı, başında yorumlayıcının belirtildiği, ardından gerekli komutların sıralandığı dosyalardır.
+Bash scriptlerinin temel yapısı, başında yorumlayıcının belirtildiği, ardından gerekli komutların sıralandığı dosyalardır. Aşağıdaki scripti ```yukle.sh``` ismiyle kaydedip çalıştıralım.
+
+```bash
+#!/bin/bash
+
+echo "Yukleme basliyor..."
+
+```
 
