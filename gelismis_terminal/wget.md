@@ -36,6 +36,14 @@ wget -c http://www.plugged.in/downloads/plugged.sh
 wget --limit-rate=400k http://mirror.rackdc.com/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso
 ```
 
+## Deneme Sayısı
+
+Bazı durumlarda indirme işlemini kaç kez deneyeceğinizi belirtmek isteyebilirsiniz.
+
+```bash
+wget --tries=10 http://plugged.in/downloads/plugged.sh
+```
+
 ## İndirme İşlemini Arka Planda Gerçekleştirme
 
 Büyük dosyaları indirme işlemini arka planda yürütebilirsiniz. Böyle bir durumda wget size programın PID numarasını verecek, ve logları yazdığı dosyayı bildirecekir. Bu sayede isterseniz indirme işlemini log dosyasından takip edebilir, dilediğiniz zaman PID numarasını kullanarak programı durdurabilirsiniz.
