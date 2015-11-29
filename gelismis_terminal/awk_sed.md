@@ -211,6 +211,23 @@ Perl
 eaydin@dixon ~/calisma $ sed 's/[ ]*$//' liste
 ```
 
+#### Birden Fazla Boşluğu Tek Boşluk ile Değiştirme
+
+```bash
+eaydin@dixon ~/calisma $ cat liste
+PHP
+   Python
+Ruby     .  
+Go  Kolay    Öğrenilir
+Perl
+eaydin@dixon ~/calisma $ sed 's/  */ /g' liste
+PHP
+ Python
+Ruby . 
+Go Kolay Öğrenilir
+Perl
+
+```
 
 #### Satır Numaralandırma
 
