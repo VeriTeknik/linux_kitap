@@ -182,3 +182,12 @@ wget -A.torrent -P torrent-files --mirror \
 -np --no-directories \
 http://mirror.rackdc.com/CentOS/7/isos/x86_64/
 ```
+
+## FTP Kullanımı
+
+Son olarak wget ile anonim ve şifreli FTP kullanımı göreceğiz.
+
+```bash
+# wget ftp-sitesi.com
+# wget --ftp-user=KULLANICI --ftp-password=SIFRE ftp-sitesi.com
+```
