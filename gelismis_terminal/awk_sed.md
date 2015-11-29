@@ -143,3 +143,16 @@ Go
 Perl
 ```
 
+Öte yandan, sadece **h** harflerinin değil, içinde **h** harfi geçen satırın tamamını etiketlemek isteseydik,
+
+```bash
+eaydin@dixon ~/calisma $ sed 's/.*[hH].*/<&>/' liste 
+<PHP>
+<Python>
+Ruby
+Go
+Perl
+```
+
+Gördüğünüz gibi bu örneklerde, bulduğumuz satırı ifade eden karakter **&** ile göteriliyor.
+
