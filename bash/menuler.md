@@ -105,3 +105,4 @@ fi
 
 Yukarıdaki program, inputbox ile sonuç dinler, eğer "Tamam" seçeneği işaretlenmiş, ve YENI_HOSTNAME değeri boş değilse **hostname** komutunu kullanarak bilgisayar adını değiştirir, aksi taktirde işlemi iptal eder. Programın girdi kutucuğunun öntanımlı değeri olarak mevcut hostname'i kullandığı görülebilir.
 
+![](images/inputbox.png)
