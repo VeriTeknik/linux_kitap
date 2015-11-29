@@ -35,7 +35,7 @@
        * [port ve pck_add Yönetimi](dagitimlar/freebsd/ports.md)
        * [Güncelleme Teknikleri](dagitimlar/freebsd/guncelleme_teknikleri.md)
        * [Network Ayarları](dagitimlar/freebsd/network.md)
-   * Ortak Network Dosyaları
+   * [Ortak Network Dosyaları](dagitimlar/ortak_network_dosyalari.md)
 * [SSH](ssh/ssh.md)
    * [Uzak Sunucuya Bağlanma](ssh/baglanma.md)
    * [sshd Konfigürasyonu](ssh/sshd_konfigurasyonu.md)
