@@ -259,6 +259,22 @@ Ruby
   #C2
 ```
 
+Burada hem başında boşluk olan satırlar var, hem birden fazla **#** ile başlayan satırlar var, hem de **#**den sonra boşluk içeren satırlar var. Tamamını *uncomment* edebilmek için aşağıdaki yöntem kullanılabilir.
+
+```bash
+eaydin@dixon ~/calisma $ sed 's/^[ ]*#*//' aciklama
+PHP
+Python
+Python2
+Ruby  
+Go
+Go2
+ Perl
+ Per2
+C
+C2
+```
+
 #### Satır Numaralandırma
 
 ```sed = dosyaismi``` kullanımı, her satırı tek tek yazdırıp, öncesine satır numarasını yazdırır. Örneğin
