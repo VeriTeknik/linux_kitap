@@ -129,3 +129,44 @@ fi
     	
 exit 0
 ```
+
+## Parametrik Kullanım
+
+Programımız sadece htop için çalışıyor, eğer herhangi bir program için çalışmasını isteseydik, parametre almamız gerekirdi.
+
+Bash ile gelen parametrelerin sayısını **$#** ile, gelen her parametreyi ise **$1 $2 $3 ...** şeklinde alabilirsiniz.
+
+```bash
+eaydin@dixon ~/calisma/bash $ cat yukle.sh 
+#!/bin/bash
+# yukle.sh dosya icerigi
+
+# Root yetkiniz var mi?
+if [ $(id -u) -ne 0 ]; then
+    echo "root yetkisi ile calistirilmali"
+    exit 1
+fi
+
+# Parametre sayisi kontrol ediliyor
+if [ $# -lt 2 ]; then
+    echo "Parametre vermediniz"
+    echo "Kullanım: yukle.sh program-adi"
+    exit 1
+fi
+
+# htop zaten yuklu mu?
+dpkg -l | grep htop > /dev/null
+if [ $? -eq 1 ]; then
+    echo "Yukleme basliyor..."
+    apt-get install htop
+else
+    echo "htop zaten yuklu"
+fi
+    	
+exit 0
+eaydin@dixon ~/calisma/bash $ sudo ./yukle.sh 
+Parametre vermediniz
+Kullanım: yukle.sh program-adi
+eaydin@dixon ~/calisma/bash $ echo $?
+1
+```
