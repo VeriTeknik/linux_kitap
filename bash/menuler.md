@@ -151,3 +151,22 @@ fi
 
 ![](images/checklist.png)
 
+### radiolist
+
+```bash
+#!/bin/bash
+
+SECIM=$(whiptail --title "Programlama Menüsü" --radiolist \
+"Kullandığınız Dilleri Seçin" 10 60 5 \
+"Python" "Guido van Rossum" OFF \
+"C" "Dennis M. Ritchie" ON \
+"Perl" "Larry Wall" OFF \
+"PHP" "Rasmus Lerdorf" OFF 3>&1 1>&2 2>&3)
+
+if [ $? -eq 0 ]; then
+    echo "Seçtiğiniz diller:"
+    echo "$SECIM"
+else
+    echo "Dil seçmediniz"
+fi
+```
