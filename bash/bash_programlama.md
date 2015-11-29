@@ -2,7 +2,7 @@
 
 GNU/Linux üzerinde bugün en yaygın kullanılan kabuğun **bash** (Bourne Again SHell) olduğunu söyleyebiliriz. Bu bölümde bash kullanarak akıllı işlemleri nasıl yapacağımızı, temel kontrolleri, hatta basit bazı yükleme scriptleri geliştirmeyi göreceğiz.
 
-## Temel Yapısı
+## Temel Kontroller
 
 Bash scriptlerinin temel yapısı, başında yorumlayıcının belirtildiği, ardından gerekli komutların sıralandığı dosyalardır. Aşağıdaki scripti ```yukle.sh``` ismiyle kaydedip çalıştıralım.
 
@@ -67,3 +67,28 @@ eaydin@dixon ~/calisma/bash $ echo $?
 ```
 
 Buradaki **$?** bash için özel bir değişkendir ve "bir önceki programın hata mesajı"nı temsil eder. Yani programımız root yetkisiyle çalıştırılmadığı için **exit 1** ile çıkmış.
+
+Şimdi programımızı root yetkisiyle çalıştıralım.
+
+```bash
+eaydin@dixon ~/calisma/bash $ sudo ./yukle.sh 
+Yukleme basliyor...
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following NEW packages will be installed:
+  htop
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 0 B/68,0 kB of archives.
+After this operation, 188 kB of additional disk space will be used.
+Selecting previously unselected package htop.
+(Reading database ... 175141 files and directories currently installed.)
+Preparing to unpack .../htop_1.0.2-3_amd64.deb ...
+Unpacking htop (1.0.2-3) ...
+Processing triggers for gnome-menus (3.10.1-0ubuntu2) ...
+Processing triggers for desktop-file-utils (0.22-1ubuntu1) ...
+Processing triggers for mime-support (3.54ubuntu1.1) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Setting up htop (1.0.2-3) ...
+```
+
