@@ -11,6 +11,8 @@ eaydin@dixon ~ $ cat /etc/hostname
 dixon
 ```
 
+Bu dosyanın düzenlenmesi eskisi kadar önem arz etmemektedir, aşağıdaki dosyalar daha kritiktir.
+
 ## hosts
 
 Sistemin adreslere karşılık isim tuttuğu dosyadır.
