@@ -38,4 +38,5 @@ none            3,8G  114M  3,7G   3% /run/shm
 none            100M   20K  100M   1% /run/user
 /dev/sda6       374G  150G  225G  40% /media/backups
 #? 3
+eaydin@dixon ~/calisma/bash $
 ```
