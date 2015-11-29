@@ -149,3 +149,36 @@ http://sayfa.com/login.php
 # wget --load-cookies cookies.txt http://sayfa.com/indir.tar.gz
 ```
 
+## Sayfayı Tamamen İndirmek
+
+```bash
+wget --mirror -p --convert-links -P indirme_dizini http://plugged.in
+```
+
+Yukarıdaki komut [plugged.in](http://plugged.in) sayfasını ```indirme_dizini``` dizinine indirecektir. ```--mirror``` seçeneği, bütün dizinleri indirmesi gerektiğini belirtir. ```-p``` ile HTML'in doğru görüntülenmesi için gerekli dosyalar (örn. CSS dosyaları) beraberinde gelir. ```--convert-links``` HTML dosyaları içerisindeki linkleri yerel linkler ile değiştirir. Bu işlem sadece indirme tamamlanınca gerçekleşir, yani indirme işlemini yarıda keserseniz linkleri düzenlemez.
+
+Yukarıdaki komutun açık hali şöyledir
+
+```bash
+wget --mirror --page-requisities --convert-links \
+--directory-prefix=indirme_dizini http://plugged.in
+```
+
+## Belirli Dosya Tiplerini ve Dizin Oluşumunu Engellemek
+
+Aşağıdaki örnek, rackdc CentOS mirror'undan iso dosyaları hariç (--reject) tüm dosyaları indirecek, ancak "Parent Directory"e gidip tarama işlemini genişletmeyecek (-np) ve tamamını tek dizine indirip alt dizinleri oluşturmayacaktır.
+
+```bash
+wget --reject=iso -P CentOS --mirror -np \ 
+--no-directories http://mirror.rackdc.com/CentOS/7/isos/x86_64/
+```
+
+## Sadece Belirli Dosyaları İndirmek
+
+Benzer şekilde sadece belirli tipteki dosyaları indirebilirsiniz.
+
+```bash
+wget -A.torrent -P torrent-files --mirror \
+-np --no-directories \
+http://mirror.rackdc.com/CentOS/7/isos/x86_64/
+```
