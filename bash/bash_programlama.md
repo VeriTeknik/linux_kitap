@@ -14,5 +14,7 @@ echo "Yukleme basliyor..."
 ```
 
 ```bash
-
+eaydin@dixon ~/calisma/bash $ chmod +x yukle.sh 
+eaydin@dixon ~/calisma/bash $ ./yukle.sh
+Yukleme basliyor...
 ```
