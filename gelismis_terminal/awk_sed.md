@@ -275,6 +275,21 @@ C
 C2
 ```
 
+İçinde sadece **2** geçen satırların açıklamasını kaldırmak istersek,
+
+```bash
+eaydin@dixon ~/calisma $ sed 's/^[ ]*#*\(.*2\)/\1/' aciklama
+PHP
+#Python
+Python2
+Ruby  
+###Go
+Go2
+# Perl
+ Per2
+  #C
+C2
+```
 
 
 #### Satır Numaralandırma
