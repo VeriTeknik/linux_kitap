@@ -192,3 +192,18 @@ Processing triggers for ureadahead (0.100.0-16) ...
 
 ## Dosyanın Var Olup Olmadığını Anlama
 
+Programımız fena iş çıkarmasa da, sadece Debian sistemler üzerinde çalışacak şekilde yazıldı, ve bunun kontrolünü hiç yapmıyor. Öte yandan sistemimizin Debian olup olmadığını anlamak için ```/etc/debian_version``` dosyasının var olup olmadığına bakmamız yeterli. Bunun için bash aşağıdaki gibi bir kontrol mekanizması sunuyor.
+
+```bash
+if [ -f /etc/debian_version ]; then
+    echo "Bu sistem bir Debian türevi"
+fi
+```
+
+Veya aşağıdaki yöntemle bir dosyanın var olmadığını kontrol edebilirdik.
+
+```bash
+if [ ! -f /etc/redhat-release ]; then
+    echo "Bu sistem bir Red Hat türevi değil"
+fi
+```
