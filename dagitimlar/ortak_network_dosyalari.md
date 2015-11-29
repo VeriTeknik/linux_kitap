@@ -4,7 +4,7 @@ Her ne kadar dağıtımların network ayarlarını yaparken farklılıklar oldu�
 
 ## hostname
 
-Sistemin kendi ismini bilmesi için iki dosyayı düzenlemek gerekir. Birincisi ```/etc/hostname``` dosyasıdır. Bu dosyanın içinde tek satır bulunur.
+Sistemin kendi ismini bilmesi için düzenlenmesi gereken iki dosyadan biridir. ```/etc/hostname``` yolundadır. Bu dosyanın içinde tek satır bulunur.
 
 ## hosts
 
