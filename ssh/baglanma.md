@@ -16,3 +16,9 @@ root@94.103.47.66's password:
 
 Bu noktada root şifresini girip sisteme bağlanabiliriz.
 
+Bazı durumlarda ssh sunucusunun portu farklı olabilir. Bu yaygın güvelik önlemlerinden birisidir. Örneğin yukarıdaki sunucumuzun portu standart SSH portu olan 22 yerine 2291 olsaydı, aşağıdaki gibi bağlanabilirdik.
+
+```bash
+ssh root@94.103.47.66 -p 2291
+```
+
