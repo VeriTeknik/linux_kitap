@@ -87,3 +87,18 @@ fi
 
 Kullanıcıdan girdi almak için inputbox kullanabilirsiniz.
 
+```bash
+#!/bin/bash
+
+YENI_HOSTNAME=$(whiptail --inputbox "Yeni Hostname Giriniz:" \ 
+8 60 $(hostname) --title "Hostname Değiştirme" --ok-button Tamam \
+--cancel-button İptal 3>&1 1>&2 2>&3)
+
+exitstat=$?
+
+if [ $exitstat = 0 ] && [ ! -z $YENI_HOSTNAME ]; then
+    hostname $YENI_HOSTNAME
+else
+    echo "işlem iptal edildi"
+fi
+```
