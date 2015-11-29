@@ -83,3 +83,7 @@ fi
 ```
 ![](images/yesno.png)
 
+### inputbox
+
+Kullanıcıdan girdi almak için inputbox kullanabilirsiniz.
+
