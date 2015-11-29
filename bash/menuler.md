@@ -170,3 +170,5 @@ else
     echo "Dil seçmediniz"
 fi
 ```
+
+![](images/radio.png)
