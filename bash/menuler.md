@@ -49,3 +49,6 @@ whiptail başlı başına incelenmesi gereken ve kompleks menüler sunmanızı s
 
 Aşağıdaki gibi bir komut ile görsel bir uyarı sağlayabilirsiniz.
 
+```bash
+whiptail --msgbox "Bu bir uyari mesaji" 10 50
+```
