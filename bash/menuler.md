@@ -106,3 +106,24 @@ fi
 Yukarıdaki program, inputbox ile sonuç dinler, eğer "Tamam" seçeneği işaretlenmiş, ve YENI_HOSTNAME değeri boş değilse **hostname** komutunu kullanarak bilgisayar adını değiştirir, aksi taktirde işlemi iptal eder. Programın girdi kutucuğunun öntanımlı değeri olarak mevcut hostname'i kullandığı görülebilir.
 
 ![](images/inputbox.png)
+
+### menu
+
+Aşağıdaki yöntemle kullanıcılarınıza bir menü sunabilirsiniz.
+
+```bash
+#!/bin/bash
+
+SECIM=$(whiptail --title "Programlama Menüsü" \
+--menu "Bir dil seçin" 17 50 0 \
+"Python" "Guido van Rossum" \
+"C" "Dennis M. Ritchie" \
+"Perl" "Larry Wall" \
+"PHP" "Rasmus Lerdorf" 3>&1 1>&2 2>&3)
+
+if [ $? = 0 ] && [ ! -z $SECIM ]; then
+    echo "$SECIM dilini seçtiniz"
+else
+    echo "Dil seçmediniz"
+fi
+```
