@@ -54,6 +54,37 @@ Continuing in background, pid 25965.
 Output will be written to ‘wget-log’.
 ```
 
+## Liste Kullanımı
+
+İndirilecek dosyaların bir listesini bir program ile oluşturabilirsiniz, veya yükleme yazılımınızda kullanmak üzere hazırlayabilirsiniz. Bu listedeki linkleri sırayla indirmesi için **wget** programına parametre olarak verebilirsiniz.
+
+```bash
+eaydin@dixon ~/calisma/wget $ cat indir.txt 
+http://plugged.in/downloads/plugged.sh
+http://mirror.rackdc.com/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso
+eaydin@dixon ~/calisma/wget $ wget -i indir.txt 
+--2015-11-30 00:42:03--  http://plugged.in/downloads/plugged.sh
+Resolving plugged.in (plugged.in)... 94.103.33.130, 2a00:7300:1::fff5
+Connecting to plugged.in (plugged.in)|94.103.33.130|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 8990 (8,8K) [application/x-sh]
+Saving to: ‘plugged.sh’
+
+100%[===============================================================================================>] 8.990       --.-K/s   in 0,02s   
+
+2015-11-30 00:42:05 (422 KB/s) - ‘plugged.sh’ saved [8990/8990]
+
+--2015-11-30 00:42:05--  http://mirror.rackdc.com/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso
+Resolving mirror.rackdc.com (mirror.rackdc.com)... 94.103.32.100, 2a00:7300:1::100
+Connecting to mirror.rackdc.com (mirror.rackdc.com)|94.103.32.100|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 666894336 (636M) [application/x-iso9660-image]
+Saving to: ‘CentOS-7-x86_64-Minimal-1503-01.iso’
+
+ 0% [                                                                                                ] 531.035      296KB/s
+ ```
+
+
 ## İndirme Kontrolü
 
 Bazı durumlarda indirme işleminden önce indirmenin mümkün olup olmadığını kontrol edebilirsiniz. Bunun için ```--spider``` seçeneği kullanılabilir. Bu seçeneğin en yaygın kullanımı, sisteminizin internet erişiminin olup olmadığı, internet erişimi varsa da DNS çözümlemelerini doğru yapıp yapmadığınız konusundadır. Aşağıdaki örnekleri inceleyelim.
@@ -117,3 +148,4 @@ http://sayfa.com/login.php
 
 # wget --load-cookies cookies.txt http://sayfa.com/indir.tar.gz
 ```
+
