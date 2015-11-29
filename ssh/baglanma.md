@@ -22,3 +22,20 @@ Bazı durumlarda ssh sunucusunun portu farklı olabilir. Bu yaygın güvelik ön
 ssh root@94.103.47.66 -p 2291
 ```
 
+## Kimlik Doğrulama Yöntemini Seçme
+
+Sunucuya şifreyle bağlanmak yerien, özel anahtarımızla da bağlanabiliriz. İlerleyen bölümlerde bunu nasıl yapacağımızı göreceğiz. Ama şimdilik anahtar yüklü bir sisteme bağlanırken kimlik doğrulama yöntemini nasıl seçeceğimizi görebiliriz.
+
+Aşağıdaki yöntem, kimlik doğrulamada anahtarı gözardı edip, şifre girmeyi zorunlu hale getirmektedir.
+
+```bash
+eaydin@dixon ~ $ ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no root@94.103.47.66
+root@94.103.47.66's password: 
+```
+
+Aşağıdaki yöntemleyse, ayar dosyamızda belirilen ssh anahtarı dışında bir anahtarla bağlanabilmenin yolu görülmektedir.
+
+```bash
+eaydin@dixon ~ $ ssh -i /media/ssh_keys/eaydin_id_rsa root@94.103.47.66
+```
+
