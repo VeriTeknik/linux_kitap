@@ -241,6 +241,24 @@ Ruby
 #Perl
 ```
 
+#### Açıklama Satırlarını Kaldırma
+
+Dosyanızda açıklama satırları çok çeşitli hallerde olabilir, aşağıdaki örneği inceleyelim.
+
+```bash
+eaydin@dixon ~/calisma $ cat aciklama
+PHP
+#Python
+#Python2
+Ruby  
+###Go
+###Go2
+# Perl
+# Per2
+  #C
+  #C2
+```
+
 #### Satır Numaralandırma
 
 ```sed = dosyaismi``` kullanımı, her satırı tek tek yazdırıp, öncesine satır numarasını yazdırır. Örneğin
