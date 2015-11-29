@@ -65,3 +65,19 @@ whiptail --msgbox "Bu bir uyari mesaji" 10 50 --ok-button="Tamam"
 
 ![](images/uyari-tamam.png)
 
+
+### yes/no
+
+Programınızın basit Evet/Hayır soruları sormasını sağlayabilirsiniz.
+
+```bash
+#!/bin/bash
+
+whiptail --title "Anket" --yesno "GNU/Linux'u özgür buluyor musunuz?" \
+--yes-button Evet --no-button Hayır 20 60
+if [ $? -eq 0 ]; then
+    whiptail --msgbox "Çok haklısınız!" --ok-button Tamam 10 40
+else
+    whiptail --msgbox "Yanılıyor olabilirsiniz" --ok-button Tamam 10 40
+fi
+```
