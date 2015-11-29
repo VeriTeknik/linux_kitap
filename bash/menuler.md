@@ -62,3 +62,6 @@ Komutun sonundaki rakamlar, pencerenin yüksekliğini ve genişliğini belirtir.
 ```bash
 whiptail --msgbox "Bu bir uyari mesaji" 10 50 --ok-button="Tamam"
 ```
+
+![](images/uyari-tamam.png)
+
