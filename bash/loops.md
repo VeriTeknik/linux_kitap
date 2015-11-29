@@ -1,4 +1,4 @@
-# Döngüler
+# Döngüler ve Diğer Kontrol Yöntemleri
 
 Bash programlamanın temellerini anladıktan sonra, döngüler ve yaygın kullanılan kontrol yöntemlerini inceleyebiliriz.
 
