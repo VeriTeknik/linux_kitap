@@ -2,7 +2,8 @@
 
 
 ## Faydalı Linkler
-Yaptığımız tüm çalışmaların örnekleri aşağıdaki linkte bulabilirsiniz
+Yaptığımız tüm çalışmaların örneklerini aşağıdaki linkte bulabilirsiniz
+
 http://www.plugged.in/
 
 IPv4 ve IPv6 test araçları
