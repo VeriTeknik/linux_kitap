@@ -43,7 +43,7 @@
    * [sftp ve scp Kullanımı](ssh/sftp_scp.md)
    * [Private ve Public Anahtarlar](ssh/anahtarlar.md)
 * [BASH Programlama](bash/bash_programlama.md)
-   * [Döngüler](bash/loops.md)
+   * [Döngüler ve Diğer Kontrol Yöntemleri](bash/loops.md)
    * [Menüler](bash/menuler.md)
 * [Log Dosyaları](log/log_dosyalari.md)
    * [Log Dosyalarının Konumları](log/log_dosyalarinin_konumlari.md)
