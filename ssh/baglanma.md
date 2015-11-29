@@ -33,6 +33,15 @@ eaydin@dixon ~ $ ssh -o PreferredAuthentications=password -o PubkeyAuthenticatio
 root@94.103.47.66's password: 
 ```
 
+Öte yandan, dökümanlarda yer almasa da, bir stackexchange kullanıcısının OpenSSH kodlarını incelerken dikkatini çeken "şifre sormayı zorlama" yöntemini sizinle paylaşmak istiyoruz:
+
+```bash
+eaydin@dixon ~ $ ssh root:@94.103.47.66
+root:@94.103.47.66's password:
+```
+[*Kaynak*](http://unix.stackexchange.com/a/124582)
+
+
 Aşağıdaki yöntemleyse, ayar dosyamızda belirilen ssh anahtarı dışında bir anahtarla bağlanabilmenin yolu görülmektedir.
 
 ```bash
