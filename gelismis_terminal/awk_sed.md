@@ -226,7 +226,6 @@ PHP
 Ruby . 
 Go Kolay Öğrenilir
 Perl
-
 ```
 
 #### Satır Numaralandırma
