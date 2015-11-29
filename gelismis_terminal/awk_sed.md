@@ -228,6 +228,19 @@ Go Kolay Öğrenilir
 Perl
 ```
 
+#### Açıklama Satırı Ekleme
+
+İçinde **o** veya **r** harfi geçen satırları **#** ile açıklama satırı haline getirelim.
+
+```bash
+eaydin@dixon ~/calisma $ sed -e '/[o|r]/s/^#*/#/' liste
+PHP
+#Python
+Ruby  
+#Go
+#Perl
+```
+
 #### Satır Numaralandırma
 
 ```sed = dosyaismi``` kullanımı, her satırı tek tek yazdırıp, öncesine satır numarasını yazdırır. Örneğin
