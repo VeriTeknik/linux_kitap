@@ -89,3 +89,23 @@ eaydin@dixon ~/calisma/wget $ echo $?
 
 **NOT:** Yukarıdaki ifadelerde **$?** gösteriminin ne anlama geldiğini bilmiyorsanız, kitabın Bash Programlama bölümüne bakabilirsiniz.
 
+## Tarayıcı Gibi Davranmak
+
+İndirmek istediğiniz bazı linkler kaynağın bir tarayıcı gibi davranmasını isterler. 
+Aşağıda bu tip senaryolarda kullanabileceğiniz iki yol gösterici örnek görebilrsiniz.
+
+```bash
+# wget --user-agent="Mozilla/5.0 (X11; U; Linux i686; \ 
+en-US; rv:1.9.0.3) Gecko/2008092416 \
+Firefox/3.0.3" http://indirilecek-link
+```
+
+Veya cookie kullanılarak login yapılabilir.
+
+```bash
+# wget --save-cookies cookies.txt \
+--post-data 'user=kullanici&password=sifre' \
+http://sayfa.com/login.php
+
+# wget --load-cookies cookies.txt http://sayfa.com/indir.tar.gz
+```
