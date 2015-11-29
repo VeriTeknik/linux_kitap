@@ -292,6 +292,8 @@ C2
 ```
 
 
+
+
 #### Satır Numaralandırma
 
 ```sed = dosyaismi``` kullanımı, her satırı tek tek yazdırıp, öncesine satır numarasını yazdırır. Örneğin
