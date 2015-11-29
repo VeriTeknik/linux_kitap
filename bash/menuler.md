@@ -53,3 +53,12 @@ Aşağıdaki gibi bir komut ile görsel bir uyarı sağlayabilirsiniz.
 whiptail --msgbox "Bu bir uyari mesaji" 10 50
 ```
 
+![](images/uyari.png)
+
+Komutun sonundaki rakamlar, pencerenin yüksekliğini ve genişliğini belirtir.
+
+Örneğin **Ok** yerine **Tamam** yazmasını sağlayabiirdik.
+
+```bash
+whiptail --msgbox "Bu bir uyari mesaji" 10 50 --ok-button="Tamam"
+```
