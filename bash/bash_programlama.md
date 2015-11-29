@@ -148,7 +148,7 @@ if [ $(id -u) -ne 0 ]; then
 fi
 
 # Parametre sayisi kontrol ediliyor
-if [ $# -lt 2 ]; then
+if [ $# -lt 1 ]; then
     echo "Parametre vermediniz"
     echo "Kullanım: yukle.sh program-adi"
     exit 1
@@ -170,3 +170,4 @@ Kullanım: yukle.sh program-adi
 eaydin@dixon ~/calisma/bash $ echo $?
 1
 ```
+
