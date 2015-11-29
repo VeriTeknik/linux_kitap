@@ -158,6 +158,36 @@ Gördüğünüz gibi bu örneklerde, bulduğumuz satırı ifade eden karakter **
 
 ### Yaygın Sed Kullanımları
 
+#### Boş Satırları Silme
+
+Dosyamıza boş satırlar ekleyelim.
+
+```bash
+eaydin@dixon ~/calisma $ cat liste 
+
+
+PHP
+Python
+
+Ruby
+Go
+Perl
+
+
+
+```
+
+Bu satırları silmek için aşağıdaki yöntem kullanılabilir,
+
+```bash
+eaydin@dixon ~/calisma $ sed '/^\s*$/d' liste
+PHP
+Python
+Ruby
+Go
+Perl
+```
+
 #### Satır Numaralandırma
 
 ```sed = dosyaismi``` kullanımı, her satırı tek tek yazdırıp, öncesine satır numarasını yazdırır. Örneğin
