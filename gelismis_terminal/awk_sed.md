@@ -114,7 +114,7 @@ Perl
 
 Yukarıdaki komutun yaptığı işlem basittir. **liste** dosyası içinde **PHP** ifadesini saradı, **s** ile değişiklik yapılacağı bildirildi, **^** ile satırın başına **#** karakterinin ekleneceği ifade edildi.
 
-Eğer bu satırı silmek isteseydik
+Eğer bu satırı silmek isteseydik;
 
 ```bash
 eaydin@dixon ~/calisma $ sed '/PHP/d' liste
@@ -124,7 +124,7 @@ Go
 Perl
 ```
 
-Eğer başında **P** geçen bütün satırları silmek isteseydik
+Eğer başında **P** geçen bütün satırları silmek isteseydik;
 
 ```bash
 eaydin@dixon ~/calisma $ sed '/^P/d' liste
@@ -132,4 +132,14 @@ Ruby
 Go
 ```
 
-Çoğunlukla 
+Çoğunlukla sed kullanımında **s** komutunu başta görürsünüz. Örneğin satırlarımızda **h** harflerini bulsak ve bu harften önce ve sonra **<** ile **>** işaretleri koymak istesek;
+
+```bash
+eaydin@dixon ~/calisma $ sed 's/[hH]/<&>/' liste 
+P<H>P
+Pyt<h>on
+Ruby
+Go
+Perl
+```
+
