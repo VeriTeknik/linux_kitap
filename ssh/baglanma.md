@@ -33,7 +33,7 @@ eaydin@dixon ~ $ ssh -o PreferredAuthentications=password -o PubkeyAuthenticatio
 root@94.103.47.66's password: 
 ```
 
-Öte yandan, dökümanlarda yer almasa da, bir stackexchange kullanıcısının OpenSSH kodlarını incelerken dikkatini çeken "şifre sormayı zorlama" yöntemini sizinle paylaşmak istiyoruz:
+Öte yandan, dökümanlarda yer almasa da, bir [stackexchange](http://stackexchange.com) kullanıcısının OpenSSH kodlarını incelerken dikkatini çeken "şifre sormayı zorlama" yöntemini sizinle paylaşmak istiyoruz:
 
 ```bash
 eaydin@dixon ~ $ ssh root:@94.103.47.66
