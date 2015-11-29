@@ -37,3 +37,18 @@ E: Unable to lock the administration directory (/var/lib/dpkg/), are you root?
 
 Gördüğünüz gibi, apt-get programı **root** yetkimiz olmadığı için hata verdi. root yetkimizin olup olmadığının kontrolünü scriptimize yaptırıp buna uygun bir hata verebilirdik.
 
+```bash
+eaydin@dixon ~/calisma/bash $ cat yukle.sh 
+#!/bin/bash
+# yukle.sh dosya icerigi
+
+if [ $(id -u) -ne 0 ]; then
+    echo "root yetkisi ile calistirilmali"
+    exit 1
+fi
+echo "Yukleme basliyor..."
+apt-get install htop
+exit 0
+eaydin@dixon ~/calisma/bash $ ./yukle.sh 
+root yetkisi ile calistirilmali
+```
