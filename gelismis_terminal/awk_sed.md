@@ -188,6 +188,25 @@ Go
 Perl
 ```
 
+#### Satır Öncesi Boşlukları Silme
+
+```bash
+eaydin@dixon ~/calisma $ cat liste
+PHP
+   Python
+Ruby
+Go
+Perl
+eaydin@dixon ~/calisma $ sed 's/^[ ]*//' liste
+PHP
+Python
+Ruby
+Go
+Perl
+```
+
+
+
 #### Satır Numaralandırma
 
 ```sed = dosyaismi``` kullanımı, her satırı tek tek yazdırıp, öncesine satır numarasını yazdırır. Örneğin
