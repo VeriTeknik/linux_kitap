@@ -205,6 +205,11 @@ Go
 Perl
 ```
 
+#### Satır Sonrası Boşlukları Silme
+
+```bash
+eaydin@dixon ~/calisma $ sed 's/[ ]*$//' liste
+```
 
 
 #### Satır Numaralandırma
