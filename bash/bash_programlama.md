@@ -92,3 +92,40 @@ Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
 Setting up htop (1.0.2-3) ...
 ```
 
+Programımızı tekrar çalıştırırsak, htop'un zaten yüklü olduğunu göreceğiz. Öyleyse programımız bunu da kontrol etsin.
+
+Kullanacağımız yöntemlerden birisi, dpkg ile yüklü paketlerimizi inceleyip, sonuçları grep'lemek olacaktır.
+
+```bash
+eaydin@dixon ~/calisma/bash $ dpkg -l | grep htop
+ii  htop    1.0.2-3      amd64        interactive processes viewer
+eaydin@dixon ~/calisma/bash $ echo $?
+0
+eaydin@dixon ~/calisma/bash $ dpkg -l | grep olmayanpaketismi
+eaydin@dixon ~/calisma/bash $ echo $?
+1
+```
+
+Yukarıdan, grep'in bir sonuç yakaladığında **0** ile exit verdiğini görebilirsiniz. Öyleyse bu bilgiyi kullanabiliriz.
+
+```bash
+#!/bin/bash
+# yukle.sh dosya icerigi
+
+# Root yetkiniz var mi?
+if [ $(id -u) -ne 0 ]; then
+    echo "root yetkisi ile calistirilmali"
+    exit 1
+fi
+
+# htop zaten yuklu mu?
+dpkg -l | grep htop > /dev/null
+if [ $? -eq 1 ]; then
+    echo "Yukleme basliyor..."
+    apt-get install htop
+else
+    echo "htop zaten yuklu"
+fi
+    	
+exit 0
+```
