@@ -48,3 +48,29 @@ Aşağıdaki yöntemleyse, ayar dosyamızda belirilen ssh anahtarı dışında b
 eaydin@dixon ~ $ ssh -i /media/ssh_keys/eaydin_id_rsa root@94.103.47.66
 ```
 
+## Strict Host Key Checking
+
+Eğer bir sunucuya ilk kez bağlanıyorsanız, genellikle aşağıdaki gibi bir soruyla karşılaşırsınız.
+
+```bash
+eaydin@dixon ~ $ ssh root:@94.103.47.66
+The authenticity of host '94.103.47.66 (94.103.47.66)' can't be established.
+RSA key fingerprint is c2:54:d7:77:57:76:a1:78:f8:82:8b:48:de:89:71:c5.
+Are you sure you want to continue connecting (yes/no)? 
+```
+
+Burada ssh, bağlanacağınız sunucunun RSA parmak izine bakıp gerçekten doğru sunucu olup olmadığını bildiğinizi sorar. Tabii ki bu rakamları ezberlemenizin imkanı yoktur dolayısıyla ilk bağlandığınızda genellikle buna **yes** demek normaldir.
+
+Ancak daha sonra bu soruyu sormaz, çünkü artık RSA parmak izini kenara not etmiştir SSH. 
+
+```bash
+eaydin@dixon ~ $ ssh root:@94.103.47.66
+The authenticity of host '94.103.47.66 (94.103.47.66)' can't be established.
+RSA key fingerprint is c2:54:d7:77:57:76:a1:78:f8:82:8b:48:de:89:71:c5.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '94.103.47.66' (RSA) to the list of known hosts.
+root:@94.103.47.66's password
+```
+
+İlerleyen zamanlarda eğer yine bu sunucuya bağlanacak olursanız ve sunucunun RSA parmak izi değişmiş olursa farklı bir uyarı verir.
+
