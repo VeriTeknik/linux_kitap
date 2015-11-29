@@ -13,3 +13,6 @@ echo "Yukleme basliyor..."
 
 ```
 
+```bash
+
+```
