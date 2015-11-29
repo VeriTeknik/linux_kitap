@@ -98,3 +98,35 @@ R
 G
 Perl
 ```
+
+## sed
+
+sed dosyalar veya standart girdi üzerinde değişiklik yapmaya yarayan bir araçtır. Regular expression desteklediği gibi basit işlemler için de sıklıkla kullanılır. Örneğin yukarıda kullandığımız **liste** dosyasında içinde PHP geçen satırı **#** ile açıklama satırı haline getirmek isteseydik
+
+```bash
+eaydin@dixon ~/calisma $ sed '/PHP/s/^/#/' liste
+#PHP
+Python
+Ruby
+Go
+Perl
+```
+
+Yukarıdaki komutun yaptığı işlem basittir. **liste** dosyası içinde **PHP** ifadesini saradı, **s** ile değişiklik yapılacağı bildirildi, **^** ile satırın başına **#** karakterinin ekleneceği ifade edildi.
+
+Eğer bu satırı silmek isteseydik
+
+```bash
+eaydin@dixon ~/calisma $ sed '/PHP/d' liste
+Python
+Ruby
+Go
+Perl
+```
+
+Eğer başında **P** geçen bütün satırları silmek isteseydik
+
+```bash
+eaydin@dixon ~/calisma $ sed '/^P/d' liste
+Ruby
+Go```
