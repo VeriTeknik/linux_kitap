@@ -129,4 +129,7 @@ Eğer başında **P** geçen bütün satırları silmek isteseydik
 ```bash
 eaydin@dixon ~/calisma $ sed '/^P/d' liste
 Ruby
-Go```
+Go
+```
+
+Çoğunlukla 
