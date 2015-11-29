@@ -87,5 +87,5 @@ eaydin@dixon ~/calisma/wget $ echo $?
 0
 ```
 
-**$?** gösteriminin ne anlama geldiğini bilmiyorsanız, kitabın Bash Programlama bölümüne bakabilirsiniz.
+**NOT:** Yukarıdaki ifadelerde **$?** gösteriminin ne anlama geldiğini bilmiyorsanız, kitabın Bash Programlama bölümüne bakabilirsiniz.
 
