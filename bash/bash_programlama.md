@@ -207,3 +207,55 @@ if [ ! -f /etc/redhat-release ]; then
     echo "Bu sistem bir Red Hat türevi değil"
 fi
 ```
+
+Bu kontrolleri kullanarak, sistem Debian ise dpkg ve apt-get komutlarını, Red Hat ise rpm ve yum komutlarını kullanabiliriz. Scriptimizin son hali aşağıdaki gibi.
+
+
+```bash
+eaydin@dixon ~/calisma/bash $ cat yukle.sh 
+#!/bin/bash
+# yukle.sh dosya icerigi
+
+# Root yetkiniz var mi?
+if [ $(id -u) -ne 0 ]; then
+    echo "root yetkisi ile calistirilmali"
+    exit 1
+fi
+
+# Parametre sayisi kontrol ediliyor
+if [ $# -lt 1 ]; then
+    echo "Parametre vermediniz"
+    echo "Kullanım: yukle.sh program-adi"
+    exit 1
+fi
+
+# Eger sistem Debian ise
+if [ -f /etc/debian_version ]; then
+   
+    # program zaten yuklu mu?
+    dpkg -l | grep $1 > /dev/null
+    if [ $? -eq 1 ]; then
+         echo "Yukleme basliyor..."
+         apt-get install $1
+    else
+        echo "$1 zaten yuklu"
+    fi
+# Eger sistem Red Hat ise
+elif [ -f /etc/redhat-release ]; then
+    # program zaten yuklu mu?
+    rpm -qa | grep $1 > /dev/null
+    if [ $? -eq 1 ]; then
+        echo "Yukleme basliyor..."
+        yum install $1
+    else
+        echo "$1 zaten yuklu"
+    fi
+# Tanimadigimiz sistem
+else
+    echo "Tanimadigimiz bir sistem?"
+    exit 1
+fi
+	
+exit 0
+```
+
