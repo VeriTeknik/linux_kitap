@@ -2,7 +2,7 @@
 
 Bash programlamanın temellerini anladıktan sonra, döngüler ve yaygın kullanılan kontrol yöntemlerini inceleyebiliriz.
 
-## for döngüsü
+## for
 
 Aşağıdaki script ile içinde birkaç dosya bulunan dizinin içerisinde for döngüsü ile dosyalar listeleniyor.
 
@@ -22,7 +22,7 @@ Dosya: logo.png
 Dosya: yukle.sh
 ```
 
-## while döngüsü
+## while
 
 Aşağıda hem değişken değerlerinin nasıl değiştirildiğini, hem de while döngüsünün genel yapısını görebilirsiniz.
 
@@ -46,4 +46,35 @@ Sayac durumu: 6
 Sayac durumu: 7
 Sayac durumu: 8
 Sayac durumu: 9
+```
+
+## case
+
+Çoklu kontroller için kullanılır. Aşağıdaki örnekte ```case``` kullanımı dışında ```echo -n``` ile **new line** kullanmadan echo yapmayı, ```read``` ile standart girdiden seçenek okumayı öğrenebilirsiniz.
+
+```bash
+eaydin@dixon ~/calisma/bash $ cat case.sh 
+#!/bin/bash
+
+echo -n "İşleme devam etmek istiyor musunuz? [yes/evet veya no/hayir]: "
+read cevap
+case $cevap in
+    [yY] | [eE] | [yY][eE][sS] | [eE][vV][eE][tT] )
+        echo "İşlem devam ediyor..."
+        ;;
+    [nN] | [hH] | [nN][oO] | [hH][aA][yY][ıiI][rR] )
+        echo "İşlem iptal edildi"
+        ;;
+    *) echo "Seçeneğiniz anlaşılmadı"
+        ;;
+esac
+eaydin@dixon ~/calisma/bash $ ./case.sh 
+İşleme devam etmek istiyor musunuz? [yes/evet veya no/hayir]: eVEt
+İşlem devam ediyor...
+eaydin@dixon ~/calisma/bash $ ./case.sh 
+İşleme devam etmek istiyor musunuz? [yes/evet veya no/hayir]: n
+İşlem iptal edildi
+eaydin@dixon ~/calisma/bash $ ./case.sh 
+İşleme devam etmek istiyor musunuz? [yes/evet veya no/hayir]: asd
+Seçeneğiniz anlaşılmadı
 ```
