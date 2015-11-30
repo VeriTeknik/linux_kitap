@@ -14,6 +14,12 @@ Nasıl istemciyi ```/etc/ssh/ssh_config``` dosyasından ayarladıysak, sunucuyu 
 
 Buradaki seçenekler istemcide kullanılana benzerdir, ancak bazı noktaların üzerinden geçmekte fayda var.
 
+sshd_config dosyası hakkında yardım dosyalarına erişmek için
+
+```bash
+man 5 sshd_config
+```
+
 ### Port Değiştirme
 
 Çoğunlukla saldırganlar SSH portunuzun standart 22 olduğunu tahmin edip buradan giriş yapmayı denerler. Bunun için genellikle portu değiştirmekte fayda vardır.
