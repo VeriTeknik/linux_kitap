@@ -96,6 +96,8 @@ test2.txt  test3.txt  test4.txt  test.txt
 eaydin@dixon ~/calisma $ diff *.txt
 diff: extra operand 'test4.txt'
 diff: Try 'diff --help' for more information.
+```
+```bash
 eaydin@dixon ~/calisma $ ls *.txt | xargs -L 2 diff
 2a3,4
 > ucuncu satir
