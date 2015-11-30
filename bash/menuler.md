@@ -23,6 +23,8 @@ select i in $SECENEKLER; do
         echo "Secenek Anlasilmadi?"
     fi
 done
+```
+```bash
 eaydin@dixon ~/calisma/bash $ ./select.sh 
 1) Disk-Durumu
 2) Yardim
