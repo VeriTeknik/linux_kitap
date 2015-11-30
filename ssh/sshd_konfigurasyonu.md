@@ -48,3 +48,24 @@ Bazı sistemlerde boş şifre kullanımına izin verebilirsiniz. Örneğin siste
 ```
 PermitEmptyPasswords no
 ```
+
+### Bağlantıyı Canlı Tutmak
+
+İstemci ile sunucu arasındaki bağlantı belirli süre sonra öldürülebilir. Bunun için sunucunuzda aşağıdaki parametreleri düzenleyebilirsiniz.
+
+```
+ClientAliveInterval 300
+ClientAliveCountMax 0
+```
+
+Yukarıdaki sunucu ayarında istemciden 5 dakikada bir (300 saniye) **alive** sinyali beklenir. Eğer bu sinyali **0** defa göndermezse bağlantı kesilir.
+
+Bu ayarlamaya sahip bir sunucuya bağlanırken ssh istemcinizde
+
+```bash
+ssh -o ServerAliveInterval=300 -o ServerAliveCountMax=0 sunucu-adi
+```
+
+şeklinde bir kullanıma ihtiyaç duyarsınız. Tabii bu ayarları ```/etc/ssh/ssh_config``` dosyanıza kaydedebilirsiniz de.
+
+
