@@ -39,6 +39,8 @@ while [ $SAYAC -lt 10 ]; do
     echo Sayac durumu: $SAYAC
     let SAYAC=SAYAC+1
 done
+```
+```bash
 eaydin@dixon ~/calisma/bash $ ./while.sh 
 Sayac durumu: 0
 Sayac durumu: 1
