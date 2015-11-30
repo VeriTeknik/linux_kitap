@@ -20,7 +20,7 @@ Artık dosya ```plugged.sh``` ismiyle değil, ```install.sh``` ismiyle kaydedile
 
 ## Yarım Kalan İndirmeler
 
-Normalde wget programı, indirilen dosya hali hazırda dizinde mevcutsa, yeni indirilen dosayı sonuna **.1 .2** gibi rakamlar koyarak yazar. Örneğin yukarıdaki örnekte **plugged.sh** dosyası zaten dizinde mevcutsa, yeniden indirdiğimizde wget dosyayı **plugged.sh.1** olarak kaydeder.
+Normalde wget programı, indirilen dosya hali hazırda dizinde mevcutsa, yeni indirilen dosyayı sonuna **.1 .2** gibi rakamlar koyarak yazar. Örneğin yukarıdaki örnekte **plugged.sh** dosyası zaten dizinde mevcutsa, yeniden indirdiğimizde wget dosyayı **plugged.sh.1** olarak kaydeder.
 
 Oysa indirme sırasında dosya yarım kalmışsa, kaldığı yerden devam ettirmek için **-c** parametresini vermemiz yeterlidir.
 
