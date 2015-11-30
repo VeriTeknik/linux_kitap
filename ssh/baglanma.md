@@ -115,3 +115,16 @@ root:@94.103.47.66's password:
 
 Yukarıdaki mesajda her ne kadar "Permanently added" dese de, eklediği liste dosyası ```/dev/null``` olduğu için, bu bilgi hiçbir yere kaydedilmemiş oldu.
 
+## İstemci Ayarları
+
+Yukarıdaki örneklerde ```-o``` parametresiyle bağlantı sırasında bazı seçenekleri açıp kapattık. Aslında burada yaptığımız, ssh istemcinin tanımlanmış ayarlarında bazılarını kullanmayıp o an belirttiklerimizi zorlamaktı.
+
+Sözkonusu istemci ayarları sistem üzerinde ```/etc/ssh/ssh_config``` yolunda yer alır.
+
+Örneğin bu dosyada ```StrictHostKeyChecking no``` yaptığımız takdirde yukarıdaki **yes/no** sorusuyla karşılaşmayız. (Tavsiye edilmez!) Benzer şekilde kullanılacak özel anahtarların yolu, şifre kullanımına izin verilmesi, port belirtilmediği takdirde hangi portun kullanılacağı (öntanımlı değer 22) gibi bir çok seçenek ayarlanabilir.
+
+ssh_config hakkında yardım dosyalarını okumak için
+
+```bash
+man 5 ssh_config
+```
