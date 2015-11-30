@@ -51,6 +51,8 @@ eaydin@dixon ~/devel/gkmv1 $ find . -name "*.py" | xargs wc -l
 ```bash
 [root@test etc]# find /etc -maxdepth 1 -name "*.conf" -print0 | xargs -0 \
 -I % echo Bulunan % dosyası
+```
+```
 Bulunan /etc/libuser.conf dosyası
 Bulunan /etc/host.conf dosyası
 Bulunan /etc/yum.conf dosyası
