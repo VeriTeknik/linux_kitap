@@ -59,7 +59,7 @@ root yetkisi ile calistirilmali
 
 Yukarıdaki satırların üzerinden geçecek olursak:
 
-* id -u komutu ile mevcut kullanıcının id'si alınıyor. Eğer bu değer 0'a eşit değilse (-ne : not equal) if şartı sağlanmış oluyor. Linux üzerinde sadece root kullanıcısının id'si 0'dır.
+* id -u komutu ile mevcut kullanıcının id'si alınıyor. Eğer bu değer 0'a eşit değilse (```-ne``` : not equal) if şartı sağlanmış oluyor. Linux üzerinde sadece root kullanıcısının id'si 0'dır.
 * Eğer root kullanıcısı değilse, exit 1 ile programdan çıkıyoruz. Eğer root kullanıcısıysak, exit 0 ile çıkıyoruz. Buradaki 1 ve 0 değerleri exit mesajlarıdır. Linux'ta programlar başarıyla işlerini yerine getirmişse 0 ile çıkarlar, bir hatayla çıkarlarsa 1 veya farklı değerler alırlar.
 
 
