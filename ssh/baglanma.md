@@ -109,7 +109,8 @@ Are you sure you want to continue connecting (yes/no)?
 Aslında yaptığımız ```/home/eaydin/.ssh/known_hosts``` dosyasını yerine ```/dev/null``` kullanmak oldu. Bu dosya da boş olunca, yine RSA parmak izini tanıyıp tanımadığımızı sordu. Eğer bu soruyu da sormamasını isteseydik,
 
 ```bash
-eaydin@dixon ~ $ ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root:@94.103.47.66
+eaydin@dixon ~ $ ssh -o UserKnownHostsFile=/dev/null \
+-o StrictHostKeyChecking=no \root:@94.103.47.66
 Warning: Permanently added '94.103.47.66' (RSA) to the list of known hosts.
 root:@94.103.47.66's password: 
 ```
