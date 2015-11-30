@@ -38,3 +38,4 @@ PermitRootLogin yes
 # root şifre kullanarak bağlanamaz, anahtar gerekir
 PermitRootLogin without-password
 ```
+
