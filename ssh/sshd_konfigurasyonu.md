@@ -68,6 +68,22 @@ ssh -o ServerAliveInterval=300 -o ServerAliveCountMax=0 sunucu-adi
 
 şeklinde bir kullanıma ihtiyaç duyarsınız. Tabii bu ayarları ```/etc/ssh/ssh_config``` dosyanıza kaydedebilirsiniz de.
 
+Bir diğer bağlantı canlılığı, şifre sorulduğu anda gerçekleşir. Şifre sorgu ekranının ne kadar süreyle aktif kalacağını ```LoginGraceTime``` değeriyle düzenleyebilirsiniz.
+
+```
+LoginGraceTime 60
+```
+
+Yukarıdaki ayar ile kullanıcı 1 dakika içerisinde giriş bilgilerini girmezse sunucudan bağlantısı kesilir. Sonsuza kadar bu süreyi uzatmak için **0** değeri girmek yeterlidir.
+
+### StrictModes
+
+Kullanıcıların ssh ayarlarının tutulduğu dosyaların güvenilirliğini kontrol etmeye yarar. Bazen kullanıcılar bu dosyaları 777 gibi güvensiz modlarda tutabilirler. Bu tip durumlarda bağlantıyı engellemek için StrictModes seçeneğini aktif halde tutmak en iyisidir.
+
+```
+StrictModes yes
+```
+
 ### X11 Forwarding
 
 Sunucu üzerindeki programlar X11 pencereleri ile çalışıyorsa, bu pencereleri SSH üzerinden gönderebilirsiniz. Sunucu tarafında aşağıdaki gibi bir ayar olmalı.
