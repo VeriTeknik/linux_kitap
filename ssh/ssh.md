@@ -13,3 +13,5 @@ OpenSSH her ne kadar çok yaygın olsa da, bugün yaygınca kullanılan SSHv2 pr
 SSH Sunucuların bir listesine ve yapabildiklerine aşağıdaki Wikipedia sayfasından ulaşabilirsiniz.
 
 https://en.wikipedia.org/wiki/Comparison_of_SSH_servers
+
+![](http://imgs.xkcd.com/comics/im_an_idiot.png)
