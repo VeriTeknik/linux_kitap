@@ -59,7 +59,9 @@ Output will be written to ‘wget-log’.
 İndirilecek dosyaların bir listesini bir program ile oluşturabilirsiniz, veya yükleme yazılımınızda kullanmak üzere hazırlayabilirsiniz. Bu listedeki linkleri sırayla indirmesi için **wget** programına parametre olarak verebilirsiniz.
 
 ```bash
-eaydin@dixon ~/calisma/wget $ cat indir.txt 
+eaydin@dixon ~/calisma/wget $ cat indir.txt
+```
+```
 http://plugged.in/downloads/plugged.sh
 http://mirror.rackdc.com/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso
 eaydin@dixon ~/calisma/wget $ wget -i indir.txt 
@@ -91,6 +93,8 @@ Bazı durumlarda indirme işleminden önce indirmenin mümkün olup olmadığın
 
 ```bash
 eaydin@dixon ~/calisma/wget $ wget --spider google.com
+```
+```
 Spider mode enabled. Check if remote file exists.
 --2015-11-30 00:26:28--  http://google.com/
 Resolving google.com (google.com)... 216.58.209.14, 2a00:1450:4017:803::200e
@@ -105,13 +109,21 @@ HTTP request sent, awaiting response... 200 OK
 Length: unspecified [text/html]
 Remote file exists and could contain further links,
 but recursion is disabled -- not retrieving.
+```
+```bash
 eaydin@dixon ~/calisma/wget $ echo $?
 0
+```
+```bash
 eaydin@dixon ~/calisma/wget $ wget --spider google.c
+```
+```
 Spider mode enabled. Check if remote file exists.
 --2015-11-30 00:26:52--  http://google.c/
 Resolving google.c (google.c)... failed: Name or service not known.
 wget: unable to resolve host address ‘google.c’
+```
+```bash
 eaydin@dixon ~/calisma/wget $ echo $?
 4
 ```
