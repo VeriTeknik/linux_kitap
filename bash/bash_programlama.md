@@ -51,6 +51,8 @@ fi
 echo "Yukleme basliyor..."
 apt-get install htop
 exit 0
+```
+```bash
 eaydin@dixon ~/calisma/bash $ ./yukle.sh 
 root yetkisi ile calistirilmali
 ```
