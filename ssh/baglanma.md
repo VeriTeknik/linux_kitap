@@ -29,7 +29,8 @@ Sunucuya şifreyle bağlanmak yerien, özel anahtarımızla da bağlanabiliriz. 
 Aşağıdaki yöntem, kimlik doğrulamada anahtarı gözardı edip, şifre girmeyi zorunlu hale getirmektedir.
 
 ```bash
-eaydin@dixon ~ $ ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no root@94.103.47.66
+eaydin@dixon ~ $ ssh -o PreferredAuthentications=password \
+-o PubkeyAuthentication=no root@94.103.47.66
 root@94.103.47.66's password: 
 ```
 
