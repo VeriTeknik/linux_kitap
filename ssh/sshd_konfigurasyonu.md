@@ -39,3 +39,12 @@ PermitRootLogin yes
 PermitRootLogin without-password
 ```
 
+### Boş Şifre Kullanımı
+
+Bazı sistemlerde boş şifre kullanımına izin verebilirsiniz. Örneğin sisteminize bir **dummy** kullanıcı oluşturabilirsiniz, bu kullanıcının şifresi olmaz, ve ssh bağlantısı kurulabilir.
+
+Öte yandan sisteminize hiçbir şekilde boş şifre ile bağlanılmasını istemeyebilirsiniz, ancak kullanıcılarınızın bir şifresi olmayabilir. Bu tip durumları engellemek için aşağıdaki seçeneğin bulunmasını tavsiye ederiz.
+
+```
+PermitEmptyPasswords no
+```
