@@ -29,6 +29,8 @@ eaydin@dixon ~/calisma/bash $ cat yukle.sh
 
 echo "Yukleme basliyor..."
 apt-get install htop
+```
+```bash
 eaydin@dixon ~/calisma/bash $ ./yukle.sh 
 Yukleme basliyor...
 E: Could not open lock file /var/lib/dpkg/lock - open (13: Permission denied)
