@@ -61,6 +61,7 @@ convert logo.jpg -rotate 90 logo.jpg
 ```
 ![Orijinal Görüntü](images/1604.png) ![Döndürülen görüntü](images/rotated90.png)
 
+*Kaynak: http://xkcd.com/1604/*
 
 ## Aynalama İşlemleri
 
