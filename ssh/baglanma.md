@@ -114,3 +114,4 @@ root:@94.103.47.66's password:
 ```
 
 Yukarıdaki mesajda her ne kadar "Permanently added" dese de, eklediği liste dosyası ```/dev/null``` olduğu için, bu bilgi hiçbir yere kaydedilmemiş oldu.
+
