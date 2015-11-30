@@ -74,6 +74,8 @@ case $cevap in
     *) echo "Seçeneğiniz anlaşılmadı"
         ;;
 esac
+```
+```bash
 eaydin@dixon ~/calisma/bash $ ./case.sh 
 İşleme devam etmek istiyor musunuz? [yes/evet veya no/hayir]: eVEt
 İşlem devam ediyor...
