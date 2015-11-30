@@ -77,7 +77,7 @@ eaydin@dixon ~/calisma/im $ convert 1604.png -flip -flop flipflop.png
 
 ## Filtreler
 
-Programın bir çok filtresi bulunuyor. Tamamının üzerine geçmek bu kitabın amacının çok dışında olacaktır dolayısıyal sadece birkaç örnek ile sonuçlarını göstermek istedik.
+Programın bir çok filtresi bulunuyor. Tamamının üzerine geçmek bu kitabın amacının çok dışında olacaktır dolayısıyla sadece birkaç örnek ile sonuçlarını göstermek istedik.
 ```bash
 eaydin@dixon ~/calisma/im $ convert 1604.png -radial-blur 20 blurred.png
 ```
