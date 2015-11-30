@@ -68,4 +68,12 @@ ssh -o ServerAliveInterval=300 -o ServerAliveCountMax=0 sunucu-adi
 
 şeklinde bir kullanıma ihtiyaç duyarsınız. Tabii bu ayarları ```/etc/ssh/ssh_config``` dosyanıza kaydedebilirsiniz de.
 
+### X11 Forwarding
 
+Sunucu üzerindeki programlar X11 pencereleri ile çalışıyorsa, bu pencereleri SSH üzerinden gönderebilirsiniz. Sunucu tarafında aşağıdaki gibi bir ayar olmalı.
+
+```
+X11Forwarding yes
+```
+
+İstemcide ise bağlanırken ```-X``` parametresi kullanılmalıdır.
