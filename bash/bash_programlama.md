@@ -167,6 +167,8 @@ else
 fi
     	
 exit 0
+```
+```bash
 eaydin@dixon ~/calisma/bash $ sudo ./yukle.sh 
 Parametre vermediniz
 Kullanım: yukle.sh program-adi
