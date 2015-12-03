@@ -90,6 +90,12 @@ gzip putty.log
 
 Sıkıştırılmamış dosyayı siler.
 
+Veya
+
+```bash
+gzip -c putty.log > putty.log.gz
+```
+
 
 ```bash
 gunzip putty.log.gz
