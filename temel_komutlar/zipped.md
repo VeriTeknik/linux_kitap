@@ -34,6 +34,8 @@ Mevcut tar dosyasına başka dosya eklemek için (append)
 tar -rf tarball.tar 03-debug.txt
 ```
 
+Sıkıştırılmış dosyalara (tar.gz, tar.bz2) dosya ekleyemezsiniz.
+
 ### tar.gz
 
 ```bash
