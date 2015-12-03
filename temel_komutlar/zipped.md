@@ -145,6 +145,10 @@ Details: RAR 4
              20840751                  2
 ```
 
+```bash
+unrar e arsiv.rar
+```
+
 ## Z Komutları
 
 ### zcat
