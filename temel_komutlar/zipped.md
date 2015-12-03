@@ -124,3 +124,8 @@ bzip2 -d putty.log.bz2
 tar, gz, bz2 dosyaları için kullanabileceğiniz bir cheat-sheet [şurada](http://www.cyberciti.biz/howto/question/general/compress-file-unix-linux-cheat-sheet.php) mevcut.
 
 ## Z Komutları
+
+### zcat
+### zless / zmore
+### zgrep / zegrep
+### zdiff
