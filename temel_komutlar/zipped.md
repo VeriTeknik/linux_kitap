@@ -89,3 +89,19 @@ gzip -d putty.log.gz
 gzip -l putty.log.gz
 ```
 
+### bz2
+
+```bash
+bzip2 putty.log
+```
+
+Sıkıştırılmamış dosyayı siler.
+
+```bash
+bunzip putty.log.bz2
+```
+
+```bash
+bzip2 -d putty.log.bz2
+```
+
