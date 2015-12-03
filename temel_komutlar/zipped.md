@@ -67,3 +67,20 @@ Archive:  log-dosyalari.zip
   inflating: yeni-dizin/03-debug.txt  
   inflating: yeni-dizin/putty.log
 ```
+
+### gzip
+
+```bash
+gzip putty.log
+```
+
+Sıkıştırılmamış dosyayı siler.
+
+
+```bash
+gunzip putty.log.gz
+```
+
+```bash
+gzip -d putty.log.gz
+```
