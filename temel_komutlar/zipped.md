@@ -84,3 +84,8 @@ gunzip putty.log.gz
 ```bash
 gzip -d putty.log.gz
 ```
+
+```bash
+gzip -l putty.log.gz
+```
+
