@@ -59,4 +59,11 @@ Archive:  log-dosyalari.zip
    112548  2015-11-20 17:49   putty.log
 ---------                     -------
  20840751                     2 files
- ```
+```
+ 
+ ```bash
+ eaydin@dixon ~/calisma/zip $ unzip log-dosyalari.zip -d yeni-dizin
+Archive:  log-dosyalari.zip
+  inflating: yeni-dizin/03-debug.txt  
+  inflating: yeni-dizin/putty.log
+```
