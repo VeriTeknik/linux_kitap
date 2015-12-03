@@ -1,6 +1,8 @@
 # Sıkıştırılmış Dosyalar
 
-## tar ball
+## tar Dosyaları
+
+### tar ball
 
 ```bash
 tar -cvf tarball.tar 03-debug.txt putty.log
@@ -20,7 +22,7 @@ eaydin@dixon ~/calisma/zip $ tar -tvf tarball.tar
 -rwxrwxr-- eaydin/eaydin   112548 2015-11-20 17:49 putty.log
 ```
 
-## tar.gz
+### tar.gz
 
 ```bash
 tar -cvzf tarball.tar.gz 03-debug.txt putty.log
@@ -30,7 +32,7 @@ tar -cvzf tarball.tar.gz 03-debug.txt putty.log
 tar -xvzf tarball.tar.gz
 ```
 
-## tar.bz2
+### tar.bz2
 
 ```bash
 tar -cvjf tarball.tar.bz2 03-debug.txt putty.log
@@ -39,3 +41,22 @@ tar -cvjf tarball.tar.bz2 03-debug.txt putty.log
 ```bash
 tar -xvjf tarball.tar.bz2
 ```
+
+## Sıkıştırılmış Dosyalar
+
+### zip ve unzip
+
+```bash
+zip log-dosyalari.zip *
+```
+
+```bash
+eaydin@dixon ~/calisma/zip $ unzip -l log-dosyalari.zip 
+Archive:  log-dosyalari.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+ 20728203  2015-11-20 16:33   03-debug.txt
+   112548  2015-11-20 17:49   putty.log
+---------                     -------
+ 20840751                     2 files
+ ```
