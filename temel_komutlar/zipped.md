@@ -22,6 +22,18 @@ eaydin@dixon ~/calisma/zip $ tar -tvf tarball.tar
 -rwxrwxr-- eaydin/eaydin   112548 2015-11-20 17:49 putty.log
 ```
 
+Dosya izinlerini korumak (preserve) için
+
+```bash
+tar -cvfp tarball.tar *.log
+```
+
+Mevcut tar dosyasına başka dosya eklemek için (append)
+
+```bash
+tar -rf tarball.tar 03-debug.txt
+```
+
 ### tar.gz
 
 ```bash
