@@ -22,3 +22,20 @@ eaydin@dixon ~/calisma/zip $ tar -tvf tarball.tar
 
 ## tar.gz
 
+```bash
+tar -cvzf tarball.tar.gz 03-debug.txt putty.log
+```
+
+```bash
+tar -xvzf tarball.tar.gz
+```
+
+## tar.bz2
+
+```bash
+tar -cvjf tarball.tar.bz2 03-debug.txt putty.log
+```
+
+```bash
+tar -xvjf tarball.tar.bz2
+```
