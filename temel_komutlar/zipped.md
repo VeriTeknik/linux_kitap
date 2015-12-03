@@ -58,30 +58,6 @@ tar -xvjf tarball.tar.bz2
 
 ## Sıkıştırılmış Dosyalar
 
-### zip ve unzip
-
-```bash
-zip log-dosyalari.zip *
-```
-
-```bash
-eaydin@dixon ~/calisma/zip $ unzip -l log-dosyalari.zip 
-Archive:  log-dosyalari.zip
-  Length      Date    Time    Name
----------  ---------- -----   ----
- 20728203  2015-11-20 16:33   03-debug.txt
-   112548  2015-11-20 17:49   putty.log
----------                     -------
- 20840751                     2 files
-```
- 
- ```bash
- eaydin@dixon ~/calisma/zip $ unzip log-dosyalari.zip -d yeni-dizin
-Archive:  log-dosyalari.zip
-  inflating: yeni-dizin/03-debug.txt  
-  inflating: yeni-dizin/putty.log
-```
-
 ### gzip
 
 ```bash
@@ -122,6 +98,52 @@ bzip2 -d putty.log.bz2
 ```
 
 tar, gz, bz2 dosyaları için kullanabileceğiniz bir cheat-sheet [şurada](http://www.cyberciti.biz/howto/question/general/compress-file-unix-linux-cheat-sheet.php) mevcut.
+
+### zip ve unzip
+
+```bash
+zip log-dosyalari.zip *
+```
+
+```bash
+eaydin@dixon ~/calisma/zip $ unzip -l log-dosyalari.zip 
+Archive:  log-dosyalari.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+ 20728203  2015-11-20 16:33   03-debug.txt
+   112548  2015-11-20 17:49   putty.log
+---------                     -------
+ 20840751                     2 files
+```
+ 
+ ```bash
+ eaydin@dixon ~/calisma/zip $ unzip log-dosyalari.zip -d yeni-dizin
+Archive:  log-dosyalari.zip
+  inflating: yeni-dizin/03-debug.txt  
+  inflating: yeni-dizin/putty.log
+```
+
+### rar ve unrar
+
+```bash
+rar a arsiv.rar *.log
+```
+
+```bash
+eaydin@dixon ~/calisma/zip $ unrar l arsiv.rar 
+
+UNRAR 5.00 beta 8 freeware      Copyright (c) 1993-2013 Alexander Roshal
+
+Archive: arsiv.rar
+Details: RAR 4
+
+ Attributes      Size    Date   Time   Name
+----------- ---------  -------- -----  ----
+ -rwxr-xr--  20728203  03-12-15 10:51  debug.log   
+ -rwxr-xr--    112548  20-11-15 17:49  putty.log   
+----------- ---------  -------- -----  ----
+             20840751                  2
+```
 
 ## Z Komutları
 
