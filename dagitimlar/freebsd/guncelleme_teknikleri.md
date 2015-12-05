@@ -74,4 +74,19 @@ portupgrade -af
 
 Bu işlemden sonra tekrar freebsd-update çalıştırılır ve sisten yeniden başlatılır.
 
+#### Portsnap Yöntemi
+
+Portsnap yöntemi ile de tüm portları güncellemeniz mümkündür. Eğer yüklü değilse /var/db/portsnap içerisinden yüklenebilir. Yükleme tamamlandıktan sonra üç adımda tüm paketleri güncelleyebilirsiniz.
+
+```bash
+portsnap fetch
+portsnap extract
+```
+Bu iki komutu ilk defa kullandıktan sonra, daha sonra şu şekilde çalıştırabilirsiniz:
+
+```bash
+portsnap fetch
+portsnap update
+```
+
 
