@@ -36,7 +36,7 @@ scp -3 root@sunucu1:/var/log/syslog root@sunucu2:/root/backups
 
 Yukarıdaki yöntem ile dosyalar doğrudan transfer edilecektir. Ancak bunun için OpenSSH versiyonunun 5.7+ olması gerekmektedir.
 
-##sftp
+## sftp
 
 scp'nin bazı limitlerinden dolayı sftp geliştirilmiştir. scp ile benzer şekilde SSH protokolünü kullanır, ancak dosya transferi için alışıla gelmiş FTP komutlarını destekler.
 
