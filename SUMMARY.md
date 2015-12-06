@@ -43,6 +43,7 @@
    * [sshd Sunucu Ayarları](ssh/sshd_konfigurasyonu.md)
    * [Private ve Public Anahtarlar](ssh/anahtarlar.md)
    * [sftp ve scp Kullanımı](ssh/sftp_scp.md)
+   * sshfs
 * [BASH Programlama](bash/bash_programlama.md)
    * [Döngüler ve Diğer Kontrol Yöntemleri](bash/loops.md)
    * [Menüler](bash/menuler.md)
