@@ -77,5 +77,7 @@ cat /var/log/error.log
 #[Tue Dec 08 01:21:38 2015] [notice] Apache/2.2.31 (Unix) mod_ssl/2.2.31 OpenSSL/1.0.1e-fips DAV/2 configured -- resuming normal operations
 ```
 
+Apache yüklendiğinde, /etc/httpd içerisine conf dosyalarını atar, ana ayar dosyası /etc/httpd/conf içerisindeki httpd.conf dosyasıdır. Bu dosya gayet düz, okunabilir ve yapısaldır. Biraz sabırla okursanız tüm ayarları öğrenebilirsiniz. Sunucu direktifleri tek bir host için ayaralanıyormuş hissi uyandırırsa, tahminlerinizde yanılmazsınız. Bu servis ilk tasarlandığında bir IP adresi ya da sunucuda birden çok web sitesi tutulabileceği düşünülmemişti. Bu nedenle conf dosyasının %80'i varsayılan web sitesinin ayarlarını içermektedir. 
+
 ######* Bkz: https://tools.ietf.org/html/rfc2616
 ######** http://news.netcraft.com/archives/category/web-server-survey/
