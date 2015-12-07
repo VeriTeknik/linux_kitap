@@ -42,4 +42,6 @@ dig +nocomments
 #;; WHEN: Mon Dec  7 23:31:25 2015
 #;; MSG SIZE  rcvd: 496
 ```
+aynı bilgiyi /var/named/named.ca dosyası içerisinde de bulabilirsiniz. 
+Ne var ki, root DNS sunucularını kendi belirlediğiniz kök sunucularla değiştirebilir, kendi alan adı eko sisteminizi de oluşturabilirsiniz, bu durumda bu yazının yazarı ".karaca" uzantılı alan adlarını kullanmaya başlayabilir.
 
