@@ -45,3 +45,6 @@ dig +nocomments
 aynı bilgiyi /var/named/named.ca dosyası içerisinde de bulabilirsiniz. 
 Ne var ki, root DNS sunucularını kendi belirlediğiniz kök sunucularla değiştirebilir, kendi alan adı eko sisteminizi de oluşturabilirsiniz, bu durumda bu yazının yazarı ".karaca" uzantılı alan adlarını kullanmaya başlayabilir.
 
+Bir URL'i açmak için masaüstü bilgisayarınızdan tarayıcınıza alan adını yazdığınızda oluşan sorgu adımları aşağıdaki grafikte tanımlanmıştır:
+
+![](dns_query.png)
