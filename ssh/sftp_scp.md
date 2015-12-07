@@ -108,4 +108,6 @@ sda      8:0    0 931,5G  0 disk
 sr0     11:0    1  1024M  0 rom
 ```
 
-* Ayrıca mevcut sistemde bazı yerel komutlar çalıştırmak için komutun başına **l** harfi (**l**ocal) konulur.
+* Ayrıca mevcut sistemde bazı yerel komutlar çalıştırmak için komutun başına **l** harfi (**l**ocal) konulur. Örneğin ```!cd``` çalışmayacağı için, ```lcd``` kullanılır.
+* Dosya indirmek (download) için ```get``` ve ```mget``` komutları kullanılır. Yarım kalan dosya indirme işlemlerini devam ettirmek için ```reget``` kullanılır.
+* Dosya yüklemek (upload) için ```put``` ve ```mput``` komutları kullanılır.
