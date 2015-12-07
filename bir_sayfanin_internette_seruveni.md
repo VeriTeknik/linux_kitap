@@ -1,2 +1,2 @@
-# Bir sayfanın İnternette Serüveni
+# Bir sayfanın İnternetteki Serüveni
 
