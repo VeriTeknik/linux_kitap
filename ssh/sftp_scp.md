@@ -88,3 +88,24 @@ version                            Show SFTP version
 ?                                  Synonym for help
 ```
 
+Burada bilinmesi gereken önemli noktalar şunlardır:
+
+* Mevcut sistemimizde (örneğin kullandığımız laptop) bir komut çalıştırmak istersek, komutun başına **!** koyabiliriz.
+
+ 
+```bash
+sftp> lsblk
+Invalid command.
+sftp> !lsblk
+NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda      8:0    0 931,5G  0 disk 
+├─sda1   8:1    0   350M  0 part 
+├─sda2   8:2    0   200G  0 part 
+├─sda3   8:3    0 350,9G  0 part /
+├─sda4   8:4    0     1K  0 part 
+├─sda5   8:5    0   6,9G  0 part [SWAP]
+└─sda6   8:6    0 373,5G  0 part /media/backups
+sr0     11:0    1  1024M  0 rom
+```
+
+* Ayrıca mevcut sistemde bazı yerel komutlar çalıştırmak için komutun başına **l** harfi (**l**ocal) konulur.
