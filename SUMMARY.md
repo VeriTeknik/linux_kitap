@@ -53,6 +53,7 @@
    * [Logrotate Servisi](log/logrotate.md)
    * PHP Syslog Class
 * [İnternet Servisleri](internet_servisleri.md)
+   * Bir sayfanın İnternette Serüveni
 * [Apache](apache/apache.md)
 * [FTP](ftp/ftp.md)
    * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
