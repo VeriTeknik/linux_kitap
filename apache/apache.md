@@ -70,6 +70,8 @@ Yükleme tamamlanınca her derlemede olduğu gibi README dosyasını okumayı un
 ```bash
 apachectl start
 ps -aux | grep httpd #ile calisip calismadigini test edebilirsiniz.
+#loglari kontrol edelim
+cat /var/log/error.log
 ```
 
 ######* Bkz: https://tools.ietf.org/html/rfc2616
