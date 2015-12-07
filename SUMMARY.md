@@ -61,14 +61,14 @@
        * [Named](nameserver/named.md)
        * [Bind](nameserver/bind.md)
    * [Apache](apache/apache.md)
+   * [MySQL](mysql/mysql.md)
+       * [Temel Tablo Oluşturma](mysql/temel_tablo_olusturma.md)
+       * [Basit SQL Sorguları](mysql/basit_sql_sorgulari.md)
+       * [mysqldump ile Yedekleme](mysql/mysqldump.md)
+       * [Yedekleri İçeri Alma](mysql/import.md)
+       * [Replikasyon Teknikleri](mysql/replikasyon.md)
    * [Bir sayfanın İnternette Serüveni](bir_sayfanin_internette_seruveni.md)
 * [DHCP](dhcp/dhcp.md)
-* [MySQL](mysql/mysql.md)
-   * [Temel Tablo Oluşturma](mysql/temel_tablo_olusturma.md)
-   * [Basit SQL Sorguları](mysql/basit_sql_sorgulari.md)
-   * [mysqldump ile Yedekleme](mysql/mysqldump.md)
-   * [Yedekleri İçeri Alma](mysql/import.md)
-   * [Replikasyon Teknikleri](mysql/replikasyon.md)
 * Zamanlanmış Görevler
    * crontab
    * at
