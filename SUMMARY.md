@@ -53,8 +53,8 @@
    * [Logrotate Servisi](log/logrotate.md)
    * PHP Syslog Class
 * [İnternet Servisleri](internet_servisleri.md)
-   * [Apache](apache/apache.md)
    * [Bir sayfanın İnternette Serüveni](bir_sayfanin_internette_seruveni.md)
+* [Apache](apache/apache.md)
 * [FTP](ftp/ftp.md)
    * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
    * [VSFTP](ftp/vsftp.md)
