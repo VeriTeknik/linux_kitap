@@ -83,7 +83,13 @@ Daha sonraki yıllarda kullanılmaya başlayan virtual_host direktifi ile kullan
 
 ### Virtual Host
 Öncelikle kullanıcı oluşturalım:
-
+```bash
+useradd web
+passwd web
+mkdir /home/web/{public_html,logs}
+touch /home/web/logs/{error.log,access.log,php_error.log}
+chown -R web:web /home/web/
+chown apache:apache /home/web/logs/php_error.log # configure sırasında belirtmediyseniz nobody kullanınız.
 
 ######* Bkz: https://tools.ietf.org/html/rfc2616
 ######** http://news.netcraft.com/archives/category/web-server-survey/
