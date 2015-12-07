@@ -72,6 +72,9 @@ apachectl start
 ps -aux | grep httpd #ile calisip calismadigini test edebilirsiniz.
 #loglari kontrol edelim
 cat /var/log/error.log
+#[Tue Dec 08 01:21:37 2015] [warn] Init: Session Cache is not configured [hint: SSLSessionCache]
+#[Tue Dec 08 01:21:37 2015] [notice] suEXEC mechanism enabled (wrapper: /usr/sbin/suexec)
+#[Tue Dec 08 01:21:38 2015] [notice] Apache/2.2.31 (Unix) mod_ssl/2.2.31 OpenSSL/1.0.1e-fips DAV/2 configured -- resuming normal operations
 ```
 
 ######* Bkz: https://tools.ietf.org/html/rfc2616
