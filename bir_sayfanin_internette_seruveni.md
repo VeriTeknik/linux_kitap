@@ -48,3 +48,9 @@ Ne var ki, root DNS sunucularını kendi belirlediğiniz kök sunucularla deği�
 Bir URL'i açmak için masaüstü bilgisayarınızdan tarayıcınıza alan adını yazdığınızda oluşan sorgu adımları aşağıdaki grafikte tanımlanmıştır:
 
 ![](dns_query.png)
+DNS sorgu adımları tamamlandıktan sonra, tarayıcınız (browser) ilgili web sunucunusun daha önceden tanımlanmış standart HTTP portu* ile bu sunucuya erişim kurup HTTP 1.1 protokolü ile istenilen web sitesini rica eder.
+
+Daha sonra DNS sorgusuna göre daha kolay olan bir şekilde TCP soketi web sunucusuna doğru açılır ve istek yapılır:
+![](apache_query.png)
+
+* IANA: Internet Assigned Numbers Authority, kar amacı güdmeyen bir kuruluştur, 0 ve 1000 arası portların isimlendirilmesini IETF'ye bırakır, geri kalan tüm portların isimlendirmesi için bireysel başvuruda bulunabilirsiniz, onay sürecinden sonra kendi port numaranıza belirlediğiniz isim tüm dünyada kabul görecektir.IETF Web sayfalarının standart sunum portunu :80 olarak belirlemiştir. Aslında gerçek sorgu şu şekildedir: http://www.veritech.net:80
