@@ -65,6 +65,7 @@ configure hatasız bir şekilde tamamlandıktan sonra, "make" ile derleyip, "mak
 make
 make install
 ```
+Yükleme tamamlanınca her derlemede olduğu gibi README dosyasını okumayı unutmayınız. Yükleme tamamlanınca PREFIX/bin/apachectl start komutu ile yazılımı çalıştırabilir ya da init scripti ile başlangıçta açılacak şekilde ayarlayabilirsiniz
 
 
 ######* Bkz: https://tools.ietf.org/html/rfc2616
