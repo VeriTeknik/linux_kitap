@@ -41,3 +41,12 @@ Yukarıdaki yöntem ile dosyalar doğrudan transfer edilecektir. Ancak bunun iç
 scp'nin bazı limitlerinden dolayı sftp geliştirilmiştir. scp ile benzer şekilde SSH protokolünü kullanır, ancak dosya transferi için alışıla gelmiş FTP komutlarını destekler.
 
 SFTP ile birden fazla dosyanın transferi daha rahat gerçekleştirilebilir, yarım kalan transferler devam ettirilebilir. scp'nin transfer hızı, algoritma farklılığından dolayı sftp'den daha hızlı olabilir.
+
+Bir sunucuya SFTP bağlantısı kurmak için aşağıdaki gibi bir yol izlenir.
+
+```bash
+eaydin@dixon ~ $ sftp root@test-centos1
+Connected to test-centos1.
+sftp> 
+```
+
