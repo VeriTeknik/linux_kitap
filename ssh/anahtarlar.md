@@ -31,10 +31,39 @@ RSA kriptolama algoritması, Ron Rivest, Adi Shamir ve Leonard Adleman tarafınd
 SSH anahtar çifti oluşturmak için pek çok progrma bulunur. Linux üzerinde bunu yapmanın standart yolu ssh-keygen programını kullanmaktır.
 
 ```bash
-ssh-keygen -t rsa -b 4096 -C "egiti@veriteknik.com"
+ssh-keygen -t rsa -b 4096 -C "egitim@veriteknik.com"
 ```
 
 Yukarıdaki komut ile 4096-bit'lik bir RSA anahtarı oluşturulur. Eğer parametre olarak rsa belirtmeseydik de ssh-keygen programı kriptolama algoritması olarak RSA'yı tercih edecekti. -C ile belirttiğimiz e-posta adresi aslında bir açıklama satırıdır. Çoğunlukla bu satırlar hangi anahtarın kime ait olduğunu hatırlamakta kullanılırlar. Açıklama satırı belirtmemekte sakınca yoktur.
 
 Anahtar çifti oluşturmak istediğimiz belirttikten sonra program bize dosyayı nereye kaydedeceğini sorar, standart yolu kullanıcının ev dizininin altındaki ```.ssh``` dizini'dir.
 
+Anahtar çiftinin yolunu belirttikten sonra, anahtarımızı şifrelemek istiyorsak bize şifresini sorar. Bu adımı boş bırakırsak anahtarımız şifresiz kullanılabilir olur. Bir şifre belirlemenizi şiddetle tavsiye ediyoruz. Böylece özel anahtarınız başkası tarafından çalınsa bile, şifreyi bilmedikleri için kullanamayacaklardır.
+
+Örnek adımlar aşağıdaki gibi görülebilir.
+
+```bash
+eaydin@dixon ~/calisma/anahtar $ ssh-keygen -t rsa -b 4096 -C "egitim@veriteknik.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/eaydin/.ssh/id_rsa): egitim_rsa
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in egitim_rsa.
+Your public key has been saved in egitim_rsa.pub.
+The key fingerprint is:
+41:67:e7:38:b4:9e:fe:94:c8:47:73:be:77:77:d6:ce egitim@veriteknik.com
+The key's randomart image is:
++--[ RSA 4096]----+
+|        . + .    |
+|       . + =     |
+|        . + .    |
+|         o o     |
+|        S o o .  |
+|         o o =   |
+|          + + . .|
+|           +   oB|
+|            . .+E|
++-----------------+
+```
+
+Anahtarınızı oluşturduktan sonra ekranda görülen grafik, anahtarınızın görsel ifadesidir. OpenSSH 5.1 versiyonuyla gelen bu özellik, sıkça bağlandığınız makinaların SSH anahtarlarının değişimini görsel olarak daha rahat hatırlamanız için geliştirilmiştir. Aslında bir sunucuya her bağlandığınızda bunu görmeyi sağlayabilirsiniz, ```-o VisualHostKey=yes``` seçeneği bunu sağlar, ancak her defasında görmemenizin sebebi, genellikle ```/etc/ssh/ssh_config``` dosyasında disable edilmiş olmasıdır.
