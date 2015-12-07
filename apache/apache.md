@@ -79,5 +79,11 @@ cat /var/log/error.log
 
 Apache yüklendiğinde, /etc/httpd içerisine conf dosyalarını atar, ana ayar dosyası /etc/httpd/conf içerisindeki httpd.conf dosyasıdır. Bu dosya gayet düz, okunabilir ve yapısaldır. Biraz sabırla okursanız tüm ayarları öğrenebilirsiniz. Sunucu direktifleri tek bir host için ayaralanıyormuş hissi uyandırırsa, tahminlerinizde yanılmazsınız. Bu servis ilk tasarlandığında bir IP adresi ya da sunucuda birden çok web sitesi tutulabileceği düşünülmemişti. Bu nedenle conf dosyasının %80'i varsayılan web sitesinin ayarlarını içermektedir. 
 
+Daha sonraki yıllarda kullanılmaya başlayan virtual_host direktifi ile kullanıcılar için oluşturacağınız web sitelerinin ayarlarını barındırabilirsiniz.
+
+### Virtual Host
+Öncelikle kullanıcı oluşturalım:
+
+
 ######* Bkz: https://tools.ietf.org/html/rfc2616
 ######** http://news.netcraft.com/archives/category/web-server-survey/
