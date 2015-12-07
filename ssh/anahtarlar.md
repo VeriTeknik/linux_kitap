@@ -31,7 +31,7 @@ RSA kriptolama algoritması, Ron Rivest, Adi Shamir ve Leonard Adleman tarafınd
 SSH anahtar çifti oluşturmak için pek çok progrma bulunur. Linux üzerinde bunu yapmanın standart yolu ssh-keygen programını kullanmaktır.
 
 ```bash
-ssh-keygen -t rsa -b 4096 -C "kullanici@veriteknik.com"
+ssh-keygen -t rsa -b 4096 -C "egiti@veriteknik.com"
 ```
 
 Yukarıdaki komut ile 4096-bit'lik bir RSA anahtarı oluşturulur. Eğer parametre olarak rsa belirtmeseydik de ssh-keygen programı kriptolama algoritması olarak RSA'yı tercih edecekti. -C ile belirttiğimiz e-posta adresi aslında bir açıklama satırıdır. Çoğunlukla bu satırlar hangi anahtarın kime ait olduğunu hatırlamakta kullanılırlar. Açıklama satırı belirtmemekte sakınca yoktur.
