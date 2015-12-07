@@ -50,7 +50,7 @@ Bir URL'i açmak için masaüstü bilgisayarınızdan tarayıcınıza alan adın
 ![](dns_query.png)
 DNS sorgu adımları tamamlandıktan sonra, tarayıcınız (browser) ilgili web sunucunusun daha önceden tanımlanmış standart HTTP portu* ile bu sunucuya erişim kurup HTTP 1.1 protokolü ile istenilen web sitesini rica eder.
 
-Daha sonra DNS sorgusuna göre daha kolay olan bir şekilde TCP soketi web sunucusuna doğru açılır ve istek yapılır:
+Daha sonra DNS sorgusuna göre daha kolay olan bir şekilde TCP soketi web sunucusuna doğru açılır ve istek yapılır, eğer sunucu direktiflerinde sorgu yapılan IP adresinde servis veren bir host ya da virtual host varsa, içerik talep eden tarafa iletilir.
 
 ![](apache_query.png)
 
