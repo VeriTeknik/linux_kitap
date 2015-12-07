@@ -52,6 +52,7 @@
    * [Regular Expressions Kullanarak Log Ayıklama Egzersizleri](log/log_ayiklama.md)
    * [Logrotate Servisi](log/logrotate.md)
    * PHP Syslog Class
+* İnternet Servisleri
 * [Apache](apache/apache.md)
 * [FTP](ftp/ftp.md)
    * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
@@ -116,5 +117,4 @@
    * [Linkler](linkler.md)
    * [Notlar (silinecek)](notlar_silinecek.md)
    * [Araçlar](araclar.md)
-* İnternet Servisleri
 
