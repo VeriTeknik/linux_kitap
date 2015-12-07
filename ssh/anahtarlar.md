@@ -69,3 +69,7 @@ The key's randomart image is:
 Anahtarınızı oluşturduktan sonra ekranda görülen grafik, anahtarınızın görsel ifadesidir. OpenSSH 5.1 versiyonuyla [gelen](http://lists.mindrot.org/pipermail/openssh-unix-dev/2008-July/026693.html) bu özellik, sıkça bağlandığınız makinaların SSH anahtarlarının değişimini görsel olarak daha rahat hatırlamanız için geliştirilmiştir. Aslında bir sunucuya her bağlandığınızda bunu görmeyi sağlayabilirsiniz, ```-o VisualHostKey=yes``` seçeneği bunu sağlar, ancak her defasında görmemenizin sebebi, genellikle ```/etc/ssh/ssh_config``` dosyasında disable edilmiş olmasıdır.
 
 Yukarıdaki işlemlerin ardından iki dosyamız oluşmuştur. ```egitim_rsa``` ve ```egitim_rsa.pub``` dosyaları anahtar çiftimizdir. Uzak sunucuya ```egitim_rsa.pub``` dosyasının içeriğini yerleştirdiğimizde, artık ```egitim_rsa``` anahtarını kullanarak karşı sunucuya bağlanabiliriz.
+
+### authorized_keys
+
+Karşı sunucuda yer alan ```authorized_keys``` dosyası, bu sunucuya bağlanmaya yetkili kişilerin public anahtarlarının tutulduğu yerdir.
