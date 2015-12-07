@@ -53,6 +53,7 @@
    * [Logrotate Servisi](log/logrotate.md)
    * PHP Syslog Class
 * [İnternet Servisleri](internet_servisleri.md)
+   * [Apache](apache/apache.md)
    * [Bir sayfanın İnternette Serüveni](bir_sayfanin_internette_seruveni.md)
 * [Nameserver Servisleri](nameserver/nameserver_servisleri.md)
    * [Named](nameserver/named.md)
@@ -61,7 +62,6 @@
    * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
    * [VSFTP](ftp/vsftp.md)
    * [PROFTP](ftp/proftp.md)
-* [Apache](apache/apache.md)
 * [DHCP](dhcp/dhcp.md)
 * [MySQL](mysql/mysql.md)
    * [Temel Tablo Oluşturma](mysql/temel_tablo_olusturma.md)
