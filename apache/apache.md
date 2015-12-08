@@ -121,8 +121,6 @@ NameVirtualHost 94.103.47.84:80
         Options None
     </Directory>
 </VirtualHost>
-
-
 ```
 
 Sanal Sunucunuza IP adresi ile de giriş yapılmasını istiyorsanız NameVirtualHost direktifini kullanmanız gerekir
