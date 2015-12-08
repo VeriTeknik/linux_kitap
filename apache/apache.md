@@ -86,8 +86,11 @@ Daha sonraki yıllarda kullanılmaya başlayan virtual_host direktifi ile kullan
 ```bash
 useradd web
 passwd web
+chmod 755 /home/web
 mkdir /home/web/{public_html,logs}
 touch /home/web/logs/{error.log,access.log,php_error.log}
+#ilk sayfanizi da olusturun
+echo "Merhaba Dunya" > /home/web/public_html/index.html
 chown -R web:web /home/web/
 chown daemon:daemon /home/web/logs/php_error.log # config dosyasından kullanıcıyı değiştirebilirsiniz.
 ```
@@ -95,10 +98,32 @@ Sanal sunucu eklemek için "/etc/httpd/conf/extra" içerisindeki "httpd-vhosts.c
 
 ```bash
 echo "Include conf.d/*.conf" >> /etc/httpd/conf/httpd.conf
+mkdir /etc/httpd/conf.d
 #digerini de silin
 mv /etc/httpd/conf/extra/httpd-vhosts.conf /etc/httpd/conf/extra/httpd-vhosts.conf.old
 ```
+Yeni direktif dosyaınızı oluşturun, dosyanız asgari şu komutları içermelidir:
+```bash
+vi /etc/httpd/conf.d/z_web.conf
+NameVirtualHost 94.103.47.84:80
 
+<VirtualHost 94.103.47.84:80>
+    ServerAdmin root@veriteknik.com
+    DocumentRoot /home/web/public_html
+    ServerName apachetest.veriteknik.com *
+    ServerAlias apachetest2.veriteknik.local
+    ErrorLog /home/web/logs/error.log
+    CustomLog /home/web/logs/access.log common
+
+    <Directory "/home/web/public_html">
+        order deny,allow
+        allow from all
+        Options None
+    </Directory>
+</VirtualHost>
+
+
+```
 
 Sanal Sunucunuza IP adresi ile de giriş yapılmasını istiyorsanız NameVirtualHost direktifini kullanmanız gerekir
 
