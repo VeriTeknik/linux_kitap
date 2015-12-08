@@ -91,7 +91,16 @@ touch /home/web/logs/{error.log,access.log,php_error.log}
 chown -R web:web /home/web/
 chown daemon:daemon /home/web/logs/php_error.log # config dosyasından kullanıcıyı değiştirebilirsiniz.
 ```
+Sanal sunucu eklemek için "/etc/httpd/conf/extra" içerisindeki "httpd-vhosts.conf" dosyasını değiştirmeniz gerekir. Ben bu dosyayı değiştirmek yerine "/etc/httpd/conf.d/" içerisine kendi dosyalarımı atıyorum, bu şekilde ayar dosyalarınız daha taşınabilir şekilde oluyor. Yeni lokasyonun Apache tarafından taranması için "/etc/httpd/conf/httpd.conf" içerisine şu komut ile direktifi ekleyin:
 
+```bash
+echo "Include conf.d/*.conf" >> /etc/httpd/conf/httpd.conf
+#digerini de silin
+mv /etc/httpd/conf/extra/httpd-vhosts.conf /etc/httpd/conf/extra/httpd-vhosts.conf.old
+```
+
+
+Sanal Sunucunuza IP adresi ile de giriş yapılmasını istiyorsanız NameVirtualHost direktifini kullanmanız gerekir
 
 ######* Bkz: https://tools.ietf.org/html/rfc2616
 ######** http://news.netcraft.com/archives/category/web-server-survey/
