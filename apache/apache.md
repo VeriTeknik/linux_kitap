@@ -125,5 +125,8 @@ NameVirtualHost 94.103.47.84:80
 
 Sanal Sunucunuza IP adresi ile de giriş yapılmasını istiyorsanız NameVirtualHost direktifini kullanmanız gerekir
 
+##Sunucu İzleme
+
+
 ######* Bkz: https://tools.ietf.org/html/rfc2616
 ######** http://news.netcraft.com/archives/category/web-server-survey/
