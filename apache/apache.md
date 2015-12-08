@@ -30,6 +30,7 @@ Tüm özellikleri ile çalışan temel Apache sürümü için aşağıdaki confi
         "--sysconfdir=/etc/httpd/conf" \
         "--enable-so" \
         "--enable-dav" \
+        "--enable-info" \
         "--enable-dav-fs" \
         "--enable-dav-lock" \
         "--enable-suexec" \
@@ -105,9 +106,9 @@ mv /etc/httpd/conf/extra/httpd-vhosts.conf /etc/httpd/conf/extra/httpd-vhosts.co
 Yeni direktif dosyaınızı oluşturun, dosyanız asgari şu komutları içermelidir:
 ```bash
 vi /etc/httpd/conf.d/z_web.conf
-NameVirtualHost 94.103.47.84:80
+NameVirtualHost __IPADRESI__:80
 
-<VirtualHost 94.103.47.84:80>
+<VirtualHost __IPADRESI__:80>
     ServerAdmin root@veriteknik.com
     DocumentRoot /home/web/public_html
     ServerName apachetest.veriteknik.com *
@@ -126,7 +127,24 @@ NameVirtualHost 94.103.47.84:80
 Sanal Sunucunuza IP adresi ile de giriş yapılmasını istiyorsanız NameVirtualHost direktifini kullanmanız gerekir
 
 ##Sunucu İzleme
+Apache web sunucusunu izlemek için araçlar sunmaktadır, extra dizini altında "httpd-info.conf" dosyasını aşağıdaki şekilde edit ediniz:
+```bash
+<Location /sunucu-durumu>
+    SetHandler server-status
+    Order deny,allow
+    Deny from all
+    Allow from 192.168.16.
+</Location>
 
+ExtendedStatus On
+
+<Location /sunucu-bilgisi>
+    SetHandler server-info
+    Order deny,allow
+    Deny from all
+    Allow from 192.168.16.
+</Location>
+```
 
 ######* Bkz: https://tools.ietf.org/html/rfc2616
 ######** http://news.netcraft.com/archives/category/web-server-survey/
