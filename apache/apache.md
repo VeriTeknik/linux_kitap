@@ -145,6 +145,12 @@ ExtendedStatus On
     Allow from 192.168.16.
 </Location>
 ```
+*** Sunucu bilgisinin çıkabilmesi için mod_info'nun yüklü ya da statik olarak derlenmiş olması gerekmeketedir,  apachectl -l | grep mod_info sorusuna cevap alabiliyorsanız modül yüklüdür
+```bash
+apachectl -l | grep mod_info
+mod_info.c
+```
+```Module Name kısmı altında, Module Directives kısmında "none" yazıyorsa bu modülü kullanmıyorsunuz anlamına gelir, kullanmadığınız modülleri güvenle kaldırabilirsiniz```
 
 ######* Bkz: https://tools.ietf.org/html/rfc2616
 ######** http://news.netcraft.com/archives/category/web-server-survey/
