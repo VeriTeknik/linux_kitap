@@ -117,6 +117,15 @@ root:@94.103.47.66's password:
 
 Yukarıdaki mesajda her ne kadar "Permanently added" dese de, eklediği liste dosyası ```/dev/null``` olduğu için, bu bilgi hiçbir yere kaydedilmemiş oldu.
 
+```known_hosts``` dosyasına eklenen bir RSA parmak izini silmek için dosyayı düzenlemek yerine ```ssh-keygen``` komutunun bir parametresini kullanabilirdik. Bu bizi hashlenmiş dosyada ilgili satırı bulma derdinden kurtarmaktadır. Yukarıdaki örnek için yapacak olursak:
+
+```bash
+eaydin@dixon ~ $ ssh-keygen -R 94.103.47.66
+# Host 94.103.47.66 found: line 2 type RSA
+/home/eaydin/.ssh/known_hosts updated.
+Original contents retained as /home/eaydin/.ssh/known_hosts.old
+```
+
 ## İstemci Ayarları
 
 Yukarıdaki örneklerde ```-o``` parametresiyle bağlantı sırasında bazı seçenekleri açıp kapattık. Aslında burada yaptığımız, ssh istemcinin tanımlanmış ayarlarında bazılarını kullanmayıp o an belirttiklerimizi zorlamaktı.
