@@ -74,3 +74,26 @@ Yukarıdaki işlemlerin ardından iki dosyamız oluşmuştur. ```egitim_rsa``` v
 
 Karşı sunucuda yer alan ```authorized_keys``` dosyası, bu sunucuya bağlanmaya yetkili kişilerin public anahtarlarının tutulduğu yerdir. İlgili kullanıcıların ssh dizinlerinin altında bulunabilir. Örneğin: ```/root/.ssh/authorized_keys``` dosyası, root kullanıcısı olarak bağlanabilecek kişilerin ssh anahtarlarının tutulduğu dosyadır.
 
+Bu dosyaya ilgili satırı eklemek için SSH ile bir kez bağlanmak, veya sunucu başında bu işi yapmak gerekmektedir. Eğer sunucuya erişim için şifresini biliyorsanız bağlanıp ilgili satırı ekleyebilirsiniz. Öte yandan ```ssh-copy-id``` komutu bu işi sizin için yapar.
+
+```bash
+eaydin@dixon ~ $ ssh-copy-id root@test-centos1
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+Host key fingerprint is 9c:74:68:d4:2d:93:70:bb:fe:c1:e7:6e:63:b0:f0:f1
+root@test-centos1's password: 
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'root@test-centos1'"
+and check to make sure that only the key(s) you wanted were added.
+```
+
+Aynı komutu tekrar edersek, program eklemeyeceğini çünkü anahtarı zaten orada bulduğunu belirtecektir.
+
+```bash
+eaydin@dixon ~ $ ssh-copy-id root@test-centos1
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+
+/usr/bin/ssh-copy-id: WARNING: All keys were skipped because they already exist on the remote system.
+```
