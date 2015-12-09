@@ -106,4 +106,4 @@ ssh-copy-id -i /root/farkli_id_dosyasi -p 2299 root@sunucu-ip
 
 Yukarıdaki komut, ```sunucu-ip``` sunucusuna **2299** portundan **root** kullanıcısı ile bağlanıp, yerel makinamızdaki ```/root/farkli_id_dosyasi.pub``` dosyasının içeriğini aktarmaya çalışır.
 
-**Simülasyon:** ssh-copy-id programını ```-n``` ile çalıştırdığınızda, kopyalama işlemlerini gerçekleştirmez ancak simüle eder, böylece problemle karşılaşıp karşılaşmayacağınızı test edebilirsiniz.
+**Simülasyon:** ssh-copy-id programını ```-n``` ile çalıştırdığınızda, kopyalama işlemlerini gerçekleştirmez ancak simüle eder, böylece bir problemle karşılaşıp karşılaşmayacağınızı test edebilirsiniz.
