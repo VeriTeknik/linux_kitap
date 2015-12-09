@@ -101,5 +101,7 @@ eaydin@dixon ~ $ ssh-copy-id root@test-centos1
 Yukarıdaki komutlar, kullanıcının standart SSH anahtarlarını kullanıp bunları ekler. Yani yukarıdaki örneklerde ```~/.ssh/id_rsa.pub``` dosyası okunup içeriği karşı tarafa aktarılmıştır. Eğer farklı bir dosya kullanmak istersek, ```-i``` parametresiyle belirtebiliriz. Bu ifadede dosya adının sonunda **.pub** bulunmazsa, program kendisi bu uzantıyı ekleyip dosyayı okumaya çalışır.
 
 ```bash
-ssh-copy-id -i /root/farkli_id_dosyasi root@sunucu-ip
+ssh-copy-id -i /root/farkli_id_dosyasi -p 2299 root@sunucu-ip
 ```
+
+Yukarıdaki komut, ```sunucu-ip``` sunucusuna **2299** portundan **root** kullanıcısı ile bağlanıp, yerel makinamızdaki ```/root/farkli_id_dosyasi.pub``` dosyasının içeriğini aktarmaya çalışır.
