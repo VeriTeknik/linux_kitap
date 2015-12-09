@@ -98,4 +98,8 @@ eaydin@dixon ~ $ ssh-copy-id root@test-centos1
 /usr/bin/ssh-copy-id: WARNING: All keys were skipped because they already exist on the remote system.
 ```
 
-Yukarıdaki komutlar, kullanıcının standart SSH anahtarlarını kullanıp bunları ekler. Yani yukarıdaki örneklerde ```~/.ssh/id_rsa.pub``` dosyası okunup içeriği karşı tarafa aktarılmıştır.
+Yukarıdaki komutlar, kullanıcının standart SSH anahtarlarını kullanıp bunları ekler. Yani yukarıdaki örneklerde ```~/.ssh/id_rsa.pub``` dosyası okunup içeriği karşı tarafa aktarılmıştır. Eğer farklı bir dosya kullanmak istersek, ```-i``` parametresiyle belirtebiliriz. Bu ifadede dosya adının sonunda **.pub** bulunmazsa, program kendisi bu uzantıyı ekleyip dosyayı okumaya çalışır.
+
+```bash
+ssh-copy-id -i /root/farkli_id_dosyasi root@sunucu-ip
+```
