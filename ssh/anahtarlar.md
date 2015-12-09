@@ -72,5 +72,5 @@ Yukarıdaki işlemlerin ardından iki dosyamız oluşmuştur. ```egitim_rsa``` v
 
 ### authorized_keys
 
-Karşı sunucuda yer alan ```authorized_keys``` dosyası, bu sunucuya bağlanmaya yetkili kişilerin public anahtarlarının tutulduğu yerdir.
+Karşı sunucuda yer alan ```authorized_keys``` dosyası, bu sunucuya bağlanmaya yetkili kişilerin public anahtarlarının tutulduğu yerdir. İlgili kullanıcıların ssh dizinlerinin altında bulunabilir.
 
