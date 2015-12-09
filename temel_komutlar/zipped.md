@@ -151,7 +151,6 @@ unrar e arsiv.rar
 
 ## Z Komutları
 
-### zcat
-### zless / zmore
-### zgrep / zegrep
-### zdiff
+GNU/Linux sistemlerde özellikle log dosyalarının sıkıştırılarak saklanması yaygın tekniklerdir. Sıkıştırılmış bu dosyalar içinde arama yapmak gerekebilir. Bunun için sıkça kullanılan komutların **z** ile bağlayan versiyonları geliştirilmiştir.
+
+```zcat```, ```zless```, ```zmore```, ```zgrep```, ```zegrep```, ```zdiff``` komutlarını bu tip dosyalar üzerinde çalışmak için kullanabilirsiniz.
