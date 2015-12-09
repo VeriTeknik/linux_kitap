@@ -110,7 +110,7 @@ Aslında yaptığımız ```/home/eaydin/.ssh/known_hosts``` dosyasını yerine `
 
 ```bash
 eaydin@dixon ~ $ ssh -o UserKnownHostsFile=/dev/null \
--o StrictHostKeyChecking=no \root:@94.103.47.66
+-o StrictHostKeyChecking=no root:@94.103.47.66
 Warning: Permanently added '94.103.47.66' (RSA) to the list of known hosts.
 root:@94.103.47.66's password: 
 ```
