@@ -49,11 +49,15 @@ ip link set eth0 up
 ip link set eth0 down
 ```
 
-
+Aşağıdaki komut, route tablomuzu gösterir.
 
 ```bash
-ip route show
+eaydin@dixon ~ $ ip route show
+default via 192.168.100.1 dev wlan0  proto static 
 ```
+
+Eğer belirli bir cihaz için route eklemek, silmek istiyorsak, veya default route'u belirlemek istiyorsak aşağıdaki komutları kullanabiliriz.
+
 
 ```bash
 ip route add 10.2.19.0/24 via 192.168.16.1 dev eth0
