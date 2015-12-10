@@ -1,2 +1,4 @@
 # ping ve mtr
 
+##ping
+
