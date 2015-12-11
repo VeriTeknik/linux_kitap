@@ -63,6 +63,8 @@ PING google.com (216.58.208.110) 0(28) bytes of data.
 8 bytes from sof01s11-in-f110.1e100.net (216.58.208.110): icmp_seq=4 ttl=55
 ```
 
+Öte yandan dilediğimiz kadar büyük paketler de gönderebiliriz.
+
 
 
 
@@ -96,4 +98,13 @@ eaydin@dixon ~ $ sudo tcpdump -XX -n -vv -i wlan0 dst 192.168.100.123
 
 
 
+### ICMP Paketlerini Gözardı Etmek
 
+Linux üzerinde ICMP paketlerini gözardı etmenin pek çok yolu var, ancak bu pek tavsiye edilmez. Yine de IPTABLES gibi kompleks yöntemler yerine basitçe paketleri gözardı etmek isterseniz aşağıdaki yöntemleri kullanabilirsiniz.
+
+```bash
+echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_all
+```
+```bash
+echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
+```
