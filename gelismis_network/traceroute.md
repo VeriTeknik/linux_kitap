@@ -67,3 +67,14 @@ traceroute to google.com (216.58.209.14), 30 hops max, 60 byte packets
 10  209.85.142.189 (209.85.142.189)  76.328 ms  76.329 ms  76.330 ms
 11  sof01s12-in-f14.1e100.net (216.58.209.14)  76.291 ms  52.555 ms  52.308 ms
 ```
+
+Yukarıdaki çıktıyı incelediğimizde, 11 noktadan sonra Google'a erişebildiğimiz görüyoruz. Gerçekten de TTL 11 ile ping atarsak, Google'un cevap vereceğini görebiliriz.
+
+```bash
+eaydin@dixon ~ $ ping -t 11 google.com
+PING google.com (216.58.209.14) 56(84) bytes of data.
+64 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=1 ttl=54 time=51.5 ms
+```
+
+
+Ancak arada bazı noktalarda "*" işaretleri mevcut. Bu işaretler, ilgili sunucuya 
