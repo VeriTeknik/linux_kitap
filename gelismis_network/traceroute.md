@@ -98,3 +98,18 @@ traceroute to google.com (216.58.211.14), 30 hops max, 60 byte packets
 11  216.239.47.189  82.119 ms
 12  216.58.211.14  77.069 ms
 ```
+
+Traceroute algoritmasında TTL değerinin 1'den başladığını ifade etmiştik. Dilerseniz bu değeri 1'den başlatmak yerine farklı değerle taramaya başlayabilirsiniz.
+
+```bash
+eaydin@dixon ~ $ traceroute google.com -n -f 5
+traceroute to google.com (216.58.211.14), 30 hops max, 60 byte packets
+ 5  195.175.174.42  34.707 ms  35.731 ms  37.701 ms
+ 6  195.175.166.204  44.291 ms  44.878 ms  44.895 ms
+ 7  * * *
+ 8  72.14.197.194  55.306 ms 72.14.197.192  55.963 ms  55.967 ms
+ 9  209.85.248.54  65.153 ms  67.279 ms  69.913 ms
+10  64.233.175.34  78.079 ms  68.314 ms  76.712 ms
+11  216.239.47.189  79.059 ms  88.210 ms  89.261 ms
+12  216.58.211.14  69.281 ms  78.807 ms  78.197 ms
+```
