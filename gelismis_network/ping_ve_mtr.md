@@ -41,7 +41,16 @@ rtt min/avg/max/mdev = 51.350/52.214/54.528/1.232 ms
 
 Yukarıdaki örneklerimizde, ping mesajımızın gönderilmesini ifade eden satırda kaç Byte veri gönderdiğimizi görebilirsiniz. 56 Byte veri gönderiyoruz, aslında bu kısım "payload" olan kısım, yani ilettiğimiz anlamsız veri. Bu verinin IPv4 üzerinden iletilebilmesi için 28 byte veri daha iletmemiz gerekiyor. 20 Byte IP adresi, 8 Byte ICMP başlığı. Bu durumda payload + başlık bilgileri toplam 56+28=84 Byte veri iletiyoruz. ping komutu çıktısında ```56(84) bytes of data``` ile ifade edilen değer bunu gösteriyor.
 
-Dilersek bu değeri değiştirebiliriz.
+Dilersek bu değeri ```-s``` parametresiyle değiştirebiliriz. Örneğin 20 Byte payload göndermek için,
+
+```bash
+eaydin@dixon ~ $ ping -s 20 google.com
+PING google.com (216.58.209.14) 20(48) bytes of data.
+28 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=1 ttl=54 time=51.0 ms
+28 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=2 ttl=54 time=50.8 ms
+```
+
+Parametre belirtmediğimizde google.com'a 56(+28) Byte gönderip 64 Byte cevap almıştık. Son örneğimizdeyse 20(+28) Byte veri gönderip, 28 Byte cevap aldık. Gördüğünüz üzere cevaplar her zaman 8 Byte ekstra bilgi içermeli.
 
 
 
