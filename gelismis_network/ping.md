@@ -195,3 +195,24 @@ echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_all
 ```bash
 echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
 ```
+
+## Ping Flood
+
+İki ardışık ICMP paketi arasındaki süreyi ```-i``` parametresiyle saniye cinsinden düzenleyebilirsiniz.
+
+```bash
+eaydin@dixon ~ $ ping -i 3 google.com
+PING google.com (216.58.209.14) 56(84) bytes of data.
+64 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=1 ttl=54 time=51.1 ms
+64 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=2 ttl=54 time=53.2 ms
+```
+
+Kesirli değerler verebilirsiniz.
+
+```bash
+eaydin@dixon ~ $ ping -i 0.3 google.com
+PING google.com (216.58.209.14) 56(84) bytes of data.
+64 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=1 ttl=54 time=59.9 ms
+64 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=2 ttl=54 time=52.2 ms
+64 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=3 ttl=54 time=51.4 ms
+```
