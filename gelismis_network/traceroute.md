@@ -76,5 +76,6 @@ PING google.com (216.58.209.14) 56(84) bytes of data.
 64 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=1 ttl=54 time=51.5 ms
 ```
 
+Ancak arada bazı noktalarda "*" işaretleri mevcut. Bu işaretler, ilgili sunucuya giderken pinglenen noktaların cevap vermediği, veya DNS çözümlemesinde hata yaşandığı gibi pek çok şeyi ifade edebilir.
 
-Ancak arada bazı noktalarda "*" işaretleri mevcut. Bu işaretler, ilgili sunucuya 
+Farkındaysanız 9. satırda başta bir "*" işareti var, sonra satır normal devam ediyor. Bunun sebebi, traceroute her noktayı pinglerken, 3 defa deniyor. Belli ki denemelerinden birinde başarısız olmuş. Her satır için 3 farklı ms değeri olması, ancak 9. satırda sadece 2 farklı ms değeri olması da bundan kaynaklanmaktadır.
