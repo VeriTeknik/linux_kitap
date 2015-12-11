@@ -216,3 +216,24 @@ PING google.com (216.58.209.14) 56(84) bytes of data.
 64 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=2 ttl=54 time=52.2 ms
 64 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=3 ttl=54 time=51.4 ms
 ```
+
+Tahmin edeceğiniz üzere, çok küçük değerler birim zamanda çok sayıda paket gönderilmesine sebep olur. Bu durum bilgisayarınızı "saldırgan" pozisyonuna düşürebilir. Bunu engellemek için 0.2 saniyenin altındaki değerler için root yetkisi gerekmektedir.
+
+```bash
+eaydin@dixon ~ $ ping -i 0.19 google.com
+PING google.com (216.58.209.14) 56(84) bytes of data.
+ping: cannot flood; minimal interval allowed for user is 200ms
+```
+
+Herhangi bir sebeple birim zamanda çok sayıda paket göndermek isterseniz, ping komutunun flood özelliğini kullanabilirsiniz. Bu durumda çok sayıda paket gönderilip alınacağı için tamamı ekrana yazdırılmaz, ancak her paket gönderildiğinde ekrana bir **.** (nokta) işareti yazdırılır, her paket alındığındaysa bir **backspace** işareti yazdırılır, yani bir önceki nokta silinir.
+
+```bash
+eaydin@dixon ~ $ sudo ping -f 192.168.100.123
+PING 192.168.100.123 (192.168.100.123) 56(84) bytes of data.
+...............................^C     
+--- 192.168.100.123 ping statistics ---
+9461 packets transmitted, 9430 received, 0% packet loss, time 20653ms
+rtt min/avg/max/mdev = 0.695/2.223/114.147/3.504 ms, pipe 10, ipg/ewma 2.183/2.072 ms
+```
+
+Yukarıdaki örnekte 20 saniye içerisinde 9461 paket gönderilmiş, 9430 cevap alınmıştır. Bu yüzden **^C** işaretinden önce (9461-9430=) 31 tane nokta işareti var, bunlar cevapsız paketleri gösterir.
