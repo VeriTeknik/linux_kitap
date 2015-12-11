@@ -79,3 +79,22 @@ PING google.com (216.58.209.14) 56(84) bytes of data.
 Ancak arada bazı noktalarda "*" işaretleri mevcut. Bu işaretler, ilgili sunucuya giderken pinglenen noktaların cevap vermediği, veya DNS çözümlemesinde hata yaşandığı gibi pek çok şeyi ifade edebilir.
 
 Farkındaysanız 9. satırda başta bir "*" işareti var, sonra satır normal devam ediyor. Bunun sebebi, traceroute her noktayı pinglerken, 3 defa deniyor. Belli ki denemelerinden birinde başarısız olmuş. Her satır için 3 farklı ms değeri olması, ancak 9. satırda sadece 2 farklı ms değeri olması da bundan kaynaklanmaktadır.
+
+Her nokta (hop) için yapılacak pingleme (query) miktarını ```-q``` parametresiyle değiştirebilirsiniz. Ayrıca hostname çözümlemesi yapmayıp, doğrudan çıktıda IP adreslerinin görünmesini de ```-n``` ile sağlayabilirsiniz.
+
+```bash
+eaydin@dixon ~ $ traceroute google.com -n -q 1
+traceroute to google.com (216.58.211.14), 30 hops max, 60 byte packets
+ 1  192.168.100.1  5.363 ms
+ 2  81.212.171.130  33.504 ms
+ 3  93.155.0.184  35.415 ms
+ 4  81.212.106.225  35.994 ms
+ 5  195.175.174.42  37.083 ms
+ 6  *
+ 7  195.175.174.59  45.340 ms
+ 8  72.14.197.192  53.157 ms
+ 9  209.85.248.54  60.998 ms
+10  64.233.175.34  76.644 ms
+11  216.239.47.189  82.119 ms
+12  216.58.211.14  77.069 ms
+```
