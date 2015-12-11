@@ -75,7 +75,7 @@
 * [Gelişmiş Network Komutları](gelismis_network/gelismis_network_komutlari.md)
    * [ip](gelismis_network/ip.md)
    * [ping](gelismis_network/ping.md)
-   * traceroute
+   * [traceroute](gelismis_network/traceroute.md)
    * dig
    * nslookup
    * route
