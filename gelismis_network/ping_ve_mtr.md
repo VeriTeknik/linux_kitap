@@ -60,6 +60,7 @@ PING google.com (216.58.208.110) 56(84) bytes of data.
 rtt min/avg/max/mdev = 84.541/85.382/86.557/0.647 ms
 ```
 
+Yukarıdaki çıktıda ```3/3``` ve ```7/7``` ile başlayan satırlardan hemen önce ```Ctrl+|``` sinyali gönderilmiştir.
 
 ### Toplam Süre Tanımlama
 
