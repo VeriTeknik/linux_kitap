@@ -23,3 +23,16 @@ PING google.com (216.58.209.14) 56(84) bytes of data.
 5 packets transmitted, 5 received, 0% packet loss, time 4005ms
 rtt min/avg/max/mdev = 50.154/50.575/51.153/0.475 ms
 ```
+
+### Sadece İstatistiği Gösterme
+
+Yukarıdaki örneğin sonunda, ping istatistiğimizin yansıtıldığını görebilirsiniz. ```-q``` komutu (quiet output) sadece ping işleminin başını ve sonundaki istatistiği gösterir. ```-c``` ile birleştirilmezse, programı durdurmadan istatistiği göremeyiz.
+
+```bash
+eaydin@dixon ~ $ ping -c 5 -q google.com 
+PING google.com (216.58.209.14) 56(84) bytes of data.
+
+--- google.com ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4005ms
+rtt min/avg/max/mdev = 51.350/52.214/54.528/1.232 ms
+```
