@@ -96,12 +96,17 @@ PING google.com (216.58.208.110) 16(44) bytes of data.
 
 Yukarıdaki örneklerden gördüğünüz gibi, en az 16 Byte'lık alan bıraktığımızda paketin seyahat süresini öğrenebiliyoruz.
 
-Öte yandan dilediğimiz kadar büyük paketler de gönderebiliriz.
+Öte yandan dilediğimiz kadar büyük paketler de gönderebiliriz. Örneğin
 
+```bash
+eaydin@dixon ~ $ ping -s 290 192.168.100.123
+PING 192.168.100.123 (192.168.100.123) 290(318) bytes of data.
+298 bytes from 192.168.100.123: icmp_seq=2 ttl=64 time=1.77 ms
+298 bytes from 192.168.100.123: icmp_seq=3 ttl=64 time=1.62 ms
+298 bytes from 192.168.100.123: icmp_seq=4 ttl=64 time=1.76 ms
+```
 
-
-
-
+Ping programı timestamp dışındaki bilgileri ASCII karakterlerle doldurur. Aşağıda iki tcpdump çıktısı görüyorsunuz, paketlerin sonunda ```ABCDE```... şeklinde devam eden kısım, söz ettiğimiz ASCII karakterlerdir.
 
 ```bash
 eaydin@dixon ~ $ sudo tcpdump -XX -n -vv -i wlan0 dst 192.168.100.123
@@ -128,6 +133,21 @@ eaydin@dixon ~ $ sudo tcpdump -XX -n -vv -i wlan0 dst 192.168.100.123
 	0x0060:  3637 3839 3a3b 3c3d 3e3f 4041 4243 4445  6789:;<=>?@ABCDE
 	0x0070:  4647 4849 4a                             FGHIJ
 ```
+
+Gördüğünüz gibi aldığımız cevabın boyutu, gönderdiğimiz paketin boyutuna bağlı. Bu durum çok rağbet gören sistemlerin gereksiz yere çok paket transfer etmesine sebep olabilir. Örneğin Google muhtemelen gün içerisinde çok ciddi sayıda ping isteği alıyordur. Gelen bütün ping paketlerine, paketin isteği kadar boyutta cevap vermek gereksiz trafik yüküne sebep olabilir. Bunun önüne geçmek için paketi küçültürler.
+
+
+```bash
+eaydin@dixon ~ $ ping -s 65 google.com
+PING google.com (216.58.208.110) 65(93) bytes of data.
+72 bytes from sof01s11-in-f14.1e100.net (216.58.208.110): icmp_seq=1 ttl=55 (truncated)
+```
+
+Yukarıdaki örnekte gördüğünüz ```(truncated)``` ifadesi paketin istediğimiz değerden küçük geldiği anlamına gelir. Gerçekten de 65 byte veri gönderdik, 65+8=73 byte cevap beklerdik ancak 72 byte geldi. Google bu kitabı yazıldığı tarihte ICMP cevaplarını en fazla 72 byte olacak şekilde düzenlemiştir.
+
+
+
+
 
 
 
