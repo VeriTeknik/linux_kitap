@@ -56,12 +56,29 @@ Bu durumda tahmin edeceğiniz üzere, gönderebileceğimiz en küçük paket 0 B
 
 ```bash
 eaydin@dixon ~ $ ping -s 0 google.com
-PING google.com (216.58.208.110) 0(28) bytes of data.
-8 bytes from sof01s11-in-f110.1e100.net (216.58.208.110): icmp_seq=1 ttl=55
-8 bytes from sof01s11-in-f110.1e100.net (216.58.208.110): icmp_seq=2 ttl=55
-8 bytes from sof01s11-in-f110.1e100.net (216.58.208.110): icmp_seq=3 ttl=55
-8 bytes from sof01s11-in-f110.1e100.net (216.58.208.110): icmp_seq=4 ttl=55
+PING google.com (216.58.209.14) 0(28) bytes of data.
+8 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=1 ttl=54
+8 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=2 ttl=54
+8 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=3 ttl=54
 ```
+
+Burada atlanmaması gereken bir nokta var. Google'dan aldığımız cevapta tabii ki bizim IP adresmiz de vardı (yoksa paket bize ulaşmazdı) dolayısıyla gelen cevabın boyutu aslında program tarafından 20 Byte eksik gösterilmektedir.
+
+Aşağıdaki ```tcpdump``` çıktısı bunu göstermektedir.
+
+```bash
+eaydin@dixon ~ $ sudo tcpdump -XX -n -vv -i wlan0 src 216.58.209.14
+tcpdump: listening on wlan0, link-type EN10MB (Ethernet), capture size 65535 bytes
+12:39:38.788969 IP (tos 0x0, ttl 54, id 0, offset 0, flags [none], proto ICMP (1), length 28)
+    216.58.209.14 > 192.168.100.20: ICMP echo reply, id 7563, seq 9, length 8
+	0x0000:  8056 f25b adab 8841 fc06 09c8 0800 4500  .V.[...A......E.
+	0x0010:  001c 0000 0000 3601 b6db d83a d10e c0a8  ......6....:....
+	0x0020:  6414 0000 e26b 1d8b 0009                 d....k....
+```
+
+Yukarıda gördüğünüz tcpdumo çıktısı bir ping işleminin (ICMP paketinin) yapısını göstermektedir. tcpdump kullanımını bilmiyorsanız şimdilik bunu önemsemenize gerek yok, ilerleyen bölümlerde göreceğiz, ancak ```proto ICMP (1), length 28``` yazan satır, gelen verinin aslında 8 byte değil, 28 byte olduğunu göstermektedir. Hemen altındaki satır, artık IPv4 başlık bilgilerinden paketi ayıklamıştır, burada ```length 8``` yazdığını görebilirsiniz.
+ 
+Fark ettiyseniz 0 byte payload ile veri gönderdiğimizde, icmp paketlerinin sırasını ve cevap aldığımız gördük, ancak kaç ms içinde cevap aldığımız bilgisi gelmedi. Bunun sebebi, bu bilginin payload'a yazılmasıdır. 
 
 Öte yandan dilediğimiz kadar büyük paketler de gönderebiliriz.
 
