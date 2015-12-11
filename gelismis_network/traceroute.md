@@ -47,3 +47,23 @@ From 195.175.173.172.06-ulus-xrs-t2-2.06-ulus-t3-7.statik.turktelekom.com.tr (19
 ```
 
 Traceroute programı da aslında arka planda bu mantığı uygular. Sırasıyla ICMP paketlerimizin TTL'ini artırarak ilgili noktaya ulaşana kadar bu işi tekrar eder.
+
+## Kullanımı
+
+Kullanımı gayet basittir ve çıktısı aşağıdaki gibidir.
+
+```bash
+eaydin@dixon ~ $ traceroute google.com
+traceroute to google.com (216.58.209.14), 30 hops max, 60 byte packets
+ 1  192.168.100.1 (192.168.100.1)  8.191 ms  8.391 ms  8.403 ms
+ 2  81.212.171.130.static.turktelekom.com.tr (81.212.171.130)  42.977 ms  45.323 ms  45.343 ms
+ 3  93.155.0.184 (93.155.0.184)  45.342 ms  45.360 ms  45.368 ms
+ 4  81.212.106.225.static.turktelekom.com.tr (81.212.106.225)  45.373 ms  45.377 ms  45.401 ms
+ 5  195.175.174.42.06-ulus-xrs-t2-1.06-ulus-t3-7.statik.turktelekom.com.tr (195.175.174.42)  45.404 ms  45.414 ms  45.420 ms
+ 6  195.175.166.204.00-gayrettepe-xrs-t2-1.06-ulus-xrs-t2-1.statik.turktelekom.com.tr (195.175.166.204)  5123.341 ms * *
+ 7  * * *
+ 8  * * *
+ 9  * 209.85.250.69 (209.85.250.69)  74.476 ms  76.287 ms
+10  209.85.142.189 (209.85.142.189)  76.328 ms  76.329 ms  76.330 ms
+11  sof01s12-in-f14.1e100.net (216.58.209.14)  76.291 ms  52.555 ms  52.308 ms
+```
