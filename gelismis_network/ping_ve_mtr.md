@@ -52,7 +52,16 @@ PING google.com (216.58.209.14) 20(48) bytes of data.
 
 Parametre belirtmediğimizde google.com'a 56(+28) Byte gönderip 64 Byte cevap almıştık. Son örneğimizdeyse 20(+28) Byte veri gönderip, 28 Byte cevap aldık. Gördüğünüz üzere cevaplar her zaman 8 Byte ekstra bilgi içermeli, çünkü bu bilgi gönderdiğimiz ICMP başlığının karşılığını içermektedir. Örneğin paket numarasını içermektedir. Ping mesajlarını gönderirken bir paket numarası veririz, cevap aldığımızda da hangi paketin cevabı olduğunu karşı taraftan öğreniriz. Bu sayede hem hangi paketin ne kadar sürede gidip geldiğini hesaplayabiliriz, hem de yolda kaybolan paketlerin sayısını anlarız. Ping gönderirken gördüğünüz ```icmp_seq``` paket sayısını (sequence) göstermektedir.
 
+Bu durumda tahmin edeceğiniz üzere, gönderebileceğimiz en küçük paket 0 Byte payload içerip sadece IP adresi ve ICMP başlığından oluşan paket olacaktır. 0+28 Byte'lık bu pakete karşılık alacağımız cevap 8 Byte'lık ICMP başlığı karşılığı olmalıdır.
 
+```bash
+eaydin@dixon ~ $ ping -s 0 google.com
+PING google.com (216.58.208.110) 0(28) bytes of data.
+8 bytes from sof01s11-in-f110.1e100.net (216.58.208.110): icmp_seq=1 ttl=55
+8 bytes from sof01s11-in-f110.1e100.net (216.58.208.110): icmp_seq=2 ttl=55
+8 bytes from sof01s11-in-f110.1e100.net (216.58.208.110): icmp_seq=3 ttl=55
+8 bytes from sof01s11-in-f110.1e100.net (216.58.208.110): icmp_seq=4 ttl=55
+```
 
 
 
