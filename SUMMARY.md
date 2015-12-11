@@ -83,6 +83,7 @@
    * netcat
    * tcpdump
    * WireShark
+   * traceroute
 * [Python](python/python.md)
    * [Temel Programlama](python/temel_programlama.md)
    * [Kütüphane Oluşturma](python/kutuphane_olusturma.md)
