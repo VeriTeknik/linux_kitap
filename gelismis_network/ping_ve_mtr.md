@@ -37,6 +37,30 @@ PING google.com (216.58.209.14) 56(84) bytes of data.
 rtt min/avg/max/mdev = 51.350/52.214/54.528/1.232 ms
 ```
 
+Eğer program sonlanmadan mevcut istatistiği görmek isterseniz, ```Ctrl+|``` sinyalini gönderebilirsiniz (Türkçe klavyelerde bunu gerçekleştirmek için ```Ctrl+Shift+<``` tuşlarına basmak gerekir).
+
+
+```bash
+eaydin@dixon ~ $ ping google.com
+PING google.com (216.58.208.110) 56(84) bytes of data.
+64 bytes from sof01s11-in-f14.1e100.net (216.58.208.110): icmp_seq=1 ttl=55 time=85.4 ms
+64 bytes from sof01s11-in-f14.1e100.net (216.58.208.110): icmp_seq=2 ttl=55 time=84.5 ms
+64 bytes from sof01s11-in-f14.1e100.net (216.58.208.110): icmp_seq=3 ttl=55 time=85.0 ms
+3/3 packets, 0% loss, min/avg/ewma/max = 84.541/85.016/85.302/85.451 ms
+64 bytes from sof01s11-in-f14.1e100.net (216.58.208.110): icmp_seq=4 ttl=55 time=85.0 ms
+64 bytes from sof01s11-in-f14.1e100.net (216.58.208.110): icmp_seq=5 ttl=55 time=85.2 ms
+64 bytes from sof01s11-in-f14.1e100.net (216.58.208.110): icmp_seq=6 ttl=55 time=86.5 ms
+64 bytes from sof01s11-in-f14.1e100.net (216.58.208.110): icmp_seq=7 ttl=55 time=86.0 ms
+7/7 packets, 0% loss, min/avg/ewma/max = 84.541/85.429/85.512/86.557 ms
+64 bytes from sof01s11-in-f14.1e100.net (216.58.208.110): icmp_seq=8 ttl=55 time=85.3 ms
+64 bytes from sof01s11-in-f14.1e100.net (216.58.208.110): icmp_seq=9 ttl=55 time=85.0 ms
+^C
+--- google.com ping statistics ---
+9 packets transmitted, 9 received, 0% packet loss, time 8008ms
+rtt min/avg/max/mdev = 84.541/85.382/86.557/0.647 ms
+```
+
+
 ### Toplam Süre Tanımlama
 
 Dilerseniz programa "x saniye boyunca ping gönder ve sonlandır" diyebilirsiniz. Böylece gelen paket cevabından ve sayısından bağımsız olarak işlemi sonlandırır. ```-w``` ile belirtilen değer, saniye cinsindendir.
