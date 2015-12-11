@@ -101,7 +101,7 @@ PING google.com (216.58.209.14) 0(28) bytes of data.
 8 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=3 ttl=54
 ```
 
-Burada atlanmaması gereken bir nokta var. Google'dan aldığımız cevapta tabii ki bizim IP adresmiz de vardı (yoksa paket bize ulaşmazdı) dolayısıyla gelen cevabın boyutu aslında program tarafından 20 Byte eksik gösterilmektedir.
+Burada atlanmaması gereken bir nokta var. Google'dan aldığımız cevapta tabii ki bizim IP adresimiz de vardı (yoksa paket bize ulaşmazdı) dolayısıyla gelen cevabın boyutu aslında program tarafından 20 Byte eksik gösterilmektedir.
 
 Aşağıdaki ```tcpdump``` çıktısı bunu göstermektedir.
 
