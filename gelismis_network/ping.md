@@ -145,7 +145,7 @@ PING 192.168.100.123 (192.168.100.123) 290(318) bytes of data.
 298 bytes from 192.168.100.123: icmp_seq=4 ttl=64 time=1.76 ms
 ```
 
-Ping programı timestamp dışındaki bilgileri ASCII karakterlerle doldurur. Aşağıda iki tcpdump çıktısı görüyorsunuz, paketlerin sonunda ```ABCDE```... şeklinde devam eden kısım, söz ettiğimiz ASCII karakterlerdir.
+Ping programı timestamp dışındaki bilgileri ASCII karakterlerle doldurur. Aşağıda iki tcpdump çıktısı görüyorsunuz, paketlerin sonunda ```ABCDEFG```... şeklinde devam eden kısım, söz ettiğimiz ASCII karakterlerdir.
 
 ```bash
 eaydin@dixon ~ $ sudo tcpdump -XX -n -vv -i wlan0 dst 192.168.100.123
