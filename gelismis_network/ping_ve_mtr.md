@@ -37,3 +37,43 @@ PING google.com (216.58.209.14) 56(84) bytes of data.
 rtt min/avg/max/mdev = 51.350/52.214/54.528/1.232 ms
 ```
 
+### Paket Boyutunu Değiştirme
+
+Yukarıdaki örneklerimizde, ping mesajımızın gönderilmesini ifade eden satırda kaç Byte veri gönderdiğimizi görebilirsiniz. 56 Byte veri gönderiyoruz, aslında bu kısım "payload" olan kısım, yani ilettiğimiz anlamsız veri. Bu verinin IPv4 üzerinden iletilebilmesi için 28 byte veri daha iletmemiz gerekiyor. 20 Byte IP adresi, 8 Byte ICMP başlığı. Bu durumda payload + başlık bilgileri toplam 56+28=84 Byte veri iletiyoruz. ping komutu çıktısında ```56(84) bytes of data``` ile ifade edilen değer bunu gösteriyor.
+
+Dilersek bu değeri değiştirebiliriz.
+
+
+
+
+
+
+```bash
+eaydin@dixon ~ $ sudo tcpdump -XX -n -vv -i wlan0 dst 192.168.100.123
+```
+```
+11:54:17.964372 IP (tos 0x0, ttl 64, id 54338, offset 0, flags [DF], proto ICMP (1), length 108)
+    192.168.100.20 > 192.168.100.123: ICMP echo request, id 6485, seq 27, length 88
+	0x0000:  fcaa 1456 6c5d 8056 f25b adab 0800 4500  ...Vl].V.[....E.
+	0x0010:  006c d442 4000 4001 1c6e c0a8 6414 c0a8  .l.B@.@..n..d...
+	0x0020:  647b 0800 39df 1955 001b 499d 6a56 0000  d{..9..U..I.jV..
+	0x0030:  0000 fcb6 0e00 0000 0000 1011 1213 1415  ................
+	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425  ...........!"#$%
+	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435  &'()*+,-./012345
+	0x0060:  3637 3839 3a3b 3c3d 3e3f 4041 4243 4445  6789:;<=>?@ABCDE
+	0x0070:  4647 4849 4a4b 4c4d 4e4f                 FGHIJKLMNO
+11:54:22.711764 IP (tos 0x0, ttl 64, id 55033, offset 0, flags [DF], proto ICMP (1), length 103)
+    192.168.100.20 > 192.168.100.123: ICMP echo request, id 6489, seq 1, length 83
+	0x0000:  fcaa 1456 6c5d 8056 f25b adab 0800 4500  ...Vl].V.[....E.
+	0x0010:  0067 d6f9 4000 4001 19bc c0a8 6414 c0a8  .g..@.@.....d...
+	0x0020:  647b 0800 99b7 1959 0001 4e9d 6a56 0000  d{.....Y..N.jV..
+	0x0030:  0000 36dc 0a00 0000 0000 1011 1213 1415  ..6.............
+	0x0040:  1617 1819 1a1b 1c1d 1e1f 2021 2223 2425  ...........!"#$%
+	0x0050:  2627 2829 2a2b 2c2d 2e2f 3031 3233 3435  &'()*+,-./012345
+	0x0060:  3637 3839 3a3b 3c3d 3e3f 4041 4243 4445  6789:;<=>?@ABCDE
+	0x0070:  4647 4849 4a                             FGHIJ
+```
+
+
+
+
