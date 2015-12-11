@@ -115,7 +115,7 @@ tcpdump: listening on wlan0, link-type EN10MB (Ethernet), capture size 65535 byt
 	0x0020:  6414 0000 e26b 1d8b 0009                 d....k....
 ```
 
-Yukarıda gördüğünüz tcpdumo çıktısı bir ping işleminin (ICMP paketinin) yapısını göstermektedir. tcpdump kullanımını bilmiyorsanız şimdilik bunu önemsemenize gerek yok, ilerleyen bölümlerde göreceğiz, ancak ```proto ICMP (1), length 28``` yazan satır, gelen verinin aslında 8 byte değil, 28 byte olduğunu göstermektedir. Hemen altındaki satır, artık IPv4 başlık bilgilerinden paketi ayıklamıştır, burada ```length 8``` yazdığını görebilirsiniz.
+Yukarıda gördüğünüz tcpdump çıktısı bir ping işleminin (ICMP paketinin) yapısını göstermektedir. tcpdump kullanımını bilmiyorsanız şimdilik bunu önemsemenize gerek yok, ilerleyen bölümlerde göreceğiz, ancak ```proto ICMP (1), length 28``` yazan satır, gelen verinin aslında 8 byte değil, 28 byte olduğunu göstermektedir. Hemen altındaki satır, artık IPv4 başlık bilgilerinden paketi ayıklamıştır, burada ```length 8``` yazdığını görebilirsiniz.
  
 Fark ettiyseniz 0 byte payload ile veri gönderdiğimizde, icmp paketlerinin sırasını ve cevap aldığımızı gördük, ancak kaç ms içinde cevap aldığımız bilgisi gelmedi. Bunun sebebi, bu bilginin payload'a yazılmasıdır. Karşı tarafa paket gönderdiğimizde, cevap vereceği zaman paketin payload kısmına zaman bilgisini de yerleştirir. Payload uzunluğunu 0 byte yaptığımızda timestamp göndermedik, dolayısıyla cevap olarak almadık. Bu durumda da zaman bilgisi edinmemiş olduk.
 
