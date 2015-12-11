@@ -182,7 +182,7 @@ PING google.com (216.58.208.110) 65(93) bytes of data.
 72 bytes from sof01s11-in-f14.1e100.net (216.58.208.110): icmp_seq=1 ttl=55 (truncated)
 ```
 
-Yukarıdaki örnekte gördüğünüz ```(truncated)``` ifadesi paketin istediğimiz değerden küçük geldiği anlamına gelir. Gerçekten de 65 byte veri gönderdik, 65+8=73 byte cevap beklerdik ancak 72 byte geldi. Google bu kitabı yazıldığı tarihte ICMP cevaplarını en fazla 72 byte olacak şekilde düzenlemiştir.
+Yukarıdaki örnekte gördüğünüz ```(truncated)``` ifadesi paketin istediğimiz değerden küçük geldiği anlamına gelir. Gerçekten de 65 byte veri gönderdik, 65+8=73 byte cevap beklerdik ancak 72 byte geldi. Google, bu kitabın yazıldığı tarihte ICMP cevaplarını en fazla 72 byte olacak şekilde düzenlemiştir.
 
 
 ## ICMP Paketlerini Gözardı Etmek
