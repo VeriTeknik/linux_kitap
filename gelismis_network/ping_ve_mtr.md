@@ -96,8 +96,6 @@ PING google.com (216.58.208.110) 16(44) bytes of data.
 
 Yukarıdaki örneklerden gördüğünüz gibi, en az 16 Byte'lık alan bıraktığımızda paketin seyahat süresini öğrenebiliyoruz.
 
-
-
 Öte yandan dilediğimiz kadar büyük paketler de gönderebiliriz.
 
 
