@@ -37,7 +37,7 @@ PING google.com (216.58.209.14) 56(84) bytes of data.
 rtt min/avg/max/mdev = 51.350/52.214/54.528/1.232 ms
 ```
 
-### Paket Boyutunu Değiştirme
+### ICMP Paketlerinin Boyutu ve Yapısı
 
 Yukarıdaki örneklerimizde, ping mesajımızın gönderilmesini ifade eden satırda kaç Byte veri gönderdiğimizi görebilirsiniz. 56 Byte veri gönderiyoruz, aslında bu kısım "payload" olan kısım, yani ilettiğimiz anlamsız veri. Bu verinin IPv4 üzerinden iletilebilmesi için 28 byte veri daha iletmemiz gerekiyor. 20 Byte IP adresi, 8 Byte ICMP başlığı. Bu durumda payload + başlık bilgileri toplam 56+28=84 Byte veri iletiyoruz. ping komutu çıktısında ```56(84) bytes of data``` ile ifade edilen değer bunu gösteriyor.
 
