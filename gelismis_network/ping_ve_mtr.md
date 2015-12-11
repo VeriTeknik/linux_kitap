@@ -50,7 +50,9 @@ PING google.com (216.58.209.14) 20(48) bytes of data.
 28 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=2 ttl=54 time=50.8 ms
 ```
 
-Parametre belirtmediğimizde google.com'a 56(+28) Byte gönderip 64 Byte cevap almıştık. Son örneğimizdeyse 20(+28) Byte veri gönderip, 28 Byte cevap aldık. Gördüğünüz üzere cevaplar her zaman 8 Byte ekstra bilgi içermeli.
+Parametre belirtmediğimizde google.com'a 56(+28) Byte gönderip 64 Byte cevap almıştık. Son örneğimizdeyse 20(+28) Byte veri gönderip, 28 Byte cevap aldık. Gördüğünüz üzere cevaplar her zaman 8 Byte ekstra bilgi içermeli, çünkü bu bilgi gönderdiğimiz ICMP başlığının karşılığını içermektedir. Örneğin paket numarasını içermektedir. Ping mesajlarını gönderirken bir paket numarası veririz, cevap aldığımızda da hangi paketin cevabı olduğunu karşı taraftan öğreniriz. Bu sayede hem hangi paketin ne kadar sürede gidip geldiğini hesaplayabiliriz, hem de yolda kaybolan paketlerin sayısını anlarız. Ping gönderirken gördüğünüz ```icmp_seq``` paket sayısını (sequence) göstermektedir.
+
+
 
 
 
