@@ -1,10 +1,9 @@
-# ping ve mtr
+# ping
 
-## ping
 
 Network üzerinden yapılan işlemlerin vazgeçilmezi ping-pong mekanizması muhtemelen yakından tanıdığınız bir yapıya sahiptir. Burada ping komutunun pratik birkaç kullanımını göstereceğiz.
 
-### Tekrar Sayısı Belirtme
+## Tekrar Sayısı Belirtme
 
 ping tek başına kullanıldığında sonsuza kadar işlemi sürdürür, ancak ```Ctrl+c``` ile programı durdurursanız, veya ```kill``` ile PID'yi öldürürseniz durur.
 
@@ -24,7 +23,7 @@ PING google.com (216.58.209.14) 56(84) bytes of data.
 rtt min/avg/max/mdev = 50.154/50.575/51.153/0.475 ms
 ```
 
-### Sadece İstatistiği Gösterme
+## Sadece İstatistiği Gösterme
 
 Yukarıdaki örneğin sonunda, ping istatistiğimizin yansıtıldığını görebilirsiniz. ```-q``` komutu (quiet output) sadece ping işleminin başını ve sonundaki istatistiği gösterir. ```-c``` ile birleştirilmezse, programı durdurmadan istatistiği göremeyiz.
 
@@ -62,7 +61,7 @@ rtt min/avg/max/mdev = 84.541/85.382/86.557/0.647 ms
 
 Yukarıdaki çıktıda ```3/3``` ve ```7/7``` ile başlayan satırlardan hemen önce ```Ctrl+|``` sinyali gönderilmiştir.
 
-### Toplam Süre Tanımlama
+## Toplam Süre Tanımlama
 
 Dilerseniz programa "x saniye boyunca ping gönder ve sonlandır" diyebilirsiniz. Böylece gelen paket cevabından ve sayısından bağımsız olarak işlemi sonlandırır. ```-w``` ile belirtilen değer, saniye cinsindendir.
 
@@ -77,7 +76,7 @@ ping -c 15 -w 20 google.com
 Bu durumda eğer 20 saniyeden kısa sürede 15 paket gönderilirse program sona erecektir. Veya 20 saniye dolarsa ve hala 15 paket gönderilmemişse bile program sona erecektir.
 
 
-### ICMP Paketlerinin Boyutu ve Yapısı
+## ICMP Paketlerinin Boyutu ve Yapısı
 
 Yukarıdaki örneklerimizde, ping mesajımızın gönderilmesini ifade eden satırda kaç Byte veri gönderdiğimizi görebilirsiniz. 56 Byte veri gönderiyoruz, aslında bu kısım "payload" olan kısım, yani ilettiğimiz anlamsız veri. Bu verinin IPv4 üzerinden iletilebilmesi için 28 byte veri daha iletmemiz gerekiyor. 20 Byte IP adresi, 8 Byte ICMP başlığı. Bu durumda payload + başlık bilgileri toplam 56+28=84 Byte veri iletiyoruz. ping komutu çıktısında ```56(84) bytes of data``` ile ifade edilen değer bunu gösteriyor.
 
@@ -186,7 +185,7 @@ PING google.com (216.58.208.110) 65(93) bytes of data.
 Yukarıdaki örnekte gördüğünüz ```(truncated)``` ifadesi paketin istediğimiz değerden küçük geldiği anlamına gelir. Gerçekten de 65 byte veri gönderdik, 65+8=73 byte cevap beklerdik ancak 72 byte geldi. Google bu kitabı yazıldığı tarihte ICMP cevaplarını en fazla 72 byte olacak şekilde düzenlemiştir.
 
 
-### ICMP Paketlerini Gözardı Etmek
+## ICMP Paketlerini Gözardı Etmek
 
 Linux üzerinde ICMP paketlerini gözardı etmenin pek çok yolu var, ancak bu pek tavsiye edilmez. Yine de IPTABLES gibi kompleks yöntemler yerine basitçe paketleri gözardı etmek isterseniz aşağıdaki yöntemleri kullanabilirsiniz.
 
