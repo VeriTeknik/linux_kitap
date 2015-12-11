@@ -25,3 +25,25 @@ eaydin@dixon ~ $ ping -t 2 google.com
 PING google.com (216.58.208.110) 56(84) bytes of data.
 From 81.212.171.130.static.turktelekom.com.tr (81.212.171.130) icmp_seq=1 Time to live exceeded
 ```
+
+Gidere arttırırsak, google'e ulaşana kadar geçtiğimiz yolu deşifre edebiliriz...
+
+```bash
+eaydin@dixon ~ $ ping -t 3 google.com
+PING google.com (216.58.208.110) 56(84) bytes of data.
+From 93.155.0.184 icmp_seq=1 Time to live exceeded
+```
+
+```bash
+eaydin@dixon ~ $ ping -t 4 google.com
+PING google.com (216.58.208.110) 56(84) bytes of data.
+From 81.212.106.225.static.turktelekom.com.tr (81.212.106.225) icmp_seq=4 Time to live exceeded
+```
+
+```bash
+eaydin@dixon ~ $ ping -t 5 google.com
+PING google.com (216.58.208.110) 56(84) bytes of data.
+From 195.175.173.172.06-ulus-xrs-t2-2.06-ulus-t3-7.statik.turktelekom.com.tr (195.175.173.172) icmp_seq=1 Time to live exceeded
+```
+
+Traceroute programı da aslında arka planda bu mantığı uygular. Sırasıyla ICMP paketlerimizin TTL'ini artırarak ilgili noktaya ulaşana kadar bu işi tekrar eder.
