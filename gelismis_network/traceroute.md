@@ -113,3 +113,12 @@ traceroute to google.com (216.58.211.14), 30 hops max, 60 byte packets
 11  216.239.47.189  79.059 ms  88.210 ms  89.261 ms
 12  216.58.211.14  69.281 ms  78.807 ms  78.197 ms
 ```
+
+## ICMP, UDP ve TCP Kullanımı
+
+traceroute'un çalışma prensibini anlamak için ping komutunu farklı TTL'ler kullanarak denedik. Aslında traceroute komutu, parametre belirtilmediğinde ping atarak bu işlemi gerçekleştirmez, ancak mekanizmanın rahat anlaşılması için bu yöntemi tercih ettik.
+
+traceroute programı, parametre kullanılmadığında UDP ile yol çıkarmaya çalışır. Bunu nasıl yaptığını ve sebebini aşağıda inceleyeceğiz, ancak traceroute ile istediğimiz metodu kullanarak yol çıkarmak mümkün, yeter ki ağ yapısı buna müsaade etsin.
+
+**NOT:** MS Windows sistemlerde traceroute programı ```tracert``` ismiyle bulunur. Bunun sebebi, eski DOS sistemlerinde dosya isimlerine getirilen kısıtlamadır. Eski DOS sistemlerinde dosya adları en fazla 8 karakter olabilir, dosya uzantıları ise 3 karakter olabilirdi. Bunun için programı ```tracert.exe``` olarak isimlendirmişlerdir. Bu programın bir diğer farklılığı, standart tarama mekanizması olarak UDP değil, ICMP paketleri kullanmasıdır.
+
