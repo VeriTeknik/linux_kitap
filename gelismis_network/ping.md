@@ -1,7 +1,7 @@
 # ping
 
 
-Network üzerinden yapılan işlemlerin vazgeçilmezi ping-pong mekanizması muhtemelen yakından tanıdığınız bir yapıya sahiptir. Burada ping komutunun pratik birkaç kullanımını göstermeden önce ping programının tarihini irdeleyeceğiz ve ICMP (Internet Control Messaging Protocol) paket yapısını inceleyeceğiz.
+Network üzerinden yapılan işlemlerin vazgeçilmezi ping-pong mekanizması muhtemelen yakından tanıdığınız bir yapıya sahiptir. Burada ping komutunun pratik birkaç kullanımını göstermeden önce programın tarihinden bahsedeceğiz ve ICMP (Internet Control Messaging Protocol) paket yapısını inceleyeceğiz.
 
 ## Tarihçe
 
@@ -13,7 +13,7 @@ Ping programı yaklaşık 1000 satırlık bir C programıdır ve tek gecede yaz�
 
 TTCP ve BIND gibi yazılımlara da katkı sağlayan Mike Muuss, 2000 yılında bir trafik kazasında hayatını kaybetmiştir.
 
-Ping programı hakkında kendi yazdığı özete ABD Ordu Araştırma Laboratuvarı sayfalarından erişebilirsiniz: 
+Ping programı hakkında kendi yazdığı özete ABD Ordu Araştırma Laboratuvarı sayfalarından erişebilirsiniz: http://ftp.arl.mil/mike/ping.html
 
 ## Tekrar Sayısı Belirtme
 
