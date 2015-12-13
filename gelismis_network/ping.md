@@ -1,7 +1,7 @@
 # ping
 
 
-Network üzerinden yapılan işlemlerin vazgeçilmezi ping-pong mekanizması muhtemelen yakından tanıdığınız bir yapıya sahiptir. Burada ping komutunun pratik birkaç kullanımını göstermeden önce ping programının tarihini irdeleyeceğiz ve ICMP paket yapısını inceleyeceğiz.
+Network üzerinden yapılan işlemlerin vazgeçilmezi ping-pong mekanizması muhtemelen yakından tanıdığınız bir yapıya sahiptir. Burada ping komutunun pratik birkaç kullanımını göstermeden önce ping programının tarihini irdeleyeceğiz ve ICMP (Internet Control Messaging Protocol) paket yapısını inceleyeceğiz.
 
 ## Tekrar Sayısı Belirtme
 
