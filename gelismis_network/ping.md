@@ -11,7 +11,9 @@ Ping programı Mike Muuss tarafından Aralık 1983 yılında geliştirildi. ABD 
 
 Ping programı yaklaşık 1000 satırlık bir C programıdır ve tek gecede yazılmıştır. Bedava olan ve ağ trafiğini incelemekte çok faydalı olan bu program ilerleyen yıllarda pek çok işletim sistemi tarafından hızla benimsenip dağıtılmıştır, hatta 1993 yılında program, Muuss'a The USENIX Association tarafından Yaşam Boyu Başarı Ödülü kazandırmıştır. Muuss her zaman "bu kadar popüler olacağını bilseydim üzerinde birkaç gün daha çalışırdım" demiştir.
 
-TTCP ve BIND gibi yazılımlara da katkı sağlayan Mike Muuss, 2000 yılında bir trafik kazasında hayatını kaybetmiştir
+TTCP ve BIND gibi yazılımlara da katkı sağlayan Mike Muuss, 2000 yılında bir trafik kazasında hayatını kaybetmiştir.
+
+Ping programı hakkında kendi yazdığı özete ABD Ordu Araştırma Laboratuvarı sayfalarından erişebilirsiniz: 
 
 ## Tekrar Sayısı Belirtme
 
