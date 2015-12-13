@@ -3,6 +3,16 @@
 
 Network üzerinden yapılan işlemlerin vazgeçilmezi ping-pong mekanizması muhtemelen yakından tanıdığınız bir yapıya sahiptir. Burada ping komutunun pratik birkaç kullanımını göstermeden önce ping programının tarihini irdeleyeceğiz ve ICMP (Internet Control Messaging Protocol) paket yapısını inceleyeceğiz.
 
+## Tarihçe
+
+![](https://upload.wikimedia.org/wikipedia/commons/0/0a/Mike_Muuss.jpg)
+
+Ping programı Mike Muuss tarafından Aralık 1983 yılında geliştirildi. ABD Ordusu Balistik Araştırma Laboratuvarında çalışan Muuss, ağ trafiğinde bir gariplik sezince trafik üzerindeki gecikmeyi ölçen bir program yazmak istedi. Temmuz 1983'te Norçev'te katıldığı bir DARPA toplantısında Dr. Dave Mills'le yaptığı bir tartışmayı hatırlayıp, ping programını yazdı. Programa ping ismini vermesinin sebebini, üniversitedeyken sonar ve radar sistemlerinin modellemesini sıkça yapması ve bu sistemlerin de programın kendisi gibi "echo-location" kullanmasından kaynaklandığını belirtiyor. İlerleyen yıllarda ping için "Packet InterNet Grouper"ın kısaltması olduğu iddia edildiyse de, Mike Muuss durumun kesinlikle böyle olmadığını belirtmiştir.
+
+Ping programı yaklaşık 1000 satırlık bir C programıdır ve tek gecede yazılmıştır. Bedava olan ve ağ trafiğini incelemekte çok faydalı olan bu program ilerleyen yıllarda pek çok işletim sistemi tarafından hızla benimsenip dağıtılmıştır, hatta 1993 yılında program, Muuss'a The USENIX Association tarafından Yaşam Boyu Başarı Ödülü kazandırmıştır. Muuss her zaman "bu kadar popüler olacağını bilseydim üzerinde birkaç gün daha çalışırdım" demiştir.
+
+TTCP ve BIND gibi yazılımlara da katkı sağlayan Mike Muuss, 2000 yılında bir trafik kazasında hayatını kaybetmiştir
+
 ## Tekrar Sayısı Belirtme
 
 ping tek başına kullanıldığında sonsuza kadar işlemi sürdürür, ancak ```Ctrl+c``` ile programı durdurursanız, veya ```kill``` ile PID'yi öldürürseniz durur.
