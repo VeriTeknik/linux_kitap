@@ -92,6 +92,8 @@ Bu durumda eğer 20 saniyeden kısa sürede 15 paket gönderilirse program sona 
 
 Yukarıdaki örneklerimizde, ping mesajımızın gönderilmesini ifade eden satırda kaç Byte veri gönderdiğimizi görebilirsiniz. 56 Byte veri gönderiyoruz, aslında bu kısım "payload" olan kısım, yani ilettiğimiz anlamsız veri. Bu verinin IPv4 üzerinden iletilebilmesi için 28 byte veri daha iletmemiz gerekiyor. 20 Byte IP adresi, 8 Byte ICMP başlığı. Bu durumda payload + başlık bilgileri toplam 56+28=84 Byte veri iletiyoruz. ping komutu çıktısında ```56(84) bytes of data``` ile ifade edilen değer bunu gösteriyor.
 
+**NOT:** Aslında yukarıdaki "20 Byte IP adresi" ifadesi teknik olarak doğru değildir. Buradaki 20 Byte, IPv4 datagramının başlığıdır ancak bu ifadenin ne anlama geldiği bu başlığın kapsamı dışındadır.
+
 Dilersek bu değeri ```-s``` parametresiyle değiştirebiliriz. Örneğin 20 Byte payload göndermek için,
 
 ```bash
