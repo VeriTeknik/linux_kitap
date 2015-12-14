@@ -1,6 +1,10 @@
 # Summary
 
 * [Döküman Hakkında](README.md)
+* [Index](index.md)
+   * [Linkler](linkler.md)
+   * [Notlar (silinecek)](notlar_silinecek.md)
+   * [Araçlar](araclar.md)
 * [Linux ve GNU'nun Geçmişi](tarih/linux_ve_gnunun_gecmisi.md)
    * [RedHat, Debian ve FreeBSD Ana Sürümlerin Farkları](tarih/anasurumlerin_farklari.md)
 * [Temel Komutlar](temel_komutlar/temel.md)
@@ -38,10 +42,6 @@
        * [Güncelleme Teknikleri](dagitimlar/freebsd/guncelleme_teknikleri.md)
        * [Network Ayarları](dagitimlar/freebsd/network.md)
    * [Ortak Network Dosyaları](dagitimlar/ortak_network_dosyalari.md)
-* [Index](index.md)
-   * [Linkler](linkler.md)
-   * [Notlar (silinecek)](notlar_silinecek.md)
-   * [Araçlar](araclar.md)
 * [SSH](ssh/ssh.md)
    * [Uzak Sunucuya Bağlanma](ssh/baglanma.md)
    * [sshd Sunucu Ayarları](ssh/sshd_konfigurasyonu.md)
