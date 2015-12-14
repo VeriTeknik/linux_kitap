@@ -118,7 +118,7 @@
    * Notlar
    * [Linux Rescue](hata_takibi/linux_rescue.md)
 * [Notlar](notlar.md)
-* [Linkler](linkler.md)
 * [Notlar (silinecek)](notlar_silinecek.md)
+* [Linkler](linkler.md)
 * [Araçlar](araclar.md)
 
