@@ -5,6 +5,6 @@ Bu bölümde temel terminal kullanımının yanı sıra, Linux dizin yapısını
 
 
     * [Temel Terinal Komutları](temel_komutlar.md)
-    * [Yardım Dosyaları](temel_komutlar/yardim_dosyalari.md)
+    * [Yardım Dosyaları](yardim_dosyalari.md)
     * [Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar](temel_komutlar/yetkiler.md)
     * 
