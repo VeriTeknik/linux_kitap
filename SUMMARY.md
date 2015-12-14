@@ -1,5 +1,6 @@
 # Summary
 
+
 * [Döküman Hakkında](README.md)
 * [Index](SUMMARY.md)
 * [Linux ve GNU'nun Geçmişi](tarih/linux_ve_gnunun_gecmisi.md)
