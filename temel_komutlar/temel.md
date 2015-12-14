@@ -8,4 +8,5 @@ Bu bölümde temel terminal kullanımının yanı sıra, Linux dizin yapısını
  * [Yardım Dosyaları](yardim_dosyalari.md)
  * [Dosya İzinleri, Yetkiler, Kullanıcılar ve Gruplar](yetkiler.md)
  * [Dosya Düzenleme Araçları](editing/dosya_duzenleme_araclari.md)
+ * [Sıkıştırılmış Dosyalar](zipped.md)
   
