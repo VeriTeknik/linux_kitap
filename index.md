@@ -1,5 +1,5 @@
 # Index
 
 * [Linux ve GNU'nun Geçmişi](tarih/linux_ve_gnunun_gecmisi.md)
-* [Chapter 2](chapter2.md)
-* [Chapter 3](chapter3.md)
+* [Temel Komutlar](temel_komutlar/temel.md)
+* [Gelişmiş Terminal Komutları](gelismis_terminal/gelismis_terminal_komutlari.md)
