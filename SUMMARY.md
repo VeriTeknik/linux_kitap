@@ -1,7 +1,6 @@
 # Summary
 
 * [Döküman Hakkında](README.md)
-* İndeks
 * [Linux ve GNU'nun Geçmişi](tarih/linux_ve_gnunun_gecmisi.md)
    * [RedHat, Debian ve FreeBSD Ana Sürümlerin Farkları](tarih/anasurumlerin_farklari.md)
 * [Temel Komutlar](temel_komutlar/temel.md)
@@ -118,5 +117,6 @@
    * Notlar
    * [Linux Rescue](hata_takibi/linux_rescue.md)
 * [Araçlar](araclar.md)
+* İndeks
 * Notlar
 
