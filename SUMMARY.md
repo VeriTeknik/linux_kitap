@@ -2,7 +2,6 @@
 
 * [Döküman Hakkında](README.md)
 * [Index](index.md)
-   * [Notlar (silinecek)](notlar_silinecek.md)
    * [Araçlar](araclar.md)
 * [Linux ve GNU'nun Geçmişi](tarih/linux_ve_gnunun_gecmisi.md)
    * [RedHat, Debian ve FreeBSD Ana Sürümlerin Farkları](tarih/anasurumlerin_farklari.md)
@@ -120,5 +119,6 @@
    * Notlar
    * [Linux Rescue](hata_takibi/linux_rescue.md)
 * [Linkler](linkler.md)
+* [Notlar (silinecek)](notlar_silinecek.md)
 * Notlar
 
