@@ -1,7 +1,8 @@
 Döküman Hakkında
 =======
 
-Linux Yönetimi dökümanı VeriTeknik ekibinin verdiği eğitimlerde yardımcı olması amacıyla hazırlanmaktadır.
+Linux Yönetimi dökümanı VeriTeknik ekibinin verdiği eğitimlerde yardımcı olması amacıyla hazırlanmaktadır. 
+**Kitap çoğunlukla Web Hosting ve Uygulama Hosting açısından sürümleri ele almıştır.** Kitabın amacı okuyucuya Hosting ortamının kurulmasında ve işletilmesinde gerekli olacak bilgiyi vermektir.
 
 Döküman içeriği zamanla şekillenecek ve yapısını/hiyerarşisini değiştirecektir.
 
