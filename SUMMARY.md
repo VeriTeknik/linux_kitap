@@ -1,10 +1,6 @@
 # Summary
 
 * [Döküman Hakkında](README.md)
-* [Index](index.md)
-   * [Linkler](linkler.md)
-   * [Notlar (silinecek)](notlar_silinecek.md)
-   * [Araçlar](araclar.md)
 * [Linux ve GNU'nun Geçmişi](tarih/linux_ve_gnunun_gecmisi.md)
    * [RedHat, Debian ve FreeBSD Ana Sürümlerin Farkları](tarih/anasurumlerin_farklari.md)
 * [Temel Komutlar](temel_komutlar/temel.md)
@@ -116,6 +112,10 @@
        * [lvm](guvenilirlik/disk/lvm.md)
        * [RAID](guvenilirlik/disk/raid.md)
 * [Kaynak Kod Derleme](kaynak_kod_derleme.md)
+* [Index](index.md)
+   * [Linkler](linkler.md)
+   * [Notlar (silinecek)](notlar_silinecek.md)
+   * [Araçlar](araclar.md)
 * [Hata Takibi](hata_takibi/hata_takibi.md)
    * [PHP, MySQL ve Apache Kütük Yapılandırması](hata_takibi/kutuk_yapisi.md)
    * [Linux Rescue](hata_takibi/linux_rescue.md)
