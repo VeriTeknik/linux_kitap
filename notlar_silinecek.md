@@ -1,3 +1,3 @@
 # Notlar (silinecek)
 
-noatim
+noatime
