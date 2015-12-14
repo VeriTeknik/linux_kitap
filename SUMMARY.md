@@ -118,4 +118,5 @@
    * Notlar
    * [Linux Rescue](hata_takibi/linux_rescue.md)
 * [Araçlar](araclar.md)
+* Notlar
 
