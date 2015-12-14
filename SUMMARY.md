@@ -117,7 +117,6 @@
    * [PHP, MySQL ve Apache Kütük Yapılandırması](hata_takibi/kutuk_yapisi.md)
    * Notlar
    * [Linux Rescue](hata_takibi/linux_rescue.md)
-* [Notlar](notlar.md)
 * [Notlar (silinecek)](notlar_silinecek.md)
 * [Linkler](linkler.md)
 * [Araçlar](araclar.md)
