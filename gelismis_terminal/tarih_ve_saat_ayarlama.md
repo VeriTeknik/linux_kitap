@@ -90,7 +90,7 @@ NTP (Network Time Protocol) tarih ve saatin ağ üzerinden hassas bir biçimde i
 Sunucunuzun saatini ntp kullanarak güncellemek için aşağıdaki komutu kullanabilirsiniz.
 
 ```bash
-ntpdate -v -b in.pool.ntp.org
+ntpdate -v -b ntp1.veriteknik.com
 ```
 
 Bu komut, saatin nereden ayarlanacağını belirtmektadır.
@@ -110,7 +110,7 @@ Buradaki **-g** parametresi ntp'ye "saatimiz okuduğun değerden çok farklıysa
 Bir diğer yöntemse **sntp** (Simple Network Time Protocol Program) kullanmaktır.
 
 ```bash
-sntp in.pool.ntp.org
+sntp ntp1.veriteknik.com
 15 Nov 19:52:17 sntp[8379]: Started sntp
 2015-11-15 19:52:18.033704 (-0200) +0.013936 +/- 0.094574 secs
 2015-11-15 19:52:18.240571 (-0200) +0.016590 +/- 0.146622 secs
