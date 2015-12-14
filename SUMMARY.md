@@ -116,6 +116,7 @@
        * [lvm](guvenilirlik/disk/lvm.md)
        * [RAID](guvenilirlik/disk/raid.md)
 * [Kaynak Kod Derleme](kaynak_kod_derleme.md)
+* Notlar
 * [Hata Takibi](hata_takibi/hata_takibi.md)
    * [PHP, MySQL ve Apache Kütük Yapılandırması](hata_takibi/kutuk_yapisi.md)
    * Notlar
