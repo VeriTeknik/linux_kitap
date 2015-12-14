@@ -119,4 +119,5 @@
 * [Hata Takibi](hata_takibi/hata_takibi.md)
    * [PHP, MySQL ve Apache Kütük Yapılandırması](hata_takibi/kutuk_yapisi.md)
    * [Linux Rescue](hata_takibi/linux_rescue.md)
+   * Notlar
 
