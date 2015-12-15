@@ -51,7 +51,7 @@
    * [Log Dosyalarının Konumları](log/log_dosyalarinin_konumlari.md)
    * [Regular Expressions Kullanarak Log Ayıklama Egzersizleri](log/log_ayiklama.md)
    * [Logrotate Servisi](log/logrotate.md)
-   * PHP Syslog Class
+   * [PHP Syslog Class](log/php_syslog_class.md)
 * [İnternet Servisleri](internet_servisleri.md)
    * [Bir sayfanın İnternetteki Serüveni](bir_sayfanin_internette_seruveni.md)
    * [Nameserver Servisleri](nameserver/nameserver_servisleri.md)
