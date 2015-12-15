@@ -44,6 +44,10 @@ Mem:       7947480    7095948     851532     482716       6864     781848
 -/+ buffers/cache:    6307236    1640244
 Swap:      7193596        276    7193320
 ```
+##atop
+
+Sistem kaynaklarının tümünü görmek istediğinizde en iyi seçeneklerden birisi atop'tır. Tüm donanımı ve prosesleri aynı pencerede görüntüleyebilen uygulama, yavaşlamaya neden olan donanım ya da yazılımın kolayca bulunabilmesini sağlamaktadır. Yapı olarak top'a çok benzer ancak daha detaylıdır ve sorunlu kaynakları daha parlak renkte gösterir.
+![](atop.jpg)
 
 ##kill
 
