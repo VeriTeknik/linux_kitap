@@ -15,6 +15,15 @@ Hedeften çalışıtılırsa:
 rsync -arzgopv root@KAYNAK_IPADRESI:/dizin/* /dizin/
 ```
 
+EKleri:
+- a: Arşiv modu, -rlptgoD ile aynı işlevi vardır
+- r: alt dizinleri de dahil eder
+- z: transfer sırasında veriyi sıkıştırır
+- g: Grup bilgisini korur
+- o: (owner) sahip bilgisini korur
+- p: (perm) izinleri korur
+- v: (verbosity) yapılan işlemin detaylarını görüntüler
+
 rsync, argüman sayısının fazlalığından dolayı (1 milyon ve üzeri) "rm" komutunun dahi silemediği dosyaları kolaylıkla siler. Bu dosyaları silmek için hedefteki dizini boş bir dizin ile eşleştirmeniz yeterlidir.
 ## scp
 
