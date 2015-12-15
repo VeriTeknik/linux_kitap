@@ -55,7 +55,6 @@
 * [İnternet Servisleri](internet_servisleri.md)
    * [Bir sayfanın İnternetteki Serüveni](bir_sayfanin_internette_seruveni.md)
    * [Nameserver Servisleri](nameserver/nameserver_servisleri.md)
-       * [Named](nameserver/named.md)
        * [Bind](nameserver/bind.md)
    * [Apache](apache/apache.md)
    * [MySQL](mysql/mysql.md)
