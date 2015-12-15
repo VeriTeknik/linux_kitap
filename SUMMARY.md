@@ -66,7 +66,6 @@
        * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
        * [VSFTP](ftp/vsftp.md)
        * [PROFTP](ftp/proftp.md)
-* [DHCP](dhcp/dhcp.md)
 * Zamanlanmış Görevler
    * crontab
    * at
