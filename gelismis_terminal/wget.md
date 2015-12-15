@@ -1,4 +1,4 @@
-# wget
+# wget*
 
 Bu kitapçıkta daha önce de karşılaştığımız komutlardan **wget**, internetten dosya çekmeye yarayan, **Web GET** sözcüklerinin kısaltması olan bir program.
 
@@ -13,7 +13,7 @@ Yukarıdaki komutla bulunduğumuz dizine ```plugged.sh``` dosyası inecektir.
 Bazen linkler istediğimiz isim yapısında olmayabilir. İndirilen dosyayı farklı isimle kaydetmek için aşağıdaki yöntem izlenebilir.
 
 ```bash
-wget wget http://www.plugged.in/downloads/plugged.sh -O install.sh
+wget http://www.plugged.in/downloads/plugged.sh -O install.sh
 ```
 
 Artık dosya ```plugged.sh``` ismiyle değil, ```install.sh``` ismiyle kaydedilecektir.
@@ -203,3 +203,5 @@ Son olarak wget ile anonim ve şifreli FTP kullanımı göreceğiz.
 # wget ftp-sitesi.com
 # wget --ftp-user=KULLANICI --ftp-password=SIFRE ftp-sitesi.com
 ```
+
+*FreeBSD Sisteminde wget yerine fetch kullanılmaktadır.
