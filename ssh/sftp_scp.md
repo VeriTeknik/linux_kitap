@@ -1,7 +1,21 @@
-# sftp ve scp Kullanımı
+# rsync, sftp ve scp Kullanımı
 
 SSH protokolünü kullanarak güvenli dosya transferi sağlamak mümkündür. Bunun için scp veya sftp kullanılabilir.
 
+## rsync
+
+rsync Linux sistemlerin vazgeçilmez arşivleme, kopyalama ve transfer yazılımıdır, hafif mimarisi ve hızı ile vazgeçilmez bir araçtır, kullanımı oldukça kolay olan yazılımın işlem yapılacak her iki sunucuda da yüklü olması gerekmektedir. Kaynaktan ya da hedeften kolayca kullanılabilir, en temel eşitleme komutu aşağıdaki gibidir:
+
+Kaynaktan çalışıtılırsa:
+```bash
+rsync -arzgopv /dizin/* root@HEDEF_IPADRESI:/dizin/
+```
+Hedeften çalışıtılırsa:
+```bash
+rsync -arzgopv root@KAYNAK_IPADRESI:/dizin/* /dizin/
+```
+
+rsync, argüman sayısının fazlalığından dolayı (1 milyon ve üzeri) "rm" komutunun dahi silemediği dosyaları kolaylıkla siler. Bu dosyaları silmek için hedefteki dizini boş bir dizin ile eşleştirmeniz yeterlidir.
 ## scp
 
 scp (secure copy) doğrudan SSH protokolü üzerinden dosya transferi sağlar. Böylece sisteme farklı mekanizmalarla (FTP vb.) erişmenize gerek olmaz.
@@ -9,7 +23,7 @@ scp (secure copy) doğrudan SSH protokolü üzerinden dosya transferi sağlar. B
 Uzak sunucudan dosya indirmek için
 
 ```bash
-scp root@192.168.16.5:/root/dosya.tar.gz /home/eaydin
+scp root@192.168.168.5:/root/dosya.tar.gz /home/eaydin
 ```
 
 Uzak sunucuya dosya göndermek için
