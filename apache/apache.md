@@ -10,7 +10,8 @@ Apache'yi kaynak kodundan kurabileceğiniz gibi, sisteminize uygun binary arşiv
 Yüklemek için
 ```bash
 yum groupinstall "Development Tools"
-yum install cmake wget ncurses-devel openssl-devel pcre-devel libxml2-devel curl-devel gd-devel libxslt-devel
+yum install cmake wget ncurses-devel openssl-devel \
+pcre-devel libxml2-devel curl-devel gd-devel libxslt-devel
 ```
 En son kararlı sürümü indirmek için http://ftp.itu.edu.tr/Mirror/Apache/httpd/ adresini ziyaret ediniz.
 
@@ -75,7 +76,8 @@ ps -aux | grep httpd #ile calisip calismadigini test edebilirsiniz.
 cat /var/log/error.log
 #[Tue Dec 08 01:21:37 2015] [warn] Init: Session Cache is not configured [hint: SSLSessionCache]
 #[Tue Dec 08 01:21:37 2015] [notice] suEXEC mechanism enabled (wrapper: /usr/sbin/suexec)
-#[Tue Dec 08 01:21:38 2015] [notice] Apache/2.2.31 (Unix) mod_ssl/2.2.31 OpenSSL/1.0.1e-fips DAV/2 configured -- resuming normal operations
+#[Tue Dec 08 01:21:38 2015] [notice] Apache/2.2.31 (Unix) mod_ssl/2.2.31 OpenSSL/1.0.1e-fips DAV/2 configured -- \
+# resuming normal operations
 ```
 
 Apache yüklendiğinde, /etc/httpd içerisine conf dosyalarını atar, ana ayar dosyası /etc/httpd/conf içerisindeki httpd.conf dosyasıdır. Bu dosya gayet düz, okunabilir ve yapısaldır. Biraz sabırla okursanız tüm ayarları öğrenebilirsiniz. Sunucu direktifleri tek bir host için ayaralanıyormuş hissi uyandırırsa, tahminlerinizde yanılmazsınız. Bu servis ilk tasarlandığında bir IP adresi ya da sunucuda birden çok web sitesi tutulabileceği düşünülmemişti. Bu nedenle conf dosyasının %80'i varsayılan web sitesinin ayarlarını içermektedir. 
@@ -111,7 +113,7 @@ NameVirtualHost __IPADRESI__:80
 <VirtualHost __IPADRESI__:80>
     ServerAdmin root@veriteknik.com
     DocumentRoot /home/web/public_html
-    ServerName apachetest.veriteknik.com *
+    ServerName apachetest.veriteknik.com __IPADRESI__
     ServerAlias apachetest2.veriteknik.local
     ErrorLog /home/web/logs/error.log
     CustomLog /home/web/logs/access.log common
