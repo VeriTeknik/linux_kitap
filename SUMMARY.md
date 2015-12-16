@@ -66,7 +66,7 @@
        * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
        * [VSFTP](ftp/vsftp.md)
        * [PROFTP](ftp/proftp.md)
-   * PHP
+   * [PHP](php.md)
 * Zamanlanmış Görevler
    * crontab
    * at
