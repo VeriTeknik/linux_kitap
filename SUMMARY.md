@@ -56,6 +56,7 @@
    * [Bir sayfanın İnternetteki Serüveni](bir_sayfanin_internette_seruveni.md)
    * [Nameserver Servisleri](nameserver/nameserver_servisleri.md)
    * [Apache](apache/apache.md)
+   * [PHP](php.md)
    * [MySQL](mysql/mysql.md)
        * [Temel Tablo Oluşturma](mysql/temel_tablo_olusturma.md)
        * [Basit SQL Sorguları](mysql/basit_sql_sorgulari.md)
@@ -66,7 +67,6 @@
        * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
        * [VSFTP](ftp/vsftp.md)
        * [PROFTP](ftp/proftp.md)
-   * [PHP](php.md)
 * Zamanlanmış Görevler
    * crontab
    * at
