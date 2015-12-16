@@ -8,7 +8,9 @@ PHP güçlü bir betik (script) yorumlayıcı (interpreter) olmasına rağmen, U
 PHP genelde tüm işletim sistemlerinde bulunur ancak, güncelliği sistemden sisteme değişir. Biz bu çalışmada güncelliği korumak için Centos 7 tercih ettik, biz bu yazıyı yazarken PHP 5.4.16 yum repolarında bulunmaktaydı. Yüklemek için yapmanız gereken:
 
 ```bash
-yum install php php-mysql php-fpm php-gd 
+yum install php php-mysql php-fpm php-gd httpd
+systemctl enable httpd.service
+
 ``` 
 
 ```bash
@@ -25,6 +27,7 @@ group = web
 ```bash
 systemctl start php-fpm
 systemctl enable php-fpm
+systemctl start httpd.service
 ```
 
 
