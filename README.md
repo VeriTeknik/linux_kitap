@@ -14,6 +14,8 @@ adresinden ulaşabilirsiniz.
 Üniversite yıllarında, İnternet'in gelişimi ile birlikte Sunucular, Ağ ve Linux ile tanışmıştır, LYNX Browser ile siyah ekranda başlayan serüveni, 2004 yılından bu yana Ankara'da Veri Merkezi işleterek devam etmektedir. Elektrik & Elektronik Yüksek Mühendisi olan yazarın 2003 yılında yayınlanmış "Pedagojik Destekli uzaktan talepli Video Sistemi (VoD)" yüksek lisans tezidir. IEEE indeksli makaleleri bulunan yazar, multimedia transferi için kullanılabilen RUDP protokolünü tasarlamıştır. Uzmanlık Alanları: C/C++, Gömülü Sistemler, Ağ ve Sürücü Programlama
 ###Mustafa Emre Aydın
 
+Lisans eğitimi sırasında çok miktardaki bilimsel verinin tasniflenmesi ve anlamlandırılması üzerine çalışırken GNU/Linux sistemler üzerinde MPI ve Embarrasingly Parallel algoritmalar geliştirerek programlama ve sistem yönetimi deneyimi kazanmıştır. Temel bilimler ve sistem programcılığında Python'un yaygınlaşmasıyla "Wavelet Dönüşümüne Dayalı Dinamik Güç Spektrumu Eldesi" konulu yüksek lisans tez çalışmasının yanı sıra pek çok görüntü işleme ve güvenlik sistemini de bu dilde geliştirmiştir. Gömülü Linux sistemlerin yanı sıra sunucu ve ağ programlama yapan yazar, Doktora çalışmasına X-Işın Uydu Gözlemlerinin Hassas Zaman Ölçümü konusunda devam etmektedir.
+
 ## Notlar
 Dökümanda kullanılan kod ekranları kolay "kopyala-yapıştır" yapılabilmesi açısından komut satırları # işareti olmadan, cevapların ise bash tarafından "yorum" olarak algılanabilmesi için başında # işareti ile ifade edilmiştir, örneğin:
 ```bash
