@@ -65,5 +65,17 @@ group = web
 ```
 NOT: yukarıda sadece değişiklikler verilmiştir.
 
+### Wordpress kurulumu
+
+```bash
+su -l web
+cd public_html/
+wget https://tr.wordpress.org/wordpress-4.4-tr_TR.zip
+unzip wordpress-4.4-tr_TR.zip 
+rm index.php 
+mv wordpress/* .
+rmdir wordpress
+rm wordpress-4.4-tr_TR.zip 
+```
 
 
