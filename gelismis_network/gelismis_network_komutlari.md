@@ -12,3 +12,27 @@ systemctl enable firewalld.service
 ```bash
 systemctl start firewalld.service
 ```
+CentOS 7 üzerindeki firewall servisi firewall-cmd komutu ile yönetilmektedir.
+
+İhtiyacınız olabilecek temel Komutlar şunlardır:
+```bash
+#Firewall durumunu goruntuleme
+firewall-cmd --state
+#running
+
+#varsayilan aktif bolge
+firewall-cmd --get-default-zone
+#public
+
+#tum kurallari listeleme
+firewall-cmd --list-all
+#public (default)
+#  interfaces: 
+#  sources: 
+#  services: dhcpv6-client ssh
+#  ports: 
+#  masquerade: no
+#  forward-ports: 
+#  icmp-blocks: 
+#  rich rules: 
+```
