@@ -1,4 +1,4 @@
-# PHP
+# PHP-FPM
 
 İntenet'in ilk yıllarında web sitelerini dinamikleştirmek için ya "Server Side Include"lar ya da CGI prosesleri kullanılıyordu, SSI kolay olmasına rağmen fonksiyonelitesi çok azdı, CGI ve perl çok güçlü diller olsada, karmaşık yapıları, zor yazılması ve hatanın trace edilmesindeki güçlükler nedeniyle çok tercih edilemiyordu. Öyle ki, basit betikleriniz için C/C++ üzerinde kendi betik yorumlayıcınızı yazabilir, CGI'dan daha az karmaşık bir sistem çıkarabilirdiniz.
 
@@ -12,13 +12,13 @@ yum install php php-mysql php-fpm php-gd httpd net-tools lsof
 systemctl enable httpd.service
 
 ``` 
+Apache ve PHP'yi yüklediğimizde /etc/httpd/conf.d içerisinde php.conf dosyasının oluştuğunu görebiliriz, PHP-FPM için bu dosyaya ihtiyacımız yok ve kaldırılması gerekmekte.
 
 ```bash
-vi /etc/php-fpm.d/www.conf
-listen = /var/run/php-fpm/php-fpm.sock
+cp /etc/php-fpm.d/www.conf /etc/php-fpm.d/web.conf
 
-listen.owner = nobody
-listen.group = nobody
+listen.owner = web
+listen.group = web
 
 user = web
 group = web
@@ -29,5 +29,7 @@ systemctl start php-fpm
 systemctl enable php-fpm
 systemctl start httpd.service
 ```
+
+
 
 
