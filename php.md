@@ -48,7 +48,7 @@ DirectoryIndex index.php
     <Directory "/home/web/public_html">
         order deny,allow
         allow from all
-        Options None
+        Options +FollowSymLinks
     </Directory>
 </VirtualHost>
 ```
