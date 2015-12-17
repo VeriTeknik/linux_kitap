@@ -30,6 +30,46 @@ systemctl enable php-fpm
 systemctl start httpd.service
 ```
 
+Apache VirtualHost dosyasını aşağıdaki gibi düzenleyebilirsiniz, yeni Apache versiyonlarında NameVirtualHost direktifi bulunmuyor:
+
+```bash
+vi /etc/httpd/conf.d/z_web.conf
+``` 
+dosya şu şekilde olmalı
+```bash
+<VirtualHost __IP_ADRESI__:80>
+    ServerAdmin root@veriteknik.com
+    DocumentRoot /home/web/public_html
+    ServerName apachetest.veriteknik.com
+    ServerAlias apachetest2.veriteknik.local __IP_ADRESI__
+    ErrorLog /home/web/logs/error.log
+    CustomLog /home/web/logs/access.log common
+
+<IfModule proxy_module>
+  ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9001/home/web/public_html/$1
+</IfModule>
+
+DirectoryIndex index.php
+
+    <Directory "/home/web/public_html">
+        order deny,allow
+        allow from all
+        Options None
+    </Directory>
+</VirtualHost>
+```
+ve fcgi ayarlamalarımızı da yapalım, vi /etc/php-fpm.d/web.conf
+
+```bash
+; Start a new pool named 'www'.
+[web]
+listen = 127.0.0.1:9001
+listen.owner = web
+listen.group = web
+user = web
+group = web
+```
+NOT: yukarıda sadece değişiklikler verilmiştir.
 
 
 
