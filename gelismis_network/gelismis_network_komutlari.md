@@ -38,3 +38,5 @@ firewall-cmd --list-all
 ```
 
 ### NTP EKLE
+
+ntpq -p
