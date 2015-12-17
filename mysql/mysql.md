@@ -11,7 +11,7 @@ yum install mysql-server
 
 MariaDB ile devam etmek isterseniz, yukarıdakiler yerine şunu yazabilirsiniz:
 ```bash
-yum install MariaDB MariaDB-server
+yum install mariadb mariadb-server
 ```
 
 ```bash
