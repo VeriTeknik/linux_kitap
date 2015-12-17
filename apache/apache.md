@@ -113,8 +113,8 @@ NameVirtualHost __IPADRESI__:80
 <VirtualHost __IPADRESI__:80>
     ServerAdmin root@veriteknik.com
     DocumentRoot /home/web/public_html
-    ServerName apachetest.veriteknik.com __IPADRESI__
-    ServerAlias apachetest2.veriteknik.local
+    ServerName apachetest.veriteknik.com 
+    ServerAlias apachetest2.veriteknik.local __IPADRESI__
     ErrorLog /home/web/logs/error.log
     CustomLog /home/web/logs/access.log common
 
