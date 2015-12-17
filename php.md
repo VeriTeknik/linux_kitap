@@ -14,19 +14,12 @@ systemctl enable httpd.service
 ``` 
 Apache ve PHP'yi yüklediğimizde /etc/httpd/conf.d içerisinde php.conf dosyasının oluştuğunu görebiliriz, PHP-FPM için bu dosyaya ihtiyacımız yok ve kaldırılması gerekmekte.
 
-```bash
-cp /etc/php-fpm.d/www.conf /etc/php-fpm.d/web.conf
 
-listen.owner = web
-listen.group = web
-
-user = web
-group = web
-```
 
 ```bash
 systemctl start php-fpm
 systemctl enable php-fpm
+systemctl enable httpd.service
 systemctl start httpd.service
 ```
 
