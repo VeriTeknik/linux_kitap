@@ -36,3 +36,5 @@ firewall-cmd --list-all
 #  icmp-blocks: 
 #  rich rules: 
 ```
+
+### NTP EKLE
