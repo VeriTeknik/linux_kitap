@@ -2,7 +2,7 @@
 
 Vermiş olduğumuz eğitimlerde, çoğunlukla İnternet'in çalışma mantığının çok iyi anlatılmadığı ya da kavranmadığı konusunda deneyimlerimiz tecrübe ile sabittir.
 
-Günümüzde kullanılan İnternet Alan Adı çözme sistemi belirli konsorsiyumların ve iktidar odaklarının denetiminde ve tekelindedir. Amerika merkezli kar amacı güdmeyen ICANN adlı firma tüm alan adı çözünürlüğünün dağıtımını sağlamaktadır. Örneğin ".com" uzantılı alan adlarını sadece VeriSign adlı Amerikan firması yapabilir ve ICANN her yıl ücretlerini %7 oranında arttırabilmesi için yetki vermiştir.
+Günümüzde kullanılan İnternet Alan Adı çözme sistemi belirli konsorsiyumların ve iktidar odaklarının denetiminde ve tekelindedir. ABD merkezli kar amacı gütmeyen ICANN (nternet Corporation for Assigned Names and Numbers) adlı organizasyon, tüm alan adı çözünürlüğünün dağıtımını sağlamaktadır. Örneğin ".com" uzantılı alan adlarını sadece VeriSign adlı Amerikan firması yapabilir ve ICANN her yıl ücretlerini %7 oranında arttırabilmesi için yetki vermiştir.
 
 İşletim sistemleri ve onların bağlı bulunduğu DNS sunucuları, ICANN'ın belirlemiş olduğu kök DNS sunucularını kurulumları sırasında "varsayılan" kök DNS sunucuları olarak belirler. Linux sistemlerde şu komut ile kök sunucularının bilgisine ulaşabilirsiniz.
 
