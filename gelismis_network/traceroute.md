@@ -161,7 +161,7 @@ Ancak traceroute aşağıdaki yöntemi izler.
 2. Karşı taraftan SYN+ACK paketi alınır
 3. Karşı tarafa RST paketi gönderilir
 
-Son aşamada RST paketi gönderdiğimiz için karşı taraftaki hiçbir yazılım bizim SYN paketi veya RST paketi gönderdiğimizi görmez. Ancak network trafiğinin detaylı analiziyle bu mümkün olur. Traceroute programının kullandığı bu bağlantı biçmine "half-open" (yarı-açık) teknik denilir.
+Son aşamada RST paketi gönderdiğimiz için karşı taraftaki hiçbir yazılım bizim SYN paketi veya RST paketi gönderdiğimizi görmez. Ancak network trafiğinin detaylı analiziyle (veya firewall yardımıyla) bu mümkün olur. Traceroute programının kullandığı bu bağlantı biçmine "half-open" (yarı-açık) teknik denilir.
 
 "Half-open" tekniği yerine programın gerçek bir TCP bağlantısı sunan, yani SYN -> SYN+ACK -> ACK şeklinde bağlantı kuran parametresi de mevcuttur. ```-M tcpconn``` ile bu sağlanabilir. Ancak bu durum tavsiye edilmez, hem karşı tarafta dinleyen servis gelen rastgele pakete ne cevap vereceğini bilmeyebilir, hem de application seviyesinde bağlantı kurduğunuz karşı tarafın loglarında yer alır.
 
