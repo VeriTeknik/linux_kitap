@@ -140,3 +140,4 @@ traceroute UDP üzerinden tarama yaparken, 33434 portundan başlar, her hop'ta d
 Bu yöntemi kullanmak için ```-M icmp``` veya ```-I``` parametreleri tanımlanır. traceroute programının algoritmasını anlatırken belirttiğimiz gibi ICMP paketleri kullanır, özetle karşı tarafı ping'leyebiliyorsanız, bu yöntemi kullanabilirsiniz.
 
 
+
