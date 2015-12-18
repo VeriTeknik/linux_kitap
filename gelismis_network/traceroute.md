@@ -120,5 +120,13 @@ traceroute'un çalışma prensibini anlamak için ping komutunu farklı TTL'ler 
 
 traceroute programı, parametre kullanılmadığında UDP ile yol çıkarmaya çalışır. Bunu nasıl yaptığını ve sebebini aşağıda inceleyeceğiz, ancak traceroute ile istediğimiz metodu kullanarak yol çıkarmak mümkün, yeter ki ağ yapısı buna müsaade etsin.
 
+Bağlantı tipini belirlemek için ```-M``` (method) parametresi kullanılır. Örneğin TCP yöntemini seçmek için
+
+```bash
+traceroute google.com -M tcp```
+
 **NOT:** MS Windows sistemlerde traceroute programı ```tracert``` ismiyle bulunur. Bunun sebebi, eski DOS sistemlerinde dosya isimlerine getirilen kısıtlamadır. Eski DOS sistemlerinde dosya adları en fazla 8 karakter olabilir, dosya uzantıları ise 3 karakter olabilirdi. Bunun için programı ```tracert.exe``` olarak isimlendirmişlerdir. Bu programın bir diğer farklılığı, standart tarama mekanizması olarak UDP değil, ICMP paketleri kullanmasıdır.
 
+### UDP ile Kullanımı
+
+Daha önce belirttiğimiz gibi, traceroute programı GNU/Linux üzerindeki dağıtımında standart bu tekniği kullanır. 
