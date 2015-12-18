@@ -4,7 +4,7 @@ Vermiş olduğumuz eğitimlerde, çoğunlukla İnternet'in çalışma mantığı
 
 Günümüzde kullanılan İnternet Alan Adı çözme sistemi belirli konsorsiyumların ve iktidar odaklarının denetiminde ve tekelindedir. ABD merkezli kar amacı gütmeyen ICANN (Internet Corporation for Assigned Names and Numbers) adlı organizasyon, tüm alan adı çözünürlüğünün dağıtımını sağlamaktadır. Örneğin ".com" uzantılı alan adlarını sadece VeriSign adlı Amerikan firması yapabilir ve ICANN her yıl ücretlerini %7 oranında arttırabilmesi için yetki vermiştir.
 
-İşletim sistemleri ve onların bağlı bulunduğu DNS sunucuları, ICANN'ın belirlemiş olduğu kök DNS sunucularını kurulumları sırasında "varsayılan" kök DNS sunucuları olarak belirler. Linux sistemlerde şu komut ile kök sunucularının bilgisine ulaşabilirsiniz.
+İşletim sistemleri ve onların bağlı bulunduğu DNS sunucuları, ICANN'in belirlemiş olduğu kök DNS sunucularını kurulumları sırasında "varsayılan" kök DNS sunucuları olarak belirler. Linux sistemlerde şu komut ile kök sunucularının bilgisine ulaşabilirsiniz.
 
 ```bash
 dig +nocomments
@@ -42,7 +42,7 @@ dig +nocomments
 #;; WHEN: Mon Dec  7 23:31:25 2015
 #;; MSG SIZE  rcvd: 496
 ```
-aynı bilgiyi /var/named/named.ca dosyası içerisinde de bulabilirsiniz. 
+Aynı bilgiyi ```/var/named/named.ca``` dosyası içerisinde de bulabilirsiniz. 
 Ne var ki, root DNS sunucularını kendi belirlediğiniz kök sunucularla değiştirebilir, kendi alan adı eko sisteminizi de oluşturabilirsiniz, bu durumda bu yazının yazarı ".karaca" uzantılı alan adlarını kullanmaya başlayabilir.
 
 Bir URL'i açmak için masaüstü bilgisayarınızdan tarayıcınıza alan adını yazdığınızda oluşan sorgu adımları aşağıdaki grafikte tanımlanmıştır:
