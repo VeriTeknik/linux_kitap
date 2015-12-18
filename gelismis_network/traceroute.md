@@ -133,3 +133,10 @@ traceroute google.com -M tcp
 Daha önce belirttiğimiz gibi, traceroute programı GNU/Linux üzerindeki dağıtımında parametre belirtilmeyince bu tekniği kullanır. UDP taramasıyla program, karşı tarafın UDP üzerinde bir servis çalıştığı "düşünülmeyen" portlarına datagram gönderir. Eğer karşı tarafta gerçekten bu portlarda bir servis çalışmıyorsa, cevap olarak "Destination Port Unreachable" içerikli bir ICMP paketi gönderir.
 
 traceroute UDP üzerinden tarama yaparken, 33434 portundan başlar, her hop'ta değeri bir artırır.
+
+
+### ICMP ile Kullanımı
+
+Bu yöntemi kullanmak için ```-M icmp``` veya ```-I``` parametreleri tanımlanır. traceroute programının algoritmasını anlatırken belirttiğimiz gibi ICMP paketleri kullanır, özetle karşı tarafı ping'leyebiliyorsanız, bu yöntemi kullanabilirsiniz.
+
+
