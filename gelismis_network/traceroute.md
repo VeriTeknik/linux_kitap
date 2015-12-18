@@ -147,3 +147,19 @@ Aslında çok sık kullanılması gereken bu yöntem, biraz tecrübe gerektirdi�
 traceroute google.com -T -p 453
 ```
 
+TCP taraması yapılırken, karşı tarafta bir bağlantı açmış olmayız. Normal şartlar altında bir TCP bağlantısı şu şekilde gerçekleştirilir:
+
+1. Karşı tarafa SYN paketi gönderilir
+2. Karşı taraftan SYN+ACK paketi alınır
+3. Karşı tarafa ACK paketi gönderilir
+
+Yukarıda tanımlanan "three-way handshake" ile iki sunucu arasında bir TCP bağlantısı kurulmuş olur. Son aşamada, ACK paketi geldikten sonra bağlantı başlayacağından, sunucu üzerindeki bir yazılım ancak bu aşamada bir bağlantı geldiğinden haberdar olur.
+
+Ancak traceroute aşağıdaki yöntemi izler.
+
+1. Karşı tarafa SYN paketi gönderilir
+2. Karşı taraftan SYN+ACK paketi alınır
+3. Karşı tarafa RST paketi gönderilir
+
+Son aşamada RST paketi gönderdiğimiz için karşı taraftaki hiçbir yazılım bizim SYN paketi veya RST paketi gönderdiğimizi görmez. Ancak network trafiğinin detaylı analiziyle bu mümkün olur.
+
