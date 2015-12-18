@@ -54,4 +54,4 @@ Daha sonra DNS sorgusuna göre daha kolay olan bir şekilde TCP soketi web sunuc
 
 ![](apache_query.png)
 
-* **IANA:** Internet Assigned Numbers Authority, kar amacı gütmeyen bir kuruluştur, 0 ve 1000 arası portların isimlendirilmesini IETF'ye bırakır, geri kalan tüm portların isimlendirmesi için bireysel başvuruda bulunabilirsiniz, onay sürecinden sonra kendi port numaranıza belirlediğiniz isim tüm dünyada kabul görecektir.IETF Web sayfalarının standart sunum portunu :80 olarak belirlemiştir. Aslında gerçek sorgu şu şekildedir: http://www.veritech.net:80
+* **IANA:** Internet Assigned Numbers Authority, kar amacı gütmeyen bir kuruluştur, 0 ve 1000 arası portların isimlendirilmesini IETF'ye bırakır, geri kalan tüm portların isimlendirmesi için bireysel başvuruda bulunabilirsiniz, onay sürecinden sonra kendi port numaranıza belirlediğiniz isim tüm dünyada kabul görecektir.IETF Web sayfalarının standart sunum portunu :80 olarak belirlemiştir. Aslında gerçek sorgu şu şekildedir: http://www.veritech.net:80 
