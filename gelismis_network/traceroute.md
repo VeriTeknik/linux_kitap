@@ -161,5 +161,5 @@ Ancak traceroute aşağıdaki yöntemi izler.
 2. Karşı taraftan SYN+ACK paketi alınır
 3. Karşı tarafa RST paketi gönderilir
 
-Son aşamada RST paketi gönderdiğimiz için karşı taraftaki hiçbir yazılım bizim SYN paketi veya RST paketi gönderdiğimizi görmez. Ancak network trafiğinin detaylı analiziyle bu mümkün olur.
+Son aşamada RST paketi gönderdiğimiz için karşı taraftaki hiçbir yazılım bizim SYN paketi veya RST paketi gönderdiğimizi görmez. Ancak network trafiğinin detaylı analiziyle bu mümkün olur. Traceroute programının kullandığı bu bağlantı biçmine "half-open" (yarı-açık) teknik denilir.
 
