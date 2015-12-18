@@ -139,5 +139,9 @@ traceroute UDP üzerinden tarama yaparken, 33434 portundan başlar, her hop'ta d
 
 Bu yöntemi kullanmak için ```-M icmp``` veya ```-I``` parametreleri tanımlanır. traceroute programının algoritmasını anlatırken belirttiğimiz gibi ICMP paketleri kullanır, özetle karşı tarafı ping'leyebiliyorsanız, bu yöntemi kullanabilirsiniz.
 
+### TCP ile Kullanımı
+
+Aslında çok sık kullanılması gereken bu yöntem, biraz tecrübe gerektirdiğinden standart olarak sunulmaz, bu durum bir çok kişinin yol çıkarma işlemini doğru yapamamasına sebep olur. Pek çok firewall UDP paketlerini belirli port aralığı haricinde (DNS vb.) engeller, ICMP paketlerinin de engellenmesi çok sık karşılaşılan bir durumdur. Ancak ağ yöneticilerinin neredeyse her zaman izin verdiği bir takım servisler TCP üzerinden çalışır. Örneğin tarayacağımız ağ üzerinde çok büyük ihtimalle HTTP protokolünün standart portu olan TCP 80 izin veriliyordur. Bu durumdan faydalanarak firewall engellerini aşabiliriz.
+
 
 
