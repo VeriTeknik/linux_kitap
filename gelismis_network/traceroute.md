@@ -123,10 +123,13 @@ traceroute programı, parametre kullanılmadığında UDP ile yol çıkarmaya ç
 Bağlantı tipini belirlemek için ```-M``` (method) parametresi kullanılır. Örneğin TCP yöntemini seçmek için
 
 ```bash
-traceroute google.com -M tcp```
+traceroute google.com -M tcp
+```
 
 **NOT:** MS Windows sistemlerde traceroute programı ```tracert``` ismiyle bulunur. Bunun sebebi, eski DOS sistemlerinde dosya isimlerine getirilen kısıtlamadır. Eski DOS sistemlerinde dosya adları en fazla 8 karakter olabilir, dosya uzantıları ise 3 karakter olabilirdi. Bunun için programı ```tracert.exe``` olarak isimlendirmişlerdir. Bu programın bir diğer farklılığı, standart tarama mekanizması olarak UDP değil, ICMP paketleri kullanmasıdır.
 
 ### UDP ile Kullanımı
 
-Daha önce belirttiğimiz gibi, traceroute programı GNU/Linux üzerindeki dağıtımında standart bu tekniği kullanır. 
+Daha önce belirttiğimiz gibi, traceroute programı GNU/Linux üzerindeki dağıtımında parametre belirtilmeyince bu tekniği kullanır. UDP taramasıyla program, karşı tarafın UDP üzerinde bir servis çalıştığı "düşünülmeyen" portlarına datagram gönderir. Eğer karşı tarafta gerçekten bu portlarda bir servis çalışmıyorsa, cevap olarak "Destination Port Unreachable" içerikli bir ICMP paketi gönderir.
+
+traceroute UDP üzerinden tarama yaparken, 33434 portundan başlar, her hop'ta değeri bir artırır.
