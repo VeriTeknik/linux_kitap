@@ -68,3 +68,29 @@ Ayrıca, DNS kayıtları sorgularken belirtilen kayıt tipleri, büyük/küçük
 
 Sorguladımız alanadı hakkındaki bütün kayıtlara erişmek isteseydik, tip olarak ```ANY``` tanımlayabilirdik.
 
+```bash
+eaydin@dixon ~ $ dig any veritech.net
+
+; <<>> DiG 9.9.5-3ubuntu0.6-Ubuntu <<>> any veritech.net
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 13298
+;; flags: qr rd ra; QUERY: 1, ANSWER: 5, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;veritech.net.			IN	ANY
+
+;; ANSWER SECTION:
+veritech.net.		14399	IN	SOA	ns1.rackdc.com. hostmaster.veritech.net. 2015120202 14400 3600 1209600 86400
+veritech.net.		14399	IN	NS	ns2.rackdc.com.
+veritech.net.		14399	IN	NS	ns1.rackdc.com.
+veritech.net.		14399	IN	MX	5 posta.veriportal.com.
+veritech.net.		14399	IN	A	94.103.32.32
+
+;; Query time: 421 msec
+;; SERVER: 127.0.1.1#53(127.0.1.1)
+;; WHEN: Sat Dec 19 19:40:14 EET 2015
+;; MSG SIZE  rcvd: 183
+```
