@@ -251,3 +251,42 @@ rtt min/avg/max/mdev = 0.695/2.223/114.147/3.504 ms, pipe 10, ipg/ewma 2.183/2.0
 ```
 
 Yukarıdaki örnekte 20 saniye içerisinde 9461 paket gönderilmiş, 9430 cevap alınmıştır. Bu yüzden **^C** işaretinden önce (9461-9430=) 31 tane nokta işareti var, bunlar cevapsız paketleri gösterir.
+
+## IPv6 için Ping6
+
+ping programı IPv4 için kullanılır. Eğer ICMP paketlerini IPv6 protokolü ile göndermek isterseniz, ```ping6``` programını kullanmanız gerekir. Kullandığınız makinada IPv6 yoksa, program beklendiği üzere paket gönderemeyecektir.
+
+```bash
+eaydin@dixon ~ $ ping6 google.com
+connect: Network is unreachable
+```
+Yukarıdaki örnekte kullanılan makinada IPv6 adresi bulunmamaktadır.
+
+```bash
+root:vt ~ ping6 google.com
+PING google.com(muc03s14-in-x0e.1e100.net) 56 data bytes
+64 bytes from muc03s14-in-x0e.1e100.net: icmp_seq=1 ttl=57 time=54.8 ms
+64 bytes from muc03s14-in-x0e.1e100.net: icmp_seq=2 ttl=57 time=54.8 ms
+64 bytes from muc03s14-in-x0e.1e100.net: icmp_seq=3 ttl=57 time=54.8 ms
+```
+
+Yukarıdaki örnekteyse IPv6 adresimizin olduğunu görebilirsiniz.
+ping gönderdiğimiz makinanın IPv6 adresini öğrenmek için pratik bir yol, programı ```-n``` ile çalıştırmaktır.
+
+```bash
+root:vt ~ ping6 -n google.com
+PING google.com(2a00:1450:4016:805::200e) 56 data bytes
+64 bytes from 2a00:1450:4016:805::200e: icmp_seq=1 ttl=57 time=59.5 ms
+64 bytes from 2a00:1450:4016:805::200e: icmp_seq=2 ttl=57 time=59.5 ms
+64 bytes from 2a00:1450:4016:805::200e: icmp_seq=3 ttl=57 time=59.5 ms
+```
+
+```-n``` parametresi her paket gönderiminde DNS lookup yapmaz, böylece doğrudan IP adresi görülür. Aynı kullanım IPv4 için ping programında da bulunur.
+
+```bash
+root:vt ~ ping -n google.com
+PING google.com (216.58.211.46) 56(84) bytes of data.
+64 bytes from 216.58.211.46: icmp_seq=1 ttl=53 time=32.9 ms
+64 bytes from 216.58.211.46: icmp_seq=2 ttl=53 time=32.5 ms
+64 bytes from 216.58.211.46: icmp_seq=3 ttl=53 time=37.1 ms
+```
