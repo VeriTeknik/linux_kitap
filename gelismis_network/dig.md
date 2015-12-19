@@ -177,3 +177,11 @@ veriteknik.com.tr.	14400	IN	NS	ns2.rackdc.com.
 Yukarıdaki çıktıyı inceleyecek olursak:
 
 1. Önce dig programı, kendi sistemimizde tanımlı kök sunucuları öğreniyor. Bu sunuculara veriteknik.com.tr adresine nasıl gidileceğini soruyor. Kök sunucuların cevabı. Kök sunucuların adreslerini kendi bilgisayarımızdaki veritabanından öğrendik, bu bilgi 
+
+
+
+## Daha Fazla Bilgi
+
+dig programı alanadları için tanılanmış standartlara uygunluk gösterir. Bu standartlar hakkındaki detaylar [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt)'te tanımlanmıştır.
+
+
