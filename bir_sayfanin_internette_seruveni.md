@@ -8,39 +8,43 @@ Günümüzde kullanılan İnternet Alan Adı çözme sistemi belirli konsorsiyum
 
 ```bash
 dig +nocomments
+```
+```bash
 ; <<>> DiG 9.8.2rc1-RedHat-9.8.2-0.37.rc1.el6_7.4 <<>> +nocomments
-#;; global options: +cmd
-#;.                              IN      NS
-#.                       58399   IN      NS      h.root-servers.net.
-#.                       58399   IN      NS      i.root-servers.net.
-#.                       58399   IN      NS      e.root-servers.net.
-#.                       58399   IN      NS      f.root-servers.net.
-#.                       58399   IN      NS      c.root-servers.net.
-#.                       58399   IN      NS      j.root-servers.net.
-#.                       58399   IN      NS      m.root-servers.net.
-#.                       58399   IN      NS      a.root-servers.net.
-#.                       58399   IN      NS      l.root-servers.net.
-#.                       58399   IN      NS      g.root-servers.net.
-#.                       58399   IN      NS      b.root-servers.net.
-#.                       58399   IN      NS      k.root-servers.net.
-#.                       58399   IN      NS      d.root-servers.net.
-#a.root-servers.net.     158901  IN      A       198.41.0.4
-#a.root-servers.net.     158901  IN      AAAA    2001:503:ba3e::2:30
-#b.root-servers.net.     158901  IN      A       192.228.79.201
-#b.root-servers.net.     158901  IN      AAAA    2001:500:84::b
-#c.root-servers.net.     158901  IN      A       192.33.4.12
-#c.root-servers.net.     158901  IN      AAAA    2001:500:2::c
-#d.root-servers.net.     158901  IN      A       199.7.91.13
-#d.root-servers.net.     158901  IN      AAAA    2001:500:2d::d
-#e.root-servers.net.     158901  IN      A       192.203.230.10
-#f.root-servers.net.     158901  IN      A       192.5.5.241
-#f.root-servers.net.     158901  IN      AAAA    2001:500:2f::f
-#g.root-servers.net.     158901  IN      A       192.112.36.4
-#h.root-servers.net.     158901  IN      A       198.97.190.53
-#;; Query time: 0 msec
-#;; SERVER: 127.0.0.1#53(127.0.0.1)
-#;; WHEN: Mon Dec  7 23:31:25 2015
-#;; MSG SIZE  rcvd: 496
+;; global options: +cmd
+;.				IN	NS
+.			277813	IN	NS	a.root-servers.net.
+.			277813	IN	NS	g.root-servers.net.
+.			277813	IN	NS	c.root-servers.net.
+.			277813	IN	NS	l.root-servers.net.
+.			277813	IN	NS	m.root-servers.net.
+.			277813	IN	NS	f.root-servers.net.
+.			277813	IN	NS	i.root-servers.net.
+.			277813	IN	NS	b.root-servers.net.
+.			277813	IN	NS	j.root-servers.net.
+.			277813	IN	NS	d.root-servers.net.
+.			277813	IN	NS	h.root-servers.net.
+.			277813	IN	NS	e.root-servers.net.
+.			277813	IN	NS	k.root-servers.net.
+a.root-servers.net.	364471	IN	A	198.41.0.4
+a.root-servers.net.	364471	IN	AAAA	2001:503:ba3e::2:30
+b.root-servers.net.	364471	IN	A	192.228.79.201
+b.root-servers.net.	364471	IN	AAAA	2001:500:84::b
+c.root-servers.net.	364471	IN	A	192.33.4.12
+c.root-servers.net.	364471	IN	AAAA	2001:500:2::c
+d.root-servers.net.	364471	IN	A	199.7.91.13
+d.root-servers.net.	364471	IN	AAAA	2001:500:2d::d
+e.root-servers.net.	364471	IN	A	192.203.230.10
+f.root-servers.net.	364471	IN	A	192.5.5.241
+f.root-servers.net.	364471	IN	AAAA	2001:500:2f::f
+g.root-servers.net.	364471	IN	A	192.112.36.4
+h.root-servers.net.	364471	IN	A	198.97.190.53
+;; Query time: 0 msec
+;; SERVER: 127.0.0.1#53(127.0.0.1)
+;; WHEN: Sat Dec 19 18:22:40 2015
+;; MSG SIZE  rcvd: 496
+
+
 ```
 Aynı bilgiyi ```/var/named/named.ca``` dosyası içerisinde de bulabilirsiniz. 
 Ne var ki, root DNS sunucularını kendi belirlediğiniz kök sunucularla değiştirebilir, kendi alan adı eko sisteminizi de oluşturabilirsiniz, bu durumda bu yazının yazarı ".karaca" uzantılı alan adlarını kullanmaya başlayabilir.
