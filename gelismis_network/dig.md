@@ -173,3 +173,7 @@ veriteknik.com.tr.	14400	IN	NS	ns1.rackdc.com.
 veriteknik.com.tr.	14400	IN	NS	ns2.rackdc.com.
 ;; Received 196 bytes from 94.103.32.130#53(ns1.rackdc.com) in 16 ms
 ```
+
+Yukarıdaki çıktıyı inceleyecek olursak:
+
+1. Önce dig programı, kendi sistemimizde tanımlı kök sunucuları öğreniyor. Bu sunuculara veriteknik.com.tr adresine nasıl gidileceğini soruyor. Kök sunucuların cevabı. Kök sunucuların adreslerini kendi bilgisayarımızdaki veritabanından öğrendik, bu bilgi 
