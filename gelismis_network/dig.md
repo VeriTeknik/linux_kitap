@@ -176,7 +176,7 @@ veriteknik.com.tr.	14400	IN	NS	ns2.rackdc.com.
 
 Yukarıdaki çıktıyı inceleyecek olursak:
 
-1. Önce dig programı, kendi sistemimizde tanımlı kök sunucuları öğreniyor. Bu sunuculara veriteknik.com.tr adresine nasıl gidileceğini soruyor. Kök sunucuların cevabı. Kök sunucuların adreslerini kendi bilgisayarımızdaki veritabanından öğrendik, bu bilgi 
+1. Önce dig programı, kendi sistemimizde tanımlı kök sunucuları öğreniyor. Bu sunuculara veriteknik.com.tr adresine nasıl gidileceğini soruyor. Kök sunucuların adreslerini kendi bilgisayarımızdaki veritabanından öğrendik, bu bilgi 
 
 
 
