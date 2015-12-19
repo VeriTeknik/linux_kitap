@@ -176,7 +176,9 @@ veriteknik.com.tr.	14400	IN	NS	ns2.rackdc.com.
 
 Yukarıdaki çıktıyı inceleyecek olursak:
 
-1. Önce dig programı, kendi sistemimizde tanımlı kök sunucuları öğreniyor. Bu sunuculara veriteknik.com.tr adresine nasıl gidileceğini soruyor. Kök sunucuların adreslerini kendi bilgisayarımızdaki veritabanından öğrendik, bu bilgi 
+1. Önce dig programı, kendi sistemimizde tanımlı kök sunucuları öğreniyor. Bu sunuculara veriteknik.com.tr adresine nasıl gidileceğini soruyor. Kök sunucuların adreslerini kendi bilgisayarımızdaki veritabanından öğrendik. Kök sunucular bize bu bilginin nic.tr'de olduğunu söyledi ve ilgili IP adreslerini verdi.
+2. h.root-servers.net kök sunucusundan aldığımız bilgiye göre nic.tr'nin 5 tane sunucusu var. Bu sunuculara veriteknik.com.tr adresinin nerede bulunduğunu sorduk. İçlerinden biri bize ns1.rackdc.com ve ns2.rackdc.com adreslerine sormamız gerektiğini belirtti.
+3. ns4.nic.tr sunucusundan aldığımız bilgiye göre, veriteknik.com.tr adresi rackdc ns sunucularındaydı. Bu sunuculardan ns1.rackdc.com ise bize veriteknik.com.tr A kaydının 94.103.32.80 adresinde bulunduğunu belirtti.
 
 
 
