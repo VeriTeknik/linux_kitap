@@ -130,7 +130,7 @@ veritech.net.		14399	IN	A	94.103.32.32
 
 Artık sonuçlardaki ```SERVER``` ifadesinin değiştiğini görebilirsiniz.
 
-## Kök Sunucuları Sorgulamak
+## DNS Yolunu Takip Etmek
 
 Bir alanadının çözümlenmesi için hangi yollardan geçtiği, nerede problem oluştuğunu veya oluşabileceğini tespit etmek için faydalı olabilir. Örneğin veriteknik.com.tr adresinin DNS çözümlemesinde nasıl bir yol izlendiğini takip etmek için ```+trace``` parametresini kullanabiliriz.
 
@@ -180,7 +180,9 @@ Yukarıdaki çıktıyı inceleyecek olursak:
 2. h.root-servers.net kök sunucusundan aldığımız bilgiye göre nic.tr'nin 5 tane sunucusu var. Bu sunuculara veriteknik.com.tr adresinin nerede bulunduğunu sorduk. İçlerinden biri bize ns1.rackdc.com ve ns2.rackdc.com adreslerine sormamız gerektiğini belirtti.
 3. ns4.nic.tr sunucusundan aldığımız bilgiye göre, veriteknik.com.tr adresi rackdc ns sunucularındaydı. Bu sunuculardan ns1.rackdc.com ise bize veriteknik.com.tr A kaydının 94.103.32.80 adresinde bulunduğunu belirtti.
 
+Yukarıdaki çıktı bir hiyerarşi içerisinde olmaktadır. Eğer zincirin bir noktası kırılırsa, diğer noktalar da kimi zaman uzun vadede, kimi zaman kısa vadede zarar görebilir. Örneğin veriteknik.com.tr adresine daha önce hiç girmemiş olsaydık ve sunucularımız, ağımız kendisinin IP adresini bilmiyor olsaydı, ona ulaşmak için izleyeceğimiz yolu yukarıdaki gibi kök sunuculara sormamız gerekecekti. Kök sunucular hiçbir zaman doğrudan üzerinde veriteknik.com.tr adresini bulundurmaz. Bu durum tahmin edeceğiniz gibi son derece verimsiz olurdu, bu yüzden bir DNS hiyerarşisi bulunmaktadır. Bu hiyerarşi yüzünden alanadınızın DNS adreslerini değiştirdiğinizde, genellikle bu bilginin diğer DNS sunucularına yayılmasının 24 saat süreceği belirtilir. Bu yayılma sırasında spesifik olarak bir sunucunun güncellenip güncellenmediğini sorgulamak için daha önce öğrendiğimiz @ ile soruglama yöntemini kullanabilirsiniz.
 
+Eğer yukarıdaki sorgu hiyerarşisi içerisindeki bir nokta zarar görürse sistem aksar. Bu aksamanın yaşanmaması için birden fazla DNS sunucusu kullanılır. nic.tr'nin 5 DNS sunucusunun bulunmasının sebebi budur. Böylece birisi zarar gördüğünde diğerine sorgu gönderebiliriz. Ancak 14 Aralık 2015 tarihinde yaşanan bir problem bu durumu sekteye uğrattı. 
 
 ## Daha Fazla Bilgi
 
