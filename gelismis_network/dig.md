@@ -4,3 +4,4 @@ Daha önce "Bir sayfanın İnternetteki Serüveni" başlığında karşılaştı
 
 ## Temel Kullanım ve Sonuçları
 
+En temel kullanım, bir alan adının DNS kayıtlarını sorgulamak için şu şekilde gerçekleştirilir.
