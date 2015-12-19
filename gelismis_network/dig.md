@@ -129,3 +129,8 @@ veritech.net.		14399	IN	A	94.103.32.32
 ```
 
 Artık sonuçlardaki ```SERVER``` ifadesinin değiştiğini görebilirsiniz.
+
+## Kök Sunucuları Sorgulamak
+
+Bir alanadının çözümlenmesi için hangi yollardan geçtiği, nerede problem oluştuğunu veya oluşabileceğini tespit etmek için faydalı olabilir. Örneğin veriteknik.com.tr adresinin DNS çözümlemesinde nasıl bir yol izlendiğini takip etmek için ```+trace``` parametresini kullanabiliriz.
+
