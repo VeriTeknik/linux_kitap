@@ -99,7 +99,7 @@ veritech.net.		14399	IN	A	94.103.32.32
 
 Yukarıdaki sonuçlara bakıldığında ```;; SERVER: 127.0.1.1#53(127.0.1.1)``` şeklinde bir satır görülebilir. Bu satır, sorgulanan sonuçların hangi sunucudan geldiği bilgisini paylaşmaktadır.
 
-**NOT:** Farkındaysanız buradaki adres ```127.0.0.1``` değil, ```127.0.1.1``` şeklindedir. Bu, bazı Debian türevi dağtımlardaki programların buglarını gidermek için getirilmiş bir çözümdür. Bu bug hakkında detaylı bilgi için şu Debian Bug Reports içindeki #316099[](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=316099) numaralı olana bakılabilir.
+**NOT:** Farkındaysanız buradaki adres ```127.0.0.1``` değil, ```127.0.1.1``` şeklindedir. Bu, bazı Debian türevi dağtımlardaki programların buglarını gidermek için getirilmiş bir çözümdür. Bu bug hakkında detaylı bilgi için Debian Bug Reports içindeki #316099[](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=316099) numaralı olana bakılabilir.
 
 dig programına özellikle belirtmediğimiz takdir de, ```/etc/resolv.conf``` dosyasında tanımlı nameserver'ları sırayla deneyecektir. Ancak alanadı problemlerini rahat tespit etmek için programa sorguları özellikle tanımladığımız DNS sunucusuna göndermesini söyleyebiliriz.
 
