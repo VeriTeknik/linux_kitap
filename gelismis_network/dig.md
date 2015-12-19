@@ -94,3 +94,36 @@ veritech.net.		14399	IN	A	94.103.32.32
 ;; WHEN: Sat Dec 19 19:40:14 EET 2015
 ;; MSG SIZE  rcvd: 183
 ```
+
+## Sorgulanacak Sunucuyu Tanımlamak
+
+Yukarıdaki sonuçlara bakıldığında ```;; SERVER: 127.0.1.1#53(127.0.1.1)``` şeklinde bir satır görülebilir. Bu satır, sorgulanan sonuçların hangi sunucudan geldiği bilgisini paylaşmaktadır.
+
+dig programına özellikle belirtmediğimiz takdir de, ```/etc/resolv.conf``` dosyasında tanımlı nameserver'ları sırayla deneyecektir. Ancak alanadı problemlerini rahat tespit etmek için programa sorguları özellikle tanımladığımız DNS sunucusuna göndermesini söyleyebiliriz.
+
+Aşağıdaki sorgu, veritech.net kayıtlarını 8.8.8.8 üzerindeki Google DNS'e sormaktadır.
+
+```bash
+eaydin@dixon ~ $ dig veritech.net @8.8.8.8
+
+; <<>> DiG 9.9.5-3ubuntu0.6-Ubuntu <<>> veritech.net @8.8.8.8
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 27998
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;veritech.net.			IN	A
+
+;; ANSWER SECTION:
+veritech.net.		14399	IN	A	94.103.32.32
+
+;; Query time: 125 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Sat Dec 19 19:49:38 EET 2015
+;; MSG SIZE  rcvd: 57
+```
+
+Artık sonuçlardaki ```SERVER``` ifadesinin değiştiğini görebilirsiniz.
