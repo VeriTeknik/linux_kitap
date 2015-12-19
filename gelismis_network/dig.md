@@ -134,3 +134,42 @@ Artık sonuçlardaki ```SERVER``` ifadesinin değiştiğini görebilirsiniz.
 
 Bir alanadının çözümlenmesi için hangi yollardan geçtiği, nerede problem oluştuğunu veya oluşabileceğini tespit etmek için faydalı olabilir. Örneğin veriteknik.com.tr adresinin DNS çözümlemesinde nasıl bir yol izlendiğini takip etmek için ```+trace``` parametresini kullanabiliriz.
 
+```bash
+eaydin@dixon ~ $ dig veriteknik.com.tr +trace
+
+; <<>> DiG 9.9.5-3ubuntu0.6-Ubuntu <<>> veriteknik.com.tr +trace
+;; global options: +cmd
+.			15458	IN	NS	j.root-servers.net.
+.			15458	IN	NS	c.root-servers.net.
+.			15458	IN	NS	l.root-servers.net.
+.			15458	IN	NS	i.root-servers.net.
+.			15458	IN	NS	b.root-servers.net.
+.			15458	IN	NS	g.root-servers.net.
+.			15458	IN	NS	k.root-servers.net.
+.			15458	IN	NS	a.root-servers.net.
+.			15458	IN	NS	d.root-servers.net.
+.			15458	IN	NS	e.root-servers.net.
+.			15458	IN	NS	h.root-servers.net.
+.			15458	IN	NS	m.root-servers.net.
+.			15458	IN	NS	f.root-servers.net.
+.			15458	IN	RRSIG	NS 8 0 518400 20151229050000 20151219040000 62530 . Z4xO7IiTUisysfpLALocUhTyvGYRdW2F8QH7YWbhs8eRdpYX66zhq2zG dlInr7/svswd7fJpYBCsZMkDEYUobWF2Rb5C5yFJHPzXQvNiTypjieiv arEpCk3EIdySO8ccHves/1eOK3vVTU6yjV/4GZlkmdOArTnHER4IHjnH lMA=
+;; Received 397 bytes from 127.0.1.1#53(127.0.1.1) in 980 ms
+
+tr.			172800	IN	NS	ns1.nic.tr.
+tr.			172800	IN	NS	ns2.nic.tr.
+tr.			172800	IN	NS	ns3.nic.tr.
+tr.			172800	IN	NS	ns4.nic.tr.
+tr.			172800	IN	NS	ns5.nic.tr.
+tr.			86400	IN	NSEC	trade. NS RRSIG NSEC
+tr.			86400	IN	RRSIG	NSEC 8 1 86400 20151229170000 20151219160000 62530 . gQLhyuxvM0ZTESagT7Ysv5annQgU3OrHrn8bOq3E+fZ/aSp9wdhhhQMx E2Bgmy2ZD+XLm9R216lVaGcRP+EBHbRGJukEpw5LpzCvn5ywuGsbVq+S dDJtdyZxbiwIoXZneESCeKNitBLAPAEaf/b8g3t8IdGwvLsn2sPboWqt Qag=
+;; Received 406 bytes from 198.97.190.53#53(h.root-servers.net) in 5809 ms
+
+veriteknik.com.tr.	43200	IN	NS	ns1.rackdc.com.
+veriteknik.com.tr.	43200	IN	NS	ns2.rackdc.com.
+;; Received 92 bytes from 193.140.100.200#53(ns4.nic.tr) in 818 ms
+
+veriteknik.com.tr.	14400	IN	A	94.103.32.80
+veriteknik.com.tr.	14400	IN	NS	ns1.rackdc.com.
+veriteknik.com.tr.	14400	IN	NS	ns2.rackdc.com.
+;; Received 196 bytes from 94.103.32.130#53(ns1.rackdc.com) in 16 ms
+```
