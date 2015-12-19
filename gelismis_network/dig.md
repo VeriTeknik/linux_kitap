@@ -66,3 +66,5 @@ Yukarıdaki örnekten ```-t mx``` ile **MX** kaydını tanımlamış oluyoruz. K
 
 Ayrıca, DNS kayıtları sorgularken belirtilen kayıt tipleri, büyük/küçük karakter duyarlı değildir.
 
+Sorguladımız alanadı hakkındaki bütün kayıtlara erişmek isteseydik, tip olarak ```ANY``` tanımlayabilirdik.
+
