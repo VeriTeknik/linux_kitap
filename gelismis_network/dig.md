@@ -29,5 +29,9 @@ veritech.net.		14399	IN	A	94.103.32.32
 ;; MSG SIZE  rcvd: 57
 ```
 
-Yukarıdaki çıktı, veritech.net adresinin A kayıtlarını göstermektedir.
+Yukarıdaki çıktı, veritech.net adresinin A kayıtlarını göstermektedir. İlgilendiğimiz kısım ```ÀNSWER SECTION``` ile başlayan kısımdır. Zaten bu kısımın altındaki satırın başında ```;``` işareti olmadığını görebilirsiniz. Noktalı virgül işaretleri, ilgili satırın bir açıklama satırı olduğunu ifade etmesi bakımından yazılmaktadır.
+
+Cevaptaki diğer bölümler, programın versiyonu hakkında bilgi vermekte, sorgu hakkında bir takım istatistikler paylaşmaktadır.
+
+
 
