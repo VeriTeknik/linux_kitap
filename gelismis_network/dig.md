@@ -176,13 +176,17 @@ veriteknik.com.tr.	14400	IN	NS	ns2.rackdc.com.
 
 Yukarıdaki çıktıyı inceleyecek olursak:
 
-1. Önce dig programı, kendi sistemimizde tanımlı kök sunucuları öğreniyor. Bu sunuculara veriteknik.com.tr adresine nasıl gidileceğini soruyor. Kök sunucuların adreslerini kendi bilgisayarımızdaki veritabanından öğrendik. Kök sunucular bize bu bilginin nic.tr'de olduğunu söyledi ve ilgili IP adreslerini verdi.
+1. Önce dig programı, kendi sistemimizde tanımlı kök sunucuları öğreniyor. Bu sunuculara veriteknik.com.tr adresine nasıl gidileceğini soruyor. Kök sunucuların adreslerini kendi bilgisayarımızdaki veritabanından öğrendik. Kök sunucular bize bu bilginin nic.tr'de olduğunu söyledi çünkü **.tr** uzantılı alanadlarının nic.tr tarafından yönetildiği biliniyor. Sonuçta ilgili IP adreslerini veritabanından verdi.
 2. h.root-servers.net kök sunucusundan aldığımız bilgiye göre nic.tr'nin 5 tane sunucusu var. Bu sunuculara veriteknik.com.tr adresinin nerede bulunduğunu sorduk. İçlerinden biri bize ns1.rackdc.com ve ns2.rackdc.com adreslerine sormamız gerektiğini belirtti.
 3. ns4.nic.tr sunucusundan aldığımız bilgiye göre, veriteknik.com.tr adresi rackdc ns sunucularındaydı. Bu sunuculardan ns1.rackdc.com ise bize veriteknik.com.tr A kaydının 94.103.32.80 adresinde bulunduğunu belirtti.
 
 Yukarıdaki çıktı bir hiyerarşi içerisinde olmaktadır. Eğer zincirin bir noktası kırılırsa, diğer noktalar da kimi zaman uzun vadede, kimi zaman kısa vadede zarar görebilir. Örneğin veriteknik.com.tr adresine daha önce hiç girmemiş olsaydık ve sunucularımız, ağımız kendisinin IP adresini bilmiyor olsaydı, ona ulaşmak için izleyeceğimiz yolu yukarıdaki gibi kök sunuculara sormamız gerekecekti. Kök sunucular hiçbir zaman doğrudan üzerinde veriteknik.com.tr adresini bulundurmaz. Bu durum tahmin edeceğiniz gibi son derece verimsiz olurdu, bu yüzden bir DNS hiyerarşisi bulunmaktadır. Bu hiyerarşi yüzünden alanadınızın DNS adreslerini değiştirdiğinizde, genellikle bu bilginin diğer DNS sunucularına yayılmasının 24 saat süreceği belirtilir. Bu yayılma sırasında spesifik olarak bir sunucunun güncellenip güncellenmediğini sorgulamak için daha önce öğrendiğimiz @ ile soruglama yöntemini kullanabilirsiniz.
 
 Eğer yukarıdaki sorgu hiyerarşisi içerisindeki bir nokta zarar görürse sistem aksar. Bu aksamanın yaşanmaması için birden fazla DNS sunucusu kullanılır. nic.tr'nin 5 DNS sunucusunun bulunmasının sebebi budur. Böylece birisi zarar gördüğünde diğerine sorgu gönderebiliriz. Ancak 14 Aralık 2015 tarihinde yaşanan bir problem bu durumu sekteye uğrattı. 
+
+**.tr** uzantılı alanadlarının (Top Level Domain, TLD) yönetiminin hangi IP adreslerinde olduğu ve kurum bilgilerini IANA'nın veritabanından öğrenebilirsiniz: https://www.iana.org/domains/root/db/tr.html
+
+Bütün TLD'lerin listesine ve kimin tarafından yönetildiğini öğrenmek için: https://www.iana.org/domains/root/db
 
 ## Kök Sunucular
 
@@ -208,7 +212,11 @@ DNS yolunu izlerken kök sunucuların isimlerini görmüştük. ```a.root-server
 | l.root-servers.net | 199.7.83.42, 2001:500:3::42 | ICANN|
 | m.root-servers.net | 202.12.27.33, 2001:dc3::35 | WIDE Project |
 
-Yukarıdaki listenin güncel haline https://www.iana.org/domains/root/servers adresinden erişilebilir
+Yukarıdaki listenin güncel haline https://www.iana.org/domains/root/servers adresinden erişilebilir.
+
+### Kök Sunucu IP Değişikliği
+
+Kök sunucular da zaman zaman IP adreslerini değiştirme ihtiyacı hissederler. Bu tip durumlar uzun süre önce anons edilir ve DNS sunucuların hint dosyalarını güncellemeleri için süre tanınır. 
 
 ## Daha Fazla Bilgi
 
