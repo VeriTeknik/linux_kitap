@@ -216,7 +216,9 @@ Yukarıdaki listenin güncel haline https://www.iana.org/domains/root/servers ad
 
 ### Kök Sunucu IP Değişikliği
 
-Kök sunucular da zaman zaman IP adreslerini değiştirme ihtiyacı hissederler. Bu tip durumlar uzun süre önce anons edilir ve DNS sunucuların hint dosyalarını güncellemeleri için süre tanınır. 
+Kök sunucular da zaman zaman IP adreslerini değiştirme ihtiyacı hissederler. Bu tip durumlar uzun süre önce anons edilir ve DNS sunucuların hint dosyalarını güncellemeleri için süre tanınır.
+
+Örneğin d-root sunucusu, yani University of Maryland tarafından yönetilen sunucu, 3 Ocak 2013'te IPv4 adresini değiştireceğini, ancak IPv6 adresinin değişmeyeceğini duyurmuştur. Bu duyuruda, geçişten sonra eski IPv4 adresinin 6 ay daha kullanılacağını, ancak sonunda terk edileceğini de belirtmiştir. Dolayısıyla DNS yöneticilerine hint dosyalarını en kısa sürede güncellemelerini tavsiye et
 
 ## Daha Fazla Bilgi
 
