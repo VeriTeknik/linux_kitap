@@ -182,7 +182,7 @@ Yukarıdaki çıktıyı inceleyecek olursak:
 
 Yukarıdaki çıktı bir hiyerarşi içerisinde olmaktadır. Eğer zincirin bir noktası kırılırsa, diğer noktalar da kimi zaman uzun vadede, kimi zaman kısa vadede zarar görebilir. Örneğin veriteknik.com.tr adresine daha önce hiç girmemiş olsaydık ve sunucularımız, ağımız kendisinin IP adresini bilmiyor olsaydı, ona ulaşmak için izleyeceğimiz yolu yukarıdaki gibi kök sunuculara sormamız gerekecekti. Kök sunucular hiçbir zaman doğrudan üzerinde veriteknik.com.tr adresini bulundurmaz. Bu durum tahmin edeceğiniz gibi son derece verimsiz olurdu, bu yüzden bir DNS hiyerarşisi bulunmaktadır. Bu hiyerarşi yüzünden alanadınızın DNS adreslerini değiştirdiğinizde, genellikle bu bilginin diğer DNS sunucularına yayılmasının 24 saat süreceği belirtilir. Bu yayılma sırasında spesifik olarak bir sunucunun güncellenip güncellenmediğini sorgulamak için daha önce öğrendiğimiz @ ile soruglama yöntemini kullanabilirsiniz.
 
-Eğer yukarıdaki sorgu hiyerarşisi içerisindeki bir nokta zarar görürse sistem aksar. Bu aksamanın yaşanmaması için birden fazla DNS sunucusu kullanılır. nic.tr'nin 5 DNS sunucusunun bulunmasının sebebi budur. Böylece birisi zarar gördüğünde diğerine sorgu gönderebiliriz. Ancak 14 Aralık 2015 tarihinde yaşanan bir problem bu durumu sekteye uğrattı. ODTÜ yerleşkesindeki nic.tr sunucularına yapılan bir DDoS (Distributed Denial-of-Service) saldırısı nedeniyle **.tr** uzantılı alanadları çözümlenemedi ve pek çok servise erişi
+Eğer yukarıdaki sorgu hiyerarşisi içerisindeki bir nokta zarar görürse sistem aksar. Bu aksamanın yaşanmaması için birden fazla DNS sunucusu kullanılır. nic.tr'nin 5 DNS sunucusunun bulunmasının sebebi budur. Böylece birisi zarar gördüğünde diğerine sorgu gönderebiliriz. Ancak 14 Aralık 2015 tarihinde yaşanan bir problem bu durumu sekteye uğrattı. ODTÜ yerleşkesindeki nic.tr sunucularına yapılan bir DDoS (Distributed Denial-of-Service) saldırısı nedeniyle **.tr** uzantılı alanadları çözümlenemedi ve pek çok servise erişim durdu.
 
 **.tr** uzantılı alanadlarının (Top Level Domain, TLD) yönetiminin hangi IP adreslerinde olduğu ve kurum bilgilerini IANA'nın veritabanından öğrenebilirsiniz: https://www.iana.org/domains/root/db/tr.html
 
@@ -225,6 +225,10 @@ Kök sunucular da zaman zaman IP adreslerini değiştirme ihtiyacı hissederler.
 Yukarıdaki listeye baktığınızda, kitabın yazıldığı Aralık 2015 tarihi itibariyle 2 kök sunucunun (e-root ve g-root) IPv6 desteği vermediği görülebilir. Kök sunucularda IPv6 desteği 29 Ocak 2008 tarihinde IANA tarafından duyurulmuştur ve 6 tane sunucu ile başlamıştır (a, f, h, j, k, m). Daha sonra diğer sunucular da IPv6 desteği vermiştir. Duyuruya ve ilgii rapora şuradan erişebilirsiniz: http://www.iana.org/reports/2008/root-aaaa-announcement.html
 
 Kök sunucuların IPv6 desteği vermesi demek, sunucuların IPv6 adresinin olması, dolayısıyla doğrudan IPv6 ile sorgulanabilmeleri demektir. Bu gelişmeden önce kök sunuculara IPv4 ile sorgu gönderip, IPv6 adres bilgileri edinilebiliyordu. Ama bu durum sorguyu gönderen tarafın hem IPv4 hem de IPv6 protokollerini desteklemesini gerektiriyordu. IPv6 desteği ile bu zorunluluk ortadan kalktı. Tabii kök sunucuların yönlendirdiği DNS sunucular IPv6 desteklemediği sürece bir anlamı kalmayacaktır
+
+### Kök Sunuculara Yapılan Saldırılar
+
+Daha önce nic.tr'ye yapılan saldırının Türkiye için **.tr** uzantılı alanadlarını etkilediğini be
 
 ## Daha Fazla Bilgi
 
