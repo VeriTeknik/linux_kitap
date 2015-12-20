@@ -224,11 +224,15 @@ Kök sunucular da zaman zaman IP adreslerini değiştirme ihtiyacı hissederler.
 
 Yukarıdaki listeye baktığınızda, kitabın yazıldığı Aralık 2015 tarihi itibariyle 2 kök sunucunun (e-root ve g-root) IPv6 desteği vermediği görülebilir. Kök sunucularda IPv6 desteği 29 Ocak 2008 tarihinde IANA tarafından duyurulmuştur ve 6 tane sunucu ile başlamıştır (a, f, h, j, k, m). Daha sonra diğer sunucular da IPv6 desteği vermiştir. Duyuruya ve ilgii rapora şuradan erişebilirsiniz: http://www.iana.org/reports/2008/root-aaaa-announcement.html
 
-Kök sunucuların IPv6 desteği vermesi demek, sunucuların IPv6 adresinin olması, dolayısıyla doğrudan IPv6 ile sorgulanabilmeleri demektir. Bu gelişmeden önce kök sunuculara IPv4 ile sorgu gönderip, IPv6 adres bilgileri edinilebiliyordu. Ama bu durum sorguyu gönderen tarafın hem IPv4 hem de IPv6 protokollerini desteklemesini gerektiriyordu. IPv6 desteği ile bu zorunluluk ortadan kalktı. Tabii kök sunucuların yönlendirdiği DNS sunucular IPv6 desteklemediği sürece bir anlamı kalmayacaktır
+Kök sunucuların IPv6 desteği vermesi demek, sunucuların IPv6 adresinin olması, dolayısıyla doğrudan IPv6 ile sorgulanabilmeleri demektir. Bu gelişmeden önce kök sunuculara IPv4 ile sorgu gönderip, IPv6 adres bilgileri edinilebiliyordu. Ama bu durum sorguyu gönderen tarafın hem IPv4 hem de IPv6 protokollerini desteklemesini gerektiriyordu. IPv6 desteği ile bu zorunluluk ortadan kalktı. Tabii kök sunucuların yönlendirdiği DNS sunucular IPv6 desteklemediği sürece bir anlamı kalmayacaktır.
 
 ### Kök Sunuculara Yapılan Saldırılar
 
-Daha önce nic.tr'ye yapılan saldırının Türkiye için **.tr** uzantılı alanadlarını etkilediğini be
+Daha önce nic.tr'ye yapılan saldırının Türkiye için **.tr** uzantılı alanadlarını etkilediğini belirtmiştik. Benzer şekilde kök sunuculara da saldırılar yapılmakta. Bunların bazıları 2002, 2007, 2015 tarihlerinde yapıldı ve büyük çoğunluğu internet alt yapısını etkileyemedi. 2007'deki saldırı kök sunucularda ciddi sayılabilecek trafiğe neden oldu ve ICANN saldırılar hakkında bir rapor yayımladı: https://www.icann.org/en/system/files/files/factsheet-dns-attack-08mar07-en.pdf
+
+### Kök Sunucuların Konumları
+
+Kök sunucular 13 tane olsa da, aslında 13 fiziksel sunucu olarak düşünmemek gerekir. İlk başta 13 fiziksel sunucu bulunuyordu ve tamamı ABD içindeydi ancak zamanla internet kullanımının yaygınlaşması ve talebin dağıtık biçimde karşılanması gerekliliği, sunucuları yaymayı gerektirdi. Bugün 13 IP adresi farklı fiziksel sunucular üzerinde yayın yapmaktadır. Kısacası kök sunucular 12 organizasyon tarafından Dünya üzerinde bir çok ülkede yönetilmektedir. Örneğin VeriSign'ın yönettiği kök sunucular toplamda 70'e yakın sayıdadır. Tamamı aynı IP adresine sahiptir, böylece bulunduğunuz noktadan bu IP adresine erişmeye çalıştığınızda size en yakındaki sunucuya yönlenirsiniz. Eğer bu sunucu cevap vermezse
 
 ## Daha Fazla Bilgi
 
