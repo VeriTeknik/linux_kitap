@@ -192,7 +192,7 @@ http://www.internic.net/domain/named.root
 
 DNS yolunu izlerken kök sunucuların isimlerini görmüştük. ```a.root-servers.net```, ```b.root-servers.net``` ... gibi isimleri bulunur. Yukarıda linkini verdiğimiz hint dosyası incelenirse, bu sunucuların isimlerinin eskiden farklı olduğu görülebilir. Örneğin e.root-servers.net için "FORMERLY NS.NASA.GOV" ifadesi bulunur. Gerçekten de eskiden kök sunucuların isimleri bulundukları kurumlarla ilişkilendirilmişti ancak sonradan bir isim standardı getirildi. Bugün 13 kök sunucuyu şu kurumlar yönetmektedir.
 
-| **Hostname** | **IP Adresi** | **Yönetici Kur** |
+| **Hostname** | **IP Adresi** | **Yönetici Kurum** |
 | -- | -- | -- |
 | a.root-servers.net | 198.41.0.4, 2001:503:ba3e::2:30 | VeriSign, Inc. |
 | b.root-servers.net | 192.228.79.201, 2001:500:84::b | University of Southern California (ISI) |
@@ -208,7 +208,7 @@ DNS yolunu izlerken kök sunucuların isimlerini görmüştük. ```a.root-server
 | l.root-servers.net | 199.7.83.42, 2001:500:3::42 | ICANN|
 | m.root-servers.net | 202.12.27.33, 2001:dc3::35 | WIDE Project |
 
-
+Yukarıdaki listenin güncel haline https://www.iana.org/domains/root/servers adresinden erişilebilir
 
 ## Daha Fazla Bilgi
 
