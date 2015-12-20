@@ -184,6 +184,15 @@ Yukarıdaki çıktı bir hiyerarşi içerisinde olmaktadır. Eğer zincirin bir 
 
 Eğer yukarıdaki sorgu hiyerarşisi içerisindeki bir nokta zarar görürse sistem aksar. Bu aksamanın yaşanmaması için birden fazla DNS sunucusu kullanılır. nic.tr'nin 5 DNS sunucusunun bulunmasının sebebi budur. Böylece birisi zarar gördüğünde diğerine sorgu gönderebiliriz. Ancak 14 Aralık 2015 tarihinde yaşanan bir problem bu durumu sekteye uğrattı. 
 
+## Kök Sunucular
+
+```+trace``` ile DNS yolunu takip ederken, kök sunuculardan sorgulamaya başladık. Bu sunucular Dünya üzerinde 13 tanedir ve 12 bağımsız organizasyon tarafından yönetilirler. İnternette isim çözümlemenin belkemiği sayılan sunucuların IP adresleri bilinir ve bu adreslere sorgular gönderilir. Bu adreslerin karşılığı kök sunucular haricindeki DNS sunucularda "hint file" adı verilen dosyalarda tutulur. Bu dosyanın güncel haline erişmek için aşağıdaki link izlenebilir:
+
+http://www.internic.net/domain/named.root
+
+DNS yolunu izlerken kök sunucuların isimlerini görmüştük. ```a.root-servers.net```, ```b.root-servers.net``` ... gibi isimleri bulunur.
+
+
 ## Daha Fazla Bilgi
 
 dig programı alanadları için tanılanmış standartlara uygunluk gösterir. Bu standartlar hakkındaki detaylar [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt)'te tanımlanmıştır.
