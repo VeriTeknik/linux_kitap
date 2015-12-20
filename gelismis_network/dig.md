@@ -192,6 +192,21 @@ http://www.internic.net/domain/named.root
 
 DNS yolunu izlerken kök sunucuların isimlerini görmüştük. ```a.root-servers.net```, ```b.root-servers.net``` ... gibi isimleri bulunur. Yukarıda linkini verdiğimiz hint dosyası incelenirse, bu sunucuların isimlerinin eskiden farklı olduğu görülebilir. Örneğin e.root-servers.net için "FORMERLY NS.NASA.GOV" ifadesi bulunur. Gerçekten de eskiden kök sunucuların isimleri bulundukları kurumlarla ilişkilendirilmişti ancak sonradan bir isim standardı getirildi. Bugün 13 kök sunucuyu şu kurumlar yönetmektedir.
 
+| Hostname | IP Adresi | Yöneten |
+| -- | -- | -- |
+| a.root-servers.net | 198.41.0.4, 2001:503:ba3e::2:30 | VeriSign, Inc. |
+| b.root-servers.net | 192.228.79.201, 2001:500:84::b | University of Southern California (ISI) |
+| c.root-servers.net | 192.33.4.12, 2001:500:2::c | Cogent Communications |
+| d.root-servers.net | 199.7.91.13, 2001:500:2d::d | University of Maryland |
+| e.root-servers.net | 192.203.230.10 | NASA (Ames Research Center) |
+| f.root-servers.net | 192.5.5.241, 2001:500:2f::f | Internet Systems Consortium, Inc. |
+| g.root-servers.net | 192.112.36.4	| US Department of Defense (NIC) |
+| 0:9 | 1:9 | 2:9 |
+| 0:10 | 1:10 | 2:10 |
+| 0:11 | 1:11 | 2:11 |
+| 0:12 | 1:12 | 2:12 |
+| 0:13 | 1:13 | 2:13 |
+| 0:14 | 1:14 | 2:14 |
 
 
 
