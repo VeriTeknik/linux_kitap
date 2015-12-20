@@ -190,7 +190,9 @@ Eğer yukarıdaki sorgu hiyerarşisi içerisindeki bir nokta zarar görürse sis
 
 http://www.internic.net/domain/named.root
 
-DNS yolunu izlerken kök sunucuların isimlerini görmüştük. ```a.root-servers.net```, ```b.root-servers.net``` ... gibi isimleri bulunur.
+DNS yolunu izlerken kök sunucuların isimlerini görmüştük. ```a.root-servers.net```, ```b.root-servers.net``` ... gibi isimleri bulunur. Yukarıda linkini verdiğimiz hint dosyası incelenirse, bu sunucuların isimlerinin eskiden farklı olduğu görülebilir. Örneğin e.root-servers.net için "FORMERLY NS.NASA.GOV" ifadesi bulunur. Gerçekten de eskiden kök sunucuların isimleri bulundukları kurumlarla ilişkilendirilmişti ancak sonradan bir isim standardı getirildi. Bugün 13 kök sunucuyu şu kurumlar yönetmektedir.
+
+
 
 
 ## Daha Fazla Bilgi
