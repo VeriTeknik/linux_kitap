@@ -236,7 +236,7 @@ Kök sunucular 13 tane olsa da, aslında 13 fiziksel sunucu olarak düşünmemek
 
 Aralık 2015 itibariyle kök sunucular 97 farklı ülkeye yayılmıştır. Türkiye'de de 4 tanesi bulunmaktadır. 2'si İstanbul'da D-ROOT ve L-ROOT anycast'leri olarak çalışmakta, 2'si ise Ankara'da I-ROOT ve L-ROOT anycast'leri olarak çalışmaktadır.
 
-Kök sunucuların konumlarını interaktif bir haritayla http://www.root-servers.org/ adresinden inceleyebilirsiniz, veya trafik detaylarını http://pch.net/root-servers adresinden takip e
+Kök sunucuların konumlarını interaktif bir haritayla http://www.root-servers.org/ adresinden inceleyebilirsiniz, veya trafik detaylarını http://pch.net/root-servers adresinden takip edebilirsiniz.
 
 ## Daha Fazla Bilgi
 
