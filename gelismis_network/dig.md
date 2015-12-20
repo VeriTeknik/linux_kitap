@@ -218,7 +218,11 @@ Yukarıdaki listenin güncel haline https://www.iana.org/domains/root/servers ad
 
 Kök sunucular da zaman zaman IP adreslerini değiştirme ihtiyacı hissederler. Bu tip durumlar uzun süre önce anons edilir ve DNS sunucuların hint dosyalarını güncellemeleri için süre tanınır.
 
-Örneğin d-root sunucusu, yani University of Maryland tarafından yönetilen sunucu, 3 Ocak 2013'te IPv4 adresini değiştireceğini, ancak IPv6 adresinin değişmeyeceğini duyurmuştur. Bu duyuruda, geçişten sonra eski IPv4 adresinin 6 ay daha kullanılacağını, ancak sonunda terk edileceğini de belirtmiştir. Dolayısıyla DNS yöneticilerine hint dosyalarını en kısa sürede güncellemelerini tavsiye etmiştir. Duyuruya şuradan erişebilirsini
+Örneğin d-root sunucusu, yani University of Maryland tarafından yönetilen sunucu, 3 Ocak 2013'te IPv4 adresini değiştireceğini, ancak IPv6 adresinin değişmeyeceğini duyurmuştur. Bu duyuruda, geçişten sonra eski IPv4 adresinin 6 ay daha kullanılacağını, ancak sonunda terk edileceğini de belirtmiştir. Dolayısıyla DNS yöneticilerine hint dosyalarını en kısa sürede güncellemelerini tavsiye etmiştir. Duyuruya şuradan erişebilirsiniz: http://d.root-servers.org/renumber.html
+
+### Kök Sunucularda IPv6 Desteği
+
+Yukarıdaki listeye baktığınızda, kitabın yazıldığı Aralık 2015 tarihi itibariyle 2 kök sunucunun (e-root ve g-root) IPv6 desteği vermediği görülebilir. Kök sunucularda IPv6 desteği 29 Ocak 2008 tarihinde IANA tarafından duyurulmuştur ve 6 tane sunucu ile başlamıştır (a, f, h, j, k, m). Daha sonra diğer sunucular da IPv6 desteği vermiştir. Duyuruya ve ilgii rapo
 
 ## Daha Fazla Bilgi
 
