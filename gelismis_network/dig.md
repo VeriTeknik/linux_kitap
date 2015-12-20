@@ -232,7 +232,9 @@ Daha önce nic.tr'ye yapılan saldırının Türkiye için **.tr** uzantılı al
 
 ### Kök Sunucuların Konumları
 
-Kök sunucular 13 tane olsa da, aslında 13 fiziksel sunucu olarak düşünmemek gerekir. İlk başta 13 fiziksel sunucu bulunuyordu ve tamamı ABD içindeydi ancak zamanla internet kullanımının yaygınlaşması ve talebin dağıtık biçimde karşılanması gerekliliği, sunucuları yaymayı gerektirdi. Bugün 13 IP adresi farklı fiziksel sunucular üzerinde yayın yapmaktadır. Kısacası kök sunucular 12 organizasyon tarafından Dünya üzerinde bir çok ülkede yönetilmektedir. Örneğin VeriSign'ın yönettiği kök sunucular toplamda 70'e yakın sayıdadır. Tamamı aynı IP adresine sahiptir, böylece bulunduğunuz noktadan bu IP adresine erişmeye çalıştığınızda size en yakındaki sunucuya yönlenirsiniz. Eğer bu sunucu cevap vermezse
+Kök sunucular 13 tane olsa da, aslında 13 fiziksel sunucu olarak düşünmemek gerekir. İlk başta 13 fiziksel sunucu bulunuyordu ve tamamı ABD içindeydi ancak zamanla internet kullanımının yaygınlaşması ve talebin dağıtık biçimde karşılanması gerekliliği, sunucuları yaymayı gerektirdi. Bugün 13 IP adresi farklı fiziksel sunucular üzerinde yayın yapmaktadır. Kısacası kök sunucular 12 organizasyon tarafından Dünya üzerinde bir çok ülkede yönetilmektedir. Örneğin VeriSign'ın yönettiği kök sunucular toplamda 70'e yakın sayıdadır. Tamamı aynı IP adresine sahiptir, böylece bulunduğunuz noktadan bu IP adresine erişmeye çalıştığınızda size en yakındaki sunucuya yönlenirsiniz. Eğer bu sunucu cevap vermezse en yakındaki diğer sunucuya yönlenirsiniz. Bu yöntem bir ağ için "routing" metodudur ve **anycast** olarak adlandırılır. Teknolojinin detayı konumuzun dışında olduğu için ilgilenmeyeceğiz ancak Anycast servisleri RFC4786'da tanımlanmıştır: https://tools.ietf.org/html/rfc4786
+
+Aralık 2015 itibariyle kök sunucular 97 farklı ülkeye yayılmıştır. Türkiye'de de 4 tanesi bulunmaktadır. 2'si İstanbul'da D-ROOT ve L-ROOT anycast'leri olarak çalışmakta, 2'si ise Ankara'da I-ROOT ve L-ROOT anycast'leri olarak çalışmaktadır. B-ROOT Sunucu
 
 ## Daha Fazla Bilgi
 
