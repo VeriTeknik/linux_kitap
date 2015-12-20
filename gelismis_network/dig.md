@@ -222,7 +222,9 @@ Kök sunucular da zaman zaman IP adreslerini değiştirme ihtiyacı hissederler.
 
 ### Kök Sunucularda IPv6 Desteği
 
-Yukarıdaki listeye baktığınızda, kitabın yazıldığı Aralık 2015 tarihi itibariyle 2 kök sunucunun (e-root ve g-root) IPv6 desteği vermediği görülebilir. Kök sunucularda IPv6 desteği 29 Ocak 2008 tarihinde IANA tarafından duyurulmuştur ve 6 tane sunucu ile başlamıştır (a, f, h, j, k, m). Daha sonra diğer sunucular da IPv6 desteği vermiştir. Duyuruya ve ilgii rapo
+Yukarıdaki listeye baktığınızda, kitabın yazıldığı Aralık 2015 tarihi itibariyle 2 kök sunucunun (e-root ve g-root) IPv6 desteği vermediği görülebilir. Kök sunucularda IPv6 desteği 29 Ocak 2008 tarihinde IANA tarafından duyurulmuştur ve 6 tane sunucu ile başlamıştır (a, f, h, j, k, m). Daha sonra diğer sunucular da IPv6 desteği vermiştir. Duyuruya ve ilgii rapora şuradan erişebilirsiniz: http://www.iana.org/reports/2008/root-aaaa-announcement.html
+
+Kök sunucuların IPv6 desteği vermesi demek, sunucuların IPv6 adresinin olması, dolayısıyla doğrudan IPv6 ile sorgulanabilmeleri demektir. Bu gelişmeden önce kök sunuculara IPv4 ile sorgu gönderip, IPv6 adres bilgileri edinilebiliyordu. Ama bu durum sorguyu gönderen tarafın hem IPv4 hem de IPv6 protokollerini desteklemesini gerektiriyordu. IPv6 desteği ile bu zorunluluk ortadan kalktı. Tabii kök sunucuların yönlendirdiği DNS sunucular IPv6 desteklemediği sürec
 
 ## Daha Fazla Bilgi
 
