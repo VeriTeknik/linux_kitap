@@ -30,4 +30,14 @@ Etkileşimli mod bir sistem yöneticisi için çok pratik olmadığından pek ku
 
 ## Non-Interactive Mode
 
+Yukarıdaki sorgunun aynısını terminalden şu şekile yapabilirdik.
 
+```bash
+eaydin@dixon ~ $ nslookup veritech.net
+Server:		127.0.1.1
+Address:	127.0.1.1#53
+
+Non-authoritative answer:
+Name:	veritech.net
+Address: 94.103.32.32
+```
