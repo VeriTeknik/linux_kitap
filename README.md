@@ -17,12 +17,25 @@ adresinden ulaşabilirsiniz.
 Lisans eğitimi sırasında çok miktardaki bilimsel verinin tasniflenmesi ve anlamlandırılması üzerine çalışırken GNU/Linux sistemler üzerinde MPI ve Embarrasingly Parallel algoritmalar geliştirerek programlama ve sistem yönetimi deneyimi kazanmıştır. Temel bilimler ve sistem programcılığında Python'un yaygınlaşmasıyla "Wavelet Dönüşümüne Dayalı Dinamik Güç Spektrumu Eldesi" konulu yüksek lisans tez çalışmasının yanı sıra pek çok görüntü işleme ve güvenlik sistemini de bu dilde geliştirmiştir. Gömülü Linux sistemlerin yanı sıra sunucu ve ağ programlama yapan yazar, Doktora çalışmasına X-Işın Uydu Gözlemlerinin Hassas Zaman Ölçümü konusunda devam etmektedir.
 
 ## Notlar
-Dökümanda kullanılan kod ekranları kolay "kopyala-yapıştır" yapılabilmesi açısından komut satırları # işareti olmadan, cevapların ise bash tarafından "yorum" olarak algılanabilmesi için başında # işareti ile ifade edilmiştir, örneğin:
+
+Dökümanda komutlar tek başına gösterildiklerinde başında $ veya # gibi işaretler olmadan kullanılmıştır. Örneğin:
+
 ```bash
 which vi
-#/usr/bin/vi
-#You have new mail.
 ```
+
+Öte yandan, çıktısı belirtilecek komutlarda, girdinin ayırt edilebilmesi için, prompt'un tamamı gösterilmiştir. Örneğin:
+
+```bash
+eaydin@dixon ~ $ which vi
+/usr/bin/vi
+```
+
+Dökümanın PDF halinde yatay eksende çok uzun olan komutlar veya çıktıları tam olarak görülmemektedir. Bu durumun önüne geçmek için uzun komutlar **\** işareti ile alt satırdan devam etmiştir.
+
+Kitabı çevrimdışı HTML olarak okumak isterseniz, ```wget``` ile edinebilirsiniz.
+
+
 
 
 
