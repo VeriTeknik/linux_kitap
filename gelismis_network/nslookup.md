@@ -80,4 +80,16 @@ Address: 94.103.32.32
 Authoritative answers can be found from:
 ```
 
+### Sorgulanacak DNS Sunucusunu Belirtmek
 
+Özellikle bir DNS sunucusu tanımlamak istiyorsak, parametre olarak bu bilgiyi de vermemiz gerekir. ```dig```'de **@** ile başlayan argümana karşılık gelmektedir.
+
+```bash
+eaydin@dixon ~ $ nslookup veritech.net 8.8.8.8
+Server:		8.8.8.8
+Address:	8.8.8.8#53
+
+Non-authoritative answer:
+Name:	veritech.net
+Address: 94.103.32.32
+```
