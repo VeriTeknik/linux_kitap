@@ -42,3 +42,29 @@ wlan0     Link encap:Ethernet  HWaddr 80:56:f2:5b:ad:ab
           RX bytes:531301670 (531.3 MB)  TX bytes:38844271 (38.8 MB)
 ```
 
+Yukarıdaki çıktıda 3 cihaz görülüyor.
+
+```eth0```: Ethernet kartı cihazı. Açık konumda (UP) ancak bir IP adresi yok. **HWaddr** ile gösterilen kısım MAC adresi.
+
+```lo```: Lookback interface. Yerel ağ'ın oluşması, 127.0.0.1 IP adresinin bir yere işaret edebilmesi için oluşan sanal cihaz.
+
+```wlan0```: Başka bir ethernet kartı. Adından anlaşılacağı üzere kablosuz (wireless) cihaz. Hem IPv4 hem de IPv6 adresleri görülüyor. Ayrıca **RX** ve **TX** ile giden, gelen paket sayısı ve miktarı gösteriliyor. Cihaz açıldığından beri 531.3MB indirme (download, receive) yapmış, 38.8MB gönderme (upload, transmisson) yapmış.
+
+
+Hangi cihazın kablosuz arayüzünün olduğunu (wireless extension) anlamak için ```iwconfig``` komutu kullanılabilir.
+
+```bash
+eth0      no wireless extensions.
+
+wlan0     IEEE 802.11bgn  ESSID:"aydin"  
+          Mode:Managed  Frequency:2.427 GHz  Access Point: 18:28:61:D3:B2:ED   
+          Bit Rate=58.5 Mb/s   Tx-Power=20 dBm   
+          Retry short limit:7   RTS thr:off   Fragment thr:off
+          Power Management:off
+          Link Quality=46/70  Signal level=-64 dBm  
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:1716  Invalid misc:1703   Missed beacon:0
+
+lo        no wireless extensions.
+```
+
