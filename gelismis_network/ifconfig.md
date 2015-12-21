@@ -184,3 +184,19 @@ MTU (Maximum Transmission Unit - Maksimum Aktarım Birimi) ayarlanabilir. Bu aya
 ```bash
 ifconfig eth0 mtu 900
 ```
+
+### Promiscuous Mode
+
+Ethernet kartınız destekliyorsa (son yıllarda büyük çoğunluğu destekliyor) kartınıza gelen ancak sizi ilgilendirmeyen paketleri de CPU'ya gönderip işlemenize olanak sağlayabilirsiniz. Böylece ağınızdaki trafik hakkında fikir sahibi olabilirsiniz.
+
+Açmak için
+
+```bash
+ifconfig eth0 promisc
+```
+
+Kapatmak için
+
+```bash
+ifconfig eth0 -promisc
+```
