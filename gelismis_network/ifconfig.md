@@ -177,4 +177,6 @@ Genellikle yukarıdaki işlemler tek komut ile gerçekleştirilir.
 ifconfig eth0 192.168.42.5 netmask 255.255.255.0 broadcast 192.168.42.255
 ```
 
+### MTU Ayarlamak
 
+MTU (Maximum Transmission Unit - Maksimum Aktarım Birimi) ayarlanabilir. Bu ayarı her kart desteklemeyebilir, çoğunlukla değiştirmenize de gerek olmaz. Ancak bir sebepten değiştirmek isterseniz aşağıdaki şekilde ayarlayabilirsiniz. Buradaki MTU birimi Byte cinsindendir. 
