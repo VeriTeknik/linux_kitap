@@ -45,7 +45,7 @@ Kitabı çevrimdışı HTML olarak okumak isterseniz, ```wget``` ile edinebilirs
 wget -m -p --convert-links -P kitap https://veriteknik.gitbooks.io/linux-yonetimi/content/
 ```
 
-Yukarıdaki komut, bulunduğunuz dizine ```kitap``` isminde bir dizin oluşturur ve kitabı indirir. Komutun açıklamasını Gelişmiş Terminal Komutları bölümündeki wget kısmında öğrenebilirsiniz.
+Yukarıdaki komut, bulunduğunuz dizine ```kitap``` isminde bir dizin oluşturur ve kitabı indirir. Komutun açıklamasını [Gelişmiş Terminal Komutları](https://veriteknik.gitbooks.io/linux-yonetimi/content/gelismis_terminal/gelismis_terminal_komutlari.html) bölümündeki [wget](https://veriteknik.gitbooks.io/linux-yonetimi/content/gelismis_terminal/wget.html) kısmında öğrenebilirsiniz.
 
 ### Terimler
 
