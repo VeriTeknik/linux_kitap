@@ -91,7 +91,7 @@
    * [MySQL Bağlantısı](python/mysql_baglantisi.md)
    * [Python 2 ve Python 3 Ayrımı](python/py_2v3.md)
 * [Güvenlik](guvenlik/guvenlik.md)
-   * CentOS 7 Firewall
+   * [CentOS 7 Firewall](guvenlik/centos_7_firewall.md)
    * [IPTables](guvenlik/iptables/iptables.md)
        * [Temel İzinler](guvenlik/iptables/temel_izinler.md)
        * [IP ve Port Engelleme](guvenlik/iptables/engelleme.md)
