@@ -176,6 +176,12 @@ wget --mirror --page-requisites --convert-links \
 --directory-prefix=indirme_dizini http://plugged.in
 ```
 
+Okuduğunuz kitabın HTML halini indirmek isterseniz aşağıdaki komutu kullanabilirsiniz.
+
+```bash
+wget --mirror --page-requisites --convert-links --directory-prefix=kitap https://veriteknik.gitbooks.io/linux-yonetimi/content/
+```
+
 ## Belirli Dosya Tiplerini ve Dizin Oluşumunu Engellemek
 
 Aşağıdaki örnek, rackdc CentOS mirror'undan iso dosyaları hariç (--reject) tüm dosyaları indirecek, ancak "Parent Directory"e gidip tarama işlemini genişletmeyecek (-np) ve tamamını tek dizine indirip alt dizinleri oluşturmayacaktır.
