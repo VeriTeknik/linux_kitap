@@ -96,6 +96,7 @@
        * [IP ve Port Engelleme](guvenlik/iptables/engelleme.md)
    * [selinux](guvenlik/selinux.md)
    * [nmap ile Açık Arama Testleri](guvenlik/nmap.md)
+   * CentOS 7 Firewall
 * [Güvenilirlik](guvenilirlik/guvenilirlik.md)
    * [Optimizasyon Teknikleri](guvenilirlik/optimizasyon/optimizasyon.md)
        * [Apache/PHP](guvenilirlik/optimizasyon/apache_php.md)
