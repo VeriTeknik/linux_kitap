@@ -325,7 +325,13 @@ ANSWER SECTION'ın başında yazan **253.32.103.94.in-addr.arpa.** ifadesi stand
 
 ## Farklı Port Kullanımı
 
+Nadiren de olsa bazı DNS sunucuları standart 53 portundan değil, farklı porttan servis verebilirler. Bu durumu dig'e belirtmek için kendisine ```-p``` parametresiyle portu belirtmek gerekir.
 
+```bash
+dig -p 56 veritech.net @192.168.19.23
+```
+
+Yukarıdaki komut, yerel ağımızdaki 192.168.19.23 IP adresli DNS sunucusuna 56. porttan bağlanıp veritech.net adresinin A kaydını soracaktır.
 
 ## Daha Fazla Bilgi
 
