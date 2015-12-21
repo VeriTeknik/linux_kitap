@@ -54,6 +54,10 @@ Bazı durumlarda cihazların tamamı listelenmeyebilir. Özellikle DOWN durumda 
 
 ```ifconfig -a```
 
+Komut bazı bilgileri ```/proc``` altındaki dosyalardan öğrenir. Aşağıda birkaç örneğini görebilirsiniz.
+
+
+
 ### iwconfig
 
 Hangi cihazın kablosuz arayüzünün olduğunu (wireless extension) anlamak için ```iwconfig``` komutu kullanılabilir.
