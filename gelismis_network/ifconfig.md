@@ -64,6 +64,12 @@ eth0:       0       0    0    0    0     0          0         0        0       0
 lo: 3925336    8112    0    0    0     0          0         0  3925336    8112    0    0    0     0       0          0
 ```
 
+```bash
+eaydin@dixon ~ $ cat /proc/net/if_inet6
+00000000000000000000000000000001 01 80 10 80       lo
+fe800000000000008256f2fffe5badab 03 40 20 80    wlan0
+```
+
 ### iwconfig
 
 Hangi cihazın kablosuz arayüzünün olduğunu (wireless extension) anlamak için ```iwconfig``` komutu kullanılabilir.
