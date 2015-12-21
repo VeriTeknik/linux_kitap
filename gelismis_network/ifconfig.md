@@ -200,3 +200,10 @@ Kapatmak için
 ```bash
 ifconfig eth0 -promisc
 ```
+
+### MAC Adresini Değiştirmek
+
+Cihazınızın MAC adresini değiştirebilirsiniz. Genellikle ağdaki ARP tablolarının karışmasına sebep olacaktır bu yüzden dikkatli kullanmanızda fayda var.
+
+```bash
+ifconfig eth0 hw ether AA:BB:CC:DD:EE:FF
