@@ -47,6 +47,7 @@ wget -m -p --convert-links -P kitap https://veriteknik.gitbooks.io/linux-yonetim
 
 Terimler çoğunlukla Türkçe karşılıkları belirtilerek çoğunlukla İngilizce olarak kullanılmıştır. Okuyucuların teknik terimleri ve karşılaştıkları problemleri İngilizce kullanarak Google'lamaları tavsiye edilmektedir.
 
+
 **Cem Karaca** & **M. Emre Aydın**
 
 
