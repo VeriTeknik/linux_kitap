@@ -110,4 +110,8 @@ Standart 53 portu dışında bir port kullanmak istersek, ```-port``` parametres
 nslookup -port=72 veritech.net 192.168.47.3
 ```
 
+### Reverse DNS
+
+nslookup, parametre olarak IP adresi aldığında, rDNS sorgusu yapar.
+
 
