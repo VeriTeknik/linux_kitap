@@ -98,5 +98,7 @@ Address: 94.103.32.32
 
 Standart 53 portu dışında bir port kullanmak istersek, ```-port``` parametresiyle tanımlayabiliriz.
 
-```nslookup -port=72 veritech.net 192.168.47.3```
+```bash
+nslookup -port=72 veritech.net 192.168.47.3
+```
 
