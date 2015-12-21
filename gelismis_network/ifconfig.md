@@ -145,6 +145,22 @@ veya
 ifdown eth0
 ```
 
+### IP Adresi Atamak
+
+Bir cihaza IP adresi atamak için cihaz isminden sonra doğrudan IP'yi yazabilirsiniz.
+
+```bash
+ifconfig eth0 192.168.42.5
+```
+
+### Netmask Atamak
+
+Cihazın netmaskını belirtmek için kullanılır, daha önce belirttiğimiz gibi CIDR notasyonunu desteklemez.
+
+```bash
+ifconfig eth0 netmask 255.255.255.0
+```
+
 
 
 
