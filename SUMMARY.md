@@ -77,7 +77,7 @@
    * [traceroute](gelismis_network/traceroute.md)
    * [dig](gelismis_network/dig.md)
    * [nslookup](gelismis_network/nslookup.md)
-   * route
+   * [route](gelismis_network/route.md)
    * nmap
    * netcat
    * tcpdump
