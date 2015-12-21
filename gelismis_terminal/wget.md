@@ -179,7 +179,9 @@ wget --mirror --page-requisites --convert-links \
 Okuduğunuz kitabın HTML halini indirmek isterseniz aşağıdaki komutu kullanabilirsiniz.
 
 ```bash
-wget --mirror --page-requisites --convert-links --directory-prefix=kitap https://veriteknik.gitbooks.io/linux-yonetimi/content/
+wget --mirror --page-requisites --convert-links \
+--directory-prefix=kitap \
+https://veriteknik.gitbooks.io/linux-yonetimi/content/
 ```
 
 ## Belirli Dosya Tiplerini ve Dizin Oluşumunu Engellemek
