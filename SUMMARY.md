@@ -75,7 +75,7 @@
    * [ping](gelismis_network/ping.md)
    * [traceroute](gelismis_network/traceroute.md)
    * [dig](gelismis_network/dig.md)
-   * nslookup
+   * [nslookup](gelismis_network/nslookup.md)
    * route
    * ifconfig
    * nmap
