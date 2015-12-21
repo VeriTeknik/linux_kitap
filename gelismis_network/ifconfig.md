@@ -169,6 +169,12 @@ Netmask tanımlamaya oldukça benzerdir.
 ifconfig eth0 broadcast 192.168.42.2555
 ```
 
+### IP Adresi, Netmask ve Broadcast'i Aynı Anda Tanımlamak
 
+Genellikle yukarıdaki işlemler tek komut ile gerçekleştirilir.
+
+```bash
+ifconfig eth0 192.168.42.5 netmask 255.255.255.0 broadcast 192.168.42.255
+```
 
 
