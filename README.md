@@ -18,6 +18,8 @@ Lisans eğitimi sırasında çok miktardaki bilimsel verinin tasniflenmesi ve an
 
 ## Notlar
 
+### Komut Gösterimi
+
 Dökümanda komutlar tek başına gösterildiklerinde başında $ veya # gibi işaretler olmadan kullanılmıştır. Örneğin:
 
 ```bash
@@ -31,6 +33,8 @@ eaydin@dixon ~ $ which vi
 /usr/bin/vi
 ```
 
+### Çevrimdışı Okumak
+
 Dökümanın PDF halinde yatay eksende çok uzun olan komutlar veya çıktıları tam olarak görülmemektedir. Bu durumun önüne geçmek için uzun komutlar **\** işareti ile alt satırdan devam etmiştir.
 
 Kitabı çevrimdışı HTML olarak okumak isterseniz, ```wget``` ile edinebilirsiniz.
@@ -39,6 +43,9 @@ Kitabı çevrimdışı HTML olarak okumak isterseniz, ```wget``` ile edinebilirs
 wget -m -p --convert-links -P kitap https://veriteknik.gitbooks.io/linux-yonetimi/content/
 ```
 
+### Terimler
+
+Terimler çoğunlukla Türkçe karşılıkları belirtilerek çoğunlukla İngilizce olarak kullanılmıştır. Okuyucuların teknik terimleri ve karşılaştıkları problemleri İngilizce kullanarak Google'lamaları tavsiye edilmektedir.
 
 **Cem Karaca** & **M. Emre Aydın**
 
