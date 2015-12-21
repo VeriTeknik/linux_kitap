@@ -91,12 +91,12 @@
    * [MySQL Bağlantısı](python/mysql_baglantisi.md)
    * [Python 2 ve Python 3 Ayrımı](python/py_2v3.md)
 * [Güvenlik](guvenlik/guvenlik.md)
+   * CentOS 7 Firewall
    * [IPTables](guvenlik/iptables/iptables.md)
        * [Temel İzinler](guvenlik/iptables/temel_izinler.md)
        * [IP ve Port Engelleme](guvenlik/iptables/engelleme.md)
    * [selinux](guvenlik/selinux.md)
    * [nmap ile Açık Arama Testleri](guvenlik/nmap.md)
-   * CentOS 7 Firewall
 * [Güvenilirlik](guvenilirlik/guvenilirlik.md)
    * [Optimizasyon Teknikleri](guvenilirlik/optimizasyon/optimizasyon.md)
        * [Apache/PHP](guvenilirlik/optimizasyon/apache_php.md)
