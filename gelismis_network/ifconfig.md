@@ -50,6 +50,11 @@ Yukarıdaki çıktıda 3 cihaz görülüyor.
 
 ```wlan0```: Başka bir ethernet kartı. Adından anlaşılacağı üzere kablosuz (wireless) cihaz. Hem IPv4 hem de IPv6 adresleri görülüyor. Ayrıca **RX** ve **TX** ile giden, gelen paket sayısı ve miktarı gösteriliyor. Cihaz açıldığından beri 531.3MB indirme (download, receive) yapmış, 38.8MB gönderme (upload, transmisson) yapmış.
 
+Bazı durumlarda cihazların tamamı listelenmeyebilir. Özellikle DOWN durumda olan cihazları da görüntülemek için ```-a``` parametresi kullanılmalıdır.
+
+```ifconfig -a```
+
+### iwconfig
 
 Hangi cihazın kablosuz arayüzünün olduğunu (wireless extension) anlamak için ```iwconfig``` komutu kullanılabilir.
 
