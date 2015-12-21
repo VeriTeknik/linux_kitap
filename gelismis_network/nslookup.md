@@ -54,3 +54,30 @@ veritech.net	mail exchanger = 5 posta.veriportal.com.
 
 Authoritative answers can be found from:
 ```
+
+Bütün NS kayıtlarına erişmek için, ```dig```'de olduğu gibi tip olara **ANY** kullanabiliriz.
+
+```bash
+eaydin@dixon ~ $ nslookup -type=any veritech.net
+Server:		127.0.1.1
+Address:	127.0.1.1#53
+
+Non-authoritative answer:
+veritech.net
+	origin = ns1.rackdc.com
+	mail addr = hostmaster.veritech.net
+	serial = 2015120202
+	refresh = 14400
+	retry = 3600
+	expire = 1209600
+	minimum = 86400
+veritech.net	nameserver = ns2.rackdc.com.
+veritech.net	nameserver = ns1.rackdc.com.
+veritech.net	mail exchanger = 5 posta.veriportal.com.
+Name:	veritech.net
+Address: 94.103.32.32
+
+Authoritative answers can be found from:
+```
+
+
