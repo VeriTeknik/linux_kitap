@@ -207,3 +207,4 @@ Cihazınızın MAC adresini değiştirebilirsiniz. Genellikle ağdaki ARP tablol
 
 ```bash
 ifconfig eth0 hw ether AA:BB:CC:DD:EE:FF
+```
