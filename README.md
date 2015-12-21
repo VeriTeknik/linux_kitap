@@ -33,6 +33,8 @@ eaydin@dixon ~ $ which vi
 /usr/bin/vi
 ```
 
+Çıktısı çok uzun olan ve yeni girdi kullanılan komutlarda, girdiler ve çıktılar ayrı komut blokları halinde gösterilmiştir.
+
 ### Çevrimdışı Okumak
 
 Dökümanın PDF halinde yatay eksende çok uzun olan komutlar veya çıktıları tam olarak görülmemektedir. Bu durumun önüne geçmek için uzun komutlar **\** işareti ile alt satırdan devam etmiştir.
