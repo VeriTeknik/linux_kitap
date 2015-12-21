@@ -50,6 +50,19 @@ Yukarıdaki çıktıda 3 cihaz görülüyor.
 
 ```wlan0```: Başka bir ethernet kartı. Adından anlaşılacağı üzere kablosuz (wireless) cihaz. Hem IPv4 hem de IPv6 adresleri görülüyor. Ayrıca **RX** ve **TX** ile giden, gelen paket sayısı ve miktarı gösteriliyor. Cihaz açıldığından beri 531.3MB indirme (download, receive) yapmış, 38.8MB gönderme (upload, transmisson) yapmış.
 
+Tek cihazı görüntülemek için parametre olarak ismi verilebilir.
+
+```bash
+eaydin@dixon ~ $ ifconfig eth0
+eth0      Link encap:Ethernet  HWaddr a0:d3:c1:5e:68:ec  
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+```
+
+
 Bazı durumlarda cihazların tamamı listelenmeyebilir. Özellikle DOWN durumda olan cihazları da görüntülemek için ```-a``` parametresi kullanılmalıdır.
 
 ```ifconfig -a```
