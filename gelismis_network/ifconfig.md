@@ -5,3 +5,4 @@ Bugün GNU/Linux kullanan sistem yöneticilerinin çoğu eski alışkanlıkları
 ifconfig'in artık geliştirilmemesinin pek çok sebebi vardır, ve bunun yerine ```ip``` komutunun kullanımı tavsiye edilir. Örneğin netmask tanımlanmasına CIDR notasyonu desteklenmez, ```255.255.255.248``` yerine ```/29``` yazamazsınız.
 
 Öte yandan, bazı eski sistemlerde veya gömülü sistemlerde ```ip``` komutu bulunmayabilir. Bunun için nasıl çalıştığı hakkında fikir sahibi olmakta fayda var.
+
