@@ -72,12 +72,12 @@
    * at
 * [Gelişmiş Network Komutları](gelismis_network/gelismis_network_komutlari.md)
    * [ip](gelismis_network/ip.md)
+   * [ifconfig](gelismis_network/ifconfig.md)
    * [ping](gelismis_network/ping.md)
    * [traceroute](gelismis_network/traceroute.md)
    * [dig](gelismis_network/dig.md)
    * [nslookup](gelismis_network/nslookup.md)
    * route
-   * [ifconfig](gelismis_network/ifconfig.md)
    * nmap
    * netcat
    * tcpdump
