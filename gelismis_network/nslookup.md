@@ -10,5 +10,24 @@ Her ne kadar dig kullanımını tavsiye etsek de, bağlandığınız bazı siste
 
 nslookup iki türlü kullanılabilir, birisi etkileşimli (interactive) modudur, diğeri de etileşimsiz (non-interactive) modudur.
 
-nslookup programını parametresiz çalıştırdığınızda, etkileşimli modda başlar. Ardından sorgunuzu belirtebilirsiniz.
+nslookup programını parametresiz çalıştırdığınızda, etkileşimli modda başlar. Ardından sorgunuzu belirtebilirsiniz. Programdan çıkmak için ```exit``` kuomutunu kullanabilir, veya ```CTRL+D``` kısayolunu kullanabilirsiniz.
+
+```bash
+eaydin@dixon ~ $ nslookup
+> veritech.net
+Server:		127.0.1.1
+Address:	127.0.1.1#53
+
+Non-authoritative answer:
+Name:	veritech.net
+Address: 94.103.32.32
+> exit
+
+eaydin@dixon ~ $ 
+```
+
+Etkileşimli mod bir sistem yöneticisi için çok pratik olmadığından pek kullanılmaz. Örneğin yazdığınız scriptlerin zaman zaman çıktıları çözümlemesi gerekebilir, bu tip durumlar için etkileşimsiz mod kullanılmalıdır.
+
+## Non-Interactive Mode
+
 
