@@ -240,7 +240,88 @@ Kök sunucuların konumlarını interaktif bir haritayla http://www.root-servers
 
 ## Reverse DNS
 
+Reverse DNS, şu ana kadar gördüğümüz DNS işlemlerinin tersini yapmaktadır. Bildiğiniz üzere DNS sunucular, kendilerine sorulan alanadlarının IP adreslerini cevap olarak döndürürler. Reverse DNS (rDNS) ise bu işlemin tersini yapmaktadır: bir IP adresinin hangi alanadına işaret ettiğini belirtir. Bu işlem DNS seviyesinde olduğu kadar, ISP (Internet Service Provider, İnternet Servis Sağlayıcı) seviyesinde de yapılmalıdır. Böylece gerçekten de bir IP adresinden gelen bilgi doğru alanadına mı işaret ediyor anlaşılabilir. Bu işlem en çok e-posta sunucuları için gerekmektedir, ve doğru rDNS kayıdı yapılmayan e-posta sunucuları pek çok yere e-posta gönderemez.
 
+rDNS kayıtları servis sağlayıcılar üzerinde PTR (Pointer) kaydı olarak tutulur. Bu kayıtları sorgulamak için, dig'in ```-x``` parametresi kullanılabilir.
+
+Örneğin, veritech.net adresinin MX kayıdına bakıp hangi eposta sunucusunu kullandığını öğrenelim.
+
+```bash
+eaydin@dixon ~ $ dig mx veritech.net
+
+; <<>> DiG 9.9.5-3ubuntu0.6-Ubuntu <<>> mx veritech.net
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 32977
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;veritech.net.          IN  MX
+
+;; ANSWER SECTION:
+veritech.net.       14399   IN  MX  5 posta.veriportal.com.
+
+;; Query time: 147 msec
+;; SERVER: 127.0.1.1#53(127.0.1.1)
+;; WHEN: Mon Dec 21 22:27:11 EET 2015
+;; MSG SIZE  rcvd: 77
+```
+
+Yukarıdaki sonuçtan, eposta sunucusunun **posta.veriportal.com** olduğunu öğrendik. Bu sunucunu IP adresini öğrenelim.
+
+```bash
+eaydin@dixon ~ $ dig posta.veriportal.com
+
+; <<>> DiG 9.9.5-3ubuntu0.6-Ubuntu <<>> posta.veriportal.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 42579
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;posta.veriportal.com.      IN  A
+
+;; ANSWER SECTION:
+posta.veriportal.com.   21599   IN  A   94.103.32.253
+
+;; Query time: 236 msec
+;; SERVER: 127.0.1.1#53(127.0.1.1)
+;; WHEN: Mon Dec 21 22:27:18 EET 2015
+;; MSG SIZE  rcvd: 65
+```
+
+Gelen cevaba göre IP adresi **94.103.32.253**. Şimdi gerçekten de bu IP adresinin bu alanadına işaret edip etmediğini öğrenelim, böylece bu adresten gelen e-postaların doğru kaynaktan gelip gelmediğini anlamış olacağız.
+
+```bash
+eaydin@dixon ~ $ dig -x 94.103.32.253
+
+; <<>> DiG 9.9.5-3ubuntu0.6-Ubuntu <<>> -x 94.103.32.253
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 60350
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;253.32.103.94.in-addr.arpa.    IN  PTR
+
+;; ANSWER SECTION:
+253.32.103.94.in-addr.arpa. 21599 IN    PTR posta.veriportal.com.
+
+;; Query time: 118 msec
+;; SERVER: 127.0.1.1#53(127.0.1.1)
+;; WHEN: Mon Dec 21 22:27:27 EET 2015
+;; MSG SIZE  rcvd: 89
+```
+
+Yukarıdaki çıktının **ANSWER SECTION** kısmına bakacak olursak, PTR kaydının posta.veriporta.com olduğunu görüyoruz. Bu kaynağın doğrulandığı anlamına geliyor.
+
+ANSWER SECTION'ın başında yazan **253.32.103.94.in-addr.arpa.** ifadesi standart bir rDNS satırı. IP adresinin ters hali ile sonuna ```.in-addr.arpa``` eklenmesiyle oluşturulur.
 
 ## Daha Fazla Bilgi
 
