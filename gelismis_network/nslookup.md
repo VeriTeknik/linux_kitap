@@ -6,3 +6,9 @@ Bugün nslookup ile yapabileceğiniz her şeyi ve daha fazlasını dig ile gerç
 
 Her ne kadar dig kullanımını tavsiye etsek de, bağlandığınız bazı sistemlerde dig bulunmayabilir, nslookup kullanmanız gerekebilir. Bu sebeple burada temel kullanımını göreceğiz.
 
+## Interactive/Non-Interactive Mode
+
+nslookup iki türlü kullanılabilir, birisi etkileşimli (interactive) modudur, diğeri de etileşimsiz (non-interactive) modudur.
+
+nslookup programını parametresiz çalıştırdığınızda, etkileşimli modda başlar. Ardından sorgunuzu belirtebilirsiniz.
+
