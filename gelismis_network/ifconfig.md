@@ -117,5 +117,7 @@ iwconfig komutu ifconfig ile aynı şekilde kullanılabilir. ifconfig ile kullan
 
 Aşağıda ifconfig ile temel cihaz ayarlamalarının nasıl yapıldığını göreceğiz.
 
-**ÖNEMLİ NOT**: Bu ayarlar sistemi doğrudan etkiler, reboot gerektirmez. Dolayısıyla cihazın IP adresini veya benzer bilgileri değiştirirseniz internet erişimini etkileyebilirsiniz. Uzaktan bağlı olduğunuz cihazlarda bu komutları kullanırken dikkatli olmanızı tavsiye ederiz. Bu ayarlar sistem reboot olduğunda kaybolur, yani ```/etc/network/interfaces``` veya ```
+**ÖNEMLİ NOT**: Bu ayarlar sistemi doğrudan etkiler, reboot gerektirmez. Dolayısıyla cihazın IP adresini veya benzer bilgileri değiştirirseniz internet erişimini etkileyebilirsiniz. Uzaktan bağlı olduğunuz cihazlarda bu komutları kullanırken dikkatli olmanızı tavsiye ederiz. Bu ayarlar sistem reboot olduğunda kaybolur, yani ```/etc/network/interfaces``` veya ```/etc/sysconfig/network-scripts/ifcfg-eth0``` gibi dosyaları düzenlediğinizde olduğu gibi kalıcı değildir.
+
+
 
