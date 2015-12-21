@@ -21,9 +21,17 @@ Address:	127.0.1.1#53
 Non-authoritative answer:
 Name:	veritech.net
 Address: 94.103.32.32
+> set type=mx
+> plugged.in
+Server:		127.0.1.1
+Address:	127.0.1.1#53
+
+Non-authoritative answer:
+plugged.in	mail exchanger = 10 mail.plugged.in.
+
+Authoritative answers can be found from:
 > exit
 
-eaydin@dixon ~ $ 
 ```
 
 Etkileşimli mod bir sistem yöneticisi için çok pratik olmadığından pek kullanılmaz. Örneğin yazdığınız scriptlerin zaman zaman çıktıları çözümlemesi gerekebilir, bu tip durumlar için etkileşimsiz mod kullanılmalıdır.
