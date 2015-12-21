@@ -42,7 +42,7 @@ Name:	veritech.net
 Address: 94.103.32.32
 ```
 
-A kaydı dışında bir sorgu yapmak istiyorsak, ```-query``` veya ```-type```  parametresiyle belirtebiliriz.
+A kaydı dışında bir sorgu yapmak istiyorsak, ```-query```, ```-type```, ```-q``` veya ```-ty```  parametresiyle belirtebiliriz.
 
 ```bash
 eaydin@dixon ~ $ nslookup -query=mx veritech.net
