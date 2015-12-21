@@ -1,5 +1,1 @@
 # Glossary
-
-## wget
-
-webget
