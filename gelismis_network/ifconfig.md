@@ -119,5 +119,32 @@ Aşağıda ifconfig ile temel cihaz ayarlamalarının nasıl yapıldığını g�
 
 **ÖNEMLİ NOT**: Bu ayarlar sistemi doğrudan etkiler, reboot gerektirmez. Dolayısıyla cihazın IP adresini veya benzer bilgileri değiştirirseniz internet erişimini etkileyebilirsiniz. Uzaktan bağlı olduğunuz cihazlarda bu komutları kullanırken dikkatli olmanızı tavsiye ederiz. Bu ayarlar sistem reboot olduğunda kaybolur, yani ```/etc/network/interfaces``` veya ```/etc/sysconfig/network-scripts/ifcfg-eth0``` gibi dosyaları düzenlediğinizde olduğu gibi kalıcı değildir.
 
+### Cihaz Açıp Kapatmak
+
+Cihazları (örn. eth0) aktif hale getirmek için
+
+```bash
+ifconfig eth0 up
+```
+
+veya 
+
+```bash
+ifup eth0
+```
+
+Pasif hale getirmek içinse
+
+```bash
+ifconfig eth0 down
+```
+
+veya
+
+```bash
+ifdown eth0
+```
+
+
 
 
