@@ -41,3 +41,16 @@ Non-authoritative answer:
 Name:	veritech.net
 Address: 94.103.32.32
 ```
+
+A kaydı dışında bir sorgu yapmak istiyorsak, ```-query``` parametresiyle belirtebiliriz.
+
+```bash
+eaydin@dixon ~ $ nslookup -query=mx veritech.net
+Server:		127.0.1.1
+Address:	127.0.1.1#53
+
+Non-authoritative answer:
+veritech.net	mail exchanger = 5 posta.veriportal.com.
+
+Authoritative answers can be found from:
+```
