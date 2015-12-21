@@ -43,7 +43,6 @@ wget -m -p --convert-links -P kitap https://veriteknik.gitbooks.io/linux-yonetim
 **Cem Karaca** & **M. Emre Aydın**
 
 
-
 ---
 
 
