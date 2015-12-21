@@ -51,7 +51,7 @@ Yukarıdaki komut, bulunduğunuz dizine ```kitap``` isminde bir dizin oluşturur
 
 ### Terimler
 
-Terimler çoğunlukla Türkçe karşılıkları belirtilerek çoğunlukla İngilizce olarak kullanılmıştır. Okuyucuların teknik terimleri ve karşılaştıkları problemleri İngilizce kullanarak Google'lamaları tavsiye edilmektedir.
+Terimler Türkçe karşılıkları belirtilerek çoğunlukla İngilizce olarak kullanılmıştır. Okuyucuların teknik terimleri ve karşılaştıkları problemleri İngilizce kullanarak Google'lamaları tavsiye edilmektedir.
 
 **Cem Karaca** & **M. Emre Aydın**
 
