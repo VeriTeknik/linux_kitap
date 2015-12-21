@@ -98,3 +98,5 @@ Inter-| sta-|   Quality        |   Discarded packets               | Missed | WE
  wlan0: 0000   44.  -66.  -256        0      0      0   1716   1712        0
 ```
 
+iwconfig komutu ifconfig ile aynı şekilde kullanılabilir. ifconfig ile kullanacağınız bütün parametreleri iwconfig ile kullıp kablosuz cihazlarınızı ayarlayabilirsiniz.
+
