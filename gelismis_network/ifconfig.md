@@ -10,3 +10,6 @@ ifconfig'in artık geliştirilmemesinin pek çok sebebi vardır, ve bunun yerine
 
 Öte yandan, bazı eski sistemlerde veya gömülü sistemlerde ```ip``` komutu bulunmayabilir. Bunun için nasıl çalıştığı hakkında fikir sahibi olmakta fayda var.
 
+## Mevcut Cihazları Listelemek
+
+```ifconfig``` programı parametresiz çağırıldığında mevcut ağ cihazlarını (NIC, Network Interface Controller) listeler.
