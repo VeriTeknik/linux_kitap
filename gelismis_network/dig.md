@@ -323,6 +323,10 @@ Yukarıdaki çıktının **ANSWER SECTION** kısmına bakacak olursak, PTR kayd�
 
 ANSWER SECTION'ın başında yazan **253.32.103.94.in-addr.arpa.** ifadesi standart bir rDNS satırı. IP adresinin ters hali ile sonuna ```.in-addr.arpa``` eklenmesiyle oluşturulur.
 
+## Farklı Port Kullanımı
+
+
+
 ## Daha Fazla Bilgi
 
 dig programı alanadları için tanılanmış standartlara uygunluk gösterir. Bu standartlar hakkındaki detaylar [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt)'te tanımlanmıştır.
