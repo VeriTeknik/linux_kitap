@@ -81,3 +81,4 @@ Inter-| sta-|   Quality        |   Discarded packets               | Missed | WE
  face | tus | link level noise |  nwid  crypt   frag  retry   misc | beacon | 22
  wlan0: 0000   44.  -66.  -256        0      0      0   1716   1712        0
 ```
+
