@@ -56,7 +56,13 @@ Bazı durumlarda cihazların tamamı listelenmeyebilir. Özellikle DOWN durumda 
 
 Komut bazı bilgileri ```/proc``` altındaki dosyalardan öğrenir. Aşağıda birkaç örneğini görebilirsiniz.
 
-
+```bash
+eaydin@dixon ~ $ cat /proc/net/dev
+Inter-|   Receive                                                |  Transmit
+ face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed
+eth0:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0
+lo: 3925336    8112    0    0    0     0          0         0  3925336    8112    0    0    0     0       0          0
+```
 
 ### iwconfig
 
