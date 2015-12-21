@@ -73,3 +73,11 @@ wlan0     IEEE 802.11bgn  ESSID:"aydin"
 lo        no wireless extensions.
 ```
 
+iwconfig komutu, bu bilgileri ```/proc/net/wireless``` dosyasını okuyarak derler.
+
+```bash
+eaydin@dixon ~ $ cat /proc/net/wireless
+Inter-| sta-|   Quality        |   Discarded packets               | Missed | WE
+ face | tus | link level noise |  nwid  crypt   frag  retry   misc | beacon | 22
+ wlan0: 0000   44.  -66.  -256        0      0      0   1716   1712        0
+```
