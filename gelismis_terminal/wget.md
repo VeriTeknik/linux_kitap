@@ -172,7 +172,7 @@ Yukarıdaki komut [plugged.in](http://plugged.in) sayfasını ```indirme_dizini`
 Yukarıdaki komutun açık hali şöyledir
 
 ```bash
-wget --mirror --page-requisities --convert-links \
+wget --mirror --page-requisites --convert-links \
 --directory-prefix=indirme_dizini http://plugged.in
 ```
 
