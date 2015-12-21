@@ -35,7 +35,9 @@ Dökümanın PDF halinde yatay eksende çok uzun olan komutlar veya çıktılar�
 
 Kitabı çevrimdışı HTML olarak okumak isterseniz, ```wget``` ile edinebilirsiniz.
 
-
+```bash
+wget -m -p --convert-links -P kitap https://veriteknik.gitbooks.io/linux-yonetimi/content/
+```
 
 
 
