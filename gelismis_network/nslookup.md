@@ -93,3 +93,10 @@ Non-authoritative answer:
 Name:	veritech.net
 Address: 94.103.32.32
 ```
+
+### Port Belirtme
+
+Standart 53 portu dışında bir port kullanmak istersek, ```-port``` parametresiyle tanımlayabiliriz.
+
+```nslookup -port=72 veritech.net 192.168.47.3```
+
