@@ -161,6 +161,14 @@ Cihazın netmaskını belirtmek için kullanılır, daha önce belirttiğimiz gi
 ifconfig eth0 netmask 255.255.255.0
 ```
 
+### Broadcast Tanımlamak
+
+Netmask tanımlamaya oldukça benzerdir.
+
+```bash
+ifconfig eth0 broadcast 192.168.42.2555
+```
+
 
 
 
