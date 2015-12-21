@@ -77,7 +77,7 @@
    * [dig](gelismis_network/dig.md)
    * [nslookup](gelismis_network/nslookup.md)
    * route
-   * ifconfig
+   * [ifconfig](gelismis_network/ifconfig.md)
    * nmap
    * netcat
    * tcpdump
