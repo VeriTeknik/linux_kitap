@@ -37,6 +37,8 @@ eaydin@dixon ~ $ which vi
 
 Dökümanın PDF halinde yatay eksende çok uzun olan komutlar veya çıktıları tam olarak görülmemektedir. Bu durumun önüne geçmek için uzun komutlar **\** işareti ile alt satırdan devam etmiştir.
 
+HTML okunduğunda bu problem bulunmamaktadır, HTML scroll-bar (kaydırma çubuğu) sunmaktadır.
+
 Kitabı çevrimdışı HTML olarak okumak isterseniz, ```wget``` ile edinebilirsiniz.
 
 ```bash
