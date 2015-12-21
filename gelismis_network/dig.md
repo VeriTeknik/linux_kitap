@@ -238,6 +238,10 @@ Aralık 2015 itibariyle kök sunucular 97 farklı ülkeye yayılmıştır. Türk
 
 Kök sunucuların konumlarını interaktif bir haritayla http://www.root-servers.org/ adresinden inceleyebilirsiniz, veya trafik detaylarını http://pch.net/root-servers adresinden takip edebilirsiniz.
 
+## Reverse DNS
+
+
+
 ## Daha Fazla Bilgi
 
 dig programı alanadları için tanılanmış standartlara uygunluk gösterir. Bu standartlar hakkındaki detaylar [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt)'te tanımlanmıştır.
