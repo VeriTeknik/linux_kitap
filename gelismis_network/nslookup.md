@@ -115,3 +115,13 @@ nslookup -port=72 veritech.net 192.168.47.3
 nslookup, parametre olarak IP adresi aldığında, rDNS sorgusu yapar.
 
 
+```bash
+eaydin@dixon ~ $ nslookup 94.103.32.253
+Server:		127.0.1.1
+Address:	127.0.1.1#53
+
+Non-authoritative answer:
+253.32.103.94.in-addr.arpa	name = posta.veriportal.com.
+
+Authoritative answers can be found from:
+```
