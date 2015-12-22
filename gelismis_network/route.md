@@ -167,3 +167,20 @@ Benzer şekilde 10.0.42.0/24 bloğundaki cihazlar da kendi gateway'ini öğrenem
 route add default gw 10.0.42.16
 ```
 
+## VT Makinasında Teknik Grubun Route Kuralı
+
+VT makinası, kendisine 192.168.59.0/24 ağına gitmek üzere gönderilen paketleri hangi IP'ye (192.168.59.10) göndereceğini bilmelidir. Bunun için aşağıdaki route kura VT makinasında yazılır.
+
+```bash
+route add -net 192.168.59.0 netmask 255.255.255.0 gw 192.168.59.10
+```
+## VT Makinasında Muhasebe Grubunun Route Kuralı
+
+Benzer şekilde, VT makinasının 10.0.42.0/24 ağına gönderilecek paketleri hangi IP'ye (10.0.42.1) yönlendirmesi gerektiği belirtilmelidir.
+
+```bash
+route add -net 10.0.42.0 netmask 255.255.255.0 gw 10.0.42.1
+```
+
+
+
