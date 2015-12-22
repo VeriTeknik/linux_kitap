@@ -28,3 +28,5 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 192.168.99.0    0.0.0.0         255.255.255.0   U     9      0        0 wlan0
 ```
 
+Linux çekirdeği daha hızlı routing (yönlendirme) yapabilmek için bir routing cache tutar. Cache değerlerini görmek için ```route -Cn``` komutunu kullanabilirsiniz.
+
