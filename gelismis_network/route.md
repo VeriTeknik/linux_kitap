@@ -101,3 +101,29 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 192.168.59.5    -               255.255.255.255 !H    0      -        0 -
 192.168.99.0    0.0.0.0         255.255.255.0   U     9      0        0 wlan0
 ```
+
+Engellemeyi kaldırmak için
+
+```bash
+route del -host 192.168.59.5 rejec
+```
+
+Tek IP'yi engellemek yerine bir ağ aralığını engelleyebiliriz.
+
+```bash
+route add -net 192.168.59.0 netmask 255.255.255.0 reject
+```
+
+```bash
+eaydin@dixon ~ $ route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         192.168.99.1    0.0.0.0         UG    0      0        0 wlan0
+172.16.77.0     0.0.0.0         255.255.255.0   U     0      0        0 vmnet1
+172.16.148.0    0.0.0.0         255.255.255.0   U     0      0        0 vmnet8
+192.168.59.0    -               255.255.255.0   !     0      -        0 -
+192.168.99.0    0.0.0.0         255.255.255.0   U     9      0        0 wlan0
+```
+
+Engellemeyi kaldırmak için
+
