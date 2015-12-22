@@ -51,3 +51,15 @@ route del default
 
 **NOT:** Bazı durumlarda sistemde birden fazla default gateway tanımlanabilir. Teorik olarak gerekmiyor olsa da pratikte nadiren rastlanılan bir durumdur. Bu özel durumlar kapsamımız dışında olduğundan incelemiyoruz. Sadece böyle senaryoların karşılaşılabildiğini belirtme ihtiyacı hissettik.
 
+### Gateway Eklemek
+
+Default olmayan gateway, bir IP aralığına karşılık geldiği için, IP adresi, netmask ve NIC belirtmek gerekir.
+
+```bash
+route add -net 192.168.59.128 netmask 255.255.255.128 eth1
+```
+
+Yukarıdaki komut, 192.168.59.128-192.168.59.255 aralığıdaki IP'lere gönderilecek paketlerin eth1 cihazı üzerinden yollanacağını belirtir.
+
+
+
