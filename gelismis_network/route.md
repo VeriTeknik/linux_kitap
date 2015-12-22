@@ -56,10 +56,10 @@ route del default
 Default olmayan gateway, bir IP aralığına karşılık geldiği için, IP adresi, netmask ve NIC belirtmek gerekir.
 
 ```bash
-route add -net 192.168.59.128 netmask 255.255.255.128 eth1
+route add -net 192.168.59.128 netmask 255.255.255.128 eth0
 ```
 
-Yukarıdaki komut, **192.168.59.128-192.168.59.255** aralığıdaki IP'lere gönderilecek paketlerin **eth1** cihazı üzerinden yollanacağını belirtir.
+Yukarıdaki komut, **192.168.59.128-192.168.59.255** aralığıdaki IP'lere gönderilecek paketlerin **eth0** cihazı üzerinden yollanacağını belirtir.
 
 
 
