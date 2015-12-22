@@ -59,7 +59,7 @@ Default olmayan gateway, bir IP aralığına karşılık geldiği için, IP adre
 route add -net 192.168.59.128 netmask 255.255.255.128 eth1
 ```
 
-Yukarıdaki komut, 192.168.59.128-192.168.59.255 aralığıdaki IP'lere gönderilecek paketlerin eth1 cihazı üzerinden yollanacağını belirtir.
+Yukarıdaki komut, **192.168.59.128-192.168.59.255** aralığıdaki IP'lere gönderilecek paketlerin **eth1** cihazı üzerinden yollanacağını belirtir.
 
 
 
