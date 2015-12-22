@@ -130,3 +130,13 @@ Engellemeyi kaldırmak için
 ```bash
 route del -net 192.168.59.0 netmask 255.255.255.0 reject
 ```
+
+## IP Temelli Gateway Eklemek
+
+Yukarıdaki örneklerde belirli ağ aralığındaki paketleri eth0 gibi bir cihaza yönlendirmiştik. Aşağıdaki örnekte, belirli IP aralığındaki paketleri, bir IP adresi ile tanımlanmış gateway'e yönlendireceğiz.
+
+```bash
+route add -net 192.168.55.0 netmask 255.255.255.0 gw 192.168.55.1
+```
+
+Bu tanıma göre artık 192.168.55.0/24 ağ aralığına gidecek bütün paketler 192.168.55.1 IP adresine yönlendirilecektir.
