@@ -198,4 +198,4 @@ Ancak hiç kimse 8.8.8.8'e paket gönderemez, çünkü VT üzerinde bir default 
 route add default gw 94.103.32.80
 ```
 
-Artık bütün ağ birbiriyle konuşabilir ve internete çıkabi
+Artık bütün ağ birbiriyle konuşabilir ve internete çıkabilir.
