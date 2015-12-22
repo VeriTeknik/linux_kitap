@@ -61,5 +61,16 @@ route add -net 192.168.59.128 netmask 255.255.255.128 eth0
 
 Yukarıdaki komut, **192.168.59.128-192.168.59.255** aralığıdaki IP'lere gönderilecek paketlerin **eth0** cihazı üzerinden yollanacağını belirtir.
 
+Bu satırı yazdıktan sonra önceki route tablomuz şöyle oldu:
 
+```bash
+eaydin@dixon ~ $ route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         192.168.99.1    0.0.0.0         UG    0      0        0 wlan0
+172.16.77.0     0.0.0.0         255.255.255.0   U     0      0        0 vmnet1
+172.16.148.0    0.0.0.0         255.255.255.0   U     0      0        0 vmnet8
+192.168.59.128  0.0.0.0         255.255.255.128 U     0      0        0 eth0
+192.168.99.0    0.0.0.0         255.255.255.0   U     9      0        0 wlan0
+```
 
