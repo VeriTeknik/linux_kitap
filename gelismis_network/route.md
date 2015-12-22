@@ -73,4 +73,10 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 192.168.59.128  0.0.0.0         255.255.255.128 U     0      0        0 eth0
 192.168.99.0    0.0.0.0         255.255.255.0   U     9      0        0 wlan0
 ```
+### Gateway Silmek
 
+Yukarıda eklediğimiz gateway'i silmek için
+
+```bash
+route del -net 192.168.59.128 netmask 255.255.255.128 eth0
+```
