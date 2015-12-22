@@ -80,3 +80,4 @@ Yukarıda eklediğimiz gateway'i silmek için
 ```bash
 route del -net 192.168.59.128 netmask 255.255.255.128 eth0
 ```
+
