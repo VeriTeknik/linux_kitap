@@ -182,5 +182,20 @@ Benzer şekilde, VT makinasının 10.0.42.0/24 ağına gönderilecek paketleri h
 route add -net 10.0.42.0 netmask 255.255.255.0 gw 10.0.42.1
 ```
 
+## İnternet Erişimi Sağlamak
 
+Kuralları yukarıdaki haliyle bırakırsal, muhasebe ve teknik grupları hem kendi araların, hem de birbiriyle rahatlıkla haberleşirler.
 
+Örneğin 10.0.42.16 makinası, 10.0.42.20'ye paket göndermek istediğinde bu önce 10.0.42.1 kartına gider, bu kart da route kurallarından ilgili paketin 10.0.42.0/24 bloğunda olduğunu anlayıp 10.0.42.1 üzerinden geri 10.0.42.20 adresine gönderir.
+
+Benzer şekilde 192.168.59.2 kullanıcısı, 10.0.42.16'ya paket göndermek istediğinde, route tablosuna bakar ve default gateway'i olan 192.168.59.10'a paketi gönderir. VT makinası üzerindeki route tablosundan, 10.0.42.0/24'e gidecek bütün paketlerin 10.0.42.1'e yöneleneceğini bildiğinden ilgili noktaya taşır.
+
+Ancak hiç kimse 8.8.8.8'e paket gönderemez, çünkü VT üzerinde bir default gateway tanımlanmamıştır. Yani VT, 192.168.59.0/24 ve 10.0.42.0/24 networkleri dışında bir aralığa gönderilecek talepleri ne yapacağını bilmez.
+
+Öyleyse VT üzerinde bir default gateway tanımlanır.
+
+```bash
+route add default gw 94.103.32.80
+```
+
+Artık bütün ağ birbiriyle konuşabilir ve internete çıkabi
