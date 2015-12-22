@@ -81,3 +81,10 @@ Yukarıda eklediğimiz gateway'i silmek için
 route del -net 192.168.59.128 netmask 255.255.255.128 eth0
 ```
 
+### Bir IP veya Ağı Engellemek
+
+Belirli bir IP'ye gidecek paketleri route tablosundan engelleyebilirsiniz.
+
+```bash
+route add -host 192.168.59.5 reject
+```
