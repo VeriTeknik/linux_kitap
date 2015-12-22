@@ -88,3 +88,16 @@ Belirli bir IP'ye gidecek paketleri route tablosundan engelleyebilirsiniz.
 ```bash
 route add -host 192.168.59.5 reject
 ```
+
+```bash
+eaydin@dixon ~ $ ping 192.168.59.5
+connect: Network is unreachable
+eaydin@dixon ~ $ route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         192.168.99.1    0.0.0.0         UG    0      0        0 wlan0
+172.16.77.0     0.0.0.0         255.255.255.0   U     0      0        0 vmnet1
+172.16.148.0    0.0.0.0         255.255.255.0   U     0      0        0 vmnet8
+192.168.59.5    -               255.255.255.255 !H    0      -        0 -
+192.168.99.0    0.0.0.0         255.255.255.0   U     9      0        0 wlan0
+```
