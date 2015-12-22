@@ -48,3 +48,6 @@ Default Gateway'in, "nereye gideceğini bilmediğimiz paketlerin gönderildiği 
 ```bash
 route del default
 ```
+
+**NOT:** Bazı durumlarda sistemde birden fazla default gateway tanımlanabilir. Teorik olarak gerekmiyor olsa da pratikte nadiren rastlanılan bir durumdur. Bu özel durumlar kapsamımız dışında olduğundan incelemiyoruz. Sadece böyle senaryoların karşılaşılabildiğini belirtme ihtiyacı hissettik.
+
