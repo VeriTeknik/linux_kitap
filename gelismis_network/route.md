@@ -147,3 +147,23 @@ Bu tanıma göre artık 192.168.55.0/24 ağ aralığına gidecek bütün paketle
 
 Aşağıdaki örneği dikkate alalım. **VT** isminde bir sunucumuz olsun. Üzerinde 3 tane ethernet kartı var, ikisi farklı yerel ağ'lara bağlı, biriyse internete çıkıyor. **VT** sunucumuz, bu iki ağı hem birbiriyle, hem de internetle konuşturmak istiyor. Senaryo aşağıdaki gibi olsun:
 
+![](network.png)
+
+Yukarıdaki senaryoda, VT sunucumuzun 3 IP adresi olacaktır. 192.168.59.10 ve 10.0.42.1 IP adresleri yerel ağları yönetecek, 94.103.32.80 IP adresi ise internete çıkışını sağlayacaktır.
+
+Bu senaryoda, 192.168.59.0/24 bloğundaki cihazların (teknik ekip), 10.0.42.0/24 bloğundaki cihazlarla (muhasebe ekibi), ve internetin geri kalanıyla haberleşebilmesini sağlamak gerekiyor.
+
+## Uçbirimlerin Gateway Ayarlaması
+
+Öncelikle uçbirimlerin default gateway'leri ayarlanmalıdır. 192.168.59.0/24 bloğundaki cihazların gatewayleri 192.168.59.10 yapılmalıdır. Öyleyse bu bloktaki bilgisayarlara aşağıdaki komut yazılır.
+
+```bash
+route add default gw 192.168.59.10
+```
+
+Benzer şekilde 10.0.42.0/24 bloğundaki cihazlar da kendi gateway'ini öğrenemli. Bu durumda muhasebe ekibinin bilgisayarlarında aşağıdaki komut çalıştırılır.
+
+```bash
+route add default gw 10.0.42.16
+```
+
