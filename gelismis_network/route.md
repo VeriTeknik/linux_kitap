@@ -127,3 +127,6 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 
 Engellemeyi kaldırmak için
 
+```bash
+route del -net 192.168.59.0 netmask 255.255.255.0 reject
+```
