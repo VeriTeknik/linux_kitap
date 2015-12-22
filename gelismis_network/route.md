@@ -140,3 +140,10 @@ route add -net 192.168.55.0 netmask 255.255.255.0 gw 192.168.55.1
 ```
 
 Bu tanıma göre artık 192.168.55.0/24 ağ aralığına gidecek bütün paketler 192.168.55.1 IP adresine yönlendirilecektir.
+
+
+
+# Örnek Route Senaryosu
+
+Aşağıdaki örneği dikkate alalım. **VT** isminde bir sunucumuz olsun. Üzerinde 3 tane ethernet kartı var, ikisi farklı yerel ağ'lara bağlı, biriyse internete çıkıyor. **VT** sunucumuz, bu iki ağı hem birbiriyle, hem de internetle konuşturmak istiyor. Senaryo aşağıdaki gibi olsun:
+
