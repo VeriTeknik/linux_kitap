@@ -39,7 +39,6 @@ FreeBSD sistemlerde ise sisteme entegre olarak çalışan newsyslog yapılandır
     - C: dosya olmayabilir, yoksa oluştur
     - J: Dosyayı sıkıştır (bzip ile)
     - X: Dosyayı sıkıştır (xz ile)
-    - N: Rotasyon tamamlanınca sinyallenmesi gereken proses belirtilir
     - Z: Dosyayı sıkıştır (gzip kullanılır | tavsiye edilir)
 
 
