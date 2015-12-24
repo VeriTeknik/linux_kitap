@@ -35,3 +35,11 @@ FreeBSD sistemlerde ise sisteme entegre olarak çalışan newsyslog yapılandır
     $M1D0   Her ayın ilk günü gece yarısında
     $M5D6   Her ayın 5. günü saat 6:00'da
 ```
+* flags:
+    - C: dosya olmayabilir, yoksa oluştur
+    - J: Dosyayı sıkıştır (bzip ile)
+    - X: Dosyayı sıkıştır (xz ile)
+    - N: Rotasyon tamamlanınca sinyallenmesi gereken proses belirtilir
+    - Z: Dosyayı sıkıştır (gzip kullanılır | tavsiye edilir)
+
+
