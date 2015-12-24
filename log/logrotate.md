@@ -10,8 +10,24 @@ rpm -qa | grep -i logrotate
 #yüklü degilse
 yum install logrotate -y
 ```
+Kişisel rotasyon ayar dosyalarınızı /etc/logrotate.d dizini altına koyabilirsiniz, /etc/logrotate.conf güncellemeler tarafından değiştirilebileceği için kişisel kodlarımızı bu dosya içerisine koymaktan kaçınmalıyız.
 
+Web sunucuöuz tarafından üretilen log dosyalarının rotasyonunu tüm kullanıcılar için şu şekilde ayarlayabilirsiniz:
 
+```bash
+vi /etc/logrotate.d/home
+/home/*/logs/*log {
+        daily
+        rotate 8
+        missingok
+        compress
+        delaycompress
+        postrotate
+        /usr/sbin/apachectl graceful
+        endscript
+}
+```
+bu komut dizisi ile logrotate /home/ altındaki tüm kullanıcıların ~/log/ dizini altındaki tüm *.log uzantılı dosyaları günde bir defa rotasyona sokacaktır, toplamda 8 adet sıkıştırılmış rotasyon oluşturulacak ve rotasyon tamamlandığında apache graceful şekilde yeniden başlatılacaktır.
 
 
 FreeBSD sistemlerde ise sisteme entegre olarak çalışan newsyslog yapılandırması ile log dönüşümü sağlanır, /etc/newsyslog.conf içerisinde log dönüşümü sağlanan dosya isimlerini görebilirsiniz:
