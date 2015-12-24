@@ -40,5 +40,6 @@ FreeBSD sistemlerde ise sisteme entegre olarak çalışan newsyslog yapılandır
     - J: Dosyayı sıkıştır (bzip ile)
     - X: Dosyayı sıkıştır (xz ile)
     - Z: Dosyayı sıkıştır (gzip kullanılır | tavsiye edilir)
+* [/pid_file]: log rotasyonu tamamlandığında logu üreten prosesin sinyallenmesi gerekiyorsa, prosesin pid bilgisi buraya yazılır, örneğin: /var/run/pflogd.pid
 
 
