@@ -16,7 +16,7 @@ yum install logrotate -y
 
 FreeBSD sistemlerde ise sisteme entegre olarak çalışan newsyslog yapılandırması ile log dönüşümü sağlanır, /etc/newsyslog.conf içerisinde log dönüşümü sağlanan dosya isimlerini görebilirsiniz:
 ```bash
-# logfilename          [owner:group]    mode count size when  flags [/pid_file] [sig_num]
+# logfilename          [owner:group]    mode count size when  flags [/pid_file]
 /var/log/all.log                        600  7     *    @T00  J
 /var/log/amd.log                        644  7     100  *     J
 /var/log/auth.log                       600  7     100  @0101T JC
