@@ -26,6 +26,18 @@ firewall-cmd --zone=public --permanent --add-service=https
 systemctl start firewalld.service
 ```
 
+###Kullanıcı ve Güvenlik ayarları
+Kullanıcıyı açın, gerekirse şifre verin ve FTP sunucusu yükleyin, tavsiyemiz FTP sunucusunu ihtiyacınız olduğu zaman kullanmanızdır.
+
+
+```bash
+useradd web
+passwd web
+#ssh login denemelerini 3 ile sinirlandirin
+sed -i 's/#MaxAuthTries.*/MaxAuthTries 3/' /etc/ssh/sshd_config 
+```
+
+
 ### logrotate ayarları
 ```bash
 echo "/home/*/logs/*log { 
