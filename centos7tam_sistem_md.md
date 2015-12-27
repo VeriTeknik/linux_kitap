@@ -40,6 +40,33 @@ echo "/home/*/logs/*log {
 }" > /etc/logrotate.d/home
 ```
 
+### MySQL (MariaDB) Kurulumu
+```bash
+systemctl enable mariadb
+systemctl start mariadb
+mysql_secure_installation
+# kisa versiyon
+# Asagida entera basiniz
+Enter current password for root (enter for none):
+# Yeni sifreyi girebilmek icin Y harfine basiniz
+Set root password? [Y/n] Y
+#New password: 
+#Re-enter new password: 
+#Password updated successfully!
+#Reloading privilege tables..
+# ... Success!
+# Tum islemlere Y harfi ile devam ediniz
+Remove anonymous users? [Y/n] Y
+# ... Success!
+Disallow root login remotely? [Y/n] Y
+#  ... Success!
+Remove test database and access to it? [Y/n] Y
+# - Dropping test database...
+# ... Success!
+Reload privilege tables now? [Y/n] Y
+# ... Success!
 
-##
+Thanks for using MariaDB!
+```
+
 
