@@ -10,7 +10,7 @@ Sistem CD'den yüklendikten sonra uygulanacak adımlar şunlardır
 ```
 sed -i 's/SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
 yum upgrade
-yum install php-fpm php-mysql php-gd php-xml httpd mariadb-server
+yum install php-fpm php-mysql php-gd php-xml httpd mariadb-server wget bind-utils net-tools lsof iptraf tcpdump
 
 ```
 
