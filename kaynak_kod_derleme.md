@@ -10,7 +10,11 @@ Sistem CD'den yüklendikten sonra uygulanacak adımlar şunlardır
 ```
 sed -i 's/SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
 yum upgrade
-yum install php-fpm php-mysql php-gd php-xml httpd mariadb-server wget bind-utils net-tools lsof iptraf tcpdump
+yum install php-fpm php-mysql php-gd php-xml httpd \ 
+mariadb-server wget bind-utils net-tools lsof iptraf tcpdump
+systemctl stop avahi-daemon.socket avahi-daemon.service
+systemctl disable avahi-daemon.socket avahi-daemon.service
+yum remove avahi-autoipd avahi-libs avahi NetworkManager-libnm
 
 ```
 
