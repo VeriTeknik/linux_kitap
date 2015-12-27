@@ -18,6 +18,14 @@ yum remove avahi-autoipd avahi-libs avahi NetworkManager-libnm
 
 ```
 
+### firewall ayarları
+```bash
+systemctl enable firewalld.service
+firewall-cmd --zone=public --permanent --add-service=http
+firewall-cmd --zone=public --permanent --add-service=https
+systemctl start firewalld.service
+```
+
 ### logrotate ayarları
 ```bash
 echo "/home/*/logs/*log { 
@@ -31,5 +39,7 @@ echo "/home/*/logs/*log {
         endscript 
 }" > /etc/logrotate.d/home
 ```
+
+
 ##
 
