@@ -14,6 +14,20 @@
 | -- | -- | -- |
 | Linux ve Programlama örneklerimiz | http://www.plugged.in/ | İngilizce |
 | IPv4 ve IPv6 test ve analiz sitemiz | http://www.ip6tools.com | İngilizce |
+| Yansılar | http://mirror.veriteknik.net.tr | İngilizce |
+
+
+### Yardımcı Servisler
+
+| Servis | Adres | Lisanslı Yazılım |
+| -- | -- | -- |
+| DNS* | ns1.rackdc.com | ns2.rackdc.com |
+
+|*Servisler sadece müşterilere açık olabilir |--|--|
+
+
+
+
 
 
 
