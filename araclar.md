@@ -21,7 +21,9 @@
 
 | Servis | Adres | Lisanslı Yazılım |
 | -- | -- | -- |
-| DNS** | ns1.rackdc.com | ns2.rackdc.com |*
+| DNS* | ns1.rackdc.com | ns2.rackdc.com |
+| NTP | ntp1.veriteknik.com | ntp2.veriteknik.com |
+| WSUS | wsus.rackdc.com | -- |
 |*Servisler sadece müşterilere açık olabilir |--|--|
 
 
