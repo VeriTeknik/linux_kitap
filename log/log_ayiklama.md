@@ -1,4 +1,4 @@
-# Regular Expressions Kullanarak Log Ayıklama Egzersizleri
+# Log Analiz Egzersizleri
 
 Log dosyalarının UNIX sistemler üzerinde en verimli şekilde kullanmanın yolu, log dosyası oluşurken anlık olarak takip etmektir. Bu işlemi yaparken "tail" komutu kullanılur. tail argüman verilmeden çalıştırıldığında dosyanın en son satırlarını gösterir, ancak "-f" argümanı ile (çoğu işletim sisteminde **tailf** şeklinde alias olarak bulunmaktadır) dosya oluşurken takip etmek mümkündür. Tipik kullanımı şu şekildedir:
 
