@@ -9,3 +9,26 @@ tailf /var/log/messages
 Yukarıdaki komutu girdikten sonra, en son nerede kaldığınızı hatırlamak için bir kaç kez enter tuşuna basıp satırlar arasında ayırt edici bir boşluk bırakabilirsiniz. Siz enter'a bassanız dahi yeni log oluştuğunda boşluklardan sonra log akmaya devam edecektir.
 
 
+Başka güzel bir metod ise, daha hızlı akan loglarda sadece aranan kelimenin bulunduğu satırın gözükmesini sağlamaktır, UNIX log standartlarında, her hatanın bir satır halinde verilmesi olasıdır. Diğer işletim sistemlerinde ya da Java'daki gibi bir hatayı ifade etmek için birden çok satır kullanılmaz. 
+
+Örnek vermek gerekirse:
+```bash
+mail# tailf maillog | grep IMAP
+May 19 00:20:34 mail imapd: LOGIN, user=user@domain.com.tr, ip=[10.10.128.25], port=[58833], protocol=IMAP
+```
+Yukarıda yoğun bir mail sunucusunda sadece "IMAP" eventleri filtrelenmiştir, bu şekilde bir tarafta log ekreanı açıkken diğer tarafta denemelerinizi yapabilir, sonuçlarını canlı izleyebilirsiniz.
+
+
+### Journalctl
+
+
+Yeni nesil işletim sistemlerinde "journalctl" komutuyla aynı işi daha kolay yapabilirsiniz. Günlük servisi (systemd-journald.service) sisteminizde çalışıyorsa, tutulan günlüğün en son halini şu şekilde öğrenebilirsiniz:
+
+en baştan günlüğe bakmak isterseniz:
+```bash
+journalctl -xm
+>Apr 20 02:13:02 www.veriteknik.net.tr systemd-journal[112]: Runtime journal is using 8.0M (max allowed >189.5M, trying to leave 284.3M free of 1.8G available â†’ current limit 189.5M).
+>Apr 20 02:13:02 www.veriteknik.net.tr systemd-journal[112]: Runtime journal is using 8.0M (max allowed >189.5M, trying to leave 284.3M free of 1.8G available â†’ current limit 189.5M).
+```
+
+en son günlük bilgilerini almak için ise journalctl -xn kullanılabilir, bu komut hakkında daha detaylı bilgi man arşivlerinde bulunmaktadır.
