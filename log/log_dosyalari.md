@@ -21,7 +21,18 @@ Bu dosyaların yanı sıra, kernel'in döngülü hafızasında bulunan mesajlar�
 ### SYSLOG
 Syslog programlama yaparken, işletim sistemi hatalarını ve uyarılarını takip ederken kullanılan standart bir loglama mekanizmasıdır, siz kullanmasanız bile o hep ordadır, logluyordur ve hiç durmaz.
 
-ilk syslog çalışmaları 2001 yılında başlamıştır, RFC 3164[1] syslogun temelini oluşturur,
+ilk syslog çalışmaları 2001 yılında başlamıştır, RFC 3164[1] syslogun temelini oluşturur, syslog logların nasıl tutulacağı, ağırlığı ve önemine kadar bir çok noktayı tanımlar, syslog sadece kendi domaini ya da sunucusu ile sınırlı değildir, diğer bütün cihazlardan ya da sunuculardan da log dosyalarını toplayabilir. 
+
+Syslog'a gelen hata ve uyarı mesajları gönderen servise göre sınıflandırılabilir, buna orjinal dilinde "Facility" denilmektedir. Ayrıca kullanıcının kendi özel servisleri ya da uzak sunucuları için kullanabileceği 8 ayrı facility bulunmaktadır.
+
+|Servis Kodu|Anahtar Kelime|Açıklama|
+||||
+|0|kern| Kernel Mesajları|
+|1|user|kullanıcı seviyesi mesajlar|
+
+
+Syslog log önem derecesi şu şekilde sınıflandırılabilir:
+
 
 [1]: http://www.rfc-editor.org/info/rfc3164
 
