@@ -26,7 +26,7 @@ ilk syslog çalışmaları 2001 yılında başlamıştır, RFC 3164[1] syslogun 
 Syslog'a gelen hata ve uyarı mesajları gönderen servise göre sınıflandırılabilir, buna orjinal dilinde "Facility" denilmektedir. Ayrıca kullanıcının kendi özel servisleri ya da uzak sunucuları için kullanabileceği 8 ayrı facility bulunmaktadır.
 
 |Servis Kodu|Anahtar Kelime|Açıklama|
-||||
+| -- | -- | -- |
 |0|kern| Kernel Mesajları|
 |1|user|kullanıcı seviyesi mesajlar|
 
