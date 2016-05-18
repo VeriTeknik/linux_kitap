@@ -29,6 +29,11 @@ Syslog'a gelen hata ve uyarı mesajları gönderen servise göre sınıflandır�
 | -- | -- | -- |
 |0|kern| Kernel Mesajları|
 |1|user|kullanıcı seviyesi mesajlar|
+|.|..|..|
+|5|syslog|syslog tarafından üretilen mesajlar|
+|.|..|..|
+|16|local0|kişisel kullanım için local0|
+
 
 
 Syslog log önem derecesi şu şekilde sınıflandırılabilir:
