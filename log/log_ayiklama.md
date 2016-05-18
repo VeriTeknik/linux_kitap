@@ -27,8 +27,8 @@ Yeni nesil işletim sistemlerinde "journalctl" komutuyla aynı işi daha kolay y
 en baştan günlüğe bakmak isterseniz:
 ```bash
 journalctl -xm
->Apr 20 02:13:02 www.veriteknik.net.tr systemd-journal[112]: Runtime journal is using 8.0M (max allowed >189.5M, trying to leave 284.3M free of 1.8G available â†’ current limit 189.5M).
->Apr 20 02:13:02 www.veriteknik.net.tr systemd-journal[112]: Runtime journal is using 8.0M (max allowed >189.5M, trying to leave 284.3M free of 1.8G available â†’ current limit 189.5M).
+>Apr 20 02:13:02 domain systemd-journal[112]: Runtime journal is using 8.0M ...
+>Apr 20 02:13:02 www.veriteknik.net.tr systemd-journal[112]: Runtime journal is ...
 ```
 
 en son günlük bilgilerini almak için ise journalctl -xn kullanılabilir, bu komut hakkında daha detaylı bilgi man arşivlerinde bulunmaktadır.
