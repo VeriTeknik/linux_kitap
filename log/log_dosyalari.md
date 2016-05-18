@@ -38,6 +38,16 @@ Syslog'a gelen hata ve uyarı mesajları gönderen servise göre sınıflandır�
 
 Syslog log önem derecesi şu şekilde sınıflandırılabilir:
 
+|Değer|	Önem|	Anahtar Kelime|	Açıklama|örnek|
+| -- | -- | -- | -- | -- |
+|0|	Kriz	| emerg	| Sistem kullanılamaz| kernel panik |
+|1|	Alarm	| alert	| Acilen düzeltilmesi gereken durum | IO ya da RAID hataları|
+|2|	Kritik	| crit	| Kritik durumlar | Disk Dolması gibi |
+|3|	Hata	| err	| Hata durumları | Uygulama Hataları | Apache config hatası|
+|4|	Uyarı | warning | Uyarı mesajları | PHP.ini dosyasında date alanının tanımsız olması|
+|5|	Bildirim| notice |	Hata mahiyetinde olmayan ancak bildirim gerektiren durumlar| depreciated komutlar|
+|6| Bilgi Amaçlı |info| Operasyonel mesajlar | Örneğin bir işlem tamamlandığında |
+|7|	Debug|	debug| tasarımcılar için özel debug mesajları| Fonksiyon giriş ve çıkış noktaları|
 
 [1]: http://www.rfc-editor.org/info/rfc3164
 
