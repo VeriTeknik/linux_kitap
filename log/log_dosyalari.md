@@ -16,3 +16,12 @@ Web Hosting yapan bir Sistem Uzmanının sürekli takip etmesi gereken log dosya
 
 
 Bu dosyaların yanı sıra, kernel'in döngülü hafızasında bulunan mesajları da dmesg komutu ile görüntüleyebilirsiniz.Aynı şekilde, hangi kullanıcının en son ne zaman giriş yaptığını görüntülemek için 'lastlog' komutunu kullanabilirsiniz.
+
+
+### SYSLOG
+Syslog programlama yaparken, işletim sistemi hatalarını ve uyarılarını takip ederken kullanılan standart bir loglama mekanizmasıdır, siz kullanmasanız bile o hep ordadır, logluyordur ve hiç durmaz.
+
+ilk syslog çalışmaları 2001 yılında başlamıştır, RFC 3164[1] syslogun temelini oluşturur,
+
+[1]: http://www.rfc-editor.org/info/rfc3164
+
