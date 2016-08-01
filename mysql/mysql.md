@@ -15,8 +15,8 @@ yum install mariadb mariadb-server
 ```
 
 ```bash
-systemctl enable mariadb.service
-systemctl start mariadb.service
+systemctl enable mysql.service
+systemctl start mysql.service
 ```
 
 MySQL'i compile etmeyiniz, compile edilen MySQL'in rpm paketlerinden daha yavaş olduğu izlenmektedir, rpm paketleri optimizedir.
