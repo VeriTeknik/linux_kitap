@@ -12,7 +12,7 @@ Bundan sonra konfigürasyon dosyasını editleyebilirsiniz.dhcpcd
 
 `vim /etc/dhcpcd.conf`
 
-Bu dosyadan gerekli IP adresi ayarlamalarını yapabilirsiniz. Statik bir IP konfigğrasyonu için aşağıdaki örneği inceleyiniz.
+Bu dosyadan gerekli IP adresi ayarlamalarını yapabilirsiniz. Statik bir IP konfigürasyonu için aşağıdaki örneği inceleyiniz.
 
 ```
 interface eth0
