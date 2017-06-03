@@ -46,30 +46,7 @@ ip link set <i>interface</i> up
 ip link show <i>interface</i> 
 </pre>
 
-komutlarını kullanabilirsiniz.
-
-<!--komutunu kullanabilir ve ardından bağlantıya açık Wi-Fi sinyallerini görmek için de aşağıdaki komutu kullanabilirsiniz.-->
-
-<!--<pre>-->
-<!--iw dev <i>interface</i> scan | less-->
-<!--</pre>-->
-
-<!--Bir bağlantı noktasına bağlanabilmek için kullanılan şifreleme yöntemine uygun olarak aşağıdaki komutu uygulamalısınız.-->
-
-<!--* __Şifresiz__-->
-    <!--<pre>-->
-    <!--iw dev <i>interface</i> connect "<i>bağlantı_noktası</i>"-->
-    <!--</pre>-->
-<!--* __WEP__-->
-    <!--<pre>-->
-    <!--iw dev <i>interface</i> connect "<i>bağlantı_noktası</i>" key 0:<i>şifre</i>-->
-    <!--</pre>-->
-<!--* __WPA/WPA2__-->
-    <!--<pre>-->
-    <!--wpa_supplicant -i <i>interface</i> -c <(wpa_passphrase "<i>bağlantı_noktası</i>" "<i>şifre</i>")-->
-    <!--</pre>    -->
-
-Aşağıdaki komutla Wi-Fi kurulum arayüzünü getirebilir ve gerekli ayarları yapabilirsiniz.
+komutlarını kullanabilirsiniz. Aşağıdaki komutla Wi-Fi kurulum arayüzünü getirebilir ve gerekli ayarları yapabilirsiniz.
 <pre>
 wifi-menu <i>interface</i>
 </pre>
