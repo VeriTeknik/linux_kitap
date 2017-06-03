@@ -34,7 +34,7 @@ interface wlan0
 static ip_address=10.1.1.31/24
 static routers=10.1.1.1
 static domain_name_servers=10.1.1.1
-``````
+```
 Bu ayarı yaptıktan sonra tekrar internete bağlanabilmeniz için dhcpcd servisini tekrar aktifleştirmelisiniz.
 
 `systemctl start dhcpcd@<TAB>`
@@ -150,7 +150,7 @@ Dil ayarlarını yapmak için aşağıdaki dosyayı kullanmalısınız.
 
 `vim /etc/locale.gen`
 
-Bu dosyanın içinde, sistem kurulduğunda hangi dilleri kullanmak istiyorsanız onları başlarındaki "#" işaretini kaldırarak uncomment etmelisiniz. Bu işlemi tamamladıktan sonra dil ayarını oluşturmak için aşağıdaki komutları uygulamalısınız. Örnekte en_US kullanılmıştır, diğer diller `locale.gen` dosyasında bulabilirsiniz.
+Bu dosyanın içinde, sistem kurulduğunda hangi dilleri kullanmak istiyorsanız onları başlarındaki "#" işaretini kaldırarak uncomment etmelisiniz. Bu işlemi tamamladıktan sonra dil ayarını oluşturmak için aşağıdaki komutları uygulamalısınız. Örnekte en_US kullanılmıştır, diğer dilleri `locale.gen` dosyasında bulabilirsiniz.
 
 ```
 locale-gen
