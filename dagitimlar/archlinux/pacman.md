@@ -62,7 +62,7 @@ mkdir cower && cd cower
 curl https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=cower -o PKGBUILD
 makepkg PKGBUILD --skippgpcheck --install --needed
 ```
-Bu basamaktan sonra artik pacaur paketini de aynı şekilde indirip kurabilirsiniz.
+Bu basamaktan sonra artık pacaur paketini de aynı şekilde indirip kurabilirsiniz.
 
 ```
 mkdir pacaur && cd pacaur
