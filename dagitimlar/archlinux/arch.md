@@ -16,9 +16,9 @@ Yapacağınız ilk işlem, internet bağlantısını kontrol etmek olacak. Arch 
 
 `ping archlinux.org -c 5`
 
-Eğer internet bağlantısı yoksa dhcpcd servisini `systemctl stop dhcpcd@<TAB>` komutuyla durdurmalı ve internet bağiantısı için gerekli ayarları yapmalısınız.
+Eğer internet bağlantısı yoksa dhcpcd servisini `systemctl stop dhcpcd@<TAB>` komutuyla durdurmalı ve internet bağlantısı için gerekli ayarları yapmalısınız.
 
-İnternet bağlantısı olmaması durumunda, `ip addr` veya `ifconfig` komutlarıyla interface ismini öğrenip `/etc/dhcpcd.conf` dosyasını tercih ettiğiniz editör programı (vi, vim veya nano) ile gerekli ayarları yapacak şekilde değiştimelisiniz. 
+İnternet bağlantısı olmaması durumunda, `ip addr` veya `ifconfig` komutlarıyla interface ismini öğrenip `/etc/dhcpcd.conf` dosyasını tercih ettiğiniz editör programı (vi, vim veya nano) ile gerekli ayarları yapacak şekilde değiştirmelisiniz. 
 
 `vim /etc/dhcpcd.conf`
 
@@ -70,7 +70,7 @@ Biçimlendirme işlemi için `cfdisk` programını açıp, arayüz üzerinden mo
 
 `cfdisk` açıldıktan sonra size "partition table" biçimini soracaktır, "dos" olarak işaretleyebilirsiniz.
 
-Gelen ekranda ok tuşlarını kullanarak [New] seçeneğini işaretleyiniz ve ilgili partition için istediğiniz boyutu seçiniz. Aynı prosedürü kullanarak birden fazla partitionun ayarını yapabilirsiniz. Bu örneğimizde `/dev/sda` sürücüsü `/dev/sda1` ve `/dev/sda2` olmak üzere iki partition'a ayırılmış durumda.
+Gelen ekranda ok tuşlarını kullanarak [New] seçeneğini işaretleyiniz ve ilgili partition için istediğiniz boyutu seçiniz. Aynı prosedürü kullanarak birden fazla partitionun ayarını yapabilirsiniz. Bu örnekte `/dev/sda` sürücüsü `/dev/sda1` ve `/dev/sda2` olmak üzere iki partition'a ayırılmış durumda.
 
 ![](a05.png)
 
@@ -106,11 +106,10 @@ Bu işlemler sonrasında ulaşmak istediğimiz sonuç şekildeki gibidir.
 
 ![](a07.png)
 
-Bunula sistemin bu şekilde kurulmasını amaçlıyoruz.
+Bununla sistemin bu şekilde kurulmasını amaçlıyoruz.
 
 ```
 root (sda1)
-│   home (sda2)
 │   bin    ───────────────>
 │   etc    ───────────────>
 │   dev    ───────────────>
@@ -120,6 +119,7 @@ root (sda1)
 │   usr    ───────────────>
 │   boot   ───────────────>
 │   lib    ───────────────>
+│   home (sda2)
 │   opt    ───────────────>
 │   mnt    ───────────────>
 │   media  ───────────────>
@@ -136,7 +136,7 @@ Bu komut uygulandıktan sonra internet hızınıza bağlı olarak bir süre pake
 
 ![](a08.png)
 
-İşlem tamamlandıktan sonra bir adet `fstab` dosyası oluşturmanız gerekiyor. Bunu "label" ya da "UUID" kullanarak yapabilirsiniz ancak tavsiye edilen yöntem UUID kullanmaktır. 
+İşlem tamamlandıktan sonra bir adet `fstab` dosyası oluşturmanız gerekiyor. Bunu "label" ya da "UUID" kullanarak yapabilirsiniz ancak tavsiye edilen yöntem UUID kullanmaktır (UUID'leri görmek için daha önce bahsi geçen `blkid` komutunu kullanabilirsiniz).
 
 `genfstab -U -p /mnt >> /mnt/etc/fstab`
 
@@ -181,7 +181,7 @@ Kullanıcı eklemek için aşağıdaki komut uygulanmalıdır.
 
 `useradd -m -g users -G wheel,storage,power -s /bin/bash tunc`
 
-Bu işlemi takiben hem `root` kullanıcısı hem de yeni oluşturduğunuz kullanıcı için şfre belirlemelisiniz.
+Bu işlemi takiben hem `root` kullanıcısı hem de yeni oluşturduğunuz kullanıcı için şifre belirlemelisiniz.
 
 `passwd`               ---- > root şifresi için
 
@@ -210,7 +210,7 @@ pacman -S grub os-prober
 grub-install --target=i386-pc --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
-Bu işemin sonucunda `/dev/sda` cihazina GRUB'ı yüklemiş oldunuz ve makine ne zaman bu cihazdan boot ederse, ayarları bu basamakta yapılan GRUB ile açılacaktır. 
+Bu işemin sonucunda `/dev/sda` cihazına GRUB'ı yüklemiş oldunuz ve makine ne zaman bu cihazdan boot ederse, ayarları bu basamakta yapılan GRUB ile açılacaktır. 
 
 ![](a11.png)
 
@@ -220,6 +220,6 @@ Bu basamaklar tamamlandıktan sonra chroot ortamından çıkıp partition'ların
 exit
 umount -R /mnt
 ```
-Bilgisayarınızı teniden başlatıp yükleme diskini bilgisayardan çıkartın. Bu aşamada Arch Linux sistem kurulumu tamamlanmış olur. Kurulum tamamlandıktan sonra ilk olarak sisteminizi gğncellemeniz tavsiye edilir.
+Bilgisayarınızı teniden başlatıp yükleme diskini bilgisayardan çıkartın. Bu aşamada Arch Linux sistem kurulumu tamamlanmış olur. Kurulum tamamlandıktan sonra ilk olarak sisteminizi güncellemeniz tavsiye edilir.
 
 `pacman -Syu`

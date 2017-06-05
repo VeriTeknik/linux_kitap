@@ -38,6 +38,7 @@
        * [Güncelleme Teknikleri](dagitimlar/freebsd/guncelleme_teknikleri.md)
        * [Network Ayarları](dagitimlar/freebsd/network.md)
    * [Arch Linux](dagitimlar/archlinux/arch.md)
+       * [pacman ve AUR](dagitimlar/archlinux/pacman.md)
        * [Network Ayarları](dagitimlar/archlinux/network.md)
    * [Ortak Network Dosyaları](dagitimlar/ortak_network_dosyalari.md)
 * [SSH](ssh/ssh.md)

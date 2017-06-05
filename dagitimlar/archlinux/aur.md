@@ -1,1 +1,0 @@
-# pacman Paketleri ve AUR
