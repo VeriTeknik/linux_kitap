@@ -12,11 +12,11 @@ pacman kullanarak bir paket yüklemek için sadece tek bir komut yeterlidir. _gv
 
 komutunu kullanmanız yeterli olacaktır. Aynı şekilde _gvim_'den sonra başka paket isimleri yazarak tek komut ile birden fazla paket yüklemeniz mümkündür. Genel olarak, her paket yüklemesi yaptığınızda aynı zamanda mevcut paketleri de güncellemeniz önerilir. Eğer paket listesini güncellerken sistemi güncellemezseniz, dependency sorunları ile karşılaşabilirsiniz.
 
-| Komut  | Açıklama                                                                                                      |
-| -      | -                                                                                                             |
-| `-S`   | Paketi, dependencyleri ile birlikte indirip kurar.                                                            |
-| `-Sy`  | Veritabanını günceller ve paketi kurar. Dependency </br>sorunları yaratabileceği için  __kullanmamalısınız__. |
-| `-Syu` | Veritabanını ve sistemi güncelleyip seçtiğiniz paketi kurar.                                                  |
+| Komut  | Açıklama                                                                                                 |
+| -      | -                                                                                                        |
+| `-S`   | Paketi, dependencyleri ile birlikte indirip kurar.                                                       |
+| `-Sy`  | Veritabanını günceller ve paketi kurar. Dependency sorunları yaratabileceği için  __kullanmamalısınız__. |
+| `-Syu` | Veritabanını ve sistemi güncelleyip seçtiğiniz paketi kurar.                                             |
 
 Dolayısıyla Arch Linux'ta en çok tercih edilen  yükleme komutu `pacman -Syu ` komutudur. Sadece sistemi güncellemek için ise aynı komut, herhangi bir  ismi eklemeden yazılır. 
 
