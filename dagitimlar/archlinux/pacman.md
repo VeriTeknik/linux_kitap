@@ -12,21 +12,21 @@ pacman kullanarak bir paket yüklemek için sadece tek bir komut yeterlidir. _gv
 
 komutunu kullanmanız yeterli olacaktır. Aynı şekilde _gvim_'den sonra başka paket isimleri yazarak tek komut ile birden fazla paket yüklemeniz mümkündür. Genel olarak, her paket yüklemesi yaptığınızda aynı zamanda mevcut paketleri de güncellemeniz önerilir. Eğer paket listesini güncellerken sistemi güncellemezseniz, dependency sorunları ile karşılaşabilirsiniz.
 
-| Komut         | Açıklama                                                                                                      |
-| -             | -                                                                                                             |
-| `pacman -S`   | Paketi, dependencyleri ile birlikte indirip kurar.                                                            |
-| `pacman -Sy`  | Veritabanını günceller ve paketi kurar. Dependency </br>sorunları yaratabileceği için  __kullanmamalısınız__. |
-| `pacman -Syu` | Veritabanını ve sistemi güncelleyip seçtiğiniz paketi kurar.                                                  |
+| Komut  | Açıklama                                                                                                      |
+| -      | -                                                                                                             |
+| `-S`   | Paketi, dependencyleri ile birlikte indirip kurar.                                                            |
+| `-Sy`  | Veritabanını günceller ve paketi kurar. Dependency </br>sorunları yaratabileceği için  __kullanmamalısınız__. |
+| `-Syu` | Veritabanını ve sistemi güncelleyip seçtiğiniz paketi kurar.                                                  |
 
 Dolayısıyla Arch Linux'ta en çok tercih edilen  yükleme komutu `pacman -Syu ` komutudur. Sadece sistemi güncellemek için ise aynı komut, herhangi bir  ismi eklemeden yazılır. 
 
 Herhangi bir i silmenin birden çok yolu vardır.
 
-| Komut         | Açıklama                                                                |
-| -             | -                                                                       |
-| `pacman -R`   | Paketi, dependency'lerine dokunmadan siler.                             |
-| `pacman -Rs`  | Paketi ve başka ler tarafından gerekli olmayan dependency'lerini siler. |
-| `pacman -Rsc` | Paketi, dependency'lerini ve bu pakete bağlı olan tüm leri siler.       |
+| Komut  | Açıklama                                                                |
+| -      | -                                                                       |
+| `-R`   | Paketi, dependency'lerine dokunmadan siler.                             |
+| `-Rs`  | Paketi ve başka ler tarafından gerekli olmayan dependency'lerini siler. |
+| `-Rsc` | Paketi, dependency'lerini ve bu pakete bağlı olan tüm leri siler.       |
 
 Aşağıdaki listede sık kullanılan pacman seçeneklerini ve açıklamalarını bulabilirsiniz. Bu liste sadece örnek amaçlıdır, pacman'in opsiyonlarını pek çok farklı şekilde kullanmak mümkündür. 
 
