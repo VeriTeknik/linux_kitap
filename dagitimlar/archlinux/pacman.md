@@ -45,7 +45,7 @@ Hepsini paket ismi koyarak ya da koymadan yazabilirsiniz ancak yanında __x__ ya
 
 ## AUR
 
-AUR (Arch User Repository), resmi repositorylerin dışında, tamamen kullanıcılar tarafından oluşturulmuş muazzam bir repositorydir. AUR içerisinde pre-compile edilmiş binary dosyalar yerine, paketlerin kaynak kodundan kolayca compile edilmesini sağlayan __PKGBUILD__ tanımları vardır. Bu tanımlar kullanılaraki paketler kolayca _mkpkg_ tarafından compile edilir ve _pacman_ tarafından yüklenir (_mkpkg_ pacman'in bir parçasıdır). 
+AUR (Arch User Repository), resmi repositorylerin dışında, tamamen kullanıcılar tarafından oluşturulmuş muazzam bir repositorydir. AUR içerisinde pre-compile edilmiş binary dosyalar yerine, paketlerin kaynak kodundan kolayca compile edilmesini sağlayan __PKGBUILD__ tanımları vardır. Bu tanımlar kullanılarak paketler kolayca _mkpkg_ tarafından compile edilir ve _pacman_ tarafından yüklenir (_mkpkg_ pacman'in bir parçasıdır). 
 
 AUR'u kullanarak paket yüklemenin birden fazla yöntemi bulunmakta ancak bunlardan daha kolay olanı bir AUR Helper kullanmak olacaktır. Bunu yapmak için önce bu helper programlardan bir tanesini elle kurmalısınız. Bu kurulumu bir kere tamamladıktan sonra, kurulum için gerçekleştirmiş olduğunuz işlemleri, bundan sonra helper program devralacaktır ve siz resmi repositorylerden normal bir paket yükler gibi AUR'u kullanabilecek hale gelirsiniz.
 
