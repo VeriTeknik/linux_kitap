@@ -1,6 +1,6 @@
 # pacman Paket Yöneticisi
 
-pacman paket yöneticisi Arch Linux'un enbelirgin ve ayırıcı özelliklerinden birisidir. pacman'ın amacı, paketlerin kullanıcının kendi paketleri ya da resmi repositoryden (paket kaynağı) indirilmiş paketler olmasını ayırt etmeksizin kolay ve düzenli bir şekilde yönetilebilmesini sağlamaktır. 
+pacman paket yöneticisi Arch Linux'un en belirgin ve ayırıcı özelliklerinden birisidir. pacman'ın amacı, paketlerin kullanıcının kendi paketleri ya da resmi repositoryden (paket kaynağı) indirilmiş paketler olmasını ayırt etmeksizin kolay ve düzenli bir şekilde yönetilebilmesini sağlamaktır. 
 
 pacman sistemi güncel tutabilmek için lokal paket listesini ana sunucunun paket listesi ile senkronize eder. Tek bir yükleme komutu ile ihtiyaç olan bağımlılıkları (dependency) takip edip, esas istenen paketlerle birlikte sisteme kurar. pacman paketleri _.pkg.tar.xz_ formatını kullanır.
 
@@ -55,7 +55,7 @@ Başlamadan önce dependencyleri yüklemelisiniz.
 
 `sudo pacman -Syu expac yajl git --noconfirm --needed`
 
-pacaur'un resmi repolardaki dependencylerini indirdikten sonra bir tane de AUR içerisinde bulunan dependency'sini indirmelisiniz.
+pacaur'un resmi repolardaki dependencylerini indirdikten sonra, bir tane de AUR içerisinde bulunan dependency'sini indirmelisiniz.
 
 ```
 mkdir cower && cd cower
