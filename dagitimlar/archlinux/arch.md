@@ -86,7 +86,7 @@ mkfs.ext4 /dev/sda2
 ```
 Bu komutları uyguladığınızda `sda1` ve `sda2` partitionlarınız `ext4` dosyalama sisteminde formatlanmış olacak. Formatlayabileceğiniz başka dosyalama sistemleri ve ilgili komutlar için `man mkfs` komutunu çalıştırabilirsiniz. 
 
-Eğer bir swap partitionu istiyorsanız tek yapmanız gereken, normal partition'ların yaratılma prosedürüne ek olarak, yeni bir partition daha kurmak ve aşağıdaki komutları çalıştırarak swap partition'unu aktif hale getirmek. Örneğn bir `/dev/sda3` partitionu swap olarak kurulmak istendiğinde bu komutlar kullanılabilir.
+Eğer bir swap partitionu istiyorsanız tek yapmanız gereken, normal partition'ların yaratılma prosedürüne ek olarak, yeni bir partition daha kurmak ve aşağıdaki komutları çalıştırarak swap partition'unu aktif hale getirmek. Örneğn bir `/dev/sda3` partitionu swap olarak kurulmak istendiğinde bu komutlar kullanılabilir. Bunu yaparken cfdisk içerisinden _type_ olarak __swap__ seçmelisiniz.
 
 ```
 mkswap /dev/sda3
