@@ -13,7 +13,7 @@ Linux üzerinde temel olarak sınıflandırabileceğimiz komutlar şu şekilde s
 | cp | Dosya kopyalama | cp /etc/hosts /root/hosts.bak |
 | mv | Dosya taşıma | mv /root/hosts.bak /root/hosts.bak2 |
 | cat | Dosya içeriği görüntüleme | cat /etc/hosts |
-| echo | Standart çıktıya yazdırma | echo "test |
+| echo | Standart çıktıya yazdırma | echo "test" |
 | du | Dizin boyutu gösterme | du -sh . |
 
 Yukarıda sıralanan komutlar, Linux komut satırının çok küçük bir kısmını oluştursa da, en sık kullanılan komutlar arasında yer aldıklarını söyleyebiliriz. Burada altının çizilmesi gereken önemli bir nokta, Linux komutlarının birbirleriyle uyum içinde çalışabilecek biçimde tasarlanmışlardır ve bunu yapmak için standart girdi/çıktı yönlendirmeleri haricinde, pek çok parametre alabilmektedirler. Programların parametreleri ve programların genel özellikleri hakkında bilgi almak için man komutu kullanılabilir. Örneğin du komutu hakkında bilgi almak için

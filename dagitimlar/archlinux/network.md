@@ -57,4 +57,4 @@ Karşınıza son derece sade bir ayar paneli gelecek. Yeni bir bağlantı ekleme
 
 ![](a13.png)
 
-Burada gerçekleştirdiğiniz ayarlar hemen etkin hale gelecektir. `NetworkManager` daemonunu yeniden başlatımanıza gerek olmayacaktır.
+Burada gerçekleştirdiğiniz ayarların etkin hale gelmesi için bir önceki menüden `Activate a connection` seçenegini seçerek modifiye ettiğiniz bağlantıyı kapatıp açmanız yeterlidir. `NetworkManager` daemonunu yeniden başlatımanıza gerek olmayacaktır.

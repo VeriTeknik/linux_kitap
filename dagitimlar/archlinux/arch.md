@@ -86,7 +86,7 @@ mkfs.ext4 /dev/sda2
 ```
 Bu komutları uyguladığınızda `sda1` ve `sda2` partitionlarınız `ext4` dosyalama sisteminde formatlanmış olacak. Formatlayabileceğiniz başka dosyalama sistemleri ve ilgili komutlar için `man mkfs` komutunu çalıştırabilirsiniz. 
 
-Eğer bir swap partitionu istiyorsanız tek yapmanız gereken, normal partition'ların yaratılma prosedürüne ek olarak, yeni bir partition daha kurmak ve aşağıdaki komutları çalıştırarak swap partition'unu aktif hale getirmek. Örneğn bir `/dev/sda3` partitionu swap olarak kurulmak istendiğinde bu komutlar kullanılabilir. Bunu yaparken cfdisk içerisinden _type_ olarak __swap__ seçmelisiniz.
+Eğer bir swap partitionu istiyorsanız tek yapmanız gereken, normal partition'ların yaratılma prosedürüne ek olarak, yeni bir partition daha kurmak ve aşağıdaki komutları çalıştırarak swap partition'unu aktif hale getirmek. Örneğin bir `/dev/sda3` partitionu swap olarak kurulmak istendiğinde bu komutlar kullanılabilir. Bunu yaparken cfdisk içerisinden _type_ olarak __swap__ seçmelisiniz.
 
 ```
 mkswap /dev/sda3
@@ -98,8 +98,8 @@ Mount pointlerin ayarlanması için önceden ayarlamış olduğunuz partition'la
 
 | Komutlar                    | Açıklamalar                                                                                |
 | -                           | -                                                                                          |
-| `mkdir /mnt/home`           | Sistemimizi kuracağımız / dizini altındaki /home dizinimizi temsil edecek dizini oluşturur |
 | `mount /dev/sda1 /mnt`      | sda1 diskini root partition'u olarak mount eder                                            |
+| `mkdir /mnt/home`           | Sistemimizi kuracağımız / dizini altındaki /home dizinimizi temsil edecek dizini oluşturur |
 | `mount /dev/sda2 /mnt/home` | sda2 diskini ilk komut ile yarattığımız /home dizinine mount eder                          |
 
 Bu işlemler sonrasında ulaşmak istediğimiz sonuç şekildeki gibidir.
@@ -136,7 +136,7 @@ Bu komut uygulandıktan sonra internet hızınıza bağlı olarak bir süre pake
 
 ![](a08.png)
 
-İşlem tamamlandıktan sonra bir adet `fstab` dosyası oluşturmanız gerekiyor. Bunu "label" ya da "UUID" kullanarak yapabilirsiniz ancak tavsiye edilen yöntem UUID kullanmaktır (UUID'leri görmek için daha önce bahsi geçen `blkid` komutunu kullanabilirsiniz).
+İşlem tamamlandıktan sonra `fstab` dosyasını oluşturmanız gerekiyor. Bunu "label" ya da "UUID" kullanarak yapabilirsiniz ancak tavsiye edilen yöntem UUID kullanmaktır (UUID'leri görmek için daha önce bahsi geçen `blkid` komutunu kullanabilirsiniz).
 
 `genfstab -U -p /mnt >> /mnt/etc/fstab`
 
