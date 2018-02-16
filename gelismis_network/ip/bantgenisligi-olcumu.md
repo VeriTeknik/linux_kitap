@@ -67,7 +67,6 @@ Sunucu tarafında aşağıdaki komutu çalıştırdığınızda kendisi zaten de
 -----------------------------------------------------------
 Server listening on 5201
 -----------------------------------------------------------
-
 ```
 
 Client tarafındaysa bu sunucu üzerinde test yapmasını söylemek gerekiyor. Sırayla testleri yaptıktan sonra aşağıdaki gibi bir sonuç sunuyor.
@@ -93,6 +92,39 @@ Connecting to host 94.103.33.50, port 5201
 [  4]   0.00-10.00  sec   952 MBytes   798 Mbits/sec                  receiver
 
 iperf Done.
+```
+
+Standart portları kullanmak istemiyorsanız `-p` ile port belirtebilirsiniz. Ayrıca server tarafındaki sonuçları almak için `--get-server-output` işe yarayabilir. Bir diğer kullanışlı özelliği, testi tersine çevirebiliyorsunuz. Yani serverdan sizin upload hızınızı değil, download hızınızı test etmesini talep edebilirsiniz, bunun için `-R` parametresi \(reverse\) kullanılabilir.
+
+## speedtest-cli
+
+Pratik bir şekilde bir sunucunun internet hızını ölçmek istiyorsanız kullanışlı bir program. Tarayıcınızdan speedtest.net adresine girdiğinizde yaptığınız ölçüm benzerini gerçekleştirir. Doğrudan github üzerinden curl veya wget ile yükleyebilir ve test edebilirsiniz. Veya dağıtımınızın repository'lerinde varsa indirip kullanabilirsiniz.
+
+curl ile programı hiç indirmeden, tek seferde test edip sonuç almak için:
+
+```
+curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -
+```
+
+Bu komut çalıştırdığınızda doğrudan sonucu göreceksiniz ve program diske yazılmamış olacaktır. Eğer kodu saklamak ve tekrar tekrar kullanmak isterseniz wget ile indirip sonra python ile çalıştırabilirsiniz.
+
+```
+wget https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
+```
+
+Ardından python ile test ettiğinizde şöyle bir sonuç görebilirsiniz.
+
+```
+eaydin@eaydin-vt ~/devel/calisma $ python speedtest.py 
+Retrieving speedtest.net configuration...
+Testing from VeriTeknik Bilisim Ltd. (94.103.47.241)...
+Retrieving speedtest.net server list...
+Selecting best server based on ping...
+Hosted by Turksat Uydu Haberlesme Kablo TV ve Isletme A.S. (Ankara) [19.19 km]: 1.912 ms
+Testing download speed................................................................................
+Download: 817.31 Mbit/s
+Testing upload speed................................................................................................
+Upload: 589.59 Mbit/s
 ```
 
 
