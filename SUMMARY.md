@@ -62,7 +62,7 @@
   * [PHP-FPM](php.md)
   * [MySQL](mysql/mysql.md)
     * [MySQL kurulumu](mysql/mysql-kurulumu.md)
-    * [MySQL Servisini çalıştırmak](mysql/temel_tablo_olusturma.md)
+    * [MySQL servisini çalıştırmak](mysql/temel_tablo_olusturma.md)
     * [MySQL Veritabanı ve Tablo oluşturmak](mysql/mysql-veritabani-olusturmak.md)
     * [SQL Tablosuna veri eklemek](mysql/sql-tablosuna-veri-eklemek.md)
     * [Basit SQL Sorguları](mysql/basit_sql_sorgulari.md)

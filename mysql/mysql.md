@@ -1,6 +1,6 @@
 # MySQL
 
-MySQL,  ilişkisel veritabanı yönetim sistemidir. GPLv2 ile lisanslanmıştır. 
+MySQL,  ilişkisel veritabanı yönetim sistemidir. GPLv2 ile lisanslanmıştır.
 
 CentOS 7'de MySQL repo bulunmamaktadır, bunun yerine MariaDB kullanılmaktadır ancak MariaDB de Mysql ile aynı olsa da en son sürümü 5.2'dir.
 

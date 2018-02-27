@@ -69,7 +69,7 @@ Gördüğünüz gibi içinde herhangi bir tablo yok. Tablo oluşturmak için `CR
 
 `birthday date,` MySQL, bu kolona girilecek verinin YYYY-MM-DD formatında olmasını bekliyor.
 
-`reg_Date TIMESTAMP);`  kullanıcının kayıt olduğu tarihi zaman damgasıyla tabloya kaydediyoruz.MySQL sunucu saatine göre, her satırda yıl-ay-gün saat-dakika-saniye olarak bu veriyi otomatik olarak bu bilgiyi kaydediyor.
+`reg_Date TIMESTAMP);`  kullanıcının kayıt olduğu tarihi zaman damgasıyla tabloya kaydediyoruz. MySQL sunucu saatine göre, her satırda yıl-ay-gün saat-dakika-saniye olarak bu veriyi otomatik olarak bu bilgiyi kaydediyor.
 
 ```bash
 mysql> CREATE TABLE member(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
