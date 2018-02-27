@@ -25,11 +25,12 @@ mysql> SELECT * from member;
 | id | first_name | last_name | e_mail               | birthday   | reg_date            |
 +----+------------+-----------+----------------------+------------+---------------------+
 |  1 | Yasar      | Celep     | celep@veriteknik.com | 1996-12-23 | 2018-02-27 13:05:57 |
+|  2 | Zelis      | Yildiz    | ceku@riseup.net      | 1997-02-01 | 2018-02-27 18:11:59 |
 +----+------------+-----------+----------------------+------------+---------------------+
-1 row in set (0.00 sec)
+2 rows in set (0.00 sec)
+
+
 ```
 
 Gördüğünüz üzere kayıt tarihini ve id'i otomatik olarak kendisi bastı.
-
-
 
