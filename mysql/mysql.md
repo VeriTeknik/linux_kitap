@@ -43,8 +43,8 @@ Setting the root password ensures that nobody can log into the MariaDB
 root user without the proper authorisation.
 
 Set root password? [Y/n] Y
-New password: sifre123
-Re-enter new password:sifre123 
+New password: parola123
+Re-enter new password:parola123 
 Password updated successfully!
 Reloading privilege tables..
  ... Success!

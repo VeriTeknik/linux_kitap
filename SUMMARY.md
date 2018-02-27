@@ -61,7 +61,7 @@
   * [Apache](apache/apache.md)
   * [PHP-FPM](php.md)
   * [MySQL](mysql/mysql.md)
-    * MySQL kurulumu
+    * [MySQL kurulumu](mysql/mysql-kurulumu.md)
     * [MySQL Servisini çalıştırmak](mysql/temel_tablo_olusturma.md)
     * [MySQL Veritabanı ve Tablo oluşturmak](mysql/mysql-veritabani-olusturmak.md)
     * [SQL Tablosuna veri eklemek](mysql/sql-tablosuna-veri-eklemek.md)
@@ -73,6 +73,7 @@
     * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
     * [VSFTP](ftp/vsftp.md)
     * [PROFTP](ftp/proftp.md)
+  * PostgreSQL
 * Zamanlanmış Görevler
   * crontab
   * at
