@@ -69,6 +69,7 @@
     * [mysqldump ile Yedekleme](mysql/mysqldump.md)
     * [Replikasyon Teknikleri](mysql/replikasyon.md)
     * [Yedekleri İçeri Alma](mysql/import.md)
+  * [PostgreSQL](postgresql.md)
   * [FTP](ftp/ftp.md)
     * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
     * [VSFTP](ftp/vsftp.md)
