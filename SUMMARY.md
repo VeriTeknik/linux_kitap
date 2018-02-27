@@ -64,6 +64,7 @@
     * MySQL kurulumu
     * [MySQL Servisini çalıştırmak](mysql/temel_tablo_olusturma.md)
     * [MySQL Veritabanı ve Tablo oluşturmak](mysql/mysql-veritabani-olusturmak.md)
+    * [SQL Tablosuna veri eklemek](mysql/sql-tablosuna-veri-eklemek.md)
     * [Basit SQL Sorguları](mysql/basit_sql_sorgulari.md)
     * [mysqldump ile Yedekleme](mysql/mysqldump.md)
     * [Replikasyon Teknikleri](mysql/replikasyon.md)

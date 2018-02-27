@@ -63,7 +63,7 @@ Gördüğünüz gibi içinde herhangi bir tablo yok. Tablo oluşturmak için `CR
 
 `CREATE TABLE person(`  person adında bir tablo oluşturacağımızı belirttik. Parantez içerisinde de kolonları ve kolonların özelliklerini belirtmemizi bekliyorlar.
 
-`id INT NOT NULL PRIMARY KEY AUTO_INSCREMENT,` bu satırda şunu şunu şunu yaptık.
+`id INT NOT NULL PRIMARY KEY AUTO_INSCREMENT,` id adındaki kolonundaki verilerin Integer yani tam sayı olacağını, bu veriyi bizim göndermeyeceğimizi sistemin kendisinin otomatik arttıracağını belirttik.
 
 `first_name VARCHAR(20), last_name VARCHAR(20), e_mail VARCHAR(50),` burada en fazla 20 karakter olabilecek isim ve soyisim kolonlarını, en fazla 50 karakter olabilecek e-posta kolonuna ve
 
