@@ -4,7 +4,7 @@ MySQL üzerindeki veritabanlarını yönetmek için bir çok yönetim aracı ols
 
 `mysql -u root -p` komutuyla MySQL kabuğuna bağlanalım.
 
--u parametresi ile kullanıcımızı, -p parametresi ile de parola ile giriş yapacağımızı belirttik.
+-u parametresi ile kullanıcı adımızı, -p parametresi ile de parola ile giriş yapacağımızı belirttik.
 
 ```bash
 [celep@veriteknik ~]$ mysql -u root -p
@@ -22,7 +22,7 @@ owners.
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 ```
 
-Şimdi varolan veritabanlarını listelemek için `SHOW DATABASES;` komutunu kullanalım. 
+Şimdi varolan veritabanlarını listelemek için `SHOW DATABASES;` komutunu kullanalım.
 
 > MySQL'deki her komut noktalı virgül ile biter.
 
@@ -35,7 +35,7 @@ mysql> SHOW DATABASES;
 | mysql              |                                                                                                                                                                                                                                                         
 | performance_schema |                                                                                                                                                                                                                                                         
 +--------------------+                                                                                                                                                                                                                                                         
-3 rows in set (0.00 sec)                                                                                                                                                                                                                                                       
+3 rows in set (0.00 sec)
 ```
 
 Şu an MySQL'in içinde 3 veritabanını görebiliyoruz. Biz, company adındaki kendi veritabanımızı oluşturacağız. Bunun için `CREATE DATABASE company;` komutunu kullanmamız gerekiyor.
@@ -57,7 +57,6 @@ Veritabanımıza bağlandık. İçerisindeki tabloları görüntülemek için SH
 ```bash
 mysql> SHOW TABLES;
 Empty set (0.00 sec)
-
 ```
 
 Gördüğünüz gibi içinde herhangi bir tablo yok. Tablo oluşturmak için `CREATE TABLE member(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(20), last_name VARCHAR(20), e_mail VARCHAR(50), birthday date, reg_date TIMESTAMP);` komutunu kullanacağız. Çalıştırmadan önce bu komutu inceleyelim. Herhangi bir komutu çalıştırmadan önce okumalısınız, asla kopyala yapıştır yaparak komut çalıştırmayın.
@@ -97,8 +96,6 @@ mysql> DESCRIBE member;
 +------------+-------------+------+-----+-------------------+-----------------------------+
 6 rows in set (0.01 sec)
 ```
-
-
 
 
 
