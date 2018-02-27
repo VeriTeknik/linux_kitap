@@ -97,5 +97,5 @@ mysql> DESCRIBE member;
 6 rows in set (0.01 sec)
 ```
 
-
+Sıradaki bölümde tablomuza veri ekleyeceğiz.
 
