@@ -2,7 +2,7 @@
 
 * [Döküman Hakkında](README.md)
 * [Linux ve GNU'nun Geçmişi](tarih/linux_ve_gnunun_gecmisi.md)
-  * [RedHat, Debian ve FreeBSD Ana Sürümlerin Farkları](tarih/anasurumlerin_farklari.md)
+  * [CentOS, Debian ve FreeBSD Ana Sürümlerin Farkları](tarih/anasurumlerin_farklari.md)
 * [Temel Komutlar](temel_komutlar/temel.md)
   * [Temel Terminal Komutları](temel_komutlar/temel_komutlar.md)
   * [Yardım Dosyaları](temel_komutlar/yardim_dosyalari.md)
