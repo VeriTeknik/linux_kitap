@@ -10,6 +10,7 @@ yum install mysql-server
 ```
 
 MariaDB ile devam etmek isterseniz, yukarıdakiler yerine şunu yazabilirsiniz:
+
 ```bash
 yum install mariadb mariadb-server
 ```
@@ -21,7 +22,7 @@ systemctl start mysql.service
 
 MySQL'i compile etmeyiniz, compile edilen MySQL'in rpm paketlerinden daha yavaş olduğu izlenmektedir, rpm paketleri optimizedir.
 
-Yükleme tamamlanınca mysql_secure_installation komutunu çalıştırınız:
+Yükleme tamamlanınca mysql\_secure\_installation komutunu çalıştırınız:
 
 ```bash
 mysql_secure_installation 
@@ -87,3 +88,6 @@ installation should now be secure.
 
 Thanks for using MariaDB!
 ```
+
+
+
