@@ -15,7 +15,7 @@ mysql> SHOW TABLES;
 Şimdi bu tabloya veri ekleyelim.
 
     INSERT INTO `member` (`id`,`first_name`,`last_name`,`e_mail`,`birthday`,`reg_date`) VALUES(NULL,"Yasar","Celep","celep@veriteknik.com","1996-12-23",NULL);
-    INSERT INTO `member` (`id`,`first_name`,`last_name`,`e_mail`,`birthday`,`reg_date`) VALUES(NULL,"Zeliha","Yildiz","ceku@riseup.net","1997-02-01",NULL); 
+    INSERT INTO `member` (`id`,`first_name`,`last_name`,`e_mail`,`birthday`,`reg_date`) VALUES(NULL,"Zelis","Yildiz","ceku@riseup.net","1997-02-01",NULL); 
     Query OK, 2 row affected (0.01 sec)
 
 Hadi, tablomuzu kontrol edelim.
