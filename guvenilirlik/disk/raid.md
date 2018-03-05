@@ -6,7 +6,5 @@ RAID yapıları sayesinde sunucular üzerindeki birden fazla disk, işletim sist
 
 Birden fazla RAID çeşidi bulunmaktadır ve hepsinin kendince avantajları ve dezavantajları bulunur. Altyapınızı oluştururken hangi RAID tipini seçeceğinize karar vermek için altında yatan teknolojiyi anlamakta fayda var. Bu amaçla en sık kullanılan RAID yapılarını inceleyeceğiz.
 
- 
-
 
 
