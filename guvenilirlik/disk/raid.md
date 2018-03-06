@@ -113,5 +113,9 @@ Bunun için aşağıdaki daha kapsamlı örneğe bakalım.
 
 Burada ilk örnekteki gibi 2 diske veriyi yazıp üçüncüyü parity amacıyla kullanmak yerine, 3 diske veriyi yazıp dördüncüyü parity amacıyla kullanıyoruz. Örneğin daha anlaşılabilir olabilmesi için daha önceki örneklerimizden daha büyü veri yazılıyor burada. 12 bit'lik veri segmentlerinin nasıl parçalandığı renkleriyle görülüyor. Disk A, B ve C veri yazmak için kullanılıyor, Disk D ise parity'nin saklanması için. Burada görebileceğimiz gibi Disk D üzerindeki bir parity'nin hesaplanması için A XOR B XOR C işlemi yapılması gerekiyor. Benzer şekilde, eğer herhangi bir disk bozulursa, kalan disklerdeki veri XOR'lanarak veri kurtarma işlemi yapılabiliyor. Artık veri okuma işini 3 diskten yapabildiğimiz için, bu senaryoda 3 kat okuma hızlanması sağlanıyor. Her ne kadar yazma işleminde orijinal veriyi 3'e böldüğümüz için 3 kat hızlandığımız algısı oluşsa da, bütün yazma işlemleri parity bitin hesaplanması ve Disk D'ye yazılmasını beklemek zorunda olduğundan, yazma hızımız _en fazla_ Disk D'nin yazma hızı kadar olabilir.
 
+## RAID 5
+
+## STRIPE SIZE
+
 [^1]: Bilgisayar bilimlerinde 4bit'ten, yani yarım Byte'tan oluşan birime bir _nibble_ denilir.
 
