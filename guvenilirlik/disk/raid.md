@@ -34,6 +34,10 @@ Yukarıdaki şekilde RAID kartının striping işlemini nasıl yaptığı görü
 
 RAID 1 ve RAID 0'ın birleştirilmiş halidir. En az 4 disk gerektirir. Disklerden kendi içlerinde ikili gruplar halinde RAID 1 dizileri oluştururlar. Ortaya çıkan iki disk de RAID 0 ile birleştirilmiş olur. Böylece 4 diskin toplam kapasitesinin yarısı kadar kullanılabilir alan olur. Hem okuma hem de yazma işlemlerinde hızlanma sağladığı, üstelik güvenilirlik sağladığı için oldukça sık tercih edilen bir RAID yapısıdır. Aynı anda 2 diskin arıza vermesinde bile çalışabilir, ancak arıza veren disklerin farklı RAID 1 dizilerinde olması gerekir.
 
+![](/guvenilirlik/disk/raid_images/raid10-small.png)
+
+Yukarıdaki şekilde RAID 10'un nested \(iç içe geçmiş\) yapısı görülmektedir. İşletim sistemi 11001010 verisini yazmak istediğinde, önce RAID kartı bunu RAID 0 gibi iki parçaya böler \(striping\), elde ettiği her parçayı ise RAID 1 olacak şekilde ayrı disklere yazar. Bu örnekten görülebileceği gibi sistem iki diskin bozulmasına tolerans göstermektedir, ancak diskler aynı RAID 1 dizisinden olmamalıdır. Örneğin aynı anda Disk C ve Disk D bozulursa, RAID yapısı bozulur. Öte yandan aynı anda Disk B ve Disk C bozulursa, sistem çalışmaya devam eder.
+
 ## RAID 4
 
 Günümüzde neredeyse hiç kullanılmasa da, RAID 5'i anlayabilmek için RAID 4'ü öğrenmek gerekir. RAID 4, en az 3 disk gerektiren, 1 diskin bozulması durumunda çalışmayı sürdürebilen bir yapıya sahiptir. Okuma işlemlerinde yaklaşık iki kat hızlanma sağlar, yazma işlemlerindeyse hızlanma sağlamaz ve harcanan disklerin 2/3'ü kadar alan kullanılabilir olur.
