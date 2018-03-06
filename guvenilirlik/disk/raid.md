@@ -85,5 +85,21 @@ XOR'un çift yönlü olma özelliği bize şu avantajı sağlar: Diske yazacağ�
 
 Örneğin diskimize 11001010 bit'lerinden oluşan 1 Byte'lık bir veriyi yazmak istersek, RAID 4 veriyi aşağıdaki şekilde parçalayacaktır.
 
+![](/assets/raid4-small.png)
 
+Burada görüldüğü üzere 1 Byte'lık veri iki parçaya bölünmüştür. Buradaki her bir nibble[^1] diğer yarısıyla XOR'lanarak elde edilen _parity bit_'ler üçüncü disk olan Disk C'ye yazdırılmaktadır. Bu yüzden şekilde parity bit'ler yeşil kutucuk ile gösterilmiştir. Aslında işletim sistemi diske yazmak için 0110 bit'lerini asla göndermemiştir, bunu RAID kartı hesaplar ve parity diskine yazar.
+
+Böyle bir senaryoda, veriyi okumak istediğimizde, ilk nibble'ı Disk A'dan, ikinci nibble'ı da Disk B'den okuyacağımız için 2 kat hızlanma sağlanmış olur. Aslında yazarken de tıpkı RAID 0'da olduğu gibi bu disklere 2 kat hızlı yazılmaktadır ancak hem XOR parity'sinin hesaplanması işlemi, hem de bunun sonucunun Disk C'ye yazılması işlemi beklendiği için, bu örnekteki 1 Byte'lık verinin yazılma hızında takıldığımız nokta, Disk C'nin yazma hızı olur. Bu yüzden RAID 4 sistemlerde yazma hızı açısından bir kazanım sağlanılmaz.
+
+Bu örnekteki RAID dizimizde bir felaket senaryosu düşünelim. Disklerden herhangi birisi bozulsa bile, XOR'un çift yönlü işlem özelliği sayesinde kalan iki disk ile kayıp diski yeniden oluşturabiliriz. Örneğin Disk B'nin bozulması durumunda, Disk A XOR Disk C işlemi, yani 1100 XOR 0110 = 1010 olacağından Disk B oluşturulabilir. Gördüğünüz gibi sistem 1 diskin bozulmasına müsaade etmektedir. Burada yapılan işlemin sırası önemli değildir. Yani A XOR C yerine C XOR A yapabilirdik, yine aynı sonucu elde ederdik. Bu da XOR işleminin _değişme özelliği \(commutative property\)_ sayesindedir.
+
+XOR'un bir diğer özelliği ise _birleşme özelliği \(associative property\)_ olarak geçer. Birleşme özelliği kısaca şu anlama gelmektedir. A XOR \( B XOR C\) = \(A XOR B\) XOR C. Bu özellik sayesinde RAID dizimizde üzerinde işlem yapacağımız girdi sayısını 2'den fazla yapabilir demektir. Eğer yukarıdaki örneğimize dördüncü bir disk ekleseydik, 3 disk'e veriyi striping ile parçalayarak yazabilir, üç diski XOR'layarak sonucu parity disk'e yazabilirdik. Üstelik XOR'un değişme özelliği sayesinde işlemlerin sırası bile önemli olmamaktadır.
+
+Bunun için aşağıdaki daha kapsamlı örneğe bakalım.
+
+
+
+
+
+[^1]: Bilgisayar bilimlerinde 4bit'ten, yani yarım Byte'tan oluşan birime bir _nibble_ denilir.
 
