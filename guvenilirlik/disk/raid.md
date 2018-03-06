@@ -34,7 +34,44 @@ RAID 4, tıpkı RAID 0'da gördüğümüz gibi _striping_ işlemi yapar, yani ya
 
 Bitlerin yazılmaları işlemi sırasında, farklı disklere yazılan bitlerin XOR \(exclusive or\) operasyonuyla elde edilen çıktısını _parity disk_ olarak belirlenen diske yazar. Bu işlemi anlamak için AND, OR gibi mantıksal işlemlere hızlıca göz atıp, XOR'un nasıl bir farklılık sağladığını ve neden RAID 4 için XOR'un tercih edildiğine bakalım.
 
+AND işlemi, yalnızca girdilerinin ikisinin de TRUE olduğu durumlarda TRUE değeri döndürür, diğer durumlarda FALSE döndürür. Örneğin 0 AND 1 = 0 olurken, 1 AND 1 = 1 sonucu elde edilir.
 
+Öte yandan OR işlemi, girdilerinden en az birinin TRUE olduğu durumlarda TRUE değeri döndürür, diğer durumlarda \(iki girdinin de FALSE olması durumunda\) FALSE değeri döndürür.
+
+XOR işlemi ise, girdilerin değerleri birbirinden farklıysa TRUE değeri döndürür. Yani 1 XOR 1 = 0 olurken, 1 XOR 0 = 1 sonucu elde edilir.
+
+Mantıksal işlemlerin bütün olası girdi ve çıktılarının yansıtıldığı tablolara _Truth Table_ ismi verilmektedir. Bu tabloları bir çeşit çarpım tablosu gibi düşünebilirsiniz. AND, OR ve XOR için Truth Table'lar oluşturacak olursak:
+
+AND için Truth Table
+
+| INPUT 1 | INPUT 2 | OUTPUT \(AND\) |
+| :--- | :--- | :--- |
+| 0 | 0 | 0 |
+| 0 | 1 | 0 |
+| 1 | 0 | 0 |
+| 1 | 1 | 1 |
+
+---
+
+OR için Truth Table
+
+| INPUT 1 | INPUT 2 | OUTPUT \(OR\) |
+| :--- | :--- | :--- |
+| 0 | 0 | 0 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 1 |
+
+---
+
+XOR için Truth Table
+
+| INPUT 1 | INPUT 2 | OUTPUT \(XOR\) |
+| :--- | :--- | :--- |
+| 0 | 0 | 0 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 0 |
 
 
 
