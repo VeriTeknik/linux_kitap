@@ -18,9 +18,17 @@ RAID 1 yapılarında 2'den fazla disk kullanılabilir \(RAID kartı desteklediğ
 
 Bütün RAID yapılarında olduğu gibi, RAID 1'de de kullanılacak iki diskin aynı boyutta olması \(hatta aynı marka/model olması\) tercih edilir. Eğer farklı boyutta diskler kullanılırsa, küçük boyutu olan diskin boyutu kadar alan kullanılabilir olur.
 
+![](/guvenilirlik/disk/raid_images/raid1-book.png)
+
+Yukarıdaki şekilde, işletim sisteminin 11001010 bitlerini yazma talebini RAID kartının nasıl gerçekleştirdiği görülmektedir. Kart verinin aynısını her iki diske de yazmaktadır \(mirroring\). İşletim sistemi tarafından Disk A ve Disk B tek fiziksel diskmiş gibi görünür. Mirroring işlemi RAID kartının sorumluluğundadır.
+
 ## RAID 0
 
 Tıpkı RAID 1 gibi iki diske ihtiyaç duyar, ancak bu sefer mirroring uygulanmaz. Yazılacak bloğun yarısı ilk diske, diğer yarısı da ikinci diske yazılır. Bu işleme _data striping_ denilir. Böylece hem okuma, hem de yazma işlemlerinde yaklaşık 2 kat hızlanma sağlanılır. Ayrıca _harcanan_ disklerin tamamının kapasitesi kullanılmış olur. Ancak disklerden birisinin bozulması durumunda veri kurtarılamaz olur. Bu yüzden verinin güvenilir olarak saklanması gerektiği durumlarda değil, hızlı işlem yapılması istenilen durumlarda kullanılır. Örneğin işletim sisteminizin tmp dizinini RAID 0'lık bir diziden oluşturursanız, bu dizine dosya yazarken ciddi hız kazancı elde edersiniz.
+
+![](/guvenilirlik/disk/raid_images/raid0-small.png)
+
+Yukarıdaki şekilde RAID kartının striping işlemini nasıl yaptığı görülmektedir. İşletim sistemi 11001010 bitlerini yazmak istemektedir, RAID kartı bu veriyi alıp ikiye böler ve yarısını Disk A'ya, diğer yarısını da Disk B'ye yazar. RAID 1 örneğine kıyasla hem disk kapasitesi kullanımının azalmadığı, hem de okuma/yazma işlemlerinin nasıl hızlanacağı bu örnekte görülebilmektedir.
 
 ## RAID 10
 
@@ -85,7 +93,7 @@ XOR'un çift yönlü olma özelliği bize şu avantajı sağlar: Diske yazacağ�
 
 Örneğin diskimize 11001010 bit'lerinden oluşan 1 Byte'lık bir veriyi yazmak istersek, RAID 4 veriyi aşağıdaki şekilde parçalayacaktır.
 
-
+![](/guvenilirlik/disk/raid_images/raid4-small.png)
 
 Burada görüldüğü üzere 1 Byte'lık veri iki parçaya bölünmüştür. Buradaki her bir nibble[^1] diğer yarısıyla XOR'lanarak elde edilen _parity bit_'ler üçüncü disk olan Disk C'ye yazdırılmaktadır. Bu yüzden şekilde parity bit'ler yeşil kutucuk ile gösterilmiştir. Aslında işletim sistemi diske yazmak için 0110 bit'lerini asla göndermemiştir, bunu RAID kartı hesaplar ve parity diskine yazar.
 
