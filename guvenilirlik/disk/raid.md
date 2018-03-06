@@ -79,3 +79,11 @@ XOR için Truth Table
 
 XOR işleminin matematiksel açıdan birkaç özelliği vardır ve bu yönleriyle AND ve OR'dan ayrılır. Birincisi, işlemin çift yönlü olmasıdır. Bu şu anlama gelir: A XOR B = C ise, her zaman C XOR B = A veya C XOR A = B sonucu elde edilecektir. Bu durum OR ve AND için her zaman geçerli değildir.
 
+Örneğin Truth Table'lardan bakarak görebileceğimiz gibi, 0 XOR 1 = 1, ve yine 1 XOR 1 = 0 olduğu için işlem çift yönlüdür. Öte yandan aynı girdileri OR için kullanacak olsayık, 0 OR 1 = 1, ancak 1 OR 1 = 1 olduğu için farkl osnuç elde edecektik. Kısacası OR mantıksal işlemi XOR gibi çift yönlü değildir. Benzer şekilde AND operatörünün de çift yönlü olmadığı gösterilebilir. 1 AND 0 = 0 iken, 0 AND 0 = 0 sonucu elde edilir.
+
+XOR'un çift yönlü olma özelliği bize şu avantajı sağlar: Diske yazacağımız veriyi iki parçaya bölersek \(_striping_\) ve her iki parçayı XOR'layıp çıktısını \(_parity_\) ayrı bir diske yazarsak, disklerden herhangi birisi zarar gördüğünde diğer bitler yardımıyla kayıp veriyi yeniden oluşturabiliriz.
+
+Örneğin diskimize 11001010 bit'lerinden oluşan 1 Byte'lık bir veriyi yazmak istersek, RAID 4 veriyi aşağıdaki şekilde parçalayacaktır.
+
+
+
