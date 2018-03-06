@@ -42,6 +42,8 @@ XOR işlemi ise, girdilerin değerleri birbirinden farklıysa TRUE değeri dönd
 
 Mantıksal işlemlerin bütün olası girdi ve çıktılarının yansıtıldığı tablolara _Truth Table_ ismi verilmektedir. Bu tabloları bir çeşit çarpım tablosu gibi düşünebilirsiniz. AND, OR ve XOR için Truth Table'lar oluşturacak olursak:
 
+---
+
 AND için Truth Table
 
 | INPUT 1 | INPUT 2 | OUTPUT \(AND\) |
@@ -72,6 +74,8 @@ XOR için Truth Table
 | 0 | 1 | 1 |
 | 1 | 0 | 1 |
 | 1 | 1 | 0 |
+
+---
 
 
 
