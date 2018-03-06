@@ -85,7 +85,7 @@ XOR'un çift yönlü olma özelliği bize şu avantajı sağlar: Diske yazacağ�
 
 Örneğin diskimize 11001010 bit'lerinden oluşan 1 Byte'lık bir veriyi yazmak istersek, RAID 4 veriyi aşağıdaki şekilde parçalayacaktır.
 
-![](/assets/raid4-small.png)
+
 
 Burada görüldüğü üzere 1 Byte'lık veri iki parçaya bölünmüştür. Buradaki her bir nibble[^1] diğer yarısıyla XOR'lanarak elde edilen _parity bit_'ler üçüncü disk olan Disk C'ye yazdırılmaktadır. Bu yüzden şekilde parity bit'ler yeşil kutucuk ile gösterilmiştir. Aslında işletim sistemi diske yazmak için 0110 bit'lerini asla göndermemiştir, bunu RAID kartı hesaplar ve parity diskine yazar.
 
