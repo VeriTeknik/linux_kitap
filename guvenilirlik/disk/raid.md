@@ -77,5 +77,5 @@ XOR için Truth Table
 
 ---
 
-
+XOR işleminin matematiksel açıdan birkaç özelliği vardır ve bu yönleriyle AND ve OR'dan ayrılır. Birincisi, işlemin çift yönlü olmasıdır. Bu şu anlama gelir: A XOR B = C ise, her zaman C XOR B = A veya C XOR A = B sonucu elde edilecektir. Bu durum OR ve AND için her zaman geçerli değildir.
 
