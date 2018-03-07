@@ -137,7 +137,9 @@ Burada görüleceği üzere, tek bir parity disk yoktur, parity bit'leri \(yeşi
 
 Bugün neredeyse hiçbir sunucu RAID 4 ile kurulmaz, RAID 5 kullanılır.
 
-## STRIPE SIZE
+## Stripe Size ve Stripe Width
+
+RAID yapılarını incelerken verilerin parçalanması durumunu \(_striping_\) gördük. Özellikle RAID 0, RAID 5, RAID 10 gibi sıkça kullanılan yapılarda veri parçalanarak disklere yayılmaktadır.
 
 [^1]: Bilgisayar bilimlerinde 4bit'ten, yani yarım Byte'tan oluşan birime bir _nibble_ denilir.
 
