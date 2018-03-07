@@ -139,7 +139,21 @@ Bugün neredeyse hiçbir sunucu RAID 4 ile kurulmaz, RAID 5 kullanılır.
 
 ## Stripe Size ve Stripe Width
 
-RAID yapılarını incelerken verilerin parçalanması durumunu \(_striping_\) gördük. Özellikle RAID 0, RAID 5, RAID 10 gibi sıkça kullanılan yapılarda veri parçalanarak disklere yayılmaktadır.
+RAID yapılarını incelerken verilerin parçalanması durumunu \(_striping_\) gördük. Özellikle RAID 0, RAID 5, RAID 10 gibi sıkça kullanılan yapılarda veri parçalanarak disklere yayılmaktadır. Bu durum iki terimin doğmasına neden olur.
+
+Verileri kaç parçaya böldüğümüz, kısacası stripe'ların toplam genişliği _stripe width_ olarak adlandırılır. Eğer elimizde 2 diskten oluşan bir RAID 0 dizisi varsa, stripe width'imiz 2'dir. Genellikle stripe width tanımlanırken parity bit'lerin yazıldığı diskler de sayılır. Bu yüzden örneğin 7 disk'ten oluşan bir RAID 4 dizisinin de stripe width'i 7'dir. Stripe width arttıkça okuma \(ve bazen yazma\) hızımızın artacağı aşikar.
+
+Stripe size ise başka bir kavramı ifade eder ve sistemin verimliliği açısından doğru seçilmesi önemlidir. Hatırlarsanız RAID 0 bölümündeki örneğimizde 1 Byte'lık verimizi iki tane nibble'a parçalamıştık, böylece her bir diske 4 bit'lik veri yazmıştık. Bu örnekte 4 bit, her bir diske yazılan atomik veri boyutu olduğundan, stripe size'ımız 4 bit olacaktır. Kısacası stripe size, yazma işlemi sırasında RAID kartının veriyi disklere bölerken kullanacağı en küçük parçacık birimine karşılık gelir. Bu yüzden ismi stripe size'dır, her bir parçacığın boyutu. Bazen stripe size yerine_ stripe length, chunk size, block size_ gibi terimler kullanılabilir, tamamı aynı anlamı ifade etmektedir.
+
+Her ne kadar örneklerimizde stripe size'ı 4 bit olarak kullanmış olsak da, pratikte RAID kartları bu kadar küçük değerler kullanmazlar. Değerler genellikle 2kB mertebesinden başlar ve MB mertebesine kadar gider \(2kB, 4kB, 8kB, 16kB şeklinde ikilik olarak artar\). Stripe size'ın ne kadar büyük veya küçük seçileceği tamamen disklere yazılacak verilerin büyüklüğü, okuma/yazma sıklığı, bir veriye ulaşıldığında komşu verilerin ne kadar sık kullanılacağı, sıralı okuma yapılıp yapılmayacağı gibi bir çok parametreye bağlı olduğundan, RAID kartlarında bu seçenek ayarlanabilir olarak bırakılır.
+
+Stripe size küçüldükte, yazılan dosyalar daha küçük parçalara bölündüğü için ortalama bir dosyanın çok diske yazılması olasılığı artar. Böylece ilgili dosya daha fazla diskten paralel olarak okunacağı için hızlı işlem yapılır. Ancak çok fazla diske yazılmış olacağı için de diskler üzerinde dosyanın _konumlandırılması_ zorlaşır. RAID kartı sizin için birden fazla diskin farklı farklı fiziksel noktalarına ulaşmaya çalışacağı için dosyayı bulmak zorlaşacaktır.
+
+Stripe size'ın büyütülmesi ise tam tersi etkiyi yaratır. Yazılacak dosya boyutlarına göre bir dosyanın az sayıda diske yayılması \(hatta tek diske yayılması\) olasılığı artar. Bu durumda ilgili dosyaya erişmek daha kolay olacaktır çünkü tek diskteki tek sektöre ulaşmak çok daha hızlı olur, ancak bu dosyayı paralel olarak okuyamayız, bu durumda okuma/yazma işlemlerimiz tek diskin performansıyla sınırlandırılmış olur.
+
+Aşağıdaki örnek, aynı disklerle oluşturulmuş iki tane RAID 0 dizisini göstermektedir. Her dizinin 4 elemanı vardır. İkisine de aynı dosyalar yazılır. Dosyalar farklı renklerle gösterilmiştir. Yani kırmızı dosya, pembe, dosya, mavi dosya ve yeşil dosya olmak üzere 4 tane dosya var. Soldaki konfigürasyonda stripe size 4kB seçilmiştir, sağdaki konfigürasyonda ise aynı dosyalar aynı disklere 64kB stripe size ile yazılmıştır.
+
+
 
 [^1]: Bilgisayar bilimlerinde 4bit'ten, yani yarım Byte'tan oluşan birime bir _nibble_ denilir.
 
