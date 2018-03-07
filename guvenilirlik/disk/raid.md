@@ -129,6 +129,14 @@ $$(6-1)*1TB= 5TB $$ kullanılabilir alan sağlanır.
 
 ## RAID 5
 
+RAID 5'in aslında RAID 4'ten neredeyse hiçbir farkı yoktur. Yine benzer şekilde XOR işlemlerini kullanarak parçalanmış verinin partiy diskte karşılığının tutulmasını sağlar. Yine N-1 kat okuma hızlanması sağlar ve yine en fazla tek diskin bozulmasını destekler. RAID 5'in tek farkı, parity disk kavramını ortadan kaldırması ve parity bit'lerinin bütün diskler üzerine yayılmasını sağlamasıdır. RAID 4'te gördüğümüz 4 diskli örneği RAID 5'e uyarlayacak olursak tam olarak aşağıdaki durumla karşılaşırız.
+
+![](/guvenilirlik/disk/raid_images/raid5-small.png)
+
+Burada görüleceği üzere, tek bir parity disk yoktur, parity bit'leri \(yeşil kutularla gösterilenler\) bütün disklere yayılmış durumdadır. Burada temel amaç, tek diske binecek yazma stresini bütün disklere yaymaktır. Her ne kadar RAID dizilerinde elimizden geldiğince aynı diskleri kullansak da, aynı markanın aynı modeli bile bazı durumlarda okuma/yazma hızlarında ve ömürlerinde farklılık gösterebilmektedir. RAID 4'teki yazma hızı limiti her halde parity disk'in yazma limitine takılırken, RAID 5'te bu limit parity bitlerinin hangi diskte bulunduğuna göre farklılık göstermektedir. Bu sayede diskler üzerindeki stres dağıtılmakta, ayrıca darboğaza denk gelme olasılığı azaltılmaktadır.
+
+Bugün neredeyse hiçbir sunucu RAID 4 ile kurulmaz, RAID 5 kullanılır.
+
 ## STRIPE SIZE
 
 [^1]: Bilgisayar bilimlerinde 4bit'ten, yani yarım Byte'tan oluşan birime bir _nibble_ denilir.
