@@ -189,9 +189,42 @@ Burada önemli olan nokta, yazılan verinin hala Cache'de olmasıdır. Bu işlem
 
 ![](/guvenilirlik/disk/raid_images/cache-write-through2-small.png)
 
-Yukarıdaki şekil, yazma işlemi gerçekleştirildikten sonra, işletim sisteminin "biraz önce yazılan veriyi" istediği takdirde izleyeceği yolları göstermektedir. Kırmızı oklar yazma işlemi, yeşil oklar iste okuma işlemini göstermektedir. Buradan görüleceği üzere, yeni yazılan veri hala Cache üzerinde olduğu sürece, okuma işleminde Disklere ihtiyaç olmayacaktır. Bu durum çok ciddi bir performans artışına sebep olur. Ancak istenilen verinin Cache'de olmaması durumunda tabii ki disklerden veri okunacaktır.
+Yukarıdaki şekil, yazma işlemi gerçekleştirildikten sonra, işletim sisteminin "biraz önce yazılan veriyi" istediği takdirde izleyeceği yolları göstermektedir. Kırmızı oklar yazma işlemi, yeşil oklar ise okuma işlemini göstermektedir. Buradan görüleceği üzere, yeni yazılan veri hala cache üzerinde olduğu sürece, okuma işleminde disklere ihtiyaç olmayacaktır. Bu durum çok ciddi bir performans artışına sebep olur. Ancak istenilen verinin cache'de olmaması durumunda tabii ki disklerden veri okunacaktır.
 
 Write-Through Cache'leme mekanizması
+
+### Write-Around Cache
+
+Bu mekanizma da yine adından anlaşılabileceği üzere, yazma işlemlerinde "cache'nin etrafından dolanmaktadır". Kısacası yazma işlemleri cache kullanılmadan yapılmakta, ancak \(eğer ayarlanmışsa\) okuma işlemlerinde cache kullanılmaktadır. Bu durum özellikle okumanın yoğun olduğu sistemlerde verimli olabilir, çünkü cache'nin tamamı okuma işlemine ayrılmış olur. Ancak burada okunan verinin henüz yazılmış veri olmaması gerekmektedir. Eğer yeni yazdığımız veriyi okuyacaksak, bu verinin cache'de kalması hızlı erişim için ciddi avantajlar sağlar.
+
+![](/guvenilirlik/disk/raid_images/cache-write-around1-small.png)
+
+
+
+Yukarıdaki örnekte gerçekleşen adımlar şu şekildedir:
+
+1. İşletim sistemi yazma isteğini RAID kartına iletir.
+2. RAID kartı CPU'su gelen veriyi doğrudan diske yazar.
+3. Disk, yazma işleminin tamamlandığını RAID kartına bildirir.
+4. RAID kartı yazma işleminin tamamlandığını işletim sistemine bildirir.
+
+Görüldüğü üzere, cache hiç kullanılmamıştır. Dolayısıyla ilk yazma işleminde cache boş olacaktır. Şimdi bu senaryoda veri okunacağı zaman gerçekleşecek işlemlere bakalım.
+
+![](/guvenilirlik/disk/raid_images/cache-write-around2-small.png)
+
+1. İşletim sistemi okuma isteğini RAID kartına gönderir.
+2. RAID kartı ilgili bloğun cache'de olup olmadığını kontrol eder.
+3. Cache, üzerinde bu bilgi olmadığı için disklerden okur ve cache'ye yazar.
+4. Cache okunan bilginin kopyasını CPU'ya iletir.
+5. RAID kartı işletim sistemine bilgiyi iletir.
+
+Bu işlemler sonucunda, cache'de artık bir miktar veri bulunmaktadır. Bundan sonra tekrar işletim sistemi istek gönderdiğinde, eğer ilgili veri biraz önce cache'ye yazılan veriyse, okuma işlemi hızlanacaktır.
+
+![](/guvenilirlik/disk/raid_images/cache-write-around3-small.png)
+
+Görüldüğü üzere, tekrar okuma işleminde \(eğer daha önce okunan veri talep edilmişse\) disklere gerek kalmaz.
+
+
 
 [^1]: Bilgisayar bilimlerinde 4bit'ten, yani yarım Byte'tan oluşan birime bir _nibble_ denilir.
 
