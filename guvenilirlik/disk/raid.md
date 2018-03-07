@@ -169,6 +169,28 @@ Video ve veritabanı erişimi örneklerindeki rastgele erişim ve sıralı eriş
 
 ## Cache Mekanizmaları
 
+RAID kontrol kartları tıpkı küçük birer bilgisayar gibi çeşitli bileşenlerden oluşurlar. Bunlar arasında bir işlemci ve bir tampon bellek \(_cache_\) de bulunur. Söz konusu tampon bellek, standart diskler kadar yavaş değildir, üzerinde çok daha küçük bir alan bulunur ancak bu bölgeye veri yazıp okumak çok daha hızlı olur. Verilerin yazılma ve okunma işlemlerinde performans kazancı sağlamak için RAID kartı bu tampon belleği kullanır, ancak bu bölgeyi kullanma stratejisi farklılıklar gösterebilir. RAID kartının tampon belleği kullanma stratejisi sistemden beklenen güvenilirlik seviyesinden, okuma/yazma işlemlerinin yoğunluğunun oranına, sıralı veri okuma ihtiyacının olup olmayışından yazılan verinin yakın zamanda okunup okunmayacağına göre değişkenlik gösterir. Bu ihtiyaçlara yönelik hemen her RAID kartı üreticisinin desteklediği ortak stratejiler bulunur ve bunlara RAID Cache Mekanizmaları \(_RAID Caching Mechanisms_\) denilebilir.
+
+### Write-Through Cache
+
+Aslında ismi hemen hemen ele veriyor kendisini. Bu mekanizma, yazma işlemlerinin tamamının _cache aracılığıyla_ yapılacağını belirtir. Kısacası veriyi RAID kartı önce cache'ye yazar, ardından disklere yazar. Disklere yazma işlemi tamamlandıktan sonra veriler cache'den silinmez, ve işletim sistemine "yazma işlemini bitirdim" sinyali gönderilir.
+
+![](/guvenilirlik/disk/raid_images/cache-write-through1-small.png)
+
+Yukarıdaki şekilde gerçekleşen adımlar aşağıdaki gibidir:
+
+1. İşletim sistemi bir veriyi yazmak istediğini RAID kartına söyler. RAID kartı bunu kendi üzerindeki CPU'ya yönlendirir.
+2. CPU yazma işlemini Cache'ye yapar.
+3. Cache'ye yazma işlemi tamamlandıktan sonra, Cache'deki bu yeni veri Disklere yazılır.
+4. Diskler yazma işlemini tamamladığı sinyalini RAID kartına yönlendirir.
+5. RAID kartı yazma işleminin tamamlandığını işletim sistemine bildirir.
+
+Burada önemli olan nokta, yazılan verinin hala Cache'de olmasıdır. Bu işlemin ardından, eğer işletim sistemi bir okuma isteği gönderirse, ve okumak istediği veriler "henüz yeni cache'ye yazılmış veriler"se, o zaman okuma işleminde ciddi hız kazancı sağlanır.
+
+![](/guvenilirlik/disk/raid_images/cache-write-through2-small.png)
+
+Yukarıdaki şekil, yazma işlemi gerçekleştirildikten sonra, işletim sisteminin "biraz önce yazılan veriyi" istediği takdirde izleyeceği yolları göstermektedir. Kırmızı oklar yazma işlemi, yeşil oklar iste okuma işlemini göstermektedir. Buradan görüleceği üzere, yeni yazılan veri hala Cache üzerinde olduğu sürece, okuma işleminde Disklere ihtiyaç olmayacaktır. Bu durum çok ciddi bir performans artışına sebep olur. Ancak istenilen verinin Cache'de olmaması durumunda tabii ki disklerden veri okunacaktır.
+
 
 
 [^1]: Bilgisayar bilimlerinde 4bit'ten, yani yarım Byte'tan oluşan birime bir _nibble_ denilir.
