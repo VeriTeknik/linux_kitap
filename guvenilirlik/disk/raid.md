@@ -191,7 +191,7 @@ Burada önemli olan nokta, yazılan verinin hala Cache'de olmasıdır. Bu işlem
 
 Yukarıdaki şekil, yazma işlemi gerçekleştirildikten sonra, işletim sisteminin "biraz önce yazılan veriyi" istediği takdirde izleyeceği yolları göstermektedir. Kırmızı oklar yazma işlemi, yeşil oklar iste okuma işlemini göstermektedir. Buradan görüleceği üzere, yeni yazılan veri hala Cache üzerinde olduğu sürece, okuma işleminde Disklere ihtiyaç olmayacaktır. Bu durum çok ciddi bir performans artışına sebep olur. Ancak istenilen verinin Cache'de olmaması durumunda tabii ki disklerden veri okunacaktır.
 
-
+Write-Through Cache'leme mekanizması
 
 [^1]: Bilgisayar bilimlerinde 4bit'ten, yani yarım Byte'tan oluşan birime bir _nibble_ denilir.
 
