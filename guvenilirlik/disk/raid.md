@@ -167,5 +167,9 @@ Bir diğer nokta, dosyaların büyüklüğünden ziyade erişim biçimidir. Rast
 
 Video ve veritabanı erişimi örneklerindeki rastgele erişim ve sıralı erişim problemleri RAID Stripe Size ile de ilişkilidir. Yukarıdaki örnekte eğer pembe dosya sıralı okunması istenilen bir dosyaysa, tek diskte yer alması _dosyanın nerede bulunduğunu_ hızla bulmamızı sağlayacağı için erişim süresini çok kısaltır, zaten sıralı okuma yapılacağı için de disklerden paralel olarak verinin alınması bir anlam sağlamaz dolayısıyla büyük stripe size ile saklanması akıllıca olacaktır. Ancak eğer bu bir video dosyası değil de bir veritabanı dosyasının parçasıysa, birden fazla işlem bu dosyanın farklı noktalarına erişmek isteyecektir dolayısıyla bu kadar büyük bir dosyanın farklı disklere yayılması tercih edilebilir. Öte yandan bunun için bir genel geçer kural olduğunu söylemek yanlış olacaktır. Eğer sıralı okuma ihtiyacınız yoksa ve büyük dosyalar barındıracaksanız \(örneğin büyük backup dosyaları\) dosyaların transfer hızı, konumlandırma hızından önemli olacağı için küçük stripe size kullanarak çok diske yayılmalarını sağlamak verimli olabilir.
 
+## Cache Mekanizmaları
+
+
+
 [^1]: Bilgisayar bilimlerinde 4bit'ten, yani yarım Byte'tan oluşan birime bir _nibble_ denilir.
 
