@@ -93,7 +93,7 @@ XOR için Truth Table
 
 XOR işleminin matematiksel açıdan birkaç özelliği vardır ve bu yönleriyle AND ve OR'dan ayrılır. Birincisi, işlemin çift yönlü olmasıdır. Bu şu anlama gelir: `A XOR B = C` ise, her zaman `C XOR B = A` veya `C XOR A = B` sonucu elde edilecektir. Bu durum OR ve AND için her zaman geçerli değildir.
 
-Örneğin Truth Table'lardan bakarak görebileceğimiz gibi, `0 XOR 1 = 1`, ve yine `1 XOR 1 = 0` olduğu için işlem çift yönlüdür. Öte yandan aynı girdileri OR için kullanacak olsayık, `0 OR 1 = 1`, ancak `1 OR 1 = 1 `olduğu için farklı sonuç elde edecektik. Kısacası OR mantıksal işlemi XOR gibi çift yönlü değildir. Benzer şekilde AND operatörünün de çift yönlü olmadığı gösterilebilir. `1 AND 0 = 0` iken, `0 AND 0 = 0` sonucu elde edilir.
+Örneğin Truth Table'lardan bakarak görebileceğimiz gibi, `0 XOR 1 = 1`, ve yine `1 XOR 1 = 0` olduğu için işlem çift yönlüdür. Öte yandan aynı girdileri OR için kullanacak olsayık, `0 OR 1 = 1`, ancak `1 OR 1 = 1`olduğu için farklı sonuç elde edecektik. Kısacası OR mantıksal işlemi XOR gibi çift yönlü değildir. Benzer şekilde AND operatörünün de çift yönlü olmadığı gösterilebilir. `1 AND 0 = 0` iken, `0 AND 0 = 0` sonucu elde edilir.
 
 XOR'un çift yönlü olma özelliği bize şu avantajı sağlar: Diske yazacağımız veriyi iki parçaya bölersek \(_striping_\) ve her iki parçayı XOR'layıp çıktısını \(_parity_\) ayrı bir diske yazarsak, disklerden herhangi birisi zarar gördüğünde diğer bitler yardımıyla kayıp veriyi yeniden oluşturabiliriz.
 
@@ -105,7 +105,7 @@ Burada görüldüğü üzere 1 Byte'lık veri iki parçaya bölünmüştür. Bur
 
 Böyle bir senaryoda veriyi okumak istediğimizde, ilk nibble'ı Disk A'dan, ikinci nibble'ı da Disk B'den okuyacağımız için 2 kat hızlanma sağlanmış olur. Aslında yazarken de tıpkı RAID 0'da olduğu gibi bu disklere 2 kat hızlı yazılmaktadır ancak hem XOR parity'sinin hesaplanması işlemi, hem de bunun sonucunun Disk C'ye yazılması işlemi beklendiği için, bu örnekteki 1 Byte'lık verinin yazılma hızında takıldığımız nokta, Disk C'nin yazma hızı olur. Bu yüzden RAID 4 sistemlerde yazma hızı açısından bir kazanım sağlanılmaz.
 
-Bu örnekteki RAID dizimizde bir felaket senaryosu düşünelim. Disklerden herhangi birisi bozulsa bile, XOR'un çift yönlü işlem özelliği sayesinde kalan iki disk ile kayıp diski yeniden oluşturabiliriz. Örneğin Disk B'nin bozulması durumunda,` Disk A XOR Disk C` işlemi, yani `1100 XOR 0110 = 1010` olacağından Disk B oluşturulabilir. Gördüğünüz gibi sistem 1 diskin bozulmasına müsaade etmektedir. Burada yapılan işlemin sırası önemli değildir. Yani `A XOR C` yerine `C XOR A` yapabilirdik, yine aynı sonucu elde ederdik. Bu da XOR işleminin _değişme özelliği \(commutative property\)_ sayesindedir.
+Bu örnekteki RAID dizimizde bir felaket senaryosu düşünelim. Disklerden herhangi birisi bozulsa bile, XOR'un çift yönlü işlem özelliği sayesinde kalan iki disk ile kayıp diski yeniden oluşturabiliriz. Örneğin Disk B'nin bozulması durumunda,`Disk A XOR Disk C` işlemi, yani `1100 XOR 0110 = 1010` olacağından Disk B oluşturulabilir. Gördüğünüz gibi sistem 1 diskin bozulmasına müsaade etmektedir. Burada yapılan işlemin sırası önemli değildir. Yani `A XOR C` yerine `C XOR A` yapabilirdik, yine aynı sonucu elde ederdik. Bu da XOR işleminin _değişme özelliği \(commutative property\)_ sayesindedir.
 
 XOR'un bir diğer özelliği ise _birleşme özelliği \(associative property\)_ olarak geçer. Birleşme özelliği kısaca şu anlama gelmektedir. `A XOR ( B XOR C) = (A XOR B) XOR C`. Bu özellik sayesinde RAID dizimizde üzerinde işlem yapacağımız girdi sayısını 2'den fazla yapabiliriz demektir. Eğer yukarıdaki örneğimize dördüncü bir disk ekleseydik, 3 disk'e veriyi striping ile parçalayarak yazabilir, üç diski XOR'layarak sonucu parity disk'e yazabilirdik. Üstelik XOR'un değişme özelliği sayesinde işlemlerin sırası bile önemli olmamaktadır.
 
@@ -117,14 +117,15 @@ Burada ilk örnekteki gibi 2 diske veriyi yazıp üçüncüyü parity amacıyla 
 
 Bu bölümün başında bahsettiğimiz gibi, her ne kadar RAID 4'ün \(ve birazdan göreceğimiz RAID 5'in\) harcanan disklerin 2/3'ünün kullanılabilir alan sağladığı ve 2 kat okuma hızlanması sağladığı genel kanı olsa da, bu sadece 3 disk kullanılması durumunda geçerlidir. Son örneğimizde görebileceğimiz üzere 4 disk kullanıldığında 3 kat okuma hızlanması sağlanılmaktadır, ayrıca harcanan disklerin 3/4'ü kadar alan kullanılabilir durumdadır. Bu yüzden RAID 4 için harcanan disk karşılığında elde edilen verimlilik hesabını kısaca şöyle belirtmek gerekir.
 
-Okuma hızı: \(Harcanan Disk Sayısı - 1\) kat hızlanma sağlar.  
-Kullanılabilir Alan: \(Harcanan Disk Sayısı - 1\) / Harcana
+N := Harcanan Disk Sayısı olmak üzere  
+S := Bir diskin boyutu olmak üzere
 
+Okuma hızı = \(N - 1\) kat hızlanma sağlar.  
+Kullanılabilir Alan = \(N - 1\)\*S
 
-$$
-Kullanılabilir Alan = asdasd/asdasd
-$$
-
+Örneğin 1 TB'lık 6 tane disk ile RAID 4 dizisi oluşturmak istersek,  
+$$6-1=5$$ kat okuma hızlanması sağlanılır.  
+$$(6-1)*1TB= 5TB $$ kullanılabilir alan sağlanır.
 
 ## RAID 5
 
