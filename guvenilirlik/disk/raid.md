@@ -269,5 +269,25 @@ Read ahead'in getirdiği problemleri bir nebze çözmek için bazı RAID kartı 
 
 Read ahead mekanizmasına oranla dezavantajı, **A** verisinde yaşadığımız yavaşlığın **B** verisinde tekrar etmiş olması oldu. Ancak eğer sistemimizde rastgele okumalar ve sıralı okumalar kısmen bir arada yapılıyorsa, o zaman  adaptive read ahead cache mekanizması bizim için daha uygun olabilir.
 
+## RAID Mekanizmaları Hakkında Bir Takım Notlar
+
+Bu bölümde RAID mekanizmalarının nasıl çalıştığını, farklılıklarını ve özellikle bir RAID kartı üzerinde konfigürasyon yapıldığında karşılaşılabilecek önemli ayarların ne işe yaradığını, bazı iç mekanizmaların çalışma prensiplerini irdeledik. Konu her ne kadar burada anlatıldığından çok daha kapsamlı olsa da, bu bölümde öğrendikleriniz sisteminizi kurarken bilinçli RAID yapıları oluşturmanıza yeterli olacaktır.
+
+Burada anlatılanlar dışındaki RAID yapıları, burada anlatılan temel felsefelere dayanmaktadır ve bu bölümdeki kavramları anladıysanız diğer sistemler hakkında okuma yaptığınızda problem yaşamayacaksınızdır.
+
+Örneğin RAID 4 ve RAID 5'in nasıl çalıştığını anladıysanız, RAID 6'nın "bir tane daha parity disk sağlayabilmek için XOR dışında bir matematiksel işlem daha sağladığı" bilgisi yeterli olacaktır. Bu sayede RAID 6'nın RAID 5'ten farkının 2 disk çökmesine izin verdiği ortaya çıkar. XOR işlemini zaten parity disklerinden birinde kullandığımız için farklı bir işlem kullanılır \(Galois Field Computation\) ve bu kitabın kapsamı dışında olduğu için anlatılmamıştır, ancak felsefe aynı.
+
+Benzer şekilde RAID 10'un nasıl bir şey olduğunu, RAID 5'in nasıl bir şey olduğunu anladıysak, RAID 50'nin nasıl oluşturulduğunu rahat bir biçimde anlayabiliriz.
+
+Her ne kadar burada RAID kartları açısında bir anlatım sunduysak da, storage cihazlarının da aslında RAID kartı ve bir sürü disk barındıran sunucular gibi davrandığını unutmamak gerekir. Kısacası burada öğrendiklerimiz storage cihazlarını konfigüre ederken de karşımıza çıkmaktadır.
+
+Hem yazma, hem de okuma cache'leme mekanizmalarında kart üreticileri farklı stratejiler veya farklı ayarlar sunabilmektedir. Örneğin bazı RAID kartları veya storage cihazları RAID kartının cache'si dışında, içindeki disklerin cache'lerinin kullanılm politikaları hakkında ayarlar sunmaktadır. Burada kullanılan stratejiler de bu bölümde anlattıklarımızla paralellik göstermektedir.
+
+RAID yapıların birden fazla diske \(çoğunlukla ilişkilendirilmiş\) veri yazmaktan sorumlu olduğunu unutmayın. Özellikle veri yazmak, veri okumaktan çok daha hassas bir işlemdir ve işlemi yarıda kalması veya bozuk yapılması, tamir edilemez hasarlara sebep olabilir. Bu yüzden RAID kartınızın veya storage cihazınızın hangi özellikleri desteklediğini, hangi fiziksel olanaklara imkan tanıdığına hakim olun. RAID kartınızda pil olup olmadığını, varsa pilin ömrünün ne kadar olduğunu, dolayısıyla kullandığınız cache'leme mekanizmasına göre ne kadar süreli bir elektrik kesintisini etkilenmeden atlatabileceğinizi bilmenizde fayda var. Ayrıca bazı RAID kartları veya storage cihazları partnership \(ortaklık\) kurabilmektedir. Böylece aynı marka/model iki storage cihazı birbirine bağlandığı takdirde, ortak cache alanları kullanabilmekte, veya cache'leri mirror edip birinin bozulması durumunda diğeri üzerinden işlemlerine devam edebilmektedir.
+
+RAID mekanizmaları genellikle sistem kurulduğunda üzerine çalışılan, sonra problem çıkmadıkça uzun süre giriş yapılmayan bölümlerdir. Dolayısıyla kontorl mekanizmanızın uzaktan erişimi varsa giriş bilgilerini not edin, sisteminize nasıl bir yapı kurduğunuzu hatırlayın, ve destekliyorsa bozulma/alarm durumlarında size uyarı mesajları \(email\) gönderebildiğinden emin olun, uyarı mekanizmalarını test edin.
+
+Son olarak, daha önce belirttiğimiz gibi, RAID'in bir _yedekleme_ mekanizması olmadığını unutmayın. Geçmişe dönük verilerinizin yedeğini alın, ve bunu RAID sistemler üzerinde tutun. Ancak RAID'in amacı yedekleme yapmak değildir, güvenilir ve verimli ortamlar sağlamaktır.
+
 [^1]: Bilgisayar bilimlerinde 4bit'ten, yani yarım Byte'tan oluşan birime bir _nibble_ denilir.
 
