@@ -243,7 +243,31 @@ Bu senaryo her ne kadar ideal gibi görünse de, bütün şartlar beklendiği gi
 
 Özellikle RAID kartındaki pilin kullanımı konusunda kart üreticileri çeşitli yöntemler geliştirmiştir. Örneğin çoğu üretici write-back mekanizmasını desteklediği halde, RAID kartının pili olmaması durumunda bu özelliği kullanılmaz hale getirmekte ve write-through modunda çalışmaktadır. Bazı üreticilerse pilin kalan ömrünü ölçüp, eğer elektrik kesintisinde 24 saat dayanabilecek durumda değilse write-back mekanizması devredışı bırakmaktadır.
 
+### Read Ahead Cache
 
+Bu cache'leme stratejisi yazma ile ilgili değil, okuma işlemleri ile ilgilidir. Normal şartlar altında işletim sistemi bir _parçanın_ okunmasını talep ettiğinde, RAID kartı ilgili veriyi disklerden okuyup cache'ye yazar, sonra işletim sistemine sunar. İşletim sistemi tekrar aynı veriyi isterse, bu verinin cache'de olması durumunda diskleri tekrar kullanmayıp cevap vermiş olur. Bu haliyle aslında read ahead yapmamış olur. Genellikle RAID kartlarında _No Read Ahead_ seçeneği bu anlama gelmektedir.
+
+Öte yandan, eğer verilerimizde çoğunlukla sıralı okuma yapıyorsak, veya bir bloğa ulaştığımızda çoğunlukla o bloktan sonra gelen bloğa erişme ihtiyacı duyuyorsak, işletim sistemi herhangi bir parçayı RAID kartından istediğinde, RAID kartı akıllı davranıp "ondan sonra gelen parçaları da" okuyup cache'ye alabilir. Aşağıdaki örnek fikir verecektir.
+
+![](/guvenilirlik/disk/raid_images/cache-readahead-small.png)
+
+1. İşletim sistemi RAID kartından **A** verisini istemektedir.
+2. RAID kartı Cache'ye bakar, burada **A** bulunmadığı için Disklerden kopyalama işlemi başlatılır.
+3. Bu noktada Read Ahead açıksa, Disklerden sadece **A** verisi değil, **A** verisinden sonra gelen birkaç veri daha cache'ye kopyalanır. Bu örnekte **ABCDEF **kopyalanmakta.
+4. Cache **A **verisinin kopyalanma işinin bittiğini söyler.
+5. RAID kartı ilgili veriyi işletim sistemine gönderir.
+
+Eğer işletim sistemi bir sonraki okuma işlemini \(veya cache boşaltılıncaya kadar herhangi bir zamanda\) **B** veya **C** verisini talep edecek olursa, bu verileri diskten okumakla zaman kaybetmemiş oluruz, cache bu bilgileri sağlar.
+
+Bu senaryo bazı durumlarda dezavantaj yaratabilir. Birincisi, eğer sıralı okuma yapıyorsak bile, belki genellikle **A**'yı okumak istediğimizde, sonrasında **B** ve **C**'yi okumak bizim için yetiyor. Ancak cache'de **DEF** verilerini de saklayarak boş yere cache'de yer işgal etmiş olduk. Bazı RAID kartları read ahead cache mekanizması yapılırken, "ne kadar ilerideki veriyi tampon belleğe aktaracağımızı" seçmemizi de sağlamaktadır. Ancak bu her kartın sunduğu bir özellik olmayabilir.
+
+Bir diğer nokta, boş yere okunan veriler cache'de yer işgal etmekten ötürü, fiziksel disklerden de boş yere okuma işlemine sebep oldu. Disklerin okuma hızı limitleri var ve biz boş yere disk hızını işgal etmiş olduk. Ayrıca, disklerin fiziksel işlem yaptığını unutmamak lazım. **AB** okumak yerine **ABCDEF** okuyarak diski 4 kat kullanmış olacağımız için disklerin ömrünü etkileyeceğini, fiziksel problemlere daha kısa sürede sebep olabileceğini göz önünde bulundurmak gerekir.
+
+### Adaptive Read Ahead
+
+Read ahead'in getirdiği problemleri bir nebze çözmek için bazı RAID kartı üreticileri adaptive read ahead algoritması kullanmaktadır. Biraz önceki senaryo örneğinde gidecek olursak, işletim sistemi RAID kartından **A** verisini istediğinde, RAID kartı disklerden sadece **A** verisini okuyup cache'lemekte ve işletim sistemine sunmaktadır. Bu noktada herhangi bir read ahead işlemi yapılmamaktadır. Daha sonra eğer işletim sistemi **B** verisini talep ederse, RAID kartı "daha önce **A** verisi de talep edilmişti, öyleyse muhtemelen **CDEF** verilerini de talep edecek" kararını verip bu sefer disklerden **BCDEF** verilerini okuyup cache'ye yazar. Bu sayede eğer gerçekten sıralı okuma yapılıyorsa **CDEF** talepleri geldiğinde veriler çok daha hızlı sağlanacaktır.
+
+Read ahead mekanizmasına oranla dezavantajı, **A** verisinde yaşadığımız yavaşlığın **B** verisinde tekrar etmiş olması oldu. Ancak eğer sistemimizde rastgele okumalar ve sıralı okumalar kısmen bir arada yapılıyorsa, o zaman  adaptive read ahead cache mekanizması bizim için daha uygun olabilir.
 
 [^1]: Bilgisayar bilimlerinde 4bit'ten, yani yarım Byte'tan oluşan birime bir _nibble_ denilir.
 
