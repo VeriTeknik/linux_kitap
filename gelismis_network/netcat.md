@@ -22,7 +22,6 @@ Yukarıdaki komut sonucunda netcat herhangi bir bağlantı kuramadığı için s
 ```
 eaydin@k9 ~ $ nc 192.168.16.30 22
 SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.4
-
 ```
 
 Doğrudan bizi ssh server karşıladı, ve bir mesaj gönderdi. Bundan sonra nc sizden girdi bekler, yazdığınız girdiyi ise karşı tarafa gönderecektir. Örneğin **a** karakterini gönderelim. \("a" yazıp Enter tuşuna basıyoruz\)
@@ -78,29 +77,33 @@ Eğer daha detaylı sonuç almak isterseniz, verbose modunu açabilirsiniz.
 eaydin@k9 ~ $ nc -vvvvvz google.com 80
 found 0 associations
 found 1 connections:
-     1:	flags=82<CONNECTED,PREFERRED>
-	outif en0
-	src 192.168.15.48 port 52114
-	dst 216.58.214.206 port 80
-	rank info not available
-	TCP aux info available
+     1:    flags=82<CONNECTED,PREFERRED>
+    outif en0
+    src 192.168.15.48 port 52114
+    dst 216.58.214.206 port 80
+    rank info not available
+    TCP aux info available
 
 Connection to google.com port 80 [tcp/http] succeeded!
 ```
 
-Burada isteği gönderdiğimiz fiziksel cihazın adı \(en0\), isteği gönderen cihazımızın IP adresi \(192.168.15.48\) ve isteği gönderdiği portu \(52114\), google.com'un çözülen IP adresi \(216.58.214.206\) gibi bilgiler yer almaktadır.
+Burada isteği gönderdiğimiz ağ kartı cihazının adı, IP adresleri ve kullanılan portlar gibi bilgiler yer alıyor.
 
-Eğer port taramasını yaptığınız servis bir firewall arkasındaysa, bağlantının başarısız olduğu bilgisi gelmeyebilir, bu yüzden bağlantınız havada kalabilir. Örneğin Google'ın 81. portunu tarayacak olursak, cevap gelmeyecektir.
+Eğer port taramasını yaptığınız servis bir firewall arkasındaysa, bağlantının başarısız olduğu bilgisi gelmeyebilir, bu yüzden bağlantınız havada kalabilir. Örneğin Google'ın 81. portunu tarayacak olursak, cevap gelmeyecektir, ancak netcat de cevap gelmesini bekleyecektir.
 
 ```
  ✘ eaydin@k9 ~ $ nc -vz google.com 81
-
-
+ 
 ```
 
+Normal şartlar altında bir TCP bağlantısı karşını karşı taraf reddederse bunun sinyalini alırız, ancak firewall'lar özellikle bunu göndermediği için netcat bağlantıyı sonlandırmayıp bekliyor.
 
+Eğer firewall arkasında bulunmayan ancak 81 portundan hizmet sunmayan bir sunucuya tarama isteği gönderirsek aşağıdakine benzer bir sonuç alırız.
 
-
+```
+eaydin@k9 ~ $ nc -vz 192.168.16.30 81
+nc: connectx to 192.168.16.30 port 81 (tcp) failed: Connection refused
+```
 
 
 
