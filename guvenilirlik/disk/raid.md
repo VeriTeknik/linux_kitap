@@ -32,7 +32,7 @@ Tıpkı RAID 1 gibi en az iki diske ihtiyaç duyar, ancak bu sefer mirroring uyg
 
 Yukarıdaki şekilde RAID kartının striping işlemini nasıl yaptığı görülmektedir. İşletim sistemi `11001010` bitlerini yazmak istemektedir, RAID kartı bu veriyi alıp ikiye böler ve yarısını Disk A'ya, diğer yarısını da Disk B'ye yazar. RAID 1 örneğine kıyasla hem disk kapasitesi kullanımının azalmadığı, hem de okuma/yazma işlemlerinin hızlanacağı bu örnekte görülebilmektedir.
 
-RAID kartları RAID 0'ı 2 diskten fazla kartlarla rahatlıkla gerçekleştirebilir. Örneğin Dell PERC 9 kartları 32 diske kadar RAID 0 dizisi oluşturabilir. Ancak 32 disk'ten herhangi birisinin bozulması durumunda bütün dizinin bozulacağını unutmamak gerekir. İstatistiksel olarak disk sayısı arttıkça, bir diskin bozulma ihtimali de artacağından, bütün dizinin bozulması ihtimalini artırmış olursunuz.
+RAID kartları RAID 0'ı 2 diskten fazla kartlarla rahatlıkla gerçekleştirebilir. Örneğin Dell PERC 9 kartları 32 diske kadar RAID 0 dizisi oluşturabilir. Ancak 32 disk'ten herhangi birisinin bozulması durumunda bütün dizinin bozulacağını unutmamak gerekir. İstatistiksel olarak disk sayısı arttıkça, bir diskin bozulma ihtimali de artacağından, bütün dizinin bozulması ihtimalini de artırmış olursunuz.
 
 ## RAID 10
 
