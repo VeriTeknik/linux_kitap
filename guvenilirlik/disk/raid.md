@@ -40,7 +40,7 @@ RAID 1 ve RAID 0'ın birleştirilmiş halidir. En az 4 disk gerektirir. Diskler 
 
 ![](/guvenilirlik/disk/raid_images/raid10-small.png)
 
-Yukarıdaki şekilde RAID 10'un nested \(iç içe geçmiş\) yapısı görülmektedir. İşletim sistemi `11001010` verisini yazmak istediğinde, önce RAID kartı bunu RAID 0 gibi iki parçaya böler \(striping\), elde ettiği her parçayı ise RAID 1 olacak şekilde ayrı disklere yazar. Bu örnekten görülebileceği gibi sistem iki diskin bozulmasına tolerans göstermektedir, ancak diskler aynı RAID 1 dizisinden olmamalıdır. Örneğin aynı anda Disk C ve Disk D bozulursa, RAID yapısı bozulur. Öte yandan aynı anda Disk B ve Disk C bozulursa, sistem çalışmaya devam eder.
+Yukarıdaki şekilde RAID 10'un nested \(iç içe geçmiş\) yapısı görülmektedir. İşletim sistemi `11001010` verisini yazmak istediğinde, RAID kartı önce bunu RAID 0 gibi iki parçaya böler \(striping\), elde ettiği her parçayı ise RAID 1 olacak şekilde ayrı disklere yazar. Bu örnekten görülebileceği gibi sistem iki diskin bozulmasına tolerans göstermektedir, ancak bozulan diskler aynı RAID 1 dizisinde olmamalıdır. Örneğin aynı anda Disk C ve Disk D bozulursa, RAID yapısı bozulur. Öte yandan aynı anda Disk B ve Disk C bozulursa, sistem çalışmaya devam eder.
 
 ## RAID 4
 
