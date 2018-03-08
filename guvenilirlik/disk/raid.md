@@ -26,11 +26,13 @@ Yukarıdaki şekilde, işletim sisteminin `11001010` bitlerini yazma talebini RA
 
 ## RAID 0
 
-Tıpkı RAID 1 gibi iki diske ihtiyaç duyar, ancak bu sefer mirroring uygulanmaz. Yazılacak bloğun yarısı ilk diske, diğer yarısı da ikinci diske yazılır. Bu işleme _data striping_ denilir. Böylece hem okuma, hem de yazma işlemlerinde yaklaşık 2 kat hızlanma sağlanılır. Ayrıca _harcanan_ disklerin tamamının kapasitesi kullanılmış olur. Ancak disklerden birisinin bozulması durumunda veri kurtarılamaz olur. Bu yüzden verinin güvenilir olarak saklanması gerektiği durumlarda değil, hızlı işlem yapılması istenilen durumlarda kullanılır. Örneğin işletim sisteminizin `tmp` dizinini RAID 0'lık bir diziden oluşturursanız, bu dizine dosya yazarken ciddi hız kazancı elde edersiniz.
+Tıpkı RAID 1 gibi en az iki diske ihtiyaç duyar, ancak bu sefer mirroring uygulanmaz. Yazılacak bloğun yarısı ilk diske, diğer yarısı da ikinci diske yazılır. Bu işleme _data striping_ denilir. Böylece hem okuma, hem de yazma işlemlerinde yaklaşık 2 kat hızlanma sağlanılır. Ayrıca _harcanan_ disklerin tamamının kapasitesi kullanılmış olur. Ancak disklerden birisinin bozulması durumunda veri kurtarılamaz olur. Bu yüzden verinin güvenilir olarak saklanması gerektiği durumlarda değil, hızlı işlem yapılması istenilen durumlarda kullanılır. Örneğin işletim sisteminizin `tmp` dizinini RAID 0'lık bir diziden oluşturursanız, bu dizine dosya yazarken ciddi hız kazancı elde edersiniz.
 
 ![](/guvenilirlik/disk/raid_images/raid0-small.png)
 
 Yukarıdaki şekilde RAID kartının striping işlemini nasıl yaptığı görülmektedir. İşletim sistemi `11001010` bitlerini yazmak istemektedir, RAID kartı bu veriyi alıp ikiye böler ve yarısını Disk A'ya, diğer yarısını da Disk B'ye yazar. RAID 1 örneğine kıyasla hem disk kapasitesi kullanımının azalmadığı, hem de okuma/yazma işlemlerinin hızlanacağı bu örnekte görülebilmektedir.
+
+RAID kartları RAID 0'ı 2 diskten fazla kartlarla rahatlıkla gerçekleştirebilir. Örneğin Dell PERC 9 kartları 32 diske kadar RAID 0 dizisi oluşturabilir. Ancak 32 disk'ten herhangi birisinin bozulması durumunda bütün dizinin bozulacağını unutmamak gerekir. İstatistiksel olarak disk sayısı arttıkça, bir diskin bozulma ihtimali de artacağından, bütün dizinin bozulması ihtimalini artırmış olursunuz.
 
 ## RAID 10
 
