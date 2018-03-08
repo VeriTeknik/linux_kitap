@@ -2,9 +2,9 @@
 
 Netcat aslında çok az iş yapan, ancak yaptığı işi hem çok basit hem de çok verimli yaptığı için sistem yöneticilerinin, ağ yöneticilerinin ve hatta programcıların vazgeçilmez araçlarından biri olmuştur. Az tanımlı işi iyi yapmasıyla da Unix felsefesinin en iyi temsilcilerindendir.
 
-Yaptığı iş sadece şu: TCP ve UDP kullanarak ağdan veri okuyup yazabilir.
+Yaptığı iş sadece şu: TCP ve UDP kullanarak ağdan veri okuyup yazmak.
 
-Bu kadar temel bir işi yapan program doğru kullanıldığında birçok ağ problemini teşhis etmede yardımcı olabilir, dosya transferli yapmanıza olanak sağlayabilir, basit proxy'ler kurmanıza veya port taramaları yapmanıza müsaade edebilir.
+Bu kadar temel bir işi yapan program doğru kullanıldığında birçok ağ problemini teşhis etmede yardımcı olabilir, dosya transferi yapmanıza olanak sağlayabilir, basit proxy'ler kurmanıza veya port taramaları yapmanıza müsaade edebilir.
 
 Sözü daha fazla uzatmadan birkaç örnekle başlayalım ve netcat'in yapabileceklerini örnekler üzerinden görelim.
 
@@ -93,7 +93,6 @@ Eğer port taramasını yaptığınız servis bir firewall arkasındaysa, bağla
 
 ```
  ✘ eaydin@k9 ~ $ nc -vz google.com 81
- 
 ```
 
 Normal şartlar altında bir TCP bağlantısı karşını karşı taraf reddederse bunun sinyalini alırız, ancak firewall'lar özellikle bunu göndermediği için netcat bağlantıyı sonlandırmayıp bekliyor.
