@@ -235,7 +235,15 @@ Cache mekanizmaları arasındaki en verimli, ancak en güvensiz yöntemlerden bi
 
 Bu mekanizmanın avantajı ortada, işletim sistemi açısından yazma işlemi son derece hızlı gerçekleşir çünkü RAID kartının cache'sine yazma hızı kendisi için limit olur. Eğer İşletim sisteminin yazma talepleri, cache ile diskler arasındaki bağlantının yetişemeyeceği hıza çıkarsa, cache'nin dolmasından dolayı performans en fazla Write-Through Cache mekanizmasında olduğu haline kadar gerileyebilir.
 
-Bu mekanizma çok uygun görünse de, verinin disklere güvenli bir biçimde yazılmadan önce işletim sisteminin verinin yazdığını varsaymasını sağlar. Eğer cache'deki veri tamamen disklere yazılmadan önce RAID
+Bu mekanizma çok uygun görünse de, verinin disklere güvenli bir biçimde yazılmadan önce işletim sisteminin verinin yazdığını varsaymasını sağlar. Eğer cache'deki veri tamamen disklere yazılmadan önce sistemin elektiriği kesilirse, cache üzerindeki veri disklere aktarılamayacaktır. Bu durum ciddi veri kayıplarına neden olur.
+
+RAID kartı ve benzeri kartlardaki cache tampon bellekleri genellikler bilgisayarların RAM'lerine benzer yapıya sahiptirler. Bu tip belleklere _kırılgan_ oldukları için _volatile memory_ denilir. Sisteme elektrik sağlandığı takdirde bellekteki veriler güvendedir, ancak elektrik kesildiği anda bellekteki veriler tamamen kaybolur. Bu tip belleklerin son derece hızlı olmasının yanında getirdiği bir dezavantajdır. Özellikle RAID kartlarında cache üzerindeki elektiriğin kesilmesi durumunda bütün sistemi etkileyecek veri kayıplarına neden olacağı için, bu tip kartlara pil konulur. Olası bir elektrik kesintisinde pil cache'yi besler, böylece cache üzerindeki veriler _pilin ömrü yettiği sürece_ silinmez. RAID kartı sisteme yeniden elektrik verildiğini tespit ettiği takdirde cache'deki verileri disklere yazmaya çalışır, böylece veri kaybı yaşanmaz.
+
+Bu senaryo her ne kadar ideal gibi görünse de, bütün şartlar beklendiği gibi olmamaktadır. Bazı durumlarda pilin ömrü çok kısa olabilmekte, bazen sistem yeniden ayağa kalktığında işletim sistemi çok fazla disk okuma/yazma işlemine ihtiyaç duyduğu için darboğazlara sebep olabilmektedir. Ayrıca beklenmedik elektrik kesintileri en çok disklere zarar vermektedir. Disklerin elektrik kesintisi sonucu kurtarılamaz durumda zarar görmesi rastlanan durumlardandır.
+
+Özellikle RAID kartındaki pilin kullanımı konusunda kart üreticileri çeşitli yöntemler geliştirmiştir. Örneğin çoğu üretici write-back mekanizmasını desteklediği halde, RAID kartının pili olmaması durumunda bu özelliği kullanılmaz hale getirmekte ve write-through modunda çalışmaktadır. Bazı üreticilerse pilin kalan ömrünü ölçüp, eğer elektrik kesintisinde 24 saat dayanabilecek durumda değilse write-back mekanizması devredışı bırakmaktadır.
+
+
 
 [^1]: Bilgisayar bilimlerinde 4bit'ten, yani yarım Byte'tan oluşan birime bir _nibble_ denilir.
 
