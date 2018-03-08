@@ -199,8 +199,6 @@ Bu mekanizma da yine adından anlaşılabileceği üzere, yazma işlemlerinde "c
 
 ![](/guvenilirlik/disk/raid_images/cache-write-around1-small.png)
 
-
-
 Yukarıdaki örnekte gerçekleşen adımlar şu şekildedir:
 
 1. İşletim sistemi yazma isteğini RAID kartına iletir.
@@ -224,7 +222,20 @@ Bu işlemler sonucunda, cache'de artık bir miktar veri bulunmaktadır. Bundan s
 
 Görüldüğü üzere, tekrar okuma işleminde \(eğer daha önce okunan veri talep edilmişse\) disklere gerek kalmaz.
 
+### Write-Back Cache
 
+Cache mekanizmaları arasındaki en verimli, ancak en güvensiz yöntemlerden birisidir. Bu yöntem temel olarak RAID kartının cache'sine güvenir, ve gelen yazma isteğini cache'ye yazmayı tamamladığı anda işletim sistemine "yazmayı tamamladım" sinyalini gönderir. Ardından cache'deki veriyi disklere yazma işlemini gerçekleştirir.
+
+![](/guvenilirlik/disk/raid_images/cache-write-back-small.png)
+
+1. İşletim sistemi yazma talebini RAID kartına gönderir.
+2. CPU yazılacak bilgiyi cache'ye yazar.
+3. RAID kartı işletim sistemine "verileri diske yazdım" sinyali gönderir.
+4. RAID kartı cache'deki veriyi disklere yazar.
+
+Bu mekanizmanın avantajı ortada, işletim sistemi açısından yazma işlemi son derece hızlı gerçekleşir çünkü RAID kartının cache'sine yazma hızı kendisi için limit olur. Eğer İşletim sisteminin yazma talepleri, cache ile diskler arasındaki bağlantının yetişemeyeceği hıza çıkarsa, cache'nin dolmasından dolayı performans en fazla Write-Through Cache mekanizmasında olduğu haline kadar gerileyebilir.
+
+Bu mekanizma çok uygun görünse de, verinin disklere güvenli bir biçimde yazılmadan önce işletim sisteminin verinin yazdığını varsaymasını sağlar. Eğer cache'deki veri tamamen disklere yazılmadan önce RAID
 
 [^1]: Bilgisayar bilimlerinde 4bit'ten, yani yarım Byte'tan oluşan birime bir _nibble_ denilir.
 
