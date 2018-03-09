@@ -118,5 +118,4 @@
   * [Linux Rescue](hata_takibi/linux_rescue.md)
 * [Araçlar](araclar.md)
 * [İndeks](indeks.md)
-* Notlar
 

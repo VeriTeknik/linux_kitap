@@ -2,19 +2,19 @@
 
 Bir önceki bölümde istemciyi nasıl kullanacağımızı ve nasıl ayarlayacağımızı gördük. Bu kısımda sunucu üzerinde OpenSSH ayarlamalarını nasıl yapacağımızı göreceğiz.
 
-Genellikle sunucular üzerinde ssh sunucusu yüklü gelir, ancak bazı sistemlerde (örneğin masaüstü sistemlerde) gelmemesi halinde paket yöneticinizden edinebilirsiniz.
+Genellikle sunucular üzerinde ssh sunucusu yüklü gelir, ancak bazı sistemlerde \(örneğin masaüstü sistemlerde\) gelmemesi halinde paket yöneticinizden edinebilirsiniz.
 
 Örneğin Ubuntu masaüstü sistemler için aşağıdaki komut ilgili paketleri yükleyecektir.
 
-```apt-get instal openssh-server```
+`apt-get install openssh-server`
 
 ## sshd Dosyası
 
-Nasıl istemciyi ```/etc/ssh/ssh_config``` dosyasından ayarladıysak, sunucuyu da benzer biçimde ```/etc/ssh/sshd_config``` dosyasından ayarlayabiliriz.
+Nasıl istemciyi `/etc/ssh/ssh_config` dosyasından ayarladıysak, sunucuyu da benzer biçimde `/etc/ssh/sshd_config` dosyasından ayarlayabiliriz.
 
 Buradaki seçenekler istemcide kullanılana benzerdir, ancak bazı noktaların üzerinden geçmekte fayda var.
 
-sshd_config dosyası hakkında yardım dosyalarına erişmek için
+sshd\_config dosyası hakkında yardım dosyalarına erişmek için
 
 ```bash
 man 5 sshd_config
@@ -64,7 +64,7 @@ ClientAliveInterval 300
 ClientAliveCountMax 0
 ```
 
-Yukarıdaki sunucu ayarında istemciden 5 dakikada bir (300 saniye) **alive** sinyali beklenir. Eğer bu sinyali **0** defa göndermezse bağlantı kesilir.
+Yukarıdaki sunucu ayarında istemciden 5 dakikada bir \(300 saniye\) **alive** sinyali beklenir. Eğer bu sinyali **0** defa göndermezse bağlantı kesilir.
 
 Bu ayarlamaya sahip bir sunucuya bağlanırken ssh istemcinizde
 
@@ -72,9 +72,9 @@ Bu ayarlamaya sahip bir sunucuya bağlanırken ssh istemcinizde
 ssh -o ServerAliveInterval=300 -o ServerAliveCountMax=0 sunucu-adi
 ```
 
-şeklinde bir kullanıma ihtiyaç duyarsınız. Tabii bu ayarları ```/etc/ssh/ssh_config``` dosyanıza kaydedebilirsiniz de.
+şeklinde bir kullanıma ihtiyaç duyarsınız. Tabii bu ayarları `/etc/ssh/ssh_config` dosyanıza kaydedebilirsiniz de.
 
-Bir diğer bağlantı canlılığı, şifre sorulduğu anda gerçekleşir. Şifre sorgu ekranının ne kadar süreyle aktif kalacağını ```LoginGraceTime``` değeriyle düzenleyebilirsiniz.
+Bir diğer bağlantı canlılığı, şifre sorulduğu anda gerçekleşir. Şifre sorgu ekranının ne kadar süreyle aktif kalacağını `LoginGraceTime` değeriyle düzenleyebilirsiniz.
 
 ```
 LoginGraceTime 60
@@ -98,4 +98,5 @@ Sunucu üzerindeki programlar X11 pencereleri ile çalışıyorsa, bu pencereler
 X11Forwarding yes
 ```
 
-İstemcide ise bağlanırken ```-X``` parametresi kullanılmalıdır.
+İstemcide ise bağlanırken `-X` parametresi kullanılmalıdır.
+
