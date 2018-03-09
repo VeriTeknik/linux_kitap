@@ -120,5 +120,25 @@ TCP ve UDP iletişiminde kullanılan port numaraları genel bir standarda ulaşm
 
 Buradan şu çıkarımı yapabiliriz: "O zaman bu dosya üzerinde 22 TCP'ye karşılık gelen değeri **ssh** yerine **http** yapsaydık, farklı görünecekti". Gerçekten de öyle. Bu yüzden port taramalarında SSH değeri görsek de, bunu netcat \(veya benzeri programlar\) tablolara bakarak belirtmektedir, 22. porta veri gönderip aldığı cevabı analiz edip hangi servisin çalıştığını belirtmemektedir. Dolayısıyla eğer tarama yaptığınız sunucu 22. port üzerinde SSH yerine FTP çalıştırıyorsa, tarama sonucunuz sizi yanıltabilir.
 
+## Port Dinleme
+
+Biraz önce 84. portu taradığımızda en azından bir servisin dinlediğini öğrendik. Aslında bu makinada da netcat'e 84 TCP portunu _dinlemesini_ söyledik. Yani bir makina 84. portta server görevi görürken, diğer makina bu porta veri gönderiyordu \(client\).
+
+Netcat ile dinleme işlemleri _listen_'ın kısaltması olan **-l** parametresiyle gerçekleştirilir.
+
+Örneğin bir sunucu üzerinde 84 TCP portunu dinlemek istersek, aşağıdaki şekilde netcat'i çalıştırdığımızda, veri gelmesini bekleyecektir.
+
+**NOT:** Dinleme işlemleri için root yetkisi gerekmektedir.
+
+```
+eaydin@eaydin-vt ~ $ sudo nc -l 84
+
+
+```
+
+Şimdi başka bir makinadan bu porta veri gönderirsek, verinin karşı tarafa ulaştığını görebiliriz.
+
+
+
 
 
