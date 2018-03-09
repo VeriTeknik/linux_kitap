@@ -104,5 +104,21 @@ eaydin@k9 ~ $ nc -vz 192.168.16.30 81
 nc: connectx to 192.168.16.30 port 81 (tcp) failed: Connection refused
 ```
 
+Belirtilecek portları aralık halinde de verebiliriz. Örneğin sunucunun 20-90 portları aralığını taramak istersek aşağıdaki gibi bir sonuç elde ederiz.
+
+```
+[root@emre ~]# nc -z 192.168.16.30 20-90
+Connection to 192.168.16.30 22 port [tcp/ssh] succeeded!
+Connection to 192.168.16.30 84 port [tcp/ctf-veriteknik] succeeded!
+```
+
+Bu sunucu üzerinde TCP 22 ve 84 portları cevap veriyormuş. Farkındaysanız portlara karşılık gelen servisler de parantez içerisinde yazıyor. Port 22 üzerinde SSH çalıştığını söylemiş netcat, ancak 84 portu için **ctf-veriteknik** yazıyor?
+
+## Port Numaraları ve İlgili Servisler
+
+TCP ve UDP iletişiminde kullanılan port numaraları genel bir standarda ulaşmış denilebilir. Örneğin 80 portu HTTP için kullanılmaktadır. Ancak tahmin edeceğiniz üzere bu genel bir kanıdır ve her sunucu 80 portundan HTTP yayını yapmak zorunda değildir. Sunucular bu _genel kanı_'dan haberdar olmadıkları için, çoğunlukla kullanılan standart portların bir listesine ihtiyaç duyarlar. Aslında bu liste daha ziyade sunucuyu yöneten/kullanan kişinin ilgili portlarla karşılaştığında genellikle ne işe yaradıklarını anlayabilmelerini sağlar. Örneğin bir port taramasında veya sistemin genel sağlığı incelendiğinde 873. port üzerinde çalışan bir servis dikkatimizi çekerse, bunun genellikle **rsync** için kullanıldığını bilemeyebiliriz. Bunun için GNU/Linux sunucular üzerinde özel bir dosyada TCP/UDP port sayılarına karşılık gelen _okunabilir_ servis isimleri yer almaktadır. Çoğunlukla bu dosya `/etc/services` yolunda bulunur. Netcat gibi programlar bir porta karşılık servis ismi sağlarken, buradaki karşılıklarını dikkate alırlar. Bu dosyadaki 84 TCP portuna karşılık gelen değeri değiştirirsek \(ya da, eğer yoksa eklersek\) artık netcat buradaki değeri dikkate alacaktır. Yukarıdaki örnekte de 84 TCP için ctf-veriteknik değerini yazdığımız için bu sonucu aldık.
+
+Buradan şu çıkarımı yapabiliriz: "O zaman bu dosya üzerinde 22 TCP'ye karşılık gelen değeri **ssh** yerine **http** yapsaydık, farklı görünecekti". Gerçekten de öyle. Bu yüzden port taramalarında SSH değeri görsek de, bunu netcat \(veya benzeri programlar\) tablolara bakarak belirtmektedir, 22. porta veri gönderip aldığı cevabı analiz edip hangi servisin çalıştığını belirtmemektedir. Dolayısıyla eğer tarama yaptığınız sunucu 22. port üzerinde SSH yerine FTP çalıştırıyorsa, tarama sonucunuz sizi yanıltabilir.
+
 
 
