@@ -131,14 +131,30 @@ Netcat ile dinleme işlemleri _listen_'ın kısaltması olan **-l** parametresiy
 **NOT:** Dinleme işlemleri için root yetkisi gerekmektedir.
 
 ```
-eaydin@eaydin-vt ~ $ sudo nc -l 84
-
-
+root@server ~ # nc -l 84
 ```
 
 Şimdi başka bir makinadan bu porta veri gönderirsek, verinin karşı tarafa ulaştığını görebiliriz.
 
+```
+[eaydin@client ~]$ nc 192.168.16.30 83
+test1
+test2
+```
 
+Burada satırları yazarken ENTER tuşu ile gönderilmesini söylemiş olduk. Netcat satır sonlarını TCP paketleri halinde karşı tarafa gönderir. Sunucu tarafında bu verilerin ulaştığını görebiliriz.
+
+```
+root@server ~ # nc -l 84
+test1
+test2
+```
+
+Eğer client tarafında netcat programını sonlandırırsak, client server'a TCP bağlantısını sonlandıracağı bilgisini göndereceği için, server da sonlanacaktır. Eğer server'ın sürekli dinlemesini istiyorsak, yani bağlantıların TCP Fin paketiyle sonlandırıldığında bile server'ın yeni bağlantı beklemesini istiyorsak, -k parametresiyle başlatılması gerekir.
+
+```
+root@server ~ # nc -lk 84
+```
 
 
 
