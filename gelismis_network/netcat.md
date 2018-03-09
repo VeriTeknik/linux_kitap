@@ -92,7 +92,7 @@ Burada isteği gönderdiğimiz ağ kartı cihazının adı, IP adresleri ve kull
 Eğer port taramasını yaptığınız servis bir firewall arkasındaysa, bağlantının başarısız olduğu bilgisi gelmeyebilir, bu yüzden bağlantınız havada kalabilir. Örneğin Google'ın 81. portunu tarayacak olursak, cevap gelmeyecektir, ancak netcat de cevap gelmesini bekleyecektir.
 
 ```
- ✘ eaydin@k9 ~ $ nc -vz google.com 81
+eaydin@k9 ~ $ nc -vz google.com 81
 ```
 
 Normal şartlar altında bir TCP bağlantısı karşını karşı taraf reddederse bunun sinyalini alırız, ancak firewall'lar özellikle bunu göndermediği için netcat bağlantıyı sonlandırmayıp bekliyor.

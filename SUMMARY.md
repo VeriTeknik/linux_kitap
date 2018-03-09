@@ -75,9 +75,9 @@
     * [VSFTP](ftp/vsftp.md)
     * [PROFTP](ftp/proftp.md)
   * PostgreSQL
-* Zamanlanmış Görevler
-  * crontab
-  * at
+* [Zamanlanmış Görevler](zamanlanmis-gorevler.md)
+  * [crontab](zamanlanmis-gorevler/crontab.md)
+  * [at](zamanlanmis-gorevler/at.md)
 * [Gelişmiş Network Komutları](gelismis_network/gelismis_network_komutlari.md)
   * [ip](gelismis_network/ip.md)
   * [ifconfig](gelismis_network/ifconfig.md)
