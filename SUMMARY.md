@@ -62,7 +62,7 @@
   * [PHP-FPM](php.md)
   * [Veritabanı](veritabani.md)
   * [PostgreSQL](postgresql.md)
-  * [Veritabanı](mysql/mysql.md)
+  * [Veritabanı](veritabani.md)
     * [MySQL kurulumu](mysql/mysql-kurulumu.md)
     * [MySQL servisini çalıştırmak](mysql/temel_tablo_olusturma.md)
     * [Veritabanı ve Tablo Oluşturmak](mysql/mysql-veritabani-olusturmak.md)
