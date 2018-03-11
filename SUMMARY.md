@@ -60,7 +60,9 @@
   * [Nameserver Servisleri](nameserver/nameserver_servisleri.md)
   * [Apache](apache/apache.md)
   * [PHP-FPM](php.md)
-  * [MySQL](mysql/mysql.md)
+  * [Veritabanı](veritabani.md)
+  * [PostgreSQL](postgresql.md)
+  * [Veritabanı](mysql/mysql.md)
     * [MySQL kurulumu](mysql/mysql-kurulumu.md)
     * [MySQL servisini çalıştırmak](mysql/temel_tablo_olusturma.md)
     * [Veritabanı ve Tablo Oluşturmak](mysql/mysql-veritabani-olusturmak.md)
@@ -74,7 +76,6 @@
     * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
     * [VSFTP](ftp/vsftp.md)
     * [PROFTP](ftp/proftp.md)
-  * PostgreSQL
 * [Zamanlanmış Görevler](zamanlanmis-gorevler.md)
   * [crontab](zamanlanmis-gorevler/crontab.md)
   * [at](zamanlanmis-gorevler/at.md)
