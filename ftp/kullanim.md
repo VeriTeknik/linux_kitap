@@ -1,2 +1,4 @@
-# Komut Satırından ftp Kullanımı
+# Basit komutlar
+
+
 
