@@ -72,7 +72,7 @@
       * [Yedekleri içeri alma ](veritabani/mysql/yedekleri-iceri-alma.md)
   * [FTP](ftp/ftp.md)
     * [VSFTP](ftp/vsftp.md)
-    * [PROFTP](ftp/proftp.md)
+    * [ProFTPD](ftp/proftpd.md)
     * [FTPS](ftp/ftps.md)
     * [SFTP](ftp/sftp.md)
     * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
