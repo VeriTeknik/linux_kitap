@@ -71,11 +71,11 @@
       * Replikasyon teknikleri
       * [Yedekleri içeri alma ](veritabani/mysql/yedekleri-iceri-alma.md)
   * [FTP](ftp/ftp.md)
-    * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
     * [VSFTP](ftp/vsftp.md)
     * [PROFTP](ftp/proftp.md)
     * [FTPS](ftp/ftps.md)
     * [SFTP](ftp/sftp.md)
+    * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
 * [Zamanlanmış Görevler](zamanlanmis-gorevler.md)
   * [crontab](zamanlanmis-gorevler/crontab.md)
   * [at](zamanlanmis-gorevler/at.md)
