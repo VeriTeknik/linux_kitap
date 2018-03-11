@@ -1,2 +1,0 @@
-# Yedekleri İçeri Alma
-

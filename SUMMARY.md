@@ -61,8 +61,15 @@
   * [Apache](apache/apache.md)
   * [PHP-FPM](php.md)
   * [Veritabanı](/veritabani.md#veritabanı)
-    * [MySQL](mysql/mysql.md)
-      * [MySQL servisini çalıştırmak](mysql/mysql/mysql-servisini-calistirmak.md)
+    * [MySQL](veritabani/mysql/mysql.md)
+      * [MySQL Kurulumu](veritabani/mysql/mysql-kurulumu.md)
+      * [MySQL Servisini Çalıştırmak](veritabani/mysql/mysql-servisini-calistirmak.md)
+      * [Veritabanı ve Tablo oluşturmak](veritabani/mysql/mysql-veritabani-tablo-islemleri.md)
+      * [SQL Tablosuna Veri Eklemek](veritabani/mysql/tabloya-veri-eklemek.md)
+      * [Temel SQL Sorguları](veritabani/mysql/temel-sql-sorgulari.md)
+      * mysqldump ile yedekleme
+      * Replikasyon teknikleri
+      * [Yedekleri içeri alma ](veritabani/mysql/yedekleri-iceri-alma.md)
   * [FTP](ftp/ftp.md)
     * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
     * [VSFTP](ftp/vsftp.md)

@@ -1,2 +1,0 @@
-# mysqldump ile Yedekleme
-

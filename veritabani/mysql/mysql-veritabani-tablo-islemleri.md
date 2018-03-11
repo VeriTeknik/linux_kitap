@@ -1,4 +1,4 @@
-# MySQL Veritabanı Oluşturmak
+# Veritabanı ve Tablo Oluşturmak
 
 MySQL üzerindeki veritabanlarını yönetmek için bir çok yönetim aracı olsa da biz kabuk üzerinden yöneteceğiz. Yönetim araçlarının çoğu da yazacağımız komutları bizim yerimize kabuktan yazmak dışında bir işlem yapmıyor.
 
