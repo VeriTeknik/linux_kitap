@@ -74,7 +74,6 @@
     * [vsftpd](ftp/vsftpd.md)
     * [ProFTPD](ftp/proftpd.md)
     * [FTPS](ftp/ftps.md)
-    * [SFTP](ftp/sftp.md)
     * [Komut Satırından ftp Kullanımı](ftp/kullanim.md)
 * [Zamanlanmış Görevler](zamanlanmis-gorevler.md)
   * [crontab](zamanlanmis-gorevler/crontab.md)
