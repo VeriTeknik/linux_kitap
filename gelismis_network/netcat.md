@@ -120,6 +120,16 @@ TCP ve UDP iletişiminde kullanılan port numaraları genel bir standarda ulaşm
 
 Buradan şu çıkarımı yapabiliriz: "O zaman bu dosya üzerinde 22 TCP'ye karşılık gelen değeri **ssh** yerine **http** yapsaydık, farklı görünecekti". Gerçekten de öyle. Bu yüzden port taramalarında SSH değeri görsek de, bunu netcat \(veya benzeri programlar\) tablolara bakarak belirtmektedir, 22. porta veri gönderip aldığı cevabı analiz edip hangi servisin çalıştığını belirtmemektedir. Dolayısıyla eğer tarama yaptığınız sunucu 22. port üzerinde SSH yerine FTP çalıştırıyorsa, tarama sonucunuz sizi yanıltabilir.
 
+## Çıkış Portunu Belirtmek
+
+Normal şartar altında, uzak bir sunucuya bağlanırken, sunucunun portu belliyken, istemcinin _çıkış portu_ belirtilmeyebilir. Örneğin bir internet sayfasına 80. porttan bağlanmanız, istemcinin çıkış için kendi üzerindeki 80. portu kullanacağı anlamına gelmez. İstemci _çıkış portunu_ belirtmediği sürece, işletim sistemi yüksek sayılı port numaraları arasından uygun olanı kendisi belirler ve istemciyi bu port üzerinden veri göndermeye yönlendirir. Bu portlara _Ephemeral Ports_ denilmektedir. Ancak ağımızda ve sistemimizde test yaparken, netcat'in _çıkış portunu \(source port\)_ belirleyebiliriz. Bunu -p parametresiyle yaparız. Böylece örneğin sistemimizin 9091 portundan çıkış yapabilmesinin mümkün olup olmadığını test etmek için, çıkış portu olarak belirtmek yeterli olacaktır.
+
+```
+nc -p 9091 192.168.16.30 80
+```
+
+Yukarıdaki komut, 192.168.16.30 sunucusunun 80 portuna, kendi 9091 portundan çıkış yaparak bağlantı sağlamaktadır.
+
 ## Port Dinleme
 
 Biraz önce 84. portu taradığımızda en azından bir servisin dinlediğini öğrendik. Aslında bu makinada da netcat'e 84 TCP portunu _dinlemesini_ söyledik. Yani bir makina 84. portta server görevi görürken, diğer makina bu porta veri gönderiyordu \(client\).
@@ -229,7 +239,7 @@ root@B.server ~ # nc -l 9955 | gzip -d -c | openssl enc -aes-256-cbc -pass pass:
 Gönderiren de ters sırada işlemleri yapmak gerekecektir.
 
 ```
-eaydin@A.client ~ $ mysqldump -u kullanici_adi -p veritabani_ismi | openssl enc -aes-256-cbc -pass pass:GIZLI_S1FR3 -e | gzip | nc B.server 9955 
+eaydin@A.client ~ $ mysqldump -u kullanici_adi -p veritabani_ismi | openssl enc -aes-256-cbc -pass pass:GIZLI_S1FR3 -e | gzip | nc B.server 9955
 ```
 
 Veri MySQL sunucusu üzerinde önce şifreleniyor, sonra sıkıştırılıyor, ardından netcat ile diğer sunucuya gönderiliyor. Diğer sunucu önce sıkıştırılmış veriyi açıyor, ardından şifreyi çözüyor ve dosyayı yazıyor.
