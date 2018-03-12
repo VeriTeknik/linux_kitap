@@ -4,7 +4,7 @@ Komut satırından ssh ile bir sunucuya bağlanmak oldukça kolaydır.
 
 ```bash
 eaydin@dixon ~ $ ssh 94.103.47.66
-eaydin@94.103.47.66's password: 
+eaydin@94.103.47.66's password:
 ```
 
 Gördüğünüz gibi yukarıdaki gibi bağlandığımızda sunucu şifre sormaktadır. Bir kullanıcı adı belirtmediğimiz için, mevcut kullanıcıyı parametre olarak göndermiştir. Oysa ki sunucuya **root** kullanıcısı ile bağlanmak istiyorduk.
@@ -31,7 +31,7 @@ Aşağıdaki yöntem, kimlik doğrulamada anahtarı gözardı edip, şifre girme
 ```bash
 eaydin@dixon ~ $ ssh -o PreferredAuthentications=password \
 -o PubkeyAuthentication=no root@94.103.47.66
-root@94.103.47.66's password: 
+root@94.103.47.66's password:
 ```
 
 Öte yandan, dökümanlarda yer almasa da, bir [stackexchange](http://stackexchange.com) kullanıcısının OpenSSH kodlarını incelerken dikkatini çeken "şifre sormayı zorlama" yöntemini sizinle paylaşmak istiyoruz:
@@ -40,8 +40,10 @@ root@94.103.47.66's password:
 eaydin@dixon ~ $ ssh root:@94.103.47.66
 root:@94.103.47.66's password:
 ```
-[*Kaynak*](http://unix.stackexchange.com/a/124582)
 
+[_Kaynak_](http://unix.stackexchange.com/a/124582)
+
+Yukarıdaki yöntem, 2015 tarihinden itibaren çalışmamaya başlamış olsa da, bazı programlarda dokümante edilmemiş özelliklerin barınabileceğini göstermek için iyi bir örnek teşkil ediyor.
 
 Aşağıdaki yöntemleyse, ayar dosyamızda belirilen ssh anahtarı dışında bir anahtarla bağlanabilmenin yolu görülmektedir.
 
@@ -57,12 +59,12 @@ Eğer bir sunucuya ilk kez bağlanıyorsanız, genellikle aşağıdaki gibi bir 
 eaydin@dixon ~ $ ssh root:@94.103.47.66
 The authenticity of host '94.103.47.66 (94.103.47.66)' can't be established.
 RSA key fingerprint is c2:54:d7:77:57:76:a1:78:f8:82:8b:48:de:89:71:c5.
-Are you sure you want to continue connecting (yes/no)? 
+Are you sure you want to continue connecting (yes/no)?
 ```
 
 Burada ssh, bağlanacağınız sunucunun RSA parmak izine bakıp gerçekten doğru sunucu olup olmadığını bildiğinizi sorar. Tabii ki bu rakamları ezberlemenizin imkanı yoktur dolayısıyla ilk bağlandığınızda genellikle buna **yes** demek normaldir.
 
-Ancak daha sonra bu soruyu sormaz, çünkü artık RSA parmak izini kenara not etmiştir SSH. 
+Ancak daha sonra bu soruyu sormaz, çünkü artık RSA parmak izini kenara not etmiştir SSH.
 
 ```bash
 eaydin@dixon ~ $ ssh root:@94.103.47.66
@@ -95,7 +97,7 @@ Host key verification failed.
 
 Bu noktada SSH kısaca "bağlanmaya çalıştığın sunucunun parmak izi daha önceden farklıydı. Bu şüpheli bir durum. Eğer yine de devam etmek istiyorsan benim kenara not ettiğim satırı sil lütfen" demektedir.
 
-Hata mesajında parmak izini nereye not ettiği görülebilir: ```/home/eaydin/.ssh/known_hosts:1``` yani bu dosyanın ilk satırı.
+Hata mesajında parmak izini nereye not ettiği görülebilir: `/home/eaydin/.ssh/known_hosts:1` yani bu dosyanın ilk satırı.
 
 Bu satırı silersek, tekrar bize **yes/no** sorusunu soracaktır. Öte yandan tek seferlik bu kontrolü engellemek için aşağıdaki gibi bir bağlantı yapabilirdik.
 
@@ -103,21 +105,21 @@ Bu satırı silersek, tekrar bize **yes/no** sorusunu soracaktır. Öte yandan t
 eaydin@dixon ~ $ ssh -o UserKnownHostsFile=/dev/null root:@94.103.47.66
 The authenticity of host '94.103.47.66 (94.103.47.66)' can't be established.
 RSA key fingerprint is c2:54:d7:77:57:76:a1:78:f8:82:8b:48:de:89:71:c5.
-Are you sure you want to continue connecting (yes/no)? 
+Are you sure you want to continue connecting (yes/no)?
 ```
 
-Aslında yaptığımız ```/home/eaydin/.ssh/known_hosts``` dosyasını yerine ```/dev/null``` kullanmak oldu. Bu dosya da boş olunca, yine RSA parmak izini tanıyıp tanımadığımızı sordu. Eğer bu soruyu da sormamasını isteseydik,
+Aslında yaptığımız `/home/eaydin/.ssh/known_hosts` dosyasını yerine `/dev/null` kullanmak oldu. Bu dosya da boş olunca, yine RSA parmak izini tanıyıp tanımadığımızı sordu. Eğer bu soruyu da sormamasını isteseydik,
 
 ```bash
 eaydin@dixon ~ $ ssh -o UserKnownHostsFile=/dev/null \
 -o StrictHostKeyChecking=no root:@94.103.47.66
 Warning: Permanently added '94.103.47.66' (RSA) to the list of known hosts.
-root:@94.103.47.66's password: 
+root:@94.103.47.66's password:
 ```
 
-Yukarıdaki mesajda her ne kadar "Permanently added" dese de, eklediği liste dosyası ```/dev/null``` olduğu için, bu bilgi hiçbir yere kaydedilmemiş oldu.
+Yukarıdaki mesajda her ne kadar "Permanently added" dese de, eklediği liste dosyası `/dev/null` olduğu için, bu bilgi hiçbir yere kaydedilmemiş oldu.
 
-```known_hosts``` dosyasına eklenen bir RSA parmak izini silmek için dosyayı düzenlemek yerine ```ssh-keygen``` komutunun bir parametresini kullanabilirdik. Bu bizi hashlenmiş dosyada ilgili satırı bulma derdinden kurtarmaktadır. Yukarıdaki örnek için yapacak olursak:
+`known_hosts` dosyasına eklenen bir RSA parmak izini silmek için dosyayı düzenlemek yerine `ssh-keygen` komutunun bir parametresini kullanabilirdik. Bu bizi hashlenmiş dosyada ilgili satırı bulma derdinden kurtarmaktadır. Yukarıdaki örnek için yapacak olursak:
 
 ```bash
 eaydin@dixon ~ $ ssh-keygen -R 94.103.47.66
@@ -128,14 +130,17 @@ Original contents retained as /home/eaydin/.ssh/known_hosts.old
 
 ## İstemci Ayarları
 
-Yukarıdaki örneklerde ```-o``` parametresiyle bağlantı sırasında bazı seçenekleri açıp kapattık. Aslında burada yaptığımız, ssh istemcinin tanımlanmış ayarlarında bazılarını kullanmayıp o an belirttiklerimizi zorlamaktı.
+Yukarıdaki örneklerde `-o` parametresiyle bağlantı sırasında bazı seçenekleri açıp kapattık. Aslında burada yaptığımız, ssh istemcinin tanımlanmış ayarlarında bazılarını kullanmayıp o an belirttiklerimizi zorlamaktı.
 
-Sözkonusu istemci ayarları sistem üzerinde ```/etc/ssh/ssh_config``` yolunda yer alır.
+Sözkonusu istemci ayarları sistem üzerinde `/etc/ssh/ssh_config` yolunda yer alır.
 
-Örneğin bu dosyada ```StrictHostKeyChecking no``` yaptığımız takdirde yukarıdaki **yes/no** sorusuyla karşılaşmayız. (Tavsiye edilmez!) Benzer şekilde kullanılacak özel anahtarların yolu, şifre kullanımına izin verilmesi, port belirtilmediği takdirde hangi portun kullanılacağı (öntanımlı değer 22) gibi bir çok seçenek ayarlanabilir.
+Örneğin bu dosyada `StrictHostKeyChecking no` yaptığımız takdirde yukarıdaki **yes/no** sorusuyla karşılaşmayız. \(Tavsiye edilmez!\) Benzer şekilde kullanılacak özel anahtarların yolu, şifre kullanımına izin verilmesi, port belirtilmediği takdirde hangi portun kullanılacağı \(öntanımlı değer 22\) gibi bir çok seçenek ayarlanabilir.
 
-ssh_config hakkında yardım dosyalarını okumak için
+ssh\_config hakkında yardım dosyalarını okumak için
 
 ```bash
 man 5 ssh_config
 ```
+
+
+

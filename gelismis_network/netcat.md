@@ -120,6 +120,16 @@ TCP ve UDP iletişiminde kullanılan port numaraları genel bir standarda ulaşm
 
 Buradan şu çıkarımı yapabiliriz: "O zaman bu dosya üzerinde 22 TCP'ye karşılık gelen değeri **ssh** yerine **http** yapsaydık, farklı görünecekti". Gerçekten de öyle. Bu yüzden port taramalarında SSH değeri görsek de, bunu netcat \(veya benzeri programlar\) tablolara bakarak belirtmektedir, 22. porta veri gönderip aldığı cevabı analiz edip hangi servisin çalıştığını belirtmemektedir. Dolayısıyla eğer tarama yaptığınız sunucu 22. port üzerinde SSH yerine FTP çalıştırıyorsa, tarama sonucunuz sizi yanıltabilir.
 
+## Çıkış Portunu Belirtmek
+
+Normal şartar altında, uzak bir sunucuya bağlanırken, sunucunun portu belliyken, istemcinin _çıkış portu_ belirtilmeyebilir. Örneğin bir internet sayfasına 80. porttan bağlanmanız, istemcinin çıkış için kendi üzerindeki 80. portu kullanacağı anlamına gelmez. İstemci _çıkış portunu_ belirtmediği sürece, işletim sistemi yüksek sayılı port numaraları arasından uygun olanı kendisi belirler ve istemciyi bu port üzerinden veri göndermeye yönlendirir. Bu portlara _Ephemeral Ports_ denilmektedir. Ancak ağımızda ve sistemimizde test yaparken, netcat'in _çıkış portunu \(source port\)_ belirleyebiliriz. Bunu -p parametresiyle yaparız. Böylece örneğin sistemimizin 9091 portundan çıkış yapabilmesinin mümkün olup olmadığını test etmek için, çıkış portu olarak belirtmek yeterli olacaktır.
+
+```
+nc -p 9091 192.168.16.30 80
+```
+
+Yukarıdaki komut, 192.168.16.30 sunucusunun 80 portuna, kendi 9091 portundan çıkış yaparak bağlantı sağlamaktadır.
+
 ## Port Dinleme
 
 Biraz önce 84. portu taradığımızda en azından bir servisin dinlediğini öğrendik. Aslında bu makinada da netcat'e 84 TCP portunu _dinlemesini_ söyledik. Yani bir makina 84. portta server görevi görürken, diğer makina bu porta veri gönderiyordu \(client\).
@@ -137,7 +147,7 @@ root@server ~ # nc -l 84
 Şimdi başka bir makinadan bu porta veri gönderirsek, verinin karşı tarafa ulaştığını görebiliriz.
 
 ```
-[eaydin@client ~]$ nc 192.168.16.30 83
+[eaydin@client ~]$ nc 192.168.16.30 84
 test1
 test2
 ```
@@ -155,6 +165,86 @@ Eğer client tarafında netcat programını sonlandırırsak, client server'a TC
 ```
 root@server ~ # nc -lk 84
 ```
+
+## Kullanım Senaryoları
+
+Netcat'in temel olarak ne iş yaptığını gördük. Başta bahsettiğimiz gibi aslında çok basit bir iş yapıyor, ancak sunucu/network yapınızda test sağlamak için kullanışlı olurken, standart girdi/çıktı yönlendirmeleriyle birçok problemi hızla çözmenize olanak sağlıyor.
+
+Örneğin iki sunucunuz arasında VPN tünelleri veya güvenliik duvarları ayarlamışsanız, kurguladığınız yapıda iletişim problemi olup olmadığını, iki tarafta netcat ile server/client testleri yaparak tespit edebilirsiniz.
+
+Sık kullanılan bu denetleme mekanizması dışında, birtakım farklı problemlere de çözüm sağlamaktadır. Bu bölümde bizim sıkça kullandığımız ve internette karşılaştığımız enteresan kullanım senaryolarından kısaca bahsedeceğiz.
+
+### Dosya Transferi
+
+İki sunucu arasında hızlıca dosya transfer etmek istediğinizde, çeşitli sebeplerden dolayı SFTP, FTP, HTTPD gibi standart protokolleri kullanamayabilirsiniz. Bazen ortamdaki güvenlik duvarları buna izin vermez, bazen boş yere makinalara bu araçların sunucu ve istemcilerini kurmak istemeyebilirsiniz. Bunun için dosyayı gönderecek tarafta netcat'i client olarak, dosyayı alacak tarafta da netcat'i server olarak çalıştırıp dosya transferini gerçekleştirebilirsiniz.
+
+Örneğin `yedekler.tar.gz` dosyasını A sunucusundan B sunucusuna aktarmak istersek, ve bu sunucular arasında 9955 portunda iletişim sağlamamız mümkünse, önce B sunucusunda 9955 portunu dinleyip, gelen her şeyi `yedekler.tar.gz` isimli bir dosyaya yönlendirmemiz gerekir.
+
+```
+root@B.server ~ # nc -l 9955 > yedekler.tar.gz
+```
+
+Şimdi A sunucusundan dosyayı gönderebiliriz.
+
+```
+eaydin@A.client ~ $ nc -w 5 B.server < yedekler.tar.gz
+```
+
+Farkındaysanız A üzerinde B.server yazdık. Bu B'ni hostname'i veya IP adresi olmalıdır. B'nin ise A'nın IP adresini bilmesine gerek yok.
+
+A üzerinde çalıştırdığımız komuttaki `-w` parametresi, timeout süresini belirtmektedir. Ayrıca dosya transferi tamamlandığı anda, B tarafı bağlantıyı kapatır, çünkü `-k` parametresiyle çalıştırmadık.
+
+### Standart Çıktı Yönlendirme ile Veri Transferi
+
+Biraz önceki örneğimizde, A sunucusu üzerinde yedekler.tar.gz dosyası hali hazırda mevcuttu. Bazı durumlarda bu dosya mevcut olmayabilir. Örneğin yedekler.tar.gz'nin bir MySQL veritabanı çıktısı olmasını isteyebiliriz, ancak MySQL dump'ını disk üzerine yazmamız mümkün olmayabilir. Çok büyük veritabanlarının yedeği alınırken, hem çalışan disk üzerinde gereksiz yazma işlemine sebep olmak istemeyebiliriz, hem de disk üzerinde büyük veritabanıyla aynı boyutlarda yer olmayabilir. Bu gibi durumlarda, veritabanının çalıştığı sunucuda \(A sunucusu\) mysqldump \(veya benzer komut çıktısını\) doğrudan netcat ile farklı sunucuya aktarabiliriz.
+
+Yine istemci tarafında, ilk örneğimizde olduğu gibi belirli bir portu dinleyen ve gelen veriyi standart çıktıya yönlendiren bir netcat sunucusuna ihtiyacımız var.
+
+```
+root@B.server ~ # nc -l 9955 > database.sql
+```
+
+Şimdi MySQL'in çalıştığı tarafta mysqldump komutunu olduğu gibi netcat'e yönlendiriyoruz. \(Burada kullanıcı adı ve şifre vermek yerine, my.cnf dosyasını ayarlayabilirsiniz.\)
+
+```
+eaydin@A.client ~ $ mysqldump -u kullanici_adi -p veritabani_ismi | nc B.server 9955
+```
+
+### Veriyi Sıkıştırarak Göndermek
+
+Eğer veri çok büyükse, ağ üzerinde hızlanma sağlamak isterseniz ve veri sıkıştırılmaya uygunsa, araya gzip koyarak sıkıştırma sağlayabilirsiniz. Bu durumda karşı tarafta sıkıştırılmış veriyi açmanız gerekecektir. Biraz önceki mysqldump örneğinden gidecek olursak, önce dump'ı alıp, sonra veriyi sıkıştırıp, sonra da netcat ile gönderebiliriz. Ancak bu sefer veriyi alan tarafta da gzip ile "açma" işlemi yapmamız gerekecektir.
+
+```
+root@B.server ~ # nc -l 9955 | gzip -d -c > database.sql
+```
+
+Burada gzip'in -d parametresi, sıkıştırılmış veriyi açacağımız \(_decompress_\) anlamına gelmekte. -c ise veriyi standart çıktıya yönlendirmektedir. Bunun yerine doğrudan dosya ismi de verebilirdik.
+
+Veriyi gönderen taraf da artık sıkıştırarak gönderebilir.
+
+```
+eaydin@A.client ~ $ mysqldump -u kullanici_adi -p veritabani_ismi | gzip | nc B.server 9955
+```
+
+### Veriyi Şifreleyip Göndermek
+
+Buraya kadar yaptığımız örneklerde iki netcat arasındaki veri ağdaki başkası tarafından dinlenilirse anlaşılabilir durumda olacaktır. Bu durum güvenlik açısında tehdit oluşturuyorsa, veriyi doğrudan openssl ile şifreleyip gönderebiliriz.
+
+Dosyayı alacak \(sunucu\) tarafında aşağıdaki gibi bir komut dizisi yazılabilir.
+
+```
+root@B.server ~ # nc -l 9955 | gzip -d -c | openssl enc -aes-256-cbc -pass pass:GIZLI_S1FR3 -d > guvenli_transfer.sql
+```
+
+Gönderiren de ters sırada işlemleri yapmak gerekecektir.
+
+```
+eaydin@A.client ~ $ mysqldump -u kullanici_adi -p veritabani_ismi | openssl enc -aes-256-cbc -pass pass:GIZLI_S1FR3 -e | gzip | nc B.server 9955
+```
+
+Veri MySQL sunucusu üzerinde önce şifreleniyor, sonra sıkıştırılıyor, ardından netcat ile diğer sunucuya gönderiliyor. Diğer sunucu önce sıkıştırılmış veriyi açıyor, ardından şifreyi çözüyor ve dosyayı yazıyor.
+
+Burada sıkıştırma işlemini yapmak zorunda değiliz tabii ki, özellikle birden fazla işlemin uç uca eklenmesine güzel örnek sağladığı için, ve işlemlerin sırasının önemini vurgulamak için yaptık.
 
 
 

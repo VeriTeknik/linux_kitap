@@ -68,8 +68,8 @@
       * [Veritabanı ve Tablo oluşturmak](veritabani/mysql/mysql-veritabani-tablo-islemleri.md)
       * [SQL Tablosuna Veri Eklemek](veritabani/mysql/tabloya-veri-eklemek.md)
       * [Temel SQL Sorguları](veritabani/mysql/temel-sql-sorgulari.md)
-      * mysqldump ile yedekleme
-      * Replikasyon teknikleri
+      * [mysqldump ile yedekleme](veritabani/mysql/mysqldump-ile-yedekleme.md)
+      * [Replikasyon teknikleri](veritabani/mysql/replikasyon-teknikleri.md)
       * [Yedekleri içeri alma ](veritabani/mysql/yedekleri-iceri-alma.md)
   * [FTP](ftp/ftp.md)
     * [vsftpd](ftp/vsftpd.md)
@@ -115,8 +115,9 @@
 * [CentOS 7 tam sistem kurulumu](centos7tam_sistem_md.md)
 * [Hata Takibi](hata_takibi/hata_takibi.md)
   * [PHP, MySQL ve Apache Kütük Yapılandırması](hata_takibi/kutuk_yapisi.md)
-  * Notlar
+  * [Notlar](hata_takibi/notlar.md)
   * [Linux Rescue](hata_takibi/linux_rescue.md)
 * [Araçlar](araclar.md)
 * [İndeks](indeks.md)
+* [Kaynaklar](kaynaklar.md)
 
