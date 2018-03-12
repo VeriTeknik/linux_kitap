@@ -246,3 +246,43 @@ Veri MySQL sunucusu üzerinde önce şifreleniyor, sonra sıkıştırılıyor, a
 
 Burada sıkıştırma işlemini yapmak zorunda değiliz tabii ki, özellikle birden fazla işlemin uç uca eklenmesine güzel örnek sağladığı için, ve işlemlerin sırasının önemini vurgulamak için yaptık.
 
+## Proxy Görevi Görmek
+
+Wikipedia'nın netcat sayfasında paylaşılan bu örnek, hem TCP bağlantılarının yapısını anlamak, hem standart girdi/çıktı yönlendirmelerindeki problemleri görebilmek hem de netcat'i yeteneklerini anlamak için güzel bir örnek.
+
+Netcat sayesinde, bir sunucunun bir portuna gelen bütün talepleri, ilgili sunucu üzerinden yönlendirerek geçici olarak bir proxy görevi görmesini sağlayabilirsiniz. Örneğin Veriteknik'te barındırılan 94.103.47.2 IP adresli sunucunun 9696 portuna gelen bütün istekleri doğrudan Google'a yönlendirebiliriz. Bunun için sunucu üzerinde aşağıdaki komutu çalıştırmamız yeterli olacaktır:
+
+```
+nc -l 9696 | nc www.google.com 80
+```
+
+Gördüğünüz gibi yaptığımız aslında şu: netcat 9696 portunu dinliyor, ve 9696 portundan gelen bütün veriyi yine netcat ile www.google.com adresinin 80 portuna yönlendiriyor.
+
+Normal şartlar altında 94.103.47.2 üzerinden www.google.com adresine istek gönderdiğimizde, Google cevabı 94.103.47.2 adresine iletecektir. Bu yüzden her ne kadar biraz önceki yöntemle pakedimiz Google'a ulaşsa da, karşı taraftan gelecek cevap sunucumuzda kalacaktır. Bunun için karşı taraftan gelen cevapları da doğrudan istemciye yönlendirmemiz gerekir.
+
+GNU/Linux üzerinde sıkça kullandığımız _pipe_ işaret \| ile yapılan işlemler, tek yönlüdür. Örneğin `a | b` dediğimizde, aslında a'nın standart çıktısı b'ye yönlenmiş olur, ancak b'nin standart çıktısını a'ya yönlendirmez.
+
+Bunun için _named pipe_ kullanabiliriz. Named pipe'lar, standart girdi/çıktı yönlendirmelerinde oluşturulan _pipe_'lara isim verilmesiyle oluşturulan, çift yönlü yönlendirme, veya bir komutun standart çıktısının birden fazla komuta yönlendirilmesinde kullanılabilmek amacıyla geliştirilmiş yönlendirme mekanizmalarıdır.
+
+```
+root@server ~ # mkfifo backpipe
+root@server ~ # nc -l 9696 0<backpipe | nc www.google.com 80 1>backpipe
+```
+
+Burada önce backpipe isminde bir namedpipe oluşturuyorsuz. Arından netcat'in 9696 portunu dinlemesini sağlıyoruz ve netcat'in standart girdisini, backpipe'tan alıyoruz. Backpipe'tan gelen veri ile birlikte yeni netcat bağlantımızı Google'a yönlendirip, Google'dan gelen cevabı standart çıktı olarak netcat'e yönlendiriyoruz.
+
+### SSL Bağlantılarının Yönlendirilmesi
+
+Bu işlemi, gerekirse SSL bağlantılarını da yönlendirecek şekilde genişletebiliriz. Bunun için iki tane namedpipe ihtiyacımız olacak.
+
+```
+mkfifo tmp
+mkfifo tmp2
+nc -l 9696 -k > tmp < tmp2 &
+while true; do
+openssl s_client -connect www.google.com:443 -quiet < tmp > tmp2
+done
+```
+
+
+
