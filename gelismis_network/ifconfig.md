@@ -1,18 +1,18 @@
 # ifconfig
 
-Bugün GNU/Linux kullanan sistem yöneticilerinin çoğu eski alışkanlıklarından dolayı ağ cihazlarını (NIC) ayarlamak için ```ifconfig``` komutunu kullanırlar, ancak ifconfig uzun süredir geliştirilmeyen ve artık terk edilen (deprecated) bir yazılımdır. Dolayısıyla kullanmamak daha doğrudur.
+Bugün GNU/Linux kullanan sistem yöneticilerinin çoğu eski alışkanlıklarından dolayı ağ cihazlarını \(NIC\) ayarlamak için `ifconfig` komutunu kullanırlar, ancak ifconfig uzun süredir geliştirilmeyen ve artık terk edilen \(deprecated\) bir yazılımdır. Dolayısıyla kullanmamak daha doğrudur.
 
 Programın geliştirilmesinin durdurulduğu ilk olarak Debian mail listinde paylaşıldı. Bugün CentOS 7 gibi sistemlerde bu komut bulunmamaktadır.
 
-Duyuruyu şuradan görebilirsiniz: https://lists.debian.org/debian-devel/2009/03/msg00780.html
+Duyuruyu şuradan görebilirsiniz: [https://lists.debian.org/debian-devel/2009/03/msg00780.html](https://lists.debian.org/debian-devel/2009/03/msg00780.html)
 
-ifconfig'in artık geliştirilmemesinin pek çok sebebi vardır, ve bunun yerine ```ip``` komutunun kullanımı tavsiye edilir. Örneğin netmask tanımlanmasına CIDR notasyonu desteklenmez, ```255.255.255.248``` yerine ```/29``` yazamazsınız.
+ifconfig'in artık geliştirilmemesinin pek çok sebebi vardır, ve bunun yerine `ip` komutunun kullanımı tavsiye edilir. Örneğin netmask tanımlanmasına CIDR notasyonu desteklenmez, `255.255.255.248` yerine `/29` yazamazsınız.
 
-Öte yandan, bazı eski sistemlerde veya gömülü sistemlerde ```ip``` komutu bulunmayabilir. Bunun için nasıl çalıştığı hakkında fikir sahibi olmakta fayda var.
+Öte yandan, bazı eski sistemlerde veya gömülü sistemlerde `ip` komutu bulunmayabilir. Bunun için nasıl çalıştığı hakkında fikir sahibi olmakta fayda var.
 
 ## Mevcut Cihazları Listelemek
 
-```ifconfig``` programı parametresiz çağırıldığında mevcut ağ cihazlarını (NIC, Network Interface Controller) listeler.
+`ifconfig` programı parametresiz çağırıldığında mevcut ağ cihazlarını \(NIC, Network Interface Controller\) listeler.
 
 ```bash
 eaydin@dixon ~ $ ifconfig
@@ -44,11 +44,11 @@ wlan0     Link encap:Ethernet  HWaddr 80:56:f2:5b:ad:ab
 
 Yukarıdaki çıktıda 3 cihaz görülüyor.
 
-```eth0```: Ethernet kartı cihazı. Açık konumda (UP) ancak bir IP adresi yok. **HWaddr** ile gösterilen kısım MAC adresi.
+`eth0`: Ethernet kartı cihazı. Açık konumda \(UP\) ancak bir IP adresi yok. **HWaddr** ile gösterilen kısım MAC adresi.
 
-```lo```: Lookback interface. Yerel ağ'ın oluşması, 127.0.0.1 IP adresinin bir yere işaret edebilmesi için oluşan sanal cihaz.
+`lo`: Lookback interface. Yerel ağ'ın oluşması, 127.0.0.1 IP adresinin bir yere işaret edebilmesi için oluşan sanal cihaz.
 
-```wlan0```: Başka bir ethernet kartı. Adından anlaşılacağı üzere kablosuz (wireless) cihaz. Hem IPv4 hem de IPv6 adresleri görülüyor. Ayrıca **RX** ve **TX** ile giden, gelen paket sayısı ve miktarı gösteriliyor. Cihaz açıldığından beri 531.3MB indirme (download, receive) yapmış, 38.8MB gönderme (upload, transmisson) yapmış.
+`wlan0`: Başka bir ethernet kartı. Adından anlaşılacağı üzere kablosuz \(wireless\) cihaz. Hem IPv4 hem de IPv6 adresleri görülüyor. Ayrıca **RX** ve **TX** ile giden, gelen paket sayısı ve miktarı gösteriliyor. Cihaz açıldığından beri 531.3MB indirme \(download, receive\) yapmış, 38.8MB gönderme \(upload, transmisson\) yapmış.
 
 Tek cihazı görüntülemek için parametre olarak ismi verilebilir.
 
@@ -62,12 +62,11 @@ eth0      Link encap:Ethernet  HWaddr a0:d3:c1:5e:68:ec
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 ```
 
+Bazı durumlarda cihazların tamamı listelenmeyebilir. Özellikle DOWN durumda olan cihazları da görüntülemek için `-a` parametresi kullanılmalıdır.
 
-Bazı durumlarda cihazların tamamı listelenmeyebilir. Özellikle DOWN durumda olan cihazları da görüntülemek için ```-a``` parametresi kullanılmalıdır.
+`ifconfig -a`
 
-```ifconfig -a```
-
-Komut bazı bilgileri ```/proc``` altındaki dosyalardan öğrenir. Aşağıda birkaç örneğini görebilirsiniz.
+Komut bazı bilgileri `/proc` altındaki dosyalardan öğrenir. Aşağıda birkaç örneğini görebilirsiniz.
 
 ```bash
 eaydin@dixon ~ $ cat /proc/net/dev
@@ -85,7 +84,7 @@ fe800000000000008256f2fffe5badab 03 40 20 80    wlan0
 
 ### iwconfig
 
-Hangi cihazın kablosuz arayüzünün olduğunu (wireless extension) anlamak için ```iwconfig``` komutu kullanılabilir.
+Hangi cihazın kablosuz arayüzünün olduğunu \(wireless extension\) anlamak için `iwconfig` komutu kullanılabilir.
 
 ```bash
 eth0      no wireless extensions.
@@ -102,7 +101,7 @@ wlan0     IEEE 802.11bgn  ESSID:"aydin"
 lo        no wireless extensions.
 ```
 
-iwconfig komutu, bu bilgileri ```/proc/net/wireless``` dosyasını okuyarak derler.
+iwconfig komutu, bu bilgileri `/proc/net/wireless` dosyasını okuyarak derler.
 
 ```bash
 eaydin@dixon ~ $ cat /proc/net/wireless
@@ -117,17 +116,17 @@ iwconfig komutu ifconfig ile aynı şekilde kullanılabilir. ifconfig ile kullan
 
 Aşağıda ifconfig ile temel cihaz ayarlamalarının nasıl yapıldığını göreceğiz.
 
-**ÖNEMLİ NOT**: Bu ayarlar sistemi doğrudan etkiler, reboot gerektirmez. Dolayısıyla cihazın IP adresini veya benzer bilgileri değiştirirseniz internet erişimini etkileyebilirsiniz. Uzaktan bağlı olduğunuz cihazlarda bu komutları kullanırken dikkatli olmanızı tavsiye ederiz. Bu ayarlar sistem reboot olduğunda kaybolur, yani ```/etc/network/interfaces``` veya ```/etc/sysconfig/network-scripts/ifcfg-eth0``` gibi dosyaları düzenlediğinizde olduğu gibi kalıcı değildir.
+**ÖNEMLİ NOT**: Bu ayarlar sistemi doğrudan etkiler, reboot gerektirmez. Dolayısıyla cihazın IP adresini veya benzer bilgileri değiştirirseniz internet erişimini etkileyebilirsiniz. Uzaktan bağlı olduğunuz cihazlarda bu komutları kullanırken dikkatli olmanızı tavsiye ederiz. Bu ayarlar sistem reboot olduğunda kaybolur, yani `/etc/network/interfaces` veya `/etc/sysconfig/network-scripts/ifcfg-eth0` gibi dosyaları düzenlediğinizde olduğu gibi kalıcı değildir.
 
 ### Cihaz Açıp Kapatmak
 
-Cihazları (örn. eth0) aktif hale getirmek için
+Cihazları \(örn. eth0\) aktif hale getirmek için
 
 ```bash
 ifconfig eth0 up
 ```
 
-veya 
+veya
 
 ```bash
 ifup eth0
@@ -179,7 +178,7 @@ ifconfig eth0 192.168.42.5 netmask 255.255.255.0 broadcast 192.168.42.255
 
 ### MTU Ayarlamak
 
-MTU (Maximum Transmission Unit - Maksimum Aktarım Birimi) ayarlanabilir. Bu ayarı her kart desteklemeyebilir, çoğunlukla değiştirmenize de gerek olmaz. Ancak bir sebepten değiştirmek isterseniz aşağıdaki şekilde ayarlayabilirsiniz. Buradaki MTU birimi Byte cinsindendir.
+MTU \(Maximum Transmission Unit - Maksimum Aktarım Birimi\) ayarlanabilir. Bu ayarı her kart desteklemeyebilir, çoğunlukla değiştirmenize de gerek olmaz. Ancak bir sebepten değiştirmek isterseniz aşağıdaki şekilde ayarlayabilirsiniz. Buradaki MTU birimi Byte cinsindendir.
 
 ```bash
 ifconfig eth0 mtu 900
@@ -187,7 +186,7 @@ ifconfig eth0 mtu 900
 
 ### Promiscuous Mode
 
-Ethernet kartınız destekliyorsa (son yıllarda büyük çoğunluğu destekliyor) kartınıza gelen ancak sizi ilgilendirmeyen paketleri de CPU'ya gönderip işlemenize olanak sağlayabilirsiniz. Böylece ağınızdaki trafik hakkında fikir sahibi olabilirsiniz.
+Ethernet kartınız destekliyorsa \(son yıllarda büyük çoğunluğu destekliyor\) kartınıza gelen ancak sizi ilgilendirmeyen paketleri de CPU'ya gönderip işlemenize olanak sağlayabilirsiniz. Böylece ağınızdaki trafik hakkında fikir sahibi olabilirsiniz.
 
 Açmak için
 
@@ -208,3 +207,6 @@ Cihazınızın MAC adresini değiştirebilirsiniz. Genellikle ağdaki ARP tablol
 ```bash
 ifconfig eth0 hw ether AA:BB:CC:DD:EE:FF
 ```
+
+
+
