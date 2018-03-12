@@ -51,5 +51,5 @@ Bu komutu çalıştırmamız yeterli olacak.
 2018-03-12T07:57:52.832878Z 1 [Note] A temporary password is generated for celep@localhost: sf/alCzh9ibk
 ```
 
-
+Bu parolayı bir köşeye not alalım. 
 
