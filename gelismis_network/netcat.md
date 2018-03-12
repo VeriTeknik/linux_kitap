@@ -184,3 +184,25 @@ Farkındaysanız A üzerinde B.server yazdık. Bu B'ni hostname'i veya IP adresi
 
 A üzerinde çalıştırdığımız komuttaki `-w` parametresi, timeout süresini belirtmektedir. Ayrıca dosya transferi tamamlandığı anda, B tarafı bağlantıyı kapatır, çünkü `-k` parametresiyle çalıştırmadık.
 
+### Standart Çıktı Yönlendirme ile Veri Transferi
+
+Biraz önceki örneğimizde, A sunucusu üzerinde yedekler.tar.gz dosyası hali hazırda mevcuttu. Bazı durumlarda bu dosya mevcut olmayabilir. Örneğin yedekler.tar.gz'nin bir MySQL veritabanı çıktısı olmasını isteyebiliriz, ancak MySQL dump'ını disk üzerine yazmamız mümkün olmayabilir. Çok büyük veritabanlarının yedeği alınırken, hem çalışan disk üzerinde gereksiz yazma işlemine sebep olmak istemeyebiliriz, hem de disk üzerinde büyük veritabanıyla aynı boyutlarda yer olmayabilir. Bu gibi durumlarda, veritabanının çalıştığı sunucuda \(A sunucusu\) mysqldump \(veya benzer komut çıktısını\) doğrudan netcat ile farklı sunucuya aktarabiliriz.
+
+Yine istemci tarafında, ilk örneğimizde olduğu gibi belirli bir portu dinleyen ve gelen veriyi standart çıktıya yönlendiren bir netcat sunucusuna ihtiyacımız var.
+
+```
+root@B.server ~ # nc -l 9955 > database.sql
+```
+
+Şimdi MySQL'in çalıştığı tarafta mysqldump komutunu olduğu gibi netcat'e yönlendiriyoruz. \(Burada kullanıcı adı ve şifre vermek yerine, my.cnf dosyasını ayarlayabilirsiniz.\)
+
+```
+eaydin@A.client ~ $ mysqldump -u kullanici_adi -p veritabani_ismi | nc B.server 9955
+```
+
+### Veriyi Sıkıştırarak Göndermek
+
+Eğer veri çok büyükse, ağ üzerinde hızlanma sağlamak isterseniz ve veri sıkıştırılmaya uygunsa, araya gzip koyarak sıkıştırma sağlayabilirsiniz. Bu durumda karşı tarafta sıkıştırılmış veriyi açmanız gerekecektir. Biraz önceki mysqldump örneğinden gidecek olursak, önce dump'ı alıp, sonra veriyi sıkıştırıp, sonra da netcat ile gönderebiliriz. Ancak bu sefer veriyi alan tarafta da gzip ile "açma" işlemi yapmamız gerekecektir.
+
+
+
