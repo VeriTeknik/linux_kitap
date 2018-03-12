@@ -137,7 +137,7 @@ root@server ~ # nc -l 84
 Şimdi başka bir makinadan bu porta veri gönderirsek, verinin karşı tarafa ulaştığını görebiliriz.
 
 ```
-[eaydin@client ~]$ nc 192.168.16.30 83
+[eaydin@client ~]$ nc 192.168.16.30 84
 test1
 test2
 ```
