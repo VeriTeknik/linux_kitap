@@ -156,5 +156,31 @@ Eğer client tarafında netcat programını sonlandırırsak, client server'a TC
 root@server ~ # nc -lk 84
 ```
 
+## Kullanım Senaryoları
 
+Netcat'in temel olarak ne iş yaptığını gördük. Başta bahsettiğimiz gibi aslında çok basit bir iş yapıyor, ancak sunucu/network yapınızda test sağlamak için kullanışlı olurken, standart girdi/çıktı yönlendirmeleriyle birçok problemi hızla çözmenize olanak sağlıyor.
+
+Örneğin iki sunucunuz arasında VPN tünelleri veya güvenliik duvarları ayarlamışsanız, kurguladığınız yapıda iletişim problemi olup olmadığını, iki tarafta netcat ile server/client testleri yaparak tespit edebilirsiniz.
+
+Sık kullanılan bu denetleme mekanizması dışında, birtakım farklı problemlere de çözüm sağlamaktadır. Bu bölümde bizim sıkça kullandığımız ve internette karşılaştığımız enteresan kullanım senaryolarından kısaca bahsedeceğiz.
+
+### Dosya Transferi
+
+İki sunucu arasında hızlıca dosya transfer etmek istediğinizde, çeşitli sebeplerden dolayı SFTP, FTP, HTTPD gibi standart protokolleri kullanamayabilirsiniz. Bazen ortamdaki güvenlik duvarları buna izin vermez, bazen boş yere makinalara bu araçların sunucu ve istemcilerini kurmak istemeyebilirsiniz. Bunun için dosyayı gönderecek tarafta netcat'i client olarak, dosyayı alacak tarafta da netcat'i server olarak çalıştırıp dosya transferini gerçekleştirebilirsiniz.
+
+Örneğin `yedekler.tar.gz` dosyasını A sunucusundan B sunucusuna aktarmak istersek, ve bu sunucular arasında 9955 portunda iletişim sağlamamız mümkünse, önce B sunucusunda 9955 portunu dinleyip, gelen her şeyi `yedekler.tar.gz` isimli bir dosyaya yönlendirmemiz gerekir.
+
+```
+root@B.server ~ # nc -l 9955 > yedekler.tar.gz
+```
+
+Şimdi A sunucusundan dosyayı gönderebiliriz.
+
+```
+eaydin@A.client ~ $ nc -w 5 B.server < yedekler.tar.gz
+```
+
+Farkındaysanız A üzerinde B.server yazdık. Bu B'ni hostname'i veya IP adresi olmalıdır. B'nin ise A'nın IP adresini bilmesine gerek yok.
+
+A üzerinde çalıştırdığımız komuttaki `-w` parametresi, timeout süresini belirtmektedir. Ayrıca dosya transferi tamamlandığı anda, B tarafı bağlantıyı kapatır, çünkü `-k` parametresiyle çalıştırmadık.
 
