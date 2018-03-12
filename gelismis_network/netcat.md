@@ -216,5 +216,23 @@ Veriyi gönderen taraf da artık sıkıştırarak gönderebilir.
 eaydin@A.client ~ $ mysqldump -u kullanici_adi -p veritabani_ismi | gzip | nc B.server 9955
 ```
 
+### Veriyi Şifreleyip Göndermek
 
+Buraya kadar yaptığımız örneklerde iki netcat arasındaki veri ağdaki başkası tarafından dinlenilirse anlaşılabilir durumda olacaktır. Bu durum güvenlik açısında tehdit oluşturuyorsa, veriyi doğrudan openssl ile şifreleyip gönderebiliriz.
+
+Dosyayı alacak \(sunucu\) tarafında aşağıdaki gibi bir komut dizisi yazılabilir.
+
+```
+root@B.server ~ # nc -l 9955 | gzip -d -c | openssl enc -aes-256-cbc -pass pass:GIZLI_S1FR3 -d > guvenli_transfer.sql
+```
+
+Gönderiren de ters sırada işlemleri yapmak gerekecektir.
+
+```
+eaydin@A.client ~ $ mysqldump -u kullanici_adi -p veritabani_ismi | openssl enc -aes-256-cbc -pass pass:GIZLI_S1FR3 -e | gzip | nc B.server 9955 
+```
+
+Veri MySQL sunucusu üzerinde önce şifreleniyor, sonra sıkıştırılıyor, ardından netcat ile diğer sunucuya gönderiliyor. Diğer sunucu önce sıkıştırılmış veriyi açıyor, ardından şifreyi çözüyor ve dosyayı yazıyor.
+
+Burada sıkıştırma işlemini yapmak zorunda değiliz tabii ki, özellikle birden fazla işlemin uç uca eklenmesine güzel örnek sağladığı için, ve işlemlerin sırasının önemini vurgulamak için yaptık.
 
