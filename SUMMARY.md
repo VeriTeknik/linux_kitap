@@ -63,6 +63,7 @@
   * [Veritabanı](/veritabani.md#veritabanı)
     * [MySQL](veritabani/mysql/mysql.md)
       * [MySQL Kurulumu](veritabani/mysql/mysql-kurulumu.md)
+      * [MySQL Temel Ayarlar](veritabani/mysql/mysql-temel-ayarlar.md)
       * [MySQL Servisini Çalıştırmak](veritabani/mysql/mysql-servisini-calistirmak.md)
       * [Veritabanı ve Tablo oluşturmak](veritabani/mysql/mysql-veritabani-tablo-islemleri.md)
       * [SQL Tablosuna Veri Eklemek](veritabani/mysql/tabloya-veri-eklemek.md)
