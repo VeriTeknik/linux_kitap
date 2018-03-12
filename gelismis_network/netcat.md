@@ -204,5 +204,17 @@ eaydin@A.client ~ $ mysqldump -u kullanici_adi -p veritabani_ismi | nc B.server 
 
 Eğer veri çok büyükse, ağ üzerinde hızlanma sağlamak isterseniz ve veri sıkıştırılmaya uygunsa, araya gzip koyarak sıkıştırma sağlayabilirsiniz. Bu durumda karşı tarafta sıkıştırılmış veriyi açmanız gerekecektir. Biraz önceki mysqldump örneğinden gidecek olursak, önce dump'ı alıp, sonra veriyi sıkıştırıp, sonra da netcat ile gönderebiliriz. Ancak bu sefer veriyi alan tarafta da gzip ile "açma" işlemi yapmamız gerekecektir.
 
+```
+root@B.server ~ # nc -l 9955 | gzip -d -c > database.sql
+```
+
+Burada gzip'in -d parametresi, sıkıştırılmış veriyi açacağımız \(_decompress_\) anlamına gelmekte. -c ise veriyi standart çıktıya yönlendirmektedir. Bunun yerine doğrudan dosya ismi de verebilirdik.
+
+Veriyi gönderen taraf da artık sıkıştırarak gönderebilir.
+
+```
+eaydin@A.client ~ $ mysqldump -u kullanici_adi -p veritabani_ismi | gzip | nc B.server 9955
+```
+
 
 
