@@ -171,5 +171,60 @@ Bu da başka bir cümle
 
 Bütün bu örneklerin hala bir şey ifade etmediğinin farkındayız. Çünkü `cat`, zaten dosya okuma amacı güden bir program. Bunun yerine daha sık kullanılan bir örnek olan, MySQL veritabanının komut satırı aracı `mysql` programının kullanımına bakalım.
 
-**NOT:** Aslında ufak bir fark bulunmakta. Parametrik gönderim, programın kullandığı bir yöntemdir. Yani program hangi parametrenin hangi sırayla belirtilmesini kodlarında tanımlamıştır. Dolayısıyla cat ls\_cikti yazdığımızda, kabuk \(shell\) önce cat programını çağırır.
+MySQL ile ilgili detaylar kitabımızın farklı bir bölümünde anlatılmakta ancak kısaca programın bir veritabanının yapısını komut satırından yönetmeye olanak sağladığını belirtelim. `mysql` programı etkileşimli bir programdır, yani David McIlroy'un ikinci maddede bahsettiği, aslında kaçınmamız gereken program tiplerinden birisidir. Ancak bir veritabanını yönetmenin en kullanışlı yollardından birinin bu olduğu unutulmamalıdır. `mysql` programını doğru parametrelerle çalıştırıp veritabanına bağlandığımızda, bizi kendi kabuğu \(etkileşimli ortamı\) karşılar.
+
+```
+[root@emre ~]# mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 160953
+Server version: 5.5.50 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+```
+
+Burada örneğin, mevcut veritabanlarını listeletmek için, `show databases` komutunu girmemiz gerekir.
+
+```
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| veriteknik         |
+| sanallastirma.com  |
+| mysql              |
+| wordpress          |
++--------------------+
+5 rows in set (0.01 sec)
+```
+
+Aslında, buradaki `show databases` bilgisini, `mysql` komutuna standart girdiden, yani klavyemizden girmiş bulunduk.
+
+Bunun yerine, bir metin dosyasına `show databases` yazıp, bu metin doyasını `mysql` programına standart girdi olarak sunabilirdik. `komutlar` dosyasının içeriği `show databases` olmak üzere, aşağıdaki gibi bir notasyonla, `mysql` programına komutlarımızı gönderebiliriz.
+
+```
+[root@emre ~]# mysql < komutlar
+Database
+information_schema
+veriteknik
+sanallastirma.com
+mysql
+wordpress
+```
+
+Çıktılardaki ufak fark \(tablolu yapı, kaç satır döndüğü vs.\) sizi yanıltmasın. Bu tamamen mysql programının ayarlarıyla ilgili. Burada esas dikkat edilmesi gereken nokta, MySQL geliştiricilerinin, programlarını standart girdiden veri okuyabilecek şekilde yazmış olması. Bu açıdan bakınca, aslında David McIlroy'un ikinci maddesi ile uyum bir yazılım ortaya çıkmış oluyor. Program, _etkileşimli girdi konusunda ısrarcı olmuyor_.
+
+MySQL bir yana, hemen her veritabanı programı bu şekilde çalışmaktadır. Bu özellikle de veritabanlarına yedeklerin yüklenmesi konusunda kullanılan yöntemlerden birisidir. Aslında bir veritabanı yedeği aldığınızda, size bir dizi komut çıktısı verir. Bu çıktıyı dilediğiniz gibi şekillendirebilir, ve yeniden programlara standart girdiden sunabiliriniz.
+
+Hatırlarsanız bu bölümde `cat` programına parametrik kullanım ve standart girdi ile veri sağlanmasının kullanıcı açısından pek bir fark yaratmadığını, ancak ufak bir farklılığı olduğundan bahsetmiştik.
+
+`cat dosya-ismi` kullanımında, önce `cat` programı çalıştırılır, `cat` programı da parametreleri hangi sırada nasıl okuyorsa ona göre ilgili işlemleri yapar. Ancak `cat < dosya-ismi` kullanımında, kabuk \(_shell_\) önce dosya-ismi dosyasını yüklemeye çalışır, eğer bu dosya mevcut değil veya kullanıcı tarafından erişilemez durumdaysa, hata verir ve `cat` programını hiç çalıştırmaz bile. Bu, özellikle `cat` gibi küçük programlarda hissedilmeyen etkilere sebep olur ancak `mysql` veya çok daha büyük bir programın her defasında boş yere çağırılmasına engel olabileceği için, aslında kabuk programlamada mümkünse kullanılması gereken yöntemlerden birisidir ve doğru kullanıldığında bazı noktalarda sisteminizin daha verimli çalışmasını sağlayabilir.
 
