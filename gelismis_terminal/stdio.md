@@ -110,7 +110,40 @@ Yukarıdaki örnekte, önce `/home/eaydin/devel/diskalert` dizinine gidiyoruz. D
 
 ## Standart Girdi
 
+UNIX Dünyasında, programların standart çıktıları gibi, aslında standart girdileri de vardır. Biraz önceki örneğimizde `cat` programı ile `ls_cikti` dosyasının içeriğini görüntülerken, okunacak veriyi standart girdi olarak sunmayıp, aslında parametre olarak gönderdik. Yani `cat /home/eaydin/ls_cikti` yazdığımız zaman, aslında `cat` programı ilk parametresi olan `/home/eaydin/ls_cikti` değerini okudu. Eğer bu dosyayı parametrik olarak değil de, standart girdi olarak sunmak isteseydik, şöyle bir  işlem yapmamız gerekirdi:
 
+```
+eaydin@eaydin-vt ~ $ cat < ls_cikti
+total 92
+-rw-rw-r-- 1 eaydin eaydin   203 Jan  8 14:30 args.txt.sample
+-rw-rw-r-- 1 eaydin eaydin   401 Jan  8 15:51 config.ini.sample
+-rw-r--r-- 1 eaydin eaydin  1070 Dec 18 16:32 LICENSE
+-rwxrwxr-x 1 eaydin eaydin 12908 Jan  8 14:30 pgpwatch.py
+-rwxrwxr-x 1 eaydin eaydin 15274 Jan  8 14:30 poolstatus.py
+-rw-rw-r-- 1 eaydin eaydin 13491 Jan  8 14:30 README.md
+-rwxrwxr-x 1 eaydin eaydin 12184 Jan  8 14:30 repmgrwatch.py
+drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 scripts
+-rwxrwxr-x 1 eaydin eaydin  5955 Jan  8 14:30 sendmail.py
+drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 16:04 services
+drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 test
+total 32
+drwxr-xr-x 4 eaydin eaydin 4096 Dec 18 16:32 build
+drwxr-xr-x 2 eaydin eaydin 4096 Dec 18 16:32 DiskAlert
+drwxr-xr-x 2 eaydin eaydin 4096 Dec 18 16:32 DiskAlert.egg-info
+drwxr-xr-x 2 eaydin eaydin 4096 Dec 18 16:32 dist
+drwxr-xr-x 2 eaydin eaydin 4096 Dec 18 16:32 etc
+-rw-r--r-- 1 eaydin eaydin 1070 Dec 18 16:32 LICENSE
+-rw-r--r-- 1 eaydin eaydin  593 Dec 18 16:32 README.md
+-rw-r--r-- 1 eaydin eaydin 1465 Dec 18 16:32 setup.py
+```
+
+Gördüğünüz gibi, burada standart çıktı işaretinin tersini \(**&lt;**\) kullanıyoruz. Standart girdilerde, _üzerine yazma_ gibi bir durum söz konusu olmadığından, **&lt;&lt;** gibi bir notasyona gerek kalmaz.
+
+Yukarıda kullandığımız cat programı örneği, her ne kadar standart girdi kullanmış olsa da, aslında pek bir anlam ifade etmeyebilir. En nihayetinde kullanıcı açısından dosya ismini parametrik olarak belirtmek ile standart girdi olarak belirtmek arasında bir fark bulunmamaktadır. Aslında teknik olarak bir fark var ancak buna birazdan değineceğiz.
+
+
+
+**NOT:** Aslında ufak bir fark bulunmakta. Parametrik gönderim, programın kullandığı bir yöntemdir. Yani program hangi parametrenin hangi sırayla belirtilmesini kodlarında tanımlamıştır. Dolayısıyla cat ls\_cikti yazdığımızda, kabuk \(shell\) önce cat programını çağırır. 
 
 
 
