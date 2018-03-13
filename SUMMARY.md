@@ -134,4 +134,5 @@
 * [Sunucu Optimizasyonu](guvenilirlik/optimizasyon/sunucu_optimizasyonu.md)
 * [Araçlar](araclar.md)
 * [İndeks](indeks.md)
+* [Kaynaklar](kaynaklar.md)
 
