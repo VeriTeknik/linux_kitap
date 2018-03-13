@@ -48,6 +48,20 @@
   * [Private ve Public Anahtarlar](ssh/anahtarlar.md)
   * [Güvenli Dosya Aktarımı](ssh/sftp_scp.md)
   * [sshfs](ssh/sshfs.md)
+* [Boot Süreci](boot-sureci.md)
+  * [User Space](boot-sureci/user-space.md)
+    * [Başlangıç: Init](boot-sureci/user-space/baslangic-init.md)
+    * Init Versiyonunu Belirlemek
+    * [System V](boot-sureci/user-space/system-v.md)
+      * Servislerin Yönetimi
+      * Çalışma Seviyeleri \(Run Levels\)
+      * Örnek System V Servis Oluşturma
+    * [systemd](boot-sureci/user-space/systemd.md)
+      * Servislerin Yönetimi
+      * Birimler ve Birim Tipleri
+      * Örnek systemd Servis Oluşturma
+  * Başlangıç RAM Dosya Sistemi
+  * Acil Durumlar ve Tek Kullanıcı Modu
 * [BASH Programlama](bash/bash_programlama.md)
   * [Döngüler ve Diğer Kontrol Yöntemleri](bash/loops.md)
   * [Menüler](bash/menuler.md)
@@ -112,5 +126,4 @@
 * [Sunucu Optimizasyonu](guvenilirlik/optimizasyon/sunucu_optimizasyonu.md)
 * [Araçlar](araclar.md)
 * [İndeks](indeks.md)
-* [Kaynaklar](kaynaklar.md)
 
