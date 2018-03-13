@@ -2,9 +2,9 @@
 
 Aslında GNU/Linux sistemlerde dosyayı yeniden adlandırmak için bir komut bulunmaz. Bir dosyayı yeniden adlandırmak, onu taşımak demektir, dolayısıyla **mv** komutu bu iş için kullanılır.
 
-rename ise Larry Wall tarafından yazılan bir Perl Scriptidir ve kompleks yeniden isimlendirme işleri için kullanılır. Regular Expression desteği sayesinde mv ile ancah bash scripti yazılarak çözülebilecek problemler rename ile çözülür. Modern sistemlerde genellikle yüklü gelir, ancak bulunmaması halinde paket yöneticilerinden rahatlıkla edinilebilir.
+`rename` ise Larry Wall tarafından yazılan bir Perl Scriptidir ve kompleks yeniden isimlendirme işleri için kullanılır. Regular Expression desteği sayesinde `mv` ile ancak bash scripti yazılarak çözülebilecek problemler `rename` ile çözülür. Modern sistemlerde genellikle yüklü gelir, ancak bulunmaması halinde paket yöneticilerinden rahatlıkla edinilebilir.
 
-Örneğin elimizde rakamlardan oluşan jpg dosyaları olsun, ve bu dosyaların uzantılarına dokunmadan, başına sonuna kelime eklemek isteyelim.
+Örneğin, elimizde rakamlardan oluşan jpg dosyaları olsun, ve bu dosyaların uzantılarına dokunmadan, başına sonuna kelime eklemek isteyelim.
 
 ```bash
 eaydin@dixon ~/calisma/jpg $ ls
@@ -18,7 +18,7 @@ eaydin@dixon ~/calisma/jpg $ ls
 goruntu_0145_dosyasi.jpg  goruntu_0146_dosyasi.jpg  goruntu_3_dosyasi.jpg  goruntu_897653_dosyasi.jpg
 ```
 
-Eğer işlemi geri almak isteseydik, yani başında **kelime_** ve sonunda **_başkakelime** olup ortasında rakam bulunan jpg dosyalarını **rakam.jpg** şeklinde değiştirmek isteseydik,
+Eğer işlemi geri almak isteseydik, yani başında **kelime\_** ve sonunda **\_başkakelime** olup ortasında rakam bulunan jpg dosyalarını **rakam.jpg** şeklinde değiştirmek isteseydik,
 
 ```bash
 eaydin@dixon ~/calisma/jpg $ rename -v 's/.*_(\d*)_.*(\.jpg)$/$1$2/' *.jpg
@@ -50,3 +50,6 @@ eaydin@dixon ~/calisma/jpg $ rename -v 'y/a-z/A-Z/' *
 eaydin@dixon ~/calisma/jpg $ ls
 0145.JPG  0146.JPG  3.JPG  897653.JPG
 ```
+
+
+
