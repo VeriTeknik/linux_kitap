@@ -80,11 +80,11 @@ Sistemin ne zaman başlatıldığını görmek için `who -b` komutu da oldukça
 
 **ps** programı \(_process status_\) sistem üzerinde çalışan yazılımları, işlemleri tespit etmek için kullanılır. Yaygınlıkla kullanılan parametreler `ps aux` ve `ps -ef` şeklindedir. Bu parametreler ile işlemleri listeleyip, farklarına bakabilirsiniz. İşlemler listesinin başını görmek için çıktınızı `head` ile sınırlandırın, veya `more` ile sayfalara bölün.
 
-İşlemlerin hiyerarşilerini görebilmek için `ps axjf` kullanılabilir. Böylece hangi işlemin, hangisinin **parent**ı olduğu görülebilir. GNU/Linux üzerinde her zaman 1 numaralı **PID**'ye \(Process ID\) sahip işlem _init_tir \(sebebinin detaylarını ilerleyen bölümlerde göreceğiz\). Bütün işlemler bu program tarafından **spawn** edilir. GNU/Linux'ta bir işlemin **parent** işlemini öldürdüğünüzde, **child** işlemleri de ölecektir. Dolayısıyla örneğin bir şekilde **1** numaralı işlemimiz ölürse, bütün sistem duracaktır. Bu durumun önüne geçebilmek için _init_ işlemi sistem tarafından korunur. _init_ kendisine hangi sinyallerin gönderilebileceğine karar verir. Bu, yazılan Linux çekirdeklerine göre değişiklik gösterebilir, ancak hemen hepsi **kill** sinyaline izin vermez.
+İşlemlerin hiyerarşilerini görebilmek için `ps axjf` kullanılabilir. Böylece hangi işlemin, hangisinin **parent**ı olduğu görülebilir. GNU/Linux üzerinde her zaman 1 numaralı **PID**'ye \(Process ID\) sahip işlem _init\_tir \(sebebinin detaylarını ilerleyen bölümlerde göreceğiz\). Bütün işlemler bu program tarafından **spawn** edilir. GNU/Linux'ta bir işlemin **parent** işlemini öldürdüğünüzde, **child** işlemleri de ölecektir. Dolayısıyla örneğin bir şekilde **1** numaralı işlemimiz ölürse, bütün sistem duracaktır. Bu durumun önüne geçebilmek için \_init_ işlemi sistem tarafından korunur. _init_ kendisine hangi sinyallerin gönderilebileceğine karar verir. Bu, yazılan Linux çekirdeklerine göre değişiklik gösterebilir, ancak hemen hepsi **kill** sinyaline izin vermez.
 
 ## nice
 
-Linux üzerinde işlemlerin önceliği, onların ne kadar _nice_ \(iyi\) olduklarıyla ifade edilir. Bir işlemin _nice_ değeri ne kadar düşükse, o kadar "az iyi" olacağından, o kadar işlemci önceliği vardır, yani daha fazla sistem kaynağı tüketen işlemlerin _nice_ değeri düşüktür. Önceliği düşük olan işlemleri daha _iyi_dir çünkü daha az sistem kaynağı tüketirler.
+Linux üzerinde işlemlerin önceliği, onların ne kadar _nice_ \(iyi\) olduklarıyla ifade edilir. Bir işlemin _nice_ değeri ne kadar düşükse, o kadar "az iyi" olacağından, o kadar işlemci önceliği vardır, yani daha fazla sistem kaynağı tüketen işlemlerin _nice_ değeri düşüktür. Önceliği düşük olan işlemleri daha \_iyi\_dir çünkü daha az sistem kaynağı tüketirler.
 
 **top** komutu çıktısındaki **NI** sütunu, ilgili işlemin _nice_ değerine karşılık gelir.
 
@@ -110,5 +110,5 @@ ps ax -o pid,ni,cmd
 
 **PROBLEM:** Sistem üzerinde 20 dakikadan daha uzun süredir çalışan belirli bir işlemi bulun. **ps** komutunun uygun parametreleriyle elde edilebilir. Bu işlemi öldürün.
 
-Yukarıdaki problemi çözen bir Python yazılımı [https://github.com/eaydin/timebomb](https://github.com/eaydin/timebomb) adresinde görülebilir. Bu yazılım standart Linux komutlarını kullanmaktadır.
+Yukarıdaki problemi çözen bir Python yazılımı [https://github.com/eaydin/timebomb](https://github.com/eaydin/timebomb) adresinde görülebilir. Bu yazılım standart GNU/Linux komutlarını kullanmaktadır.
 
