@@ -1,4 +1,4 @@
-# wget*
+# wget\*
 
 Bu kitapçıkta daha önce de karşılaştığımız komutlardan **wget**, internetten dosya çekmeye yarayan, **Web GET** sözcüklerinin kısaltması olan bir program.
 
@@ -8,7 +8,7 @@ Bu kitapçıkta daha önce de karşılaştığımız komutlardan **wget**, inter
 wget http://www.plugged.in/downloads/plugged.sh
 ```
 
-Yukarıdaki komutla bulunduğumuz dizine ```plugged.sh``` dosyası inecektir.
+Yukarıdaki komutla bulunduğumuz dizine `plugged.sh` dosyası inecektir.
 
 Bazen linkler istediğimiz isim yapısında olmayabilir. İndirilen dosyayı farklı isimle kaydetmek için aşağıdaki yöntem izlenebilir.
 
@@ -16,11 +16,11 @@ Bazen linkler istediğimiz isim yapısında olmayabilir. İndirilen dosyayı far
 wget http://www.plugged.in/downloads/plugged.sh -O install.sh
 ```
 
-Artık dosya ```plugged.sh``` ismiyle değil, ```install.sh``` ismiyle kaydedilecektir.
+Artık dosya `plugged.sh` ismiyle değil, `install.sh` ismiyle kaydedilecektir.
 
 ## Yarım Kalan İndirmeler
 
-Normalde wget programı, indirilen dosya hali hazırda dizinde mevcutsa, yeni indirilen dosyayı sonuna **.1 .2** gibi rakamlar koyarak yazar. Örneğin yukarıdaki örnekte **plugged.sh** dosyası zaten dizinde mevcutsa, yeniden indirdiğimizde wget dosyayı **plugged.sh.1** olarak kaydeder.
+Normalde `wget` programı, indirilen dosya hali hazırda dizinde mevcutsa, yeni indirilen dosyayı sonuna **.1 .2** gibi rakamlar koyarak yazar. Örneğin yukarıdaki örnekte **plugged.sh** dosyası zaten dizinde mevcutsa, yeniden indirdiğimizde `wget` dosyayı **plugged.sh.1** olarak kaydeder.
 
 Oysa indirme sırasında dosya yarım kalmışsa, kaldığı yerden devam ettirmek için **-c** parametresini vermemiz yeterlidir.
 
@@ -30,7 +30,7 @@ wget -c http://www.plugged.in/downloads/plugged.sh
 
 ## Hız Limitleme
 
-İndirme hızını limitlemek için ```--limit-rate``` parametresi kullanılır.
+İndirme hızını limitlemek için `--limit-rate` parametresi kullanılır.
 
 ```bash
 wget --limit-rate=400k http://mirror.rackdc.com/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso
@@ -46,7 +46,7 @@ wget --tries=10 http://plugged.in/downloads/plugged.sh
 
 ## İndirme İşlemini Arka Planda Gerçekleştirme
 
-Büyük dosyaları indirme işlemini arka planda yürütebilirsiniz. Böyle bir durumda wget size programın PID numarasını verecek, ve logları yazdığı dosyayı bildirecekir. Bu sayede isterseniz indirme işlemini log dosyasından takip edebilir, dilediğiniz zaman PID numarasını kullanarak programı durdurabilirsiniz.
+Büyük dosyaları indirme işlemini arka planda yürütebilirsiniz. Böyle bir durumda `wget` size programın PID numarasını verecek, ve logları yazdığı dosyayı bildirecekir. Bu sayede isterseniz indirme işlemini log dosyasından takip edebilir, dilediğiniz zaman PID numarasını kullanarak programı durdurabilirsiniz.
 
 ```bash
 # wget -b http://mirror.rackdc.com/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso
@@ -61,6 +61,7 @@ Output will be written to ‘wget-log’.
 ```bash
 eaydin@dixon ~/calisma/wget $ cat indir.txt
 ```
+
 ```
 http://plugged.in/downloads/plugged.sh
 http://mirror.rackdc.com/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso
@@ -84,16 +85,16 @@ Length: 666894336 (636M) [application/x-iso9660-image]
 Saving to: ‘CentOS-7-x86_64-Minimal-1503-01.iso’
 
  0% [                                                                                                ] 531.035      296KB/s
- ```
-
+```
 
 ## İndirme Kontrolü
 
-Bazı durumlarda indirme işleminden önce indirmenin mümkün olup olmadığını kontrol edebilirsiniz. Bunun için ```--spider``` seçeneği kullanılabilir. Bu seçeneğin en yaygın kullanımı, sisteminizin internet erişiminin olup olmadığı, internet erişimi varsa da DNS çözümlemelerini doğru yapıp yapmadığınız konusundadır. Aşağıdaki örnekleri inceleyelim.
+Bazı durumlarda indirme işleminden önce indirmenin mümkün olup olmadığını kontrol edebilirsiniz. Bunun için `--spider` seçeneği kullanılabilir. Bu seçeneğin en yaygın kullanımı, sisteminizin internet erişiminin olup olmadığı, internet erişimi varsa da DNS çözümlemelerini doğru yapıp yapmadığınız konusundadır. Aşağıdaki örnekleri inceleyelim.
 
 ```bash
 eaydin@dixon ~/calisma/wget $ wget --spider google.com
 ```
+
 ```
 Spider mode enabled. Check if remote file exists.
 --2015-11-30 00:26:28--  http://google.com/
@@ -110,27 +111,31 @@ Length: unspecified [text/html]
 Remote file exists and could contain further links,
 but recursion is disabled -- not retrieving.
 ```
+
 ```bash
 eaydin@dixon ~/calisma/wget $ echo $?
 0
 ```
+
 ```bash
 eaydin@dixon ~/calisma/wget $ wget --spider google.c
 ```
+
 ```
 Spider mode enabled. Check if remote file exists.
 --2015-11-30 00:26:52--  http://google.c/
 Resolving google.c (google.c)... failed: Name or service not known.
 wget: unable to resolve host address ‘google.c’
 ```
+
 ```bash
 eaydin@dixon ~/calisma/wget $ echo $?
 4
 ```
 
-Gördüğünüz gibi **google.com** için exit status 0 aldık, oysa **google.c** için exit status 4 döndü. Bu sayede scriptlerimize bir internet kontrol mekanizması koyabiliriz.
+Gördüğünüz gibi **google.com** için **exit status 0** aldık, oysa **google.c** için **exit status 4** döndü. Bu sayede scriptlerimize bir internet kontrol mekanizması koyabiliriz.
 
-En yaygın kullanım, bu seçeneği ```-q``` (quiet) seçeneği ile kullanmaktır.
+En yaygın kullanım, bu seçeneği `-q` \(quiet\) seçeneği ile kullanmaktır.
 
 ```bash
 eaydin@dixon ~/calisma/wget $ wget -q --spider google.com
@@ -142,7 +147,7 @@ eaydin@dixon ~/calisma/wget $ echo $?
 
 ## Tarayıcı Gibi Davranmak
 
-İndirmek istediğiniz bazı linkler kaynağın bir tarayıcı gibi davranmasını isterler. 
+İndirmek istediğiniz bazı linkler kaynağın bir tarayıcı gibi davranmasını isterler.   
 Aşağıda bu tip senaryolarda kullanabileceğiniz iki yol gösterici örnek görebilrsiniz.
 
 ```bash
@@ -167,7 +172,7 @@ http://sayfa.com/login.php
 wget --mirror -p --convert-links -P indirme_dizini http://plugged.in
 ```
 
-Yukarıdaki komut [plugged.in](http://plugged.in) sayfasını ```indirme_dizini``` dizinine indirecektir. ```--mirror``` seçeneği, bütün dizinleri indirmesi gerektiğini belirtir. ```-p``` ile HTML'in doğru görüntülenmesi için gerekli dosyalar (örn. CSS dosyaları) beraberinde gelir. ```--convert-links``` HTML dosyaları içerisindeki linkleri yerel linkler ile değiştirir. Bu işlem sadece indirme tamamlanınca gerçekleşir, yani indirme işlemini yarıda keserseniz linkleri düzenlemez.
+Yukarıdaki komut [plugged.in](http://plugged.in) sayfasını `indirme_dizini` dizinine indirecektir. `--mirror` seçeneği, bütün dizinleri indirmesi gerektiğini belirtir. `-p` ile HTML'in doğru görüntülenmesi için gerekli dosyalar \(örn. CSS dosyaları\) beraberinde gelir. `--convert-links` HTML dosyaları içerisindeki linkleri yerel linkler ile değiştirir. Bu işlem sadece indirme tamamlanınca gerçekleşir, yani indirme işlemini yarıda keserseniz linkleri düzenlemez.
 
 Yukarıdaki komutun açık hali şöyledir
 
@@ -186,7 +191,7 @@ https://veriteknik.gitbooks.io/linux-yonetimi/content/
 
 ## Belirli Dosya Tiplerini ve Dizin Oluşumunu Engellemek
 
-Aşağıdaki örnek, rackdc CentOS mirror'undan iso dosyaları hariç (--reject) tüm dosyaları indirecek, ancak "Parent Directory"e gidip tarama işlemini genişletmeyecek (-np) ve tamamını tek dizine indirip alt dizinleri oluşturmayacaktır.
+Aşağıdaki örnek, rackdc CentOS mirror'undan iso dosyaları hariç \(--reject\) tüm dosyaları indirecek, ancak "Parent Directory"e gidip tarama işlemini genişletmeyecek \(-np\) ve tamamını tek dizine indirip alt dizinleri oluşturmayacaktır.
 
 ```bash
 wget --reject=iso -P CentOS --mirror -np \ 
@@ -212,4 +217,5 @@ Son olarak wget ile anonim ve şifreli FTP kullanımı göreceğiz.
 # wget --ftp-user=KULLANICI --ftp-password=SIFRE ftp-sitesi.com
 ```
 
-*FreeBSD Sisteminde wget yerine fetch kullanılmaktadır.
+\*FreeBSD Sisteminde wget yerine fetch kullanılmaktadır.
+
