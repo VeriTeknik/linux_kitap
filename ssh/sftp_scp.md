@@ -1,33 +1,38 @@
-# rsync, sftp ve scp Kullanımı
+# Güvenli Dosya Aktarımı
 
-SSH protokolünü kullanarak güvenli dosya transferi sağlamak mümkündür. Bunun için scp veya sftp kullanılabilir.
+SSH protokolünü kullanarak güvenli dosya transferi sağlamak mümkündür. Bunun için scp, sftp veya rsync kullanılabilir.
 
 ## rsync
 
 rsync Linux sistemlerin vazgeçilmez arşivleme, kopyalama ve transfer yazılımıdır, hafif mimarisi ve hızı ile vazgeçilmez bir araçtır, kullanımı oldukça kolay olan yazılımın işlem yapılacak her iki sunucuda da yüklü olması gerekmektedir. Kaynaktan ya da hedeften kolayca kullanılabilir, en temel eşitleme komutu aşağıdaki gibidir:
 
 Kaynaktan çalışıtılırsa:
+
 ```bash
 rsync -arzgopv /dizin/* root@HEDEF_IPADRESI:/dizin/
 ```
+
 Hedeften çalışıtılırsa:
+
 ```bash
 rsync -arzgopv root@KAYNAK_IPADRESI:/dizin/* /dizin/
 ```
 
 EKleri:
-- a: Arşiv modu, -rlptgoD ile aynı işlevi vardır
-- r: alt dizinleri de dahil eder
-- z: transfer sırasında veriyi sıkıştırır
-- g: Grup bilgisini korur
-- o: (owner) sahip bilgisini korur
-- p: (perm) izinleri korur
-- v: (verbosity) yapılan işlemin detaylarını görüntüler
 
-rsync, argüman sayısının fazlalığından dolayı (1 milyon ve üzeri) "rm" komutunun dahi silemediği dosyaları kolaylıkla siler. Bu dosyaları silmek için hedefteki dizini boş bir dizin ile eşleştirmeniz yeterlidir.
+* a: Arşiv modu, -rlptgoD ile aynı işlevi vardır
+* r: alt dizinleri de dahil eder
+* z: transfer sırasında veriyi sıkıştırır
+* g: Grup bilgisini korur
+* o: \(owner\) sahip bilgisini korur
+* p: \(perm\) izinleri korur
+* v: \(verbosity\) yapılan işlemin detaylarını görüntüler
+
+rsync, argüman sayısının fazlalığından dolayı \(1 milyon ve üzeri\) "rm" komutunun dahi silemediği dosyaları kolaylıkla siler. Bu dosyaları silmek için hedefteki dizini boş bir dizin ile eşleştirmeniz yeterlidir.
+
 ## scp
 
-scp (secure copy) doğrudan SSH protokolü üzerinden dosya transferi sağlar. Böylece sisteme farklı mekanizmalarla (FTP vb.) erişmenize gerek olmaz.
+scp \(secure copy\) doğrudan SSH protokolü üzerinden dosya transferi sağlar. Böylece sisteme farklı mekanizmalarla \(FTP vb.\) erişmenize gerek olmaz.
 
 Uzak sunucudan dosya indirmek için
 
@@ -41,7 +46,7 @@ Uzak sunucuya dosya göndermek için
 scp /root/dosya.tar test@10.42.30.65:/opt/settings
 ```
 
-Eğer sunucunun SSH portu 22'den farklıysa, ```-P``` parametresiyle bağlantı portunu tanımlayabilirsiniz.
+Eğer sunucunun SSH portu 22'den farklıysa, `-P` parametresiyle bağlantı portunu tanımlayabilirsiniz.
 
 ```bash
 scp -P 2299 root@192.168.1.30:/var/log/syslog .
@@ -70,7 +75,7 @@ Bir sunucuya SFTP bağlantısı kurmak için aşağıdaki gibi bir yol izlenir.
 ```bash
 eaydin@dixon ~ $ sftp root@test-centos1
 Connected to test-centos1.
-sftp> 
+sftp>
 ```
 
 Artık karşı sunucuya SFTP ile bağlanmış olursunuz. Kullanabileceğiniz komutları görmek için **?** yazılıp ENTER'a basılabilir.
@@ -87,7 +92,7 @@ df [-hi] [path]                    Display statistics for current directory or
                                    filesystem containing 'path'
 exit                               Quit sftp
 get [-Ppr] remote [local]          Download file
-reget remote [local]		Resume download file
+reget remote [local]        Resume download file
 help                               Display this help text
 lcd path                           Change local directory to 'path'
 lls [ls-options [path]]            Display local directory listing
@@ -113,9 +118,8 @@ version                            Show SFTP version
 
 Burada bilinmesi gereken önemli noktalar şunlardır:
 
-* Mevcut sistemimizde (örneğin kullandığımız laptop) bir komut çalıştırmak istersek, komutun başına **!** koyabiliriz.
+* Mevcut sistemimizde \(örneğin kullandığımız laptop\) bir komut çalıştırmak istersek, komutun başına **!** koyabiliriz.
 
- 
 ```bash
 sftp> lsblk
 Invalid command.
@@ -131,6 +135,9 @@ sda      8:0    0 931,5G  0 disk
 sr0     11:0    1  1024M  0 rom
 ```
 
-* Ayrıca mevcut sistemde bazı yerel komutlar çalıştırmak için komutun başına **l** harfi (**l**ocal) konulur. Örneğin ```!cd``` çalışmayacağı için, ```lcd``` kullanılır.
-* Dosya indirmek (download) için ```get``` ve ```mget``` komutları kullanılır. Yarım kalan dosya indirme işlemlerini devam ettirmek için ```reget``` kullanılır.
-* Dosya yüklemek (upload) için ```put``` ve ```mput``` komutları kullanılır.
+* Ayrıca mevcut sistemde bazı yerel komutlar çalıştırmak için komutun başına **l** harfi \(**l**ocal\) konulur. Örneğin `!cd` çalışmayacağı için, `lcd` kullanılır.
+* Dosya indirmek \(download\) için `get` ve `mget` komutları kullanılır. Yarım kalan dosya indirme işlemlerini devam ettirmek için `reget` kullanılır.
+* Dosya yüklemek \(upload\) için `put` ve `mput` komutları kullanılır.
+
+
+
