@@ -48,20 +48,24 @@
   * [Private ve Public Anahtarlar](ssh/anahtarlar.md)
   * [Güvenli Dosya Aktarımı](ssh/sftp_scp.md)
   * [sshfs](ssh/sshfs.md)
-* [Boot Süreci](boot-sureci.md)
-  * [User Space](boot-sureci/user-space.md)
-    * [Başlangıç: Init](boot-sureci/user-space/baslangic-init.md)
-    * Init Versiyonunu Belirlemek
-    * [System V](boot-sureci/user-space/system-v.md)
-      * Servislerin Yönetimi
-      * Çalışma Seviyeleri \(Run Levels\)
-      * Örnek System V Servis Oluşturma
-    * [systemd](boot-sureci/user-space/systemd.md)
-      * Servislerin Yönetimi
-      * Birimler ve Birim Tipleri
-      * Örnek systemd Servis Oluşturma
-  * Başlangıç RAM Dosya Sistemi
-  * Acil Durumlar ve Tek Kullanıcı Modu
+* [Kernel Boot](kernel-boot.md)
+  * Sunucu Başlangıcına Genel Bakış
+  * Çekirdeğin Yüklenmesi ve Boot Seçenekleri
+  * Çekirdek Parametreleri
+  * [Bootloader Nedir?](kernel-boot/bootloader-nedir.md)
+* [User Space](boot-sureci.md)
+  * [Başlangıç: Init](boot-sureci/user-space/baslangic-init.md)
+  * Init Versiyonunu Belirlemek
+  * [System V](boot-sureci/user-space/system-v.md)
+    * Servislerin Yönetimi
+    * Çalışma Seviyeleri \(Run Levels\)
+    * Örnek System V Servis Oluşturma
+  * [systemd](boot-sureci/user-space/systemd.md)
+    * Servislerin Yönetimi
+    * Birimler ve Birim Tipleri
+    * Örnek systemd Servis Oluşturma
+  * [Başlangıç RAM Dosya Sistemi](boot-sureci/baslangic-ram-dosya-sistemi.md)
+  * [Acil Durumlar ve Tek Kullanıcı Modu](boot-sureci/acil-durumlar-ve-tek-kullanici-modu.md)
 * [BASH Programlama](bash/bash_programlama.md)
   * [Döngüler ve Diğer Kontrol Yöntemleri](bash/loops.md)
   * [Menüler](bash/menuler.md)
