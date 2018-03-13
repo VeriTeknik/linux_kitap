@@ -1,6 +1,6 @@
 # Döküman Hakkında
 
-Linux Yönetimi dökümanı VeriTeknik ekibinin verdiği eğitimlerde yardımcı olması amacıyla hazırlanmaktadır.   
+Linux Yönetimi dökümanı VeriTeknik ekibinin verdiği eğitimlerde yardımcı olması amacıyla hazırlanmaktadır.  
 **Kitap çoğunlukla Web Hosting ve Uygulama Hosting açısından sürümleri ele almıştır.** Kitabın amacı okuyucuya Hosting ortamının kurulmasında ve işletilmesinde gerekli olacak bilgiyi vermektir.
 
 Döküman içeriği zamanla şekillenecek ve yapısını/hiyerarşisini değiştirecektir.
@@ -12,7 +12,7 @@ adresinden ulaşabilirsiniz.
 
 ### Cem Karaca
 
-Üniversite yıllarında, İnternet'in gelişimi ile birlikte Sunucular, Ağ ve Linux ile tanışmıştır, LYNX Browser ile siyah ekranda başlayan serüveni, 2004 yılından bu yana Ankara'da Veri Merkezi işleterek devam etmektedir. Elektrik & Elektronik Yüksek Mühendisi olan yazarın 2003 yılında yayınlanmış "Pedagojik Destekli uzaktan talepli Video Sistemi \(VoD\)" yüksek lisans tezidir. IEEE indeksli makaleleri bulunan yazar, multimedia transferi için kullanılabilen RUDP protokolünü tasarlamıştır. Uzmanlık Alanları: C/C++, Gömülü Sistemler, Ağ ve Sürücü Programlama
+Üniversite yıllarında, İnternet'in gelişimi ile birlikte Sunucular, Ağ ve Linux ile tanışmıştır, LYNX Browser ile siyah ekranda başlayan serüveni, 2004 yılından bu yana Ankara'da Veri Merkezi işleterek devam etmektedir. Elektrik & Elektronik Yüksek Mühendisi olan yazarın 2003 yılında yayınlanmış "Pedagojik Destekli uzaktan talepli Video Sistemi \(VoD\)" yüksek lisans tezidir. IEEE indeksli makaleleri bulunan yazar, multimedia transferi için kullanılabilen RUDP protokolünü tasarlamıştır. Uzmanlık Alanları: MCF, C/C++, Gömülü Sistemler, Ağ ve Sürücü Programlama.
 
 ### Mustafa Emre Aydın
 
@@ -20,7 +20,7 @@ Lisans eğitimi sırasında çok miktardaki bilimsel verinin tasniflenmesi ve an
 
 ## VeriTeknik
 
-VeriTeknik, iletişim altyapısı üzerine uzmanlaşmış mühendislik çözümleri sunmaktadır. Veri merkezleri, dağıtık sunucu sistemleri, ağ güvenliği ve ağ yazılımları üzerinde özgün çalışmalar yapmaktadır. 2004 yılından bu yana kazanmış olduğumuz deneyimi sektördeki diğer meslektaşlarımızla ve siz değerli okuyucularımızla paylaşmak, ülkemizin açık kaynak kodlu sistemlerde bir nebze de olsa gelişme sağlamasını görmekten mutluluk duyarız. 
+VeriTeknik, iletişim altyapısı üzerine uzmanlaşmış mühendislik çözümleri sunmaktadır. Veri merkezleri, dağıtık sunucu sistemleri, ağ güvenliği ve ağ yazılımları üzerinde özgün çalışmalar yapmaktadır. 2004 yılından bu yana kazanmış olduğumuz deneyimi sektördeki diğer meslektaşlarımızla ve siz değerli okuyucularımızla paylaşmak, ülkemizin açık kaynak kodlu sistemlerde bir nebze de olsa gelişme sağlamasını görmekten mutluluk duyarız.
 
 ## Notlar
 
