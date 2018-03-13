@@ -109,7 +109,6 @@
   * [netcat](gelismis_network/netcat.md)
   * [nmap](gelismis_network/nmap.md)
   * [tcpdump](gelismis_network/tcpdump.md)
-  * [WireShark](gelismis_network/wireshark.md)
   * [Bantgenişliği Ölçümü](gelismis_network/ip/bantgenisligi-olcumu.md)
 * [Güvenlik](guvenlik/guvenlik.md)
   * [CentOS 7 Firewall](guvenlik/centos_7_firewall.md)
