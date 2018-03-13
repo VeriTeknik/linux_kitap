@@ -75,3 +75,36 @@ drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 test
 
 Öyleyse, standart çıktı yönlendirme işlemini **&gt;** işaretiyle gerçekleştiriyoruz. Böylece standart çıktıya sonuç döndüren programların tamamının çıktılarını bir dosyaya yönlendirebiliriz.
 
+Standart çıktı yönlendirmek için kullandığımız **&gt;** işareti, hedef dosya bulunmazsa oluşturur. Eğer hedef dosya bulunuyorsa, dosyanın içeriğini tamamen siler ve yeni sonucu yazar. Eğer hedef dosyanın içeriğinin silinmesini istemiyorsak, ancak yeni sonucun dosyanın _sonuna eklenmesini_ istiyorsak, bunun için **&gt;&gt;** işaretini kullanmamız gerekir.
+
+Örneğin biraz önceki örneğimizde kullandığımız çıktı dosyasının sonuna, farklı bir dizinin çıktısını da eklemek isteseydik, şöyle bir işlem yapabilirdik.
+
+```
+eaydin@eaydin-vt ~/devel $ cd diskalert/
+eaydin@eaydin-vt ~/devel/diskalert $ ls -l >> /home/eaydin/ls_cikti
+eaydin@eaydin-vt ~/devel/diskalert $ cat /home/eaydin/ls_cikti
+total 92
+-rw-rw-r-- 1 eaydin eaydin   203 Jan  8 14:30 args.txt.sample
+-rw-rw-r-- 1 eaydin eaydin   401 Jan  8 15:51 config.ini.sample
+-rw-r--r-- 1 eaydin eaydin  1070 Dec 18 16:32 LICENSE
+-rwxrwxr-x 1 eaydin eaydin 12908 Jan  8 14:30 pgpwatch.py
+-rwxrwxr-x 1 eaydin eaydin 15274 Jan  8 14:30 poolstatus.py
+-rw-rw-r-- 1 eaydin eaydin 13491 Jan  8 14:30 README.md
+-rwxrwxr-x 1 eaydin eaydin 12184 Jan  8 14:30 repmgrwatch.py
+drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 scripts
+-rwxrwxr-x 1 eaydin eaydin  5955 Jan  8 14:30 sendmail.py
+drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 16:04 services
+drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 test
+total 32
+drwxr-xr-x 4 eaydin eaydin 4096 Dec 18 16:32 build
+drwxr-xr-x 2 eaydin eaydin 4096 Dec 18 16:32 DiskAlert
+drwxr-xr-x 2 eaydin eaydin 4096 Dec 18 16:32 DiskAlert.egg-info
+drwxr-xr-x 2 eaydin eaydin 4096 Dec 18 16:32 dist
+drwxr-xr-x 2 eaydin eaydin 4096 Dec 18 16:32 etc
+-rw-r--r-- 1 eaydin eaydin 1070 Dec 18 16:32 LICENSE
+-rw-r--r-- 1 eaydin eaydin  593 Dec 18 16:32 README.md
+-rw-r--r-- 1 eaydin eaydin 1465 Dec 18 16:32 setup.py
+```
+
+Yukarıdaki örnekte, önce `/home/eaydin/devel/diskalert` dizinine gidiyoruz. Daha sonra `ls -l` komutunu çalıştırıp, çıktısını `/home/eaydin/ls_cikti` dosyasına yönlendiriyoruz, ancak standart çıktının önceki dosyayı silmeden, mevcut verileri koruyup, yeni veriyi dosyanın sonuna eklemesi için **&gt;&gt;** işareti ile çıktı yönlendirmesi yapıyoruz. Sonra `/home/eaydin/ls_cikti` dosyasının içeriği `cat` ile okuyoruz \(aslında `cat` ile dosyanın içeriğini _standart çıktıya yazdırıyoruz_\) ve hem `pgpoolwatch`, hem de `diskalert` dizinlerinin içeriğini görüyoruz.
+
