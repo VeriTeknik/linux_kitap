@@ -75,5 +75,3 @@ drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 test
 
 Öyleyse, standart çıktı yönlendirme işlemini **&gt;** işaretiyle gerçekleştiriyoruz. Böylece standart çıktıya sonuç döndüren programların tamamının çıktılarını bir dosyaya yönlendirebiliriz.
 
-
-
