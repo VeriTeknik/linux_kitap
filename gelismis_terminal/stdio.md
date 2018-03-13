@@ -108,6 +108,8 @@ drwxr-xr-x 2 eaydin eaydin 4096 Dec 18 16:32 etc
 
 Yukarıdaki örnekte, önce `/home/eaydin/devel/diskalert` dizinine gidiyoruz. Daha sonra `ls -l` komutunu çalıştırıp, çıktısını `/home/eaydin/ls_cikti` dosyasına yönlendiriyoruz, ancak standart çıktının önceki dosyayı silmeden, mevcut verileri koruyup, yeni veriyi dosyanın sonuna eklemesi için **&gt;&gt;** işareti ile çıktı yönlendirmesi yapıyoruz. Sonra `/home/eaydin/ls_cikti` dosyasının içeriği `cat` ile okuyoruz \(aslında `cat` ile dosyanın içeriğini _standart çıktıya yazdırıyoruz_\) ve hem `pgpoolwatch`, hem de `diskalert` dizinlerinin içeriğini görüyoruz.
 
+Modern GNU/Linux sistemlerinde, eğer özel bir durum söz konusu değilse, genellikle standart çıktı kullanıcının ekranıdır. Yani programlar standart çıktı olarak monitörünüzü kullanır. Teknik detaylarına girdiğimizde aslında kullandığınız terminali kullanır demek daha doğru olabilir ancak şu aşamada bunu düşünmenize gerek yok. Bir GNU/Linux sistemini istersek öyle ayarlayabiliriz ki, standart çıktısı terminal/monitör olmak yerine örneğin yazıcı \(_printer_\) olabilir. Örneğin dijital ekranı olmayan bir ödeme cihazımız \(POS cihazı\) için böyle bir durum söz konusu olabilir.
+
 ## Standart Girdi
 
 UNIX Dünyasında, programların standart çıktıları gibi, aslında standart girdileri de vardır. Biraz önceki örneğimizde `cat` programı ile `ls_cikti` dosyasının içeriğini görüntülerken, okunacak veriyi standart girdi olarak sunmayıp, aslında parametre olarak gönderdik. Yani `cat /home/eaydin/ls_cikti` yazdığımız zaman, aslında `cat` programı ilk parametresi olan `/home/eaydin/ls_cikti` değerini okudu. Eğer bu dosyayı parametrik olarak değil de, standart girdi olarak sunmak isteseydik, şöyle bir  işlem yapmamız gerekirdi:
@@ -229,4 +231,6 @@ Hatırlarsanız bu bölümde `cat` programına parametrik kullanım ve standart 
 `cat dosya-ismi` kullanımında, önce `cat` programı çalıştırılır, `cat` programı da parametreleri hangi sırada nasıl okuyorsa ona göre ilgili işlemleri yapar. Ancak `cat < dosya-ismi` kullanımında, kabuk \(_shell_\) önce dosya-ismi dosyasını yüklemeye çalışır, eğer bu dosya mevcut değil veya kullanıcı tarafından erişilemez durumdaysa, hata verir ve `cat` programını hiç çalıştırmaz bile. Bu, özellikle `cat` gibi küçük programlarda hissedilmeyen etkilere sebep olur ancak `mysql` veya çok daha büyük bir programın her defasında boş yere çağırılmasına engel olabileceği için, aslında kabuk programlamada mümkünse kullanılması gereken yöntemlerden birisidir ve doğru kullanıldığında bazı noktalarda sisteminizin daha verimli çalışmasını sağlayabilir.
 
 Standart girdinin **&lt;** notasyonu ile kullanımı, yıllarca UNIX sistemler yönetmiş bir kişinin bile çok nadir karşılaştığı durumlar olabilir. Bu kitapta da özellikle **crontab** ve **netcat** bölümlerinde birkaç örneği dışında denk gelmemeniz olası. Ancak standart girdinin ne işe yaradığının anlaşılması, özellikle birazdan göreceğimiz **pipe** mekanizmasının belkemiğini oluşturmaktadır.
+
+
 
