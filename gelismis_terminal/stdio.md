@@ -48,11 +48,11 @@ drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 test
 
 Her iki durumda da `ls` programına, çıktıyı nereye yazacağını söylemiyoruz, bu yüzden `ls`, standart olan çıktıya yazıyor. Bu durumda da bizim terminal ekranımız.
 
-UNIX sistemlerde, bu çıktıyı "standart olmaktan çıkarma" amacıyla, standart çıktıyı farklı bir _yere _yönlendirmenin faydalı olacağı görülmüştür. Örneğin yukarıdaki `ls -l` sonucunu, standart çıktı yerine bir dosyaya yönlendirebiliriz.
+UNIX sistemlerde, bu çıktıyı "standart olmaktan çıkarma" amacıyla, standart çıktıyı farklı bir \_yere \_yönlendirmenin faydalı olacağı görülmüştür. Örneğin yukarıdaki `ls -l` sonucunu, standart çıktı yerine bir dosyaya yönlendirebiliriz.
 
 ```
 eaydin@eaydin-vt ~/devel/pgpoolwatch $ ls -l > /home/eaydin/ls_cikti
-eaydin@eaydin-vt ~/devel/pgpoolwatch $ 
+eaydin@eaydin-vt ~/devel/pgpoolwatch $
 ```
 
 Farkındaysanız, artık ekranda ls -l komutunun sonucunu görmüyoruz, çünkü programın standart çıktısını `/home/eaydin/ls_cikti` dosyasına yönlendirdik. Böyle olunca standart çıktısı olan terminalimize veri yazmadı.Eğer gidip `/home/eaydin/ls_cikti` dosyasının içeriğini okursak, biraz önceki sonucun aynısını görürüz.
@@ -72,6 +72,8 @@ drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 scripts
 drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 16:04 services
 drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 test
 ```
+
+Öyleyse, standart çıktı yönlendirme işlemini **&gt;** işaretiyle gerçekleştiriyoruz. Böylece standart çıktıya sonuç döndüren programların tamamının çıktılarını bir dosyaya yönlendirebiliriz.
 
 
 
