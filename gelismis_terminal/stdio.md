@@ -20,7 +20,58 @@ Eğer girdi ve çıktı yönlendirmeleri ile ilgili hiç tecrübeniz yoksa, yuka
 
 Eğer bu _standart çıktı_ sizin için hiçbir şey ifade etmiyorsa, önce _standart_ sözcüğünü ortadan kaldıralım: Bir programın _çıktısı_ ne demek?
 
-Terminal üzerinden herhangi bir komut çalıştırdığınızda, aslın o program bir _şey_ üretecektir. Genellikle bu ürettiği _şeyi_ ekrana yazdığını görürüz. Örneğin 
+Terminal üzerinden herhangi bir komut çalıştırdığınızda, aslın o program bir _şey_ üretecektir. Genellikle bu ürettiği _şeyi_ ekrana yazdığını görürüz. Örneğin ls komutu, bulunduğumuz dizindeki dosyaları gösterir.
+
+```
+eaydin@eaydin-vt ~/devel/pgpoolwatch $ ls
+args.txt.sample    LICENSE      poolstatus.py  repmgrwatch.py  sendmail.py  test
+config.ini.sample  pgpwatch.py  README.md      scripts         services
+```
+
+Burada ls komutu, aslında LICENSE, scripts gibi dosya ve dizin isimlerini bize çıktı olarak sunmuştur. Örneğin ls -l yazsaydık, farklı bir çıktı sunacaktı.
+
+```
+eaydin@eaydin-vt ~/devel/pgpoolwatch $ ls -l 
+total 92
+-rw-rw-r-- 1 eaydin eaydin   203 Jan  8 14:30 args.txt.sample
+-rw-rw-r-- 1 eaydin eaydin   401 Jan  8 15:51 config.ini.sample
+-rw-r--r-- 1 eaydin eaydin  1070 Dec 18 16:32 LICENSE
+-rwxrwxr-x 1 eaydin eaydin 12908 Jan  8 14:30 pgpwatch.py
+-rwxrwxr-x 1 eaydin eaydin 15274 Jan  8 14:30 poolstatus.py
+-rw-rw-r-- 1 eaydin eaydin 13491 Jan  8 14:30 README.md
+-rwxrwxr-x 1 eaydin eaydin 12184 Jan  8 14:30 repmgrwatch.py
+drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 scripts
+-rwxrwxr-x 1 eaydin eaydin  5955 Jan  8 14:30 sendmail.py
+drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 16:04 services
+drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 test
+```
+
+Her iki durumda da `ls` programına, çıktıyı nereye yazacağını söylemiyoruz, bu yüzden `ls`, standart olan çıktıya yazıyor. Bu durumda da bizim terminal ekranımız.
+
+UNIX sistemlerde, bu çıktıyı "standart olmaktan çıkarma" amacıyla, standart çıktıyı farklı bir _yere _yönlendirmenin faydalı olacağı görülmüştür. Örneğin yukarıdaki `ls -l` sonucunu, standart çıktı yerine bir dosyaya yönlendirebiliriz.
+
+```
+eaydin@eaydin-vt ~/devel/pgpoolwatch $ ls -l > /home/eaydin/ls_cikti
+eaydin@eaydin-vt ~/devel/pgpoolwatch $ 
+```
+
+Farkındaysanız, artık ekranda ls -l komutunun sonucunu görmüyoruz, çünkü programın standart çıktısını `/home/eaydin/ls_cikti` dosyasına yönlendirdik. Böyle olunca standart çıktısı olan terminalimize veri yazmadı.Eğer gidip `/home/eaydin/ls_cikti` dosyasının içeriğini okursak, biraz önceki sonucun aynısını görürüz.
+
+```
+eaydin@eaydin-vt ~/devel/pgpoolwatch $ cat /home/eaydin/ls_cikti 
+total 92
+-rw-rw-r-- 1 eaydin eaydin   203 Jan  8 14:30 args.txt.sample
+-rw-rw-r-- 1 eaydin eaydin   401 Jan  8 15:51 config.ini.sample
+-rw-r--r-- 1 eaydin eaydin  1070 Dec 18 16:32 LICENSE
+-rwxrwxr-x 1 eaydin eaydin 12908 Jan  8 14:30 pgpwatch.py
+-rwxrwxr-x 1 eaydin eaydin 15274 Jan  8 14:30 poolstatus.py
+-rw-rw-r-- 1 eaydin eaydin 13491 Jan  8 14:30 README.md
+-rwxrwxr-x 1 eaydin eaydin 12184 Jan  8 14:30 repmgrwatch.py
+drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 scripts
+-rwxrwxr-x 1 eaydin eaydin  5955 Jan  8 14:30 sendmail.py
+drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 16:04 services
+drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 test
+```
 
 
 
