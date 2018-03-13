@@ -139,11 +139,37 @@ drwxr-xr-x 2 eaydin eaydin 4096 Dec 18 16:32 etc
 
 Gördüğünüz gibi, burada standart çıktı işaretinin tersini \(**&lt;**\) kullanıyoruz. Standart girdilerde, _üzerine yazma_ gibi bir durum söz konusu olmadığından, **&lt;&lt;** gibi bir notasyona gerek kalmaz.
 
-Yukarıda kullandığımız cat programı örneği, her ne kadar standart girdi kullanmış olsa da, aslında pek bir anlam ifade etmeyebilir. En nihayetinde kullanıcı açısından dosya ismini parametrik olarak belirtmek ile standart girdi olarak belirtmek arasında bir fark bulunmamaktadır. Aslında teknik olarak bir fark var ancak buna birazdan değineceğiz.
+Yukarıda kullandığımız cat programı örneği, her ne kadar standart girdi kullanmış olsa da, pek bir anlam ifade etmeyebilir. En nihayetinde kullanıcı açısından dosya ismini parametrik olarak belirtmek ile standart girdi olarak belirtmek arasında bir fark bulunmamaktadır. Aslında teknik olarak bir fark var ancak buna birazdan değineceğiz.
 
+cat programı eğer standart girdiden veri beklentisi içindeyse, cat programını hiçbir parametre kullanmadan çalıştırırsak ne olur? Bu sorunun cevabını cat programı çalıştırıp "Bu bir cümle" yazarak deneyelim.
 
+```
+eaydin@k9 ~ $ cat
+Bu bir cümle
+Bu bir cümle
+^C
+```
 
-**NOT:** Aslında ufak bir fark bulunmakta. Parametrik gönderim, programın kullandığı bir yöntemdir. Yani program hangi parametrenin hangi sırayla belirtilmesini kodlarında tanımlamıştır. Dolayısıyla cat ls\_cikti yazdığımızda, kabuk \(shell\) önce cat programını çağırır. 
+Yukarıda ne olup bittiğine bir bakalım: Hiçbir parametre göndermeden cat programını çalıştırıyoruz. Sonra program bizden \(standart girdiden\) bir girdi bekliyor. Biz de "Bu bir cümle" yazıp ENTER tuşuna basıyoruz. Ardından ekranda bir satır daha kendiliğinden beliriyor ve bizim yazdığımız cümlenin aynısını yazıyor. Sonra CTRL+c tuşu ile programı sonlandırıyoruz.
 
+Bu örnekteki ikinci "Bu bir cümle" satırının yazmasının sebebi, cat programının işlevinde yatmaktadır. Standart girdi veya parametrik dosya belirtilmesi farketmeksizin cat programı, kendisine gönderilen verinin standart çıktıya yazdırılması işlemini gerçekleştirdiği için, biz "Bu bir cümle" yazıp programa bunu sunduktan sonra, program bunu standart çıktıya yazıyor. Dolayısıyla ekranda iki kez görmüş oluyoruz.
 
+Eğer cat programını çalıştırırken standart çıktıyı bir dosyaya yönlendirseydik, durum farklı olurdu.
+
+```
+eaydin@k9 ~ $ cat > deneme
+Bu da başka bir cümle
+^C
+```
+
+Burada programa standart girdiden veri gönderdik, ancak standart çıktıyı deneme dosyasına yönlendirdiğimiz için, ekranımızda ikinci kez görmedik. deneme dosyasının içeriğini okuyacak olursak ne beklediğimiz aşikar sanırım.
+
+```
+eaydin@k9 ~ $ cat deneme
+Bu da başka bir cümle
+```
+
+Bütün bu örneklerin hala bir şey ifade etmediğinin farkındayız. 
+
+**NOT:** Aslında ufak bir fark bulunmakta. Parametrik gönderim, programın kullandığı bir yöntemdir. Yani program hangi parametrenin hangi sırayla belirtilmesini kodlarında tanımlamıştır. Dolayısıyla cat ls\_cikti yazdığımızda, kabuk \(shell\) önce cat programını çağırır.
 
