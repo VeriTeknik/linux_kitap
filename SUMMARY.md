@@ -22,6 +22,7 @@
   * [rename](gelismis_terminal/rename.md)
   * [Imagemagick ve Görüntü Dosyaları](gelismis_terminal/imagemagick.md)
   * [wget](gelismis_terminal/wget.md)
+  * [Python ile Dosya Sunuculuğu](gelismis_terminal/python-ile-dosya-sunuculugu.md)
 * [Temel Dağıtımlar](dagitimlar/temel_dagitimlar.md)
   * [CentOS](dagitimlar/centos/centos.md)
     * [rpm Paketleri](dagitimlar/centos/rpm.md)
