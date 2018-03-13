@@ -147,7 +147,7 @@ eaydin@dixon ~/calisma/wget $ echo $?
 
 ## Tarayıcı Gibi Davranmak
 
-İndirmek istediğiniz bazı linkler kaynağın bir tarayıcı gibi davranmasını isterler.   
+İndirmek istediğiniz bazı linkler kaynağın bir tarayıcı gibi davranmasını isterler.  
 Aşağıda bu tip senaryolarda kullanabileceğiniz iki yol gösterici örnek görebilrsiniz.
 
 ```bash
@@ -191,7 +191,7 @@ https://veriteknik.gitbooks.io/linux-yonetimi/content/
 
 ## Belirli Dosya Tiplerini ve Dizin Oluşumunu Engellemek
 
-Aşağıdaki örnek, rackdc CentOS mirror'undan iso dosyaları hariç \(--reject\) tüm dosyaları indirecek, ancak "Parent Directory"e gidip tarama işlemini genişletmeyecek \(-np\) ve tamamını tek dizine indirip alt dizinleri oluşturmayacaktır.
+Aşağıdaki örnek, rackdc CentOS mirror'undan iso dosyaları hariç \(`--reject`\) tüm dosyaları indirecek, ancak "Parent Directory"e gidip tarama işlemini genişletmeyecek \(`-np`\) ve tamamını tek dizine indirip alt dizinleri oluşturmayacaktır.
 
 ```bash
 wget --reject=iso -P CentOS --mirror -np \ 
