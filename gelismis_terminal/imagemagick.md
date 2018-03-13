@@ -1,10 +1,10 @@
 # Imagemagick ve Görüntü Dosyaları
 
-GNU/Linux komut satırında birden görüntü dosyası üzerinde işlem yapmak için en uygun paketlerden birisi **imagemagick** paketidir. İçerisinde temel işlemleriniz için pek çok araç barındırır.
+GNU/Linux komut satırında birden fazla görüntü dosyası üzerinde işlem yapmak için en uygun paketlerden birisi **imagemagick** paketidir. İçerisinde temel işlemleriniz için pek çok araç barındırır.
 
 ## Tip Dönüşümü
 
-Örneğin dosya uzantılarından dosya tiplerini anlayacağı için, doğrudan png->jpg dönüşümü gibi işlemler yapabilirsiniz. Ayrıca kalite belirterek dosyanın kayıplı sıkıştırma miktarını belirleyebilirsiniz.
+Örneğin dosya uzantılarından dosya tiplerini anlayacağı için, doğrudan png-&gt;jpg dönüşümü gibi işlemler yapabilirsiniz. Ayrıca kalite belirterek dosyanın kayıplı sıkıştırma miktarını belirleyebilirsiniz.
 
 ```bash
 convert logo.png logo.jpg
@@ -19,13 +19,13 @@ Imagemagick ile dosya boyutlarını değiştirmek kolaydır.
 convert logo.jpg -resize 300x120 logo.jpg
 ```
 
-Yukarıdaki komut, görüntü oranını (aspect ratio) korur. Yani görüntüyü 300x120'lik bir dikdörtgen içerisine sığdırmaya çalışır. Eğer korumasını istemiyorsanız ve oran bozulsa bile tam olarak 300x120'lik çıktı elde etmek istiyorsanız bunu ünlem (!) koyarak belirtebilirsiniz.
+Yukarıdaki komut, görüntü oranını \(aspect ratio\) korur. Yani görüntüyü 300x120'lik bir dikdörtgen içerisine sığdırmaya çalışır. Eğer korumasını istemiyorsanız ve oran bozulsa bile tam olarak 300x120'lik çıktı elde etmek istiyorsanız bunu ünlem \(!\) koyarak belirtebilirsiniz.
 
 ```bash
 convert logo.jpg -resize 300x120! logo.jpg
 ```
 
-Tabii oran korunarak boyutlandırma için sadece genişlik (width) veya yükseklik (height) belirtebilirdik.
+Tabii oran korunarak boyutlandırma için sadece genişlik \(width\) veya yükseklik \(height\) belirtebilirdik.
 
 ```bash
 convert logo.jpg -resize 300 logo.jpg
@@ -39,13 +39,15 @@ convert logo.jpg -resize 50% logo.jpg
 ```
 
 ### Sadece Küçült
-Imagemagick ile sadece belirli boyuttan büyük olanları küçültmek için kullanılabilecek bir işaretçi var, büyüktür **>** işareti. Alışıla geldiğin tersinde bir gösterim ancak bunu şu şekilde okumak gerekir: "Sadece bu boyuttan **büyük** olan dosyalarda çalış".
+
+Imagemagick ile sadece belirli boyuttan büyük olanları küçültmek için kullanılabilecek bir işaretçi var, büyüktür **&gt;** işareti. Alışıla geldiğin tersinde bir gösterim ancak bunu şu şekilde okumak gerekir: "Sadece bu boyuttan **büyük** olan dosyalarda çalış".
 
 ```bash
 convert logo.jpg -resize 128x128\> logo_thmb.jpg
 ```
 
 ### Sadece Büyüt
+
 Yukarıdaki işlemin tam tersidir. Eğer dosya belirtilen limitlerden küçükse çalışır.
 
 ```bash
@@ -59,13 +61,14 @@ Imagemagick ile görüntüyü döndürmek tahmin edileceği gibi **rotate** ile 
 ```bash
 convert logo.jpg -rotate 90 logo.jpg
 ```
+
 ![Orijinal Görüntü](images/1604.png) ![Döndürülen görüntü](images/rotated90.png)
 
-*Kaynak: http://xkcd.com/1604/*
+_Kaynak: _[http://xkcd.com/1604/](http://xkcd.com/1604/)
 
 ## Aynalama İşlemleri
 
-Öte yandan aynalama işlemleri için **flip** ve **flop** seçenekleri kullanılır. **flip** görüntüyü başaşağı çevirir (x-ekseninde aynalama), **flop** ise soldan sağa doğru (y-ekseninde) çevirir.
+Öte yandan aynalama işlemleri için **flip** ve **flop** seçenekleri kullanılır. **flip** görüntüyü başaşağı çevirir \(x-ekseninde aynalama\), **flop** ise soldan sağa doğru \(y-ekseninde\) çevirir.
 
 ```bash
 eaydin@dixon ~/calisma/im $ convert 1604.png -flip flipped.png
@@ -78,14 +81,17 @@ eaydin@dixon ~/calisma/im $ convert 1604.png -flip -flop flipflop.png
 ## Filtreler
 
 Programın bir çok filtresi bulunuyor. Tamamının üzerine geçmek bu kitabın amacının çok dışında olacaktır dolayısıyla sadece birkaç örnek ile sonuçlarını göstermek istedik.
+
 ```bash
 eaydin@dixon ~/calisma/im $ convert 1604.png -radial-blur 20 blurred.png
 ```
+
 ![Radial Blur](images/radial-blurred.png)
 
 ```bash
 eaydin@dixon ~/calisma/im $ convert 1604.png -charcoal 4 charcoal.png
 ```
+
 ![Charcoal](images/charcoal.png)
 
 ## Görüntü Hakkında Bilgi Almak
@@ -97,7 +103,7 @@ eaydin@dixon ~/calisma/im $ identify 1604.png
 1604.png PNG 177x205 177x205+0+0 8-bit DirectClass 32.9KB 0.000u 0:00.000
 ```
 
-Dosya hakkında çok detaylı bilgi almak isterseniz **-verbose** seçeneğini kullanabilirsiniz. (Burada çıktıyı göstermiyoruz çünkü oldukça uzun)
+Dosya hakkında çok detaylı bilgi almak isterseniz **-verbose** seçeneğini kullanabilirsiniz. \(Burada çıktıyı göstermiyoruz çünkü oldukça uzun\)
 
 ```bash
 identify -verbose 1604.png
@@ -159,5 +165,6 @@ Aşaıdaki gibi bir komutla bu görüntüyü orijinal görüntümüzle birleşti
 eaydin@dixon ~/calisma/im $ composite -watermark 30% -gravity north \
 -geometry +0+15 penguin.jpg 1604.png wm_pen.png
 ```
+
 ![](images/wm_pen.png)
 
