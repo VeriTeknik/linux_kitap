@@ -6,7 +6,7 @@ Her ne kadar her ikisi için de kompleks programlar yazılabiliyor olsa da, bu b
 
 ## awk
 
-awk çoğunlukla tablarla ayrılmış verilerin belirli sütununu almakta veya sırasını değiştirmekte kullanılır. Örneğin ```ls -l``` çıktısını ayıklamak için aşağıdaki yöntem kullanılabilir.
+awk çoğunlukla tablarla ayrılmış verilerin belirli sütununu almakta veya sırasını değiştirmekte kullanılır. Örneğin `ls -l` çıktısını ayıklamak için aşağıdaki yöntem kullanılabilir.
 
 ```bash
 eaydin@dixon ~/calisma $ ls -l *.txt
@@ -101,7 +101,7 @@ Perl
 
 ## sed
 
-sed dosyalar veya standart girdi üzerinde değişiklik yapmaya yarayan bir araçtır. Regular expression desteklediği gibi basit işlemler için de sıklıkla kullanılır. Örneğin yukarıda kullandığımız **liste** dosyasında içinde PHP geçen satırı **#** ile açıklama satırı haline getirmek isteseydik
+sed dosyalar veya standart girdi üzerinde değişiklik yapmaya yarayan bir araçtır. Regular expression desteklediği gibi basit işlemler için de sıklıkla kullanılır. Örneğin yukarıda kullandığımız **liste** dosyasında içinde PHP geçen satırı **\#** ile açıklama satırı haline getirmek isteseydik
 
 ```bash
 eaydin@dixon ~/calisma $ sed '/PHP/s/^/#/' liste
@@ -112,7 +112,7 @@ Go
 Perl
 ```
 
-Yukarıdaki komutun yaptığı işlem basittir. **liste** dosyası içinde **PHP** ifadesini saradı, **s** ile değişiklik yapılacağı bildirildi, **^** ile satırın başına **#** karakterinin ekleneceği ifade edildi.
+Yukarıdaki komutun yaptığı işlem basittir. **liste** dosyası içinde **PHP** ifadesini saradı, **s** ile değişiklik yapılacağı bildirildi, **^** ile satırın başına **\#** karakterinin ekleneceği ifade edildi.
 
 Eğer bu satırı silmek isteseydik;
 
@@ -132,7 +132,7 @@ Ruby
 Go
 ```
 
-Çoğunlukla sed kullanımında **s** komutunu başta görürsünüz. Örneğin satırlarımızda **h** harflerini bulsak ve bu harften önce ve sonra **<** ile **>** işaretleri koymak istesek;
+Çoğunlukla sed kullanımında **s** komutunu başta görürsünüz. Örneğin satırlarımızda **h** harflerini bulsak ve bu harften önce ve sonra **&lt;** ile **&gt;** işaretleri koymak istesek;
 
 ```bash
 eaydin@dixon ~/calisma $ sed 's/[hH]/<&>/' liste 
@@ -154,7 +154,7 @@ Go
 Perl
 ```
 
-Gördüğünüz gibi bu örneklerde, bulduğumuz satırı ifade eden karakter **&** ile göteriliyor.
+Gördüğünüz gibi bu örneklerde, bulduğumuz satırı ifade eden karakter **&** ile gösteriliyor.
 
 ### Yaygın Sed Kullanımları
 
@@ -172,9 +172,6 @@ Python
 Ruby
 Go
 Perl
-
-
-
 ```
 
 Bu satırları silmek için aşağıdaki yöntem kullanılabilir,
@@ -230,7 +227,7 @@ Perl
 
 #### Açıklama Satırı Ekleme
 
-İçinde **o** veya **r** harfi geçen satırları **#** ile açıklama satırı haline getirelim.
+İçinde **o** veya **r** harfi geçen satırları **\#** ile açıklama satırı haline getirelim.
 
 ```bash
 eaydin@dixon ~/calisma $ sed -e '/[o|r]/s/^#*/#/' liste
@@ -259,7 +256,7 @@ Ruby
   #C2
 ```
 
-Burada hem başında boşluk olan satırlar var, hem birden fazla **#** ile başlayan satırlar var, hem de **#**den sonra boşluk içeren satırlar var. Tamamını *uncomment* edebilmek için aşağıdaki yöntem kullanılabilir.
+Burada hem başında boşluk olan satırlar var, hem birden fazla **\#** ile başlayan satırlar var, hem de **\#**den sonra boşluk içeren satırlar var. Tamamını _uncomment_ edebilmek için aşağıdaki yöntem kullanılabilir.
 
 ```bash
 eaydin@dixon ~/calisma $ sed 's/^[ ]*#*//' aciklama
@@ -291,12 +288,9 @@ Go2
 C2
 ```
 
-
-
-
 #### Satır Numaralandırma
 
-```sed = dosyaismi``` kullanımı, her satırı tek tek yazdırıp, öncesine satır numarasını yazdırır. Örneğin
+`sed = dosyaismi` kullanımı, her satırı tek tek yazdırıp, öncesine satır numarasını yazdırır. Örneğin
 
 ```bash
 eaydin@dixon ~/calisma $ sed = liste
@@ -316,9 +310,12 @@ Perl
 
 ```bash
 eaydin@dixon ~/calisma $ sed = liste | sed 'N;s/\n/\t/'
-1	PHP
-2	Python
-3	Ruby
-4	Go
-5	Perl
+1    PHP
+2    Python
+3    Ruby
+4    Go
+5    Perl
 ```
+
+
+
