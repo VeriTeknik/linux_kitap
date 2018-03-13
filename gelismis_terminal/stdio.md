@@ -234,12 +234,18 @@ Standart girdinin **&lt;** notasyonu ile kullanımı, yıllarca UNIX sistemler y
 
 ## UNIX Pipeline
 
-David McIlroy, işletim sistemindeki programların \(veya parçacıkların\) birer standart girdisinin ve standart çıktısının olması gerektiği fikrini aslında yukarıdaki örneklerde bahsettiğimiz gibi sadece dosya yönlendirme amacıyla geliştirmemiştir. McIlroy'un amacı, aslında programların birbirleriyle, arada geçici bir dosya veya kullanıcı müdahalesine gerek olmaksızın veri akışının sağlanmasıdır. Bunu yaparken de, bir programın çıktısının diğer programın girdisi olarak yönlendirilmesini kurgulamıştır. McIlroy bu metodolojiyi ilk defa 1973'te kurgulamıştır ve Ken Thompson, `pipe()` sistem çağrısını Unix versiyon 3 üzerinde uyarlamıştır. Bunu yaparken de yönlendirme işareti olarak `|` kullanılmıştır. McIlroy, bu karakterin kullanımını Thompson'ın geliştirdiğini belirtir. Bu yatak çubuk, aslında bir _boru \(pipe\) _olarak düşünülünce, tıpkı bir su tesisatındaki boru hattı gibi, bir noktadan giren bilginin, diğer noktadan çıkmasını sağladığı için _pipeline_ terminolojisini doğurmuştur.
+David McIlroy, işletim sistemindeki programların \(veya parçacıkların\) birer standart girdisinin ve standart çıktısının olması gerektiği fikrini aslında yukarıdaki örneklerde bahsettiğimiz gibi sadece dosya yönlendirme amacıyla geliştirmemiştir. McIlroy'un amacı, aslında programların birbirleriyle, arada geçici bir dosya veya kullanıcı müdahalesine gerek olmaksızın veri akışının sağlanmasıdır. Bunu yaparken de, bir programın çıktısının diğer programın girdisi olarak yönlendirilmesini kurgulamıştır. McIlroy bu metodolojiyi ilk defa 1973'te kurgulamıştır ve Ken Thompson, `pipe()` sistem çağrısını Unix versiyon 3 üzerinde uyarlamıştır. Bunu yaparken de yönlendirme işareti olarak `|` kullanılmıştır. McIlroy, bu karakterin kullanımını Thompson'ın geliştirdiğini belirtir. Bu yatak çubuk, aslında bir _boru \(pipe\) \_olarak düşünülünce, tıpkı bir su tesisatındaki boru hattı gibi, bir noktadan giren bilginin, diğer noktadan çıkmasını sağladığı için \_pipeline_ terminolojisini doğurmuştur.
 
-Örneğin less programı, aslında kendisine sağlanan bilginin terminal ekranına sığacak şekilde parçalanmasını sağlar. Eğer çok fazla dosya içeren bir dizin içerisinde ls -l komutunu çalıştırırsak, standart çıktı içerisinde kaybolabiliriz. Bunun için ls -l komutunun çıktısını, less programına girdi olarak sunabiliriz. Bunun için yapmamız gereken tek şey, aralarında _pipe_ işaretini kullanmak olacaktır.
+Örneğin `less` programı, aslında kendisine sağlanan bilginin terminal ekranına sığacak şekilde parçalanmasını sağlar. Tıpkı `cat` programında olduğu gibi, parametrik kullanımla dosya adı belirtilebilir, veya standart girdi olarak veri sağlanabilir.
+
+
+
+
+
+Eğer çok fazla dosya içeren bir dizin içerisinde `ls -l` komutunu çalıştırırsak, standart çıktı içerisinde kaybolabiliriz. Bunun için `ls -l `komutunun çıktısını, `less` programına girdi olarak sunabiliriz. Bunun için yapmamız gereken tek şey, aralarında _pipe_ işaretini kullanmak olacaktır.
 
 ```
-root@ubuntu:/mnt/backups/orthogonal/# ls -l | more
+root@ubuntu:/mnt/backups/orthogonal/# ls -l | less
 total 7019320
 -rwxr-xr-x 1 root root     15099 May 23  2016 E28b30_0HGK030HF2015COG.aux
 -rwxr-xr-x 1 root root  77772699 May 23  2016 E28b30_0HGK030HF2015COG.ecw
