@@ -345,7 +345,7 @@ Kullanımı hakkında, GNU Core Utils'de paylaşılan birkaç örnek fikir vereb
 wget -O - http://mirror.veriteknik.net.tr/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso | tee centos7.iso | md5sum > centos7.md5
 ```
 
-Yukarıdaki komut VeriTeknik mirrorlarından CentOS 7 Minimal güncel versiyonunu indirir, `tee` ile dosya `centos7.iso` olarak kaydedilir ancak standart çıktıya yazılan veri `tee` ile `md5sum` programına aktarılır ve MD5 Checksum hesaplandıktan sonra `centos7.md5` dosyasına kaydedilir. Burada önemli olan noktalardan birisi, MD5 hesaplanması için verinin tamamının indirilmesinin beklenmemesidir. Veri indikte md5sum programına veri akacak ve hesaplama başlayacaktır. Dolayısıyla verinin önce diske yazılması beklenmemektedir. Verinin önce diske yazılmasını, sonra md5sum programının diskten tekrar okumasını sağlamak için şöyle yapabilirdik:
+Yukarıdaki komut VeriTeknik mirrorlarından CentOS 7 Minimal güncel versiyonunu indirir, `tee` ile dosya `centos7.iso` olarak kaydedilir ancak standart çıktıya yazılan veri `tee` ile `md5sum` programına aktarılır ve MD5 Checksum hesaplandıktan sonra `centos7.md5` dosyasına kaydedilir. Burada önemli olan noktalardan birisi, MD5 hesaplanması için verinin tamamının indirilmesinin beklenmemesidir. Veri indikçe md5sum programına veri akacak ve hesaplama başlayacaktır. Dolayısıyla verinin önce diske yazılması beklenmemektedir. Verinin önce diske yazılmasını, sonra `md5sum` programının diskten tekrar okumasını sağlamak için şöyle yapabilirdik:
 
 ```
 wget http://mirror.veriteknik.net.tr/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso centos7.iso && md5sum centos7.iso
