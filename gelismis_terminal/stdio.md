@@ -329,13 +329,17 @@ bcrypt
 bcrypt-3.1.4.dist-info
 ```
 
+tee programı, aslında UNIX pipeline'ında bir T-Pipe görevi gördüğü için bu ismi almıştır. UNIX pipeline'ı aslında bir boru tesisatı gibi düşünülebilir, ismi de buradan gelir zaten. Yazılımlar birbirlerine borularla bağlıdır, ve akış tek yönlüdür. Soldan sağa doğru akış gerçekleşir. Eğer bu akış içerisinde bir dallanmaya ihtiyaç duyarsak, boru tesisatlarında olduğu gibi T şeklinde bir boru kullanmamız gerekir. Böylece akışı iki veya daha fazla dala ayırabiliriz. Programa birden fazla parametre verip, çıktının birden fazla dosyaya da yazdırılmasını sağlayabiliriz.
 
+Kısacası tee programı, standart girdiden gelen veriyi, hem kendisine parametre olarak verilen dosyalara yazar, hem de standart çıktıya yönlendirir. Böylece kendi standart çıktısı hangi programa standart girdi olarak sunulmuşsa, komutların akışı devam edebilir.
 
+Normal şartlar altında **&gt;** işaretinin yaptığı gibi, kendisine parametre olarak verilen dosyaları silip üzerine yazar. Ancak bu dosyaların mevcut bilgilerini koruyup sonuna veri eklemesini istersek \(_append _etmesini istersek\) `-a` parametresiyle çalıştırmak gerekir. Bu, standart çıktı yönlendirmedeki **&gt;&gt;** işaretinin karşılığı gibi düşünülebilir.
 
+### Bazı tee Örnekleri
 
+Kullanımı hakkında, GNU Core Utils'de paylaşılan birkaç örnek fikir verebilir.
 
-
-
+Örneğin herhangi bir dosyanın internetten indirilmesi 
 
 ## Standart Hata
 

@@ -40,3 +40,7 @@ OpenSSH Mailing List, Announce: OpenSSH 5.1 released, Damien Miller, \(Erişim T
 
 The Bell System Technical Journal, UNIX Time-Sharing View, 1978
 
+GNU Core Utils, tee: Redirect output to multiple files or processes \(Erişim, Mart 2018\) https://www.gnu.org/software/coreutils/manual/html\_node/tee-invocation.html
+
+
+
