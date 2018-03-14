@@ -333,13 +333,53 @@ tee programı, aslında UNIX pipeline'ında bir T-Pipe görevi gördüğü için
 
 Kısacası tee programı, standart girdiden gelen veriyi, hem kendisine parametre olarak verilen dosyalara yazar, hem de standart çıktıya yönlendirir. Böylece kendi standart çıktısı hangi programa standart girdi olarak sunulmuşsa, komutların akışı devam edebilir.
 
-Normal şartlar altında **&gt;** işaretinin yaptığı gibi, kendisine parametre olarak verilen dosyaları silip üzerine yazar. Ancak bu dosyaların mevcut bilgilerini koruyup sonuna veri eklemesini istersek \(_append _etmesini istersek\) `-a` parametresiyle çalıştırmak gerekir. Bu, standart çıktı yönlendirmedeki **&gt;&gt;** işaretinin karşılığı gibi düşünülebilir.
+Normal şartlar altında **&gt;** işaretinin yaptığı gibi, kendisine parametre olarak verilen dosyaları silip üzerine yazar. Ancak bu dosyaların mevcut bilgilerini koruyup sonuna veri eklemesini istersek \(\_append \_etmesini istersek\) `-a` parametresiyle çalıştırmak gerekir. Bu, standart çıktı yönlendirmedeki **&gt;&gt;** işaretinin karşılığı gibi düşünülebilir.
 
 ### Bazı tee Örnekleri
 
 Kullanımı hakkında, GNU Core Utils'de paylaşılan birkaç örnek fikir verebilir.
 
-Örneğin herhangi bir dosyanın internetten indirilmesi 
+Örneğin herhangi bir dosyanın internetten indirilmesi ile dosyanın MD5 Checksum hesaplanmasının sağlanmasını bir arada yapmak için aşağıdaki komut incelenebilir.
+
+```
+wget -O - http://mirror.veriteknik.net.tr/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso | tee centos7.iso | md5sum > centos7.md5
+```
+
+Yukarıdaki komut VeriTeknik mirrorlarından CentOS 7 Minimal güncel versiyonunu indirir, `tee` ile dosya `centos7.iso` olarak kaydedilir ancak standart çıktıya yazılan veri `tee` ile `md5sum` programına aktarılır ve MD5 Checksum hesaplandıktan sonra `centos7.md5` dosyasına kaydedilir. Burada önemli olan noktalardan birisi, MD5 hesaplanması için verinin tamamının indirilmesinin beklenmemesidir. Veri indikte md5sum programına veri akacak ve hesaplama başlayacaktır. Dolayısıyla verinin önce diske yazılması beklenmemektedir. Verinin önce diske yazılmasını, sonra md5sum programının diskten tekrar okumasını sağlamak için şöyle yapabilirdik:
+
+```
+wget http://mirror.veriteknik.net.tr/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso centos7.iso && md5sum centos7.iso
+```
+
+Ancak burada işlemler sırayla yapılacağı için, UNIX Pipeline'ın avantajlarından hiçbir şekilde faydalanmamış olurduk.
+
+### Process Substitution
+
+Eğer yukarıda indirdiğimiz dosyanın, indirilirken, aynı anda hem MD5 Checksum'ının, hem de SHA1 Checksum'ının hesaplanmasını isteseydik, tee ile standart çıktıyı iki farklı programa yönlendirmemiz gerekecekti. Bu işleme process substitution denilir. Aşağıdaki örnek ile görülebilir.
+
+```
+eaydin@eaydin-vt ~/Downloads $ wget -O - http://mirror.veriteknik.net.tr/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso | tee >(sha1sum > centos7.sha1) >(md5sum  > centos7.md5) > centos7.iso
+--2018-03-14 14:19:36--  http://mirror.veriteknik.net.tr/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso
+Resolving mirror.veriteknik.net.tr (mirror.veriteknik.net.tr)... 94.103.33.100, 2a00:7300:1::101
+Connecting to mirror.veriteknik.net.tr (mirror.veriteknik.net.tr)|94.103.33.100|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 830472192 (792M) [application/octet-stream]
+Saving to: ‘STDOUT’
+
+-                                 100%[=============================================================>] 792,00M  11,1MB/s    in 73s     
+
+2018-03-14 14:20:49 (10,9 MB/s) - written to stdout [830472192/830472192]
+
+eaydin@eaydin-vt ~/Downloads $ cat centos7.md5
+5848f2fd31c7acf3811ad88eaca6f4aa  -
+eaydin@eaydin-vt ~/Downloads $ cat centos7.sha1 
+aae20c8052a55cf179af88d9dd35f1a889cd5773  -
+
+```
+
+Yukarıdaki komut dizisinin kritik noktası, `tee >(sha1sum > centos7.sha1) >(md5sum  > centos7.md5)` bölümüdür. Burada tee, standart çıktısını iki farklı işleme daha yönlendirir. Bu işlemler parantez içinde belirtilir, ve daha önce gördüğümüz **&gt;** işareti ile bu işlemlere yönlendirme yapılır. Burada dikkat edilmesi gereken nokta, **&gt;** işareti ile **\(** arasında boşluk bulunmaması gerektiğidir.
+
+Sanki tee programı iki farklı dosyaya yazmak yerine, iki farklı işleme standart çıktıyı yönlendirmektedir. Burada dosya \(_file_\) yerine işlem \(_process_\) koyduğumuz için, bir değişiklik \(_substitution_\) işlemi yapmış olduk. Bu yüzden bu yönteme _process substituion_ denilir. Bu örnekte de, indirme işleminin, SHA1 hesaplamasının ve MD5 hesaplamasının birbirlerini beklemediğini, işlemin paralel gerçekleştirildiğini hatırlatmakta fayda var.
 
 ## Standart Hata
 
