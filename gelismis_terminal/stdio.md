@@ -272,5 +272,19 @@ total 7019320
 
 Bu çıktının en altında görülen `--More--` kısmı aslında, `less` programının getirdiği bir sonuç. Aynı şekilde `less` çalıştırıldıktan sonra, standart girdiden \(klavyeden\) herhangi bir _input_ beklemektedir. Kısacası `less` programı devreye girdikten sonra eğer bir tuşa basarsak, `ls -l` çıktısının geri kalanının ekranımıza sığdığı kadarını karşımızda görebiliriz.
 
+## T-Pipe
+
+## Standart Hata
+
+## Yaygın Kullanım Biçimleri
+
+## stdio.h
+
+## Useless Use of cat
+
+## Named Pipe
+
+
+
 
 
