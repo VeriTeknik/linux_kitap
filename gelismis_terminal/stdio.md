@@ -355,7 +355,7 @@ Ancak burada işlemler sırayla yapılacağı için, UNIX Pipeline'ın avantajla
 
 ### Process Substitution
 
-Eğer yukarıda indirdiğimiz dosyanın, indirilirken, aynı anda hem MD5 Checksum'ının, hem de SHA1 Checksum'ının hesaplanmasını isteseydik, tee ile standart çıktıyı iki farklı programa yönlendirmemiz gerekecekti. Bu işleme process substitution denilir. Aşağıdaki örnek ile görülebilir.
+Eğer yukarıda indirdiğimiz dosyanın, indirilirken, aynı anda hem MD5 Checksum'ının, hem de SHA1 Checksum'ının hesaplanmasını isteseydik, `tee` ile standart çıktıyı iki farklı programa yönlendirmemiz gerekecekti. Bu işleme _process substitution_ denilir. Aşağıdaki örnek ile görülebilir.
 
 ```
 eaydin@eaydin-vt ~/Downloads $ wget -O - http://mirror.veriteknik.net.tr/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso | tee >(sha1sum > centos7.sha1) >(md5sum  > centos7.md5) > centos7.iso
@@ -376,9 +376,9 @@ eaydin@eaydin-vt ~/Downloads $ cat centos7.sha1
 aae20c8052a55cf179af88d9dd35f1a889cd5773  -
 ```
 
-Yukarıdaki komut dizisinin kritik noktası, `tee >(sha1sum > centos7.sha1) >(md5sum  > centos7.md5)` bölümüdür. Burada tee, standart çıktısını iki farklı işleme daha yönlendirir. Bu işlemler parantez içinde belirtilir, ve daha önce gördüğümüz **&gt;** işareti ile bu işlemlere yönlendirme yapılır. Burada dikkat edilmesi gereken nokta, **&gt;** işareti ile **\(** arasında boşluk bulunmaması gerektiğidir.
+Yukarıdaki komut dizisinin kritik noktası, `tee >(sha1sum > centos7.sha1) >(md5sum  > centos7.md5)` bölümüdür. Burada tee, standart çıktısını iki farklı işleme daha yönlendirir. Bu işlemler parantez içinde belirtilir, ve daha önce gördüğümüz **&gt;** işareti ile bu işlemlere yönlendirme yapılır. Burada dikkat edilmesi gereken nokta, **&gt;** işareti ile **\(** arasında boşluk bulunmaması gerektiğidir. Öte yandan `sha1sum` ve `md5sum` sonrasında gelen **&gt;** işaretleri doğrudan bu programların standart çıktılarını yönlendirme amacıyla yazıldığından, boşluk konması problem yaratmaz, zaten parantez içinde kullanılma sebepleri de budur.
 
-Sanki tee programı iki farklı dosyaya yazmak yerine, iki farklı işleme standart çıktıyı yönlendirmektedir. Burada dosya \(_file_\) yerine işlem \(_process_\) koyduğumuz için, bir değişiklik \(_substitution_\) işlemi yapmış olduk. Bu yüzden bu yönteme _process substituion_ denilir. Bu örnekte de, indirme işleminin, SHA1 hesaplamasının ve MD5 hesaplamasının birbirlerini beklemediğini, işlemin paralel gerçekleştirildiğini hatırlatmakta fayda var.
+Sanki `tee` programı iki farklı dosyaya yazmak yerine, iki farklı işleme standart çıktıyı yönlendirmektedir. Burada dosya \(_file_\) yerine işlem \(_process_\) koyduğumuz için, bir değişiklik \(_substitution_\) işlemi yapmış olduk. Bu yüzden bu yönteme _process substituion_ denilir. Bu örnekte de, indirme işleminin, SHA1 hesaplamasının ve MD5 hesaplamasının birbirlerini beklemediğini, işlemin paralel gerçekleştirildiğini hatırlatmakta fayda var.
 
 ## Standart Hata
 
