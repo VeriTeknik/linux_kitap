@@ -77,7 +77,7 @@ drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 test
 
 Standart çıktı yönlendirmek için kullandığımız **&gt;** işareti, hedef dosya bulunmazsa oluşturur. Eğer hedef dosya bulunuyorsa, dosyanın içeriğini tamamen siler ve yeni sonucu yazar. Eğer hedef dosyanın içeriğinin silinmesini istemiyorsak, ancak yeni sonucun dosyanın _sonuna eklenmesini_ istiyorsak, bunun için **&gt;&gt;** işaretini kullanmamız gerekir.
 
-Örneğin biraz önceki örneğimizde kullandığımız çıktı dosyasının sonuna, farklı bir dizinin çıktısını da eklemek isteseydik, şöyle bir işlem yapabilirdik.
+Biraz önceki örneğimizde kullandığımız çıktı dosyasının sonuna, farklı bir dizinin çıktısını da eklemek isteseydik, şöyle bir işlem yapabilirdik.
 
 ```
 eaydin@eaydin-vt ~/devel $ cd diskalert/
