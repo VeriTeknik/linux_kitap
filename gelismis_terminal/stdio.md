@@ -272,6 +272,8 @@ total 7019320
 
 Bu çıktının en altında görülen `--More--` kısmı aslında, `less` programının getirdiği bir sonuç. Aynı şekilde `less` çalıştırıldıktan sonra, standart girdiden \(klavyeden\) herhangi bir _input_ beklemektedir. Kısacası `less` programı devreye girdikten sonra eğer bir tuşa basarsak, `ls -l` çıktısının geri kalanının ekranımıza sığdığı kadarını karşımızda görebiliriz.
 
+Aslında buradaki notasyon şu şekilde işler. komut1 \| komut2 \| komut3 şeklinde sonsuza kadar[^1] komutları birbirine bağlayabilirsiniz.
+
 ## T-Pipe
 
 ## Standart Hata
@@ -286,5 +288,5 @@ Bu çıktının en altında görülen `--More--` kısmı aslında, `less` progra
 
 
 
-
+[^1]: Aslında teknik olarak sonsuza kadar değil, sisteminizin _open file descriptor limit_'ine kadar, ancak bu limit pratik olarak sizi etkilemeyecek kadar büyüktür.
 
