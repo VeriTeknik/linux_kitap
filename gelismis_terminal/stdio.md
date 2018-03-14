@@ -232,7 +232,7 @@ Hatırlarsanız bu bölümde `cat` programına parametrik kullanım ve standart 
 
 Standart girdinin **&lt;** notasyonu ile kullanımı, yıllarca UNIX sistemler yönetmiş bir kişinin bile çok nadir karşılaştığı durumlar olabilir. Bu kitapta da özellikle **crontab** ve **netcat** bölümlerinde birkaç örneği dışında denk gelmemeniz olası. Ancak standart girdinin ne işe yaradığının anlaşılması, özellikle birazdan göreceğimiz **pipe** mekanizmasının anlaşılmasında belkemiği görevi görmektedir.
 
-## UNIX Pipeline
+## Unix Pipeline
 
 David McIlroy, işletim sistemindeki programların \(veya parçacıkların\) birer standart girdisinin ve standart çıktısının olması gerektiği fikrini aslında yukarıdaki örneklerde bahsettiğimiz gibi sadece dosya yönlendirme amacıyla geliştirmemiştir. McIlroy'un amacı, aslında programların birbirleriyle, arada geçici bir dosya veya kullanıcı müdahalesine gerek olmaksızın veri akışının sağlanmasıdır. Bunu yaparken de, bir programın çıktısının diğer programın girdisi olarak yönlendirilmesini kurgulamıştır. McIlroy bu metodolojiyi ilk defa 1973'te kurgulamıştır ve Ken Thompson, `pipe()` sistem çağrısını Unix versiyon 3 üzerinde uyarlamıştır. Bunu yaparken de yönlendirme işareti olarak `|` kullanılmıştır. McIlroy, bu karakterin kullanımını Thompson'ın geliştirdiğini belirtir. Bu yatak çubuk, aslında bir _boru \(pipe\)_ olarak düşünülünce, tıpkı bir su tesisatındaki boru hattı gibi, bir noktadan giren bilginin, diğer noktadan çıkmasını sağladığı için_ pipeline_ terminolojisini doğurmuştur.
 
@@ -329,7 +329,7 @@ bcrypt
 bcrypt-3.1.4.dist-info
 ```
 
-`tee` programı, aslında UNIX pipeline'ında bir T-Pipe görevi gördüğü için bu ismi almıştır. UNIX pipeline'ı aslında bir boru tesisatı gibi düşünülebilir, ismi de buradan gelir zaten. Yazılımlar birbirlerine borularla bağlıdır, ve akış tek yönlüdür. Soldan sağa doğru akış gerçekleşir. Eğer bu akış içerisinde bir dallanmaya ihtiyaç duyarsak, boru tesisatlarında olduğu gibi T şeklinde bir boru kullanmamız gerekir. Böylece akışı iki veya daha fazla dala ayırabiliriz. Programa birden fazla parametre verip, çıktının birden fazla dosyaya da yazdırılmasını sağlayabiliriz.
+`tee` programı, aslında Unix pipeline'ında bir T-Pipe görevi gördüğü için bu ismi almıştır. Unix pipeline'ı aslında bir boru tesisatı gibi düşünülebilir, ismi de buradan gelir zaten. Yazılımlar birbirlerine borularla bağlıdır, ve akış tek yönlüdür. Soldan sağa doğru akış gerçekleşir. Eğer bu akış içerisinde bir dallanmaya ihtiyaç duyarsak, boru tesisatlarında olduğu gibi T şeklinde bir boru kullanmamız gerekir. Böylece akışı iki veya daha fazla dala ayırabiliriz. Programa birden fazla parametre verip, çıktının birden fazla dosyaya da yazdırılmasını sağlayabiliriz.
 
 Kısacası `tee` programı, standart girdiden gelen veriyi, hem kendisine parametre olarak verilen dosyalara yazar, hem de standart çıktıya yönlendirir. Böylece kendi standart çıktısı hangi programa standart girdi olarak sunulmuşsa, komutların akışı devam edebilir.
 
@@ -382,9 +382,9 @@ Sanki `tee` programı iki farklı dosyaya yazmak yerine, iki farklı işleme sta
 
 ## stdio.h
 
-Herhangi bir C programı yazdıysanız, hemen hemen her zaman stdio.h başlık dosyasını programın başında çağırdığınızı fark etmişsinizdir. Aslında bu dosya, programın standart girdi ve standart çıktı ile etkileşimini sağlayan bileşenleri barındırır. İsmi bu yüzden Standard Input/Output'un kısaltmasıdır.
+Herhangi bir C programı yazdıysanız, hemen hemen her zaman `stdio.h` başlık dosyasını programın başında çağırdığınızı fark etmişsinizdir. Aslında bu dosya, programın standart girdi ve standart çıktı ile etkileşimini sağlayan bileşenleri barındırır. İsmi bu yüzden _Standard Input/Output_'un kısaltmasıdır.
 
-Brian Kernighan ve Dennis Ritchie'nin meşhur The C Programming Language kitabındaki basit bir örneği uygulayacak olursak, tanıdık sonuçlar elde ettiğimizi görebilirsiniz.
+Brian Kernighan ve Dennis Ritchie'nin meşhur **The C Programming Language** kitabındaki basit bir örneği uygulayacak olursak, tanıdık sonuçlar elde ettiğimizi görebilirsiniz.
 
 ```
 #include <stdio.h>
@@ -399,7 +399,7 @@ main()
 }
 ```
 
-Yukarıdaki kodu derlediğimizde, standart girdiden okuduğu kelimelerin, küçük harfe çevrilerek standart çıktıya yazdığı görülebilir. Derlediğimiz programa lower ismini verecek olursak, örneğin aşağıdaki şekilde kullanabiliriz.
+Yukarıdaki kodu derlediğimizde, standart girdiden okuduğu kelimelerin, küçük harfe çevrilerek standart çıktıya yazdığı görülebilir. Derlediğimiz programa `lower` ismini verecek olursak, örneğin aşağıdaki şekilde kullanabiliriz.
 
 ```
 eaydin@eaydin-vt ~/devel/lower $ echo AbCdE | ./lower
@@ -423,7 +423,7 @@ eaydin@eaydin-vt ~/devel/lower $ ./lower < karakterler
 abcde
 ```
 
-Kısacası programımız için bilginin pipe ile veya **&lt;** gelmesinin bir önemi yok. İkisi de standart girdi çünkü. ls çıktısını da programımıza yönlendirebilirdik.
+Kısacası programımız için bilginin pipe ile veya **&lt;** gelmesinin bir önemi yok. İkisi de standart girdi çünkü. Benzer şekilde `ls` çıktısını da programımıza yönlendirebilirdik.
 
 ```
 eaydin@eaydin-vt ~/devel/lower $ ls
@@ -435,7 +435,9 @@ lower
 lower.c
 ```
 
-Programımızdaki getchar fonksiyonu, aslında standart girdiden veri okuyan kısımdır. puthcar fonksiyonu ise standart çıktıya veri yazmaktan sorumludur. Eğer programı tek başına çalıştırırsak, biraz daha anlaşılabilir durum.
+Halbuki bölümün başında McIlroy'un belirttiği gibi, ne `ls` programının bizim `lower` programımızdan haberi var, ne de `lower` programı yazılırken `ls` ile ilgili bir noktayı dikkate aldık.
+
+Programımızdaki `getchar` fonksiyonu, aslında standart girdiden veri okuyan kısımdır. `puthcar` fonksiyonu ise standart çıktıya veri yazmaktan sorumludur. Eğer programı tek başına çalıştırırsak, biraz daha anlaşılabilir durum.
 
 ```
 eaydin@eaydin-vt ~/devel/lower $ ./lower 
@@ -444,7 +446,7 @@ bu bir cümle
 ^C
 ```
 
-Tanıdık geldi mi? Bu bölümün başlarında cat programını tek başına çalıştırdığımızda da benzer manzarayla karşılaşmıştık. Yine standart girdiden veri bekledi. Biz Bu bir Cümle yazdıktan sonra, kendisi yine standart çıktıya verinin aynısını yazdı, tıpkı cat gibi. Ama bu sefer karakterleri küçülttü. Yine Ctrl+c ile programımızı sonlandırarak çıktık.
+Tanıdık geldi mi? Bu bölümün başlarında `cat` programını tek başına çalıştırdığımızda da benzer manzarayla karşılaşmıştık. Yine standart girdiden veri bekledi. `Biz Bu bir Cümle` yazdıktan sonra, kendisi yine standart çıktıya verinin aynısını yazdı, tıpkı `cat` gibi. Ama bu sefer karakterleri küçülttü. Yine Ctrl+c ile programımızı sonlandırarak çıktık.
 
 Burada dikkat edilmesi gereken bir diğer nokta, programımızın parametrik şekilde girdi almaması. Örneğin karakterler dosyasını argüman olarak kendisine veremezdik, çünkü programımızda gelen argümanlarla neler yapılması gerektiğini belirtmedik. Böyle olunca argümanları görmezden gelecektir, ve yukarıdaki durumun aynısı gerçekleşecektir.
 
