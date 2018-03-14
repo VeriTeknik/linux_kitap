@@ -281,11 +281,61 @@ eaydin@eaydin-vt ~ $ ls /usr/local/lib/python3.5/dist-packages | grep -v .py$ | 
 129
 ```
 
-Buradaki ilk komut, `ls /usr/local/lib/python3.5/dist-packages` çok tanıdık bir iş yapıyor: dizinin içeriğini listeliyor. Ancak içeriğini standart çıktıda göstermek yerine, `grep` programına iletiyor. `grep` ise standart girdiden okuduğu veriler üzerinde `-v .py$` parametrelerini çalıştırıyor. Burada yaptığı iş, "sonu `.py` ile biden dosyaları göstermemek". Detaylarına grep ve Regular Expressions bölümünde değineceğiz. Elimizde artık sonu .py ile bitmeyen dosyaların bir listesi var, ancak bunu görüntelemek istemiyoruz, çünkü bunların sayısını öğrenmek istiyoruz. Öyleyse standart çıktısını `wc` \(_word count_\) programına iletiyoruz. `wc -l `standart girdiden gelen verinin kaç satır olduğunu sayıyoruz, ve bu sonucu artık standart çıktıya yazıyoruz. Bu yüzden standart çıktı olarak **129** değerini görüyoruz.
+Buradaki ilk komut, `ls /usr/local/lib/python3.5/dist-packages` çok tanıdık bir iş yapıyor: dizinin içeriğini listeliyor. Ancak içeriğini standart çıktıda göstermek yerine, `grep` programına iletiyor. `grep` ise standart girdiden okuduğu veriler üzerinde `-v .py$` parametrelerini çalıştırıyor. Burada yaptığı iş, "sonu `.py` ile biden dosyaları göstermemek". Detaylarına grep ve Regular Expressions bölümünde değineceğiz. Elimizde artık sonu .py ile bitmeyen dosyaların bir listesi var, ancak bunu görüntelemek istemiyoruz, çünkü bunların sayısını öğrenmek istiyoruz. Öyleyse standart çıktısını `wc` \(_word count_\) programına iletiyoruz. `wc -l`standart girdiden gelen verinin kaç satır olduğunu sayıyoruz, ve bu sonucu artık standart çıktıya yazıyoruz. Bu yüzden standart çıktı olarak **129** değerini görüyoruz.
 
-Tahmin edeceğiniz gibi, burada elde ettiğimiz sayıyı standart çıktıya 
+Tahmin edeceğiniz gibi, burada elde ettiğimiz sayıyı standart çıktı yerine aşağıdaki gibi bir dosyaya da yönlendirebilirdik.
+
+```
+eaydin@eaydin-vt ~ $ ls /usr/local/lib/python3.5/dist-packages | grep -v .py$ | wc -l > paket_sayisi
+```
 
 ## T-Pipe
+
+Yaptığımız son örnekte, dosyaların sayısını `paket_sayisi` isminde bir dosyaya yazdırdık. Ancak eğer bu dosya sayısını ekranda görmek istiyor, ancak dosyaların bir listesini bir dosyaya yazdırmak istiyor olsaydık?
+
+Örneğin, eğer paketlerin listesini bir dosyaya yazdırmak isteseydik, sondaki word count komutunu kullanmayıp, grep'in standart çıktısını bir dosyaya yönlendirmemiz gerekecekti.
+
+```
+eaydin@eaydin-vt ~ $ ls /usr/local/lib/python3.5/dist-packages | grep -v .py$ > paket_listesi
+```
+
+Öte yandan, paketlerin sayısını ekranda görmek için, daha önce kullandığımız komutu kullanmamız gerekirdi.
+
+```
+eaydin@eaydin-vt ~ $ ls /usr/local/lib/python3.5/dist-packages | grep -v .py$ | wc -l
+129
+```
+
+Bir akış içerisinde standart çıktıyı yönlendirmek yerine, birkaç parçaya bölme işini yapmak için `tee` isimli program geliştirilmiştir. Örneğin `tee` kullanarak aşağıdaki komut dizisini yazarsak, yukarıdaki iki komutu ayrı ayrı çalıştırmamıza gerek kalmaz.
+
+```
+eaydin@eaydin-vt ~ $ ls /usr/local/lib/python3.5/dist-packages | grep -v .py$ | tee paket_listesi | wc -l
+129
+```
+
+Gördüğünüz gibi, standart çıktıya yine word count programının sonucu olan **129** yazıldı. Ancak arada `tee` programı, `grep`'in çıktısını `paket_listesi` dosyasına yazdı. Dosyanın baş kısmına `head` programıyla bakıp içeriğine göz atabiliriz.
+
+```
+eaydin@eaydin-vt ~ $ head paket_listesi 
+alabaster
+alabaster-0.7.10.dist-info
+asn1crypto
+asn1crypto-0.24.0.dist-info
+attr
+attrs-17.3.0.dist-info
+babel
+Babel-2.5.1.dist-info
+bcrypt
+bcrypt-3.1.4.dist-info
+```
+
+
+
+
+
+
+
+
 
 ## Standart Hata
 
