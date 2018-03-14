@@ -272,7 +272,18 @@ total 7019320
 
 Bu çıktının en altında görülen `--More--` kısmı aslında, `less` programının getirdiği bir sonuç. Aynı şekilde `less` çalıştırıldıktan sonra, standart girdiden \(klavyeden\) herhangi bir _input_ beklemektedir. Kısacası `less` programı devreye girdikten sonra eğer bir tuşa basarsak, `ls -l` çıktısının geri kalanının ekranımıza sığdığı kadarını karşımızda görebiliriz.
 
-Aslında buradaki notasyon şu şekilde işler. komut1 \| komut2 \| komut3 şeklinde sonsuza kadar[^1] komutları birbirine bağlayabilirsiniz.
+Aslında buradaki notasyon şu şekilde işler. `komut1 | komut2 | komut3` şeklinde sonsuza kadar[^1] komutları birbirine bağlayabilirsiniz. Buradaki komutlar birbirinden farklı olabileceği gibi, birbirleriyle aynı da olabilir. Bu komutların birbirleriyle _konuşabilmeleri_ için bilmeleri gereken bir şey de yoktur. McIlroy'un 2. maddede bahsettiği, _farklı programların birbirleriyle konuşmasını sağlama_ düşüncesi de burada ortaya çıkar.
+
+Örneğin, sistemimizdeki yüklü Python modüllerinin bulunduğu `/usr/local/lib/python3.5/dist-packages` dizini içerisinde sonu `.py` ile _bitmeyen_ dosyaların sayısını öğrenmek istersek, aşağıdaki komut dizini kullanabiliriz.
+
+```
+eaydin@eaydin-vt ~ $ ls /usr/local/lib/python3.5/dist-packages | grep -v .py$ | wc -l
+129
+```
+
+Buradaki ilk komut, `ls /usr/local/lib/python3.5/dist-packages` çok tanıdık bir iş yapıyor: dizinin içeriğini listeliyor. Ancak içeriğini standart çıktıda göstermek yerine, `grep` programına iletiyor. `grep` ise standart girdiden okuduğu veriler üzerinde `-v .py$` parametrelerini çalıştırıyor. Burada yaptığı iş, "sonu `.py` ile biden dosyaları göstermemek". Detaylarına grep ve Regular Expressions bölümünde değineceğiz. Elimizde artık sonu .py ile bitmeyen dosyaların bir listesi var, ancak bunu görüntelemek istemiyoruz, çünkü bunların sayısını öğrenmek istiyoruz. Öyleyse standart çıktısını `wc` \(_word count_\) programına iletiyoruz. `wc -l `standart girdiden gelen verinin kaç satır olduğunu sayıyoruz, ve bu sonucu artık standart çıktıya yazıyoruz. Bu yüzden standart çıktı olarak **129** değerini görüyoruz.
+
+Tahmin edeceğiniz gibi, burada elde ettiğimiz sayıyı standart çıktıya 
 
 ## T-Pipe
 
@@ -285,8 +296,6 @@ Aslında buradaki notasyon şu şekilde işler. komut1 \| komut2 \| komut3 şekl
 ## Useless Use of cat
 
 ## Named Pipe
-
-
 
 [^1]: Aslında teknik olarak sonsuza kadar değil, sisteminizin _open file descriptor limit_'ine kadar, ancak bu limit pratik olarak sizi etkilemeyecek kadar büyüktür.
 
