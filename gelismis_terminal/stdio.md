@@ -18,9 +18,9 @@ Eğer girdi ve çıktı yönlendirmeleri ile ilgili hiç tecrübeniz yoksa, yuka
 
 ## Standart Çıktı
 
-Eğer bu _standart çıktı_ sizin için hiçbir şey ifade etmiyorsa, önce _standart_ sözcüğünü ortadan kaldıralım: Bir programın _çıktısı_ ne demek?
+Eğer bu _standart çıktı_ söylemi sizin için hiçbir şey ifade etmiyorsa, önce _standart_ sözcüğünü ortadan kaldıralım: Bir programın _çıktısı_ ne demek?
 
-Terminal üzerinden herhangi bir komut çalıştırdığınızda, aslın o program bir _şey_ üretecektir. Genellikle bu ürettiği _şeyi_ ekrana yazdığını görürüz. Örneğin ls komutu, bulunduğumuz dizindeki dosyaları gösterir.
+Terminal üzerinden herhangi bir komut çalıştırdığınızda, aslında o program bir _şey_ üretecektir. Genellikle bu ürettiği _şeyi_ ekrana yazdığını görürüz. Örneğin `ls` komutu, bulunduğumuz dizindeki dosyaları gösterir.
 
 ```
 eaydin@eaydin-vt ~/devel/pgpoolwatch $ ls
@@ -28,7 +28,7 @@ args.txt.sample    LICENSE      poolstatus.py  repmgrwatch.py  sendmail.py  test
 config.ini.sample  pgpwatch.py  README.md      scripts         services
 ```
 
-Burada ls komutu, aslında LICENSE, scripts gibi dosya ve dizin isimlerini bize çıktı olarak sunmuştur. Örneğin ls -l yazsaydık, farklı bir çıktı sunacaktı.
+Burada ls komutu, aslında `LICENSE`, `pgpwatch.py`, `scripts` gibi dosya ve dizin isimlerini bize çıktı olarak sunmuştur. Örneğin `ls -l` yazsaydık, farklı bir çıktı sunacaktı.
 
 ```
 eaydin@eaydin-vt ~/devel/pgpoolwatch $ ls -l 
@@ -46,16 +46,16 @@ drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 16:04 services
 drwxrwxr-x 2 eaydin eaydin  4096 Jan  8 14:30 test
 ```
 
-Her iki durumda da `ls` programına, çıktıyı nereye yazacağını söylemiyoruz, bu yüzden `ls`, standart olan çıktıya yazıyor. Bu durumda da bizim terminal ekranımız.
+Her iki durumda da `ls` programına, çıktıyı nereye yazacağını söylemiyoruz, bu yüzden `ls`, _standart olan çıktıya_ yazıyor. Bu durumda da bizim terminal ekranımız.
 
-UNIX sistemlerde, bu çıktıyı "standart olmaktan çıkarma" amacıyla, standart çıktıyı farklı bir \_yere \_yönlendirmenin faydalı olacağı görülmüştür. Örneğin yukarıdaki `ls -l` sonucunu, standart çıktı yerine bir dosyaya yönlendirebiliriz.
+UNIX sistemlerde, bu çıktıyı "standart olmaktan çıkarma" amacıyla, standart çıktıyı farklı bir yere yönlendirmenin faydalı olacağı görülmüştür. Örneğin yukarıdaki `ls -l` sonucunu, standart çıktı yerine bir dosyaya yönlendirebiliriz.
 
 ```
 eaydin@eaydin-vt ~/devel/pgpoolwatch $ ls -l > /home/eaydin/ls_cikti
 eaydin@eaydin-vt ~/devel/pgpoolwatch $
 ```
 
-Farkındaysanız, artık ekranda ls -l komutunun sonucunu görmüyoruz, çünkü programın standart çıktısını `/home/eaydin/ls_cikti` dosyasına yönlendirdik. Böyle olunca standart çıktısı olan terminalimize veri yazmadı.Eğer gidip `/home/eaydin/ls_cikti` dosyasının içeriğini okursak, biraz önceki sonucun aynısını görürüz.
+Farkındaysanız, artık ekranda `ls -l` komutunun sonucunu görmüyoruz, çünkü programın standart çıktısını `/home/eaydin/ls_cikti` dosyasına yönlendirdik. Böyle olunca standart çıktısı olan terminalimize veri yazmadı.Eğer gidip `/home/eaydin/ls_cikti` dosyasının içeriğini okursak, biraz önceki sonucun aynısını görürüz.
 
 ```
 eaydin@eaydin-vt ~/devel/pgpoolwatch $ cat /home/eaydin/ls_cikti 
@@ -374,7 +374,6 @@ eaydin@eaydin-vt ~/Downloads $ cat centos7.md5
 5848f2fd31c7acf3811ad88eaca6f4aa  -
 eaydin@eaydin-vt ~/Downloads $ cat centos7.sha1 
 aae20c8052a55cf179af88d9dd35f1a889cd5773  -
-
 ```
 
 Yukarıdaki komut dizisinin kritik noktası, `tee >(sha1sum > centos7.sha1) >(md5sum  > centos7.md5)` bölümüdür. Burada tee, standart çıktısını iki farklı işleme daha yönlendirir. Bu işlemler parantez içinde belirtilir, ve daha önce gördüğümüz **&gt;** işareti ile bu işlemlere yönlendirme yapılır. Burada dikkat edilmesi gereken nokta, **&gt;** işareti ile **\(** arasında boşluk bulunmaması gerektiğidir.
