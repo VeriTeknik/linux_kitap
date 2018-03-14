@@ -437,7 +437,9 @@ lower.c
 
 Halbuki bölümün başında McIlroy'un belirttiği gibi, ne `ls` programının bizim `lower` programımızdan haberi var, ne de `lower` programı yazılırken `ls` ile ilgili bir noktayı dikkate aldık.
 
-Programımızdaki `getchar` fonksiyonu, aslında standart girdiden veri okuyan kısımdır. `puthcar` fonksiyonu ise standart çıktıya veri yazmaktan sorumludur. Bu fonksiyonlar `stdio.h` ile sağlanır. Bu yüzden kullanmak için _include_ etmemiz gerekir. Eğer programı tek başına çalıştırırsak, biraz daha anlaşılabilir durum.
+Programımızdaki `getchar` fonksiyonu, aslında standart girdiden veri okuyan kısımdır. `puthcar` fonksiyonu ise standart çıktıya veri yazmaktan sorumludur. Bu fonksiyonlar `stdio.h` ile sağlanır. Bu yüzden kullanmak için _include_ etmemiz gerekir.
+
+Eğer programı tek başına çalıştırırsak, biraz daha anlaşılabilir durum.
 
 ```
 eaydin@eaydin-vt ~/devel/lower $ ./lower 
