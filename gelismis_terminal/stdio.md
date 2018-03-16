@@ -664,8 +664,6 @@ Eğer bu scripti çalıştırıp standart çıktısını `mario`'ya yönlendirir
 
 ```
 eaydin@eaydin-vt ~/devel/namedpipe $ ./telltime.sh > mario
-
-
 ```
 
 ```
@@ -680,7 +678,6 @@ Fri Mar 16 16:05:23 +03 2018
 Fri Mar 16 16:05:24 +03 2018
 Fri Mar 16 16:05:25 +03 2018
 ^C
-
 ```
 
 Tahmin edeceğiniz üzere, mario'yu birden fazla programın okumasını da sağlayabilirdik.
@@ -720,10 +717,9 @@ Fri Mar 16 16:09:33 +03 2018
 Fri Mar 16 16:09:34 +03 2018
 Fri Mar 16 16:09:35 +03 2018
 ^C
-
 ```
 
-Özellikle başlarda ve sonlarda 2'den fazla saat satırı görmeniz normal, çünkü `tellname` scripti arada çalıştırıp durdurduk. Yani `mario` pipe'ına aynı anda yeni programlar veri yazıp durdurabilir, ve okuyan taraf sadece sonuçları görerek etkilenir. Dosyayı yeniden açıp kapatmasına bile ihtiyaç duymaz.
+Özellikle başlarda ve sonlarda 2'den fazla saat satırı görmeniz normal, çünkü `tellname` scripti arada çalıştırıp durdurduk. Yukarıdaki örnekten `tellme` scriptini saat 16:09:24'te çalıştırdığımızı ve 16:09:33 veya 16:09:34'te durdurduğumuzu anlayabiliriz. Yani `mario` pipe'ına aynı anda yeni programlar veri yazıp durdurabilir, ve okuyan taraf sadece sonuçları görerek etkilenir. Dosyayı yeniden açıp kapatmasına bile ihtiyaç duymaz.
 
 Named pipe'lar hakkında GNU/Linux manual sayfalarında önemli bir bilgi yer alır.
 
@@ -738,8 +734,6 @@ Oluşturduğunuz bir named pipe'ı rm komutuyla kolayca silebilirsiniz.
 ```
 eaydin@eaydin-vt ~/devel/namedpipe $ rm mario
 ```
-
-
 
 [^1]: Aslında teknik olarak sonsuza kadar değil, sisteminizin _open file descriptor limit_'ine kadar, ancak bu limit pratik olarak sizi etkilemeyecek kadar büyüktür.
 
