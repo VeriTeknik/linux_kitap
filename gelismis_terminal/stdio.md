@@ -1,8 +1,8 @@
 # Standart Girdi ve Çıktı Yönlendirme
 
-GNU/Linux ve benzeri POSIX sistemlerin en güçlü olduğu yönlerden birisi, programların standart girdi ve çıktılarının yönlendirilmesidir. Özellikle birden fazla programın işlemlerini birbirlerine kolayca gönderebilme gücü sağlayan bu yöntem, aslında UNIX'in oluşturulduğu dönemdeki temel felsefeleri en iyi yansıtan özelliklerinden biridir.
+GNU/Linux ve benzeri POSIX sistemlerin en güçlü olduğu yönlerden birisi, programların standart girdi ve çıktılarının yönlendirilmesidir. Özellikle birden fazla programın işlemlerini birbirlerine kolayca gönderebilme gücü sağlayan bu yöntem, aslında Unix'in oluşturulduğu dönemdeki temel felsefeleri en iyi yansıtan özelliklerinden biridir.
 
-1978'de yayımlanan The Bell System Technical Journal'ın UNIX Time-Sharing System dokümanının önsözünde Douglas McIlroy, UNIX'in tasarlanması ve kullanılmasında temel alınan kritik noktaları 4 madde halinde listeler. Bu maddelerden ilki ilerleyen yıllarda çok popüler olmuştur. Maddenin tam hali şu şekildedir:
+1978'de yayımlanan _The Bell System Technical Journal'ın UNIX Time-Sharing System_ dokümanının önsözünde Douglas McIlroy, Unix'in tasarlanması ve kullanılmasında temel alınan kritik noktaları 4 madde halinde listeler. Bu maddelerden ilki ilerleyen yıllarda çok popüler olmuştur. Maddenin tam hali şu şekildedir:
 
 > Make each program do one thing well. To do a new job, build afresh rather than complicate old programs by adding new "features".
 
@@ -626,9 +626,17 @@ root@ubuntu:~# ./checkmate.py > /dev/null/ 2>&1
 
 Bu tip kullanımı, en çok \(yine ileride göreceğimiz\) zamanlanmış görevlerde görürüz. `crontab` içine yazılan satırların çoğu, eğer loglanmasını istemediğimiz işlemler yapılıyorsa bu şekilde yazılır.
 
+## Named Pipe
+
+Bu bölümde programların standart girdi ve çıktılarını birbirlerine veya çeşitli dosyalara yönlendirme işlemlerini detaylarını gördük. Özellikle Unix pipeline'ı oluşturan bu süreçte, genellikle programları birbirleriyle bağlarken `|` işaretinin nasıl kullanıldığını gördük.
+
+Bu kullanımdaki temel problemler, programlar arasındaki bağlantının tek seferlik yapılması, tek yönlü olması ve tek yazılım tarafından kullanılabilmesi. Örneğin bir programın çıktısının birden fazla program tarafından girdi olarak kullanılmasını sağlamak, veya birden fazla programın girdi sağlayabileceği ortam sağlamak mümkün olmaz.
+
+Bunun için _named pipe_ denilen dosyalar kullanılır. Hatırlarsanız daha önce "Unix üzerinde her şey bir dosyadır" demiştik. Burada da özel bir dosya tipinden bahsediyoruz.
+
 ## Useless Use of cat
 
-## Named Pipe
+## 
 
 [^1]: Aslında teknik olarak sonsuza kadar değil, sisteminizin _open file descriptor limit_'ine kadar, ancak bu limit pratik olarak sizi etkilemeyecek kadar büyüktür.
 
