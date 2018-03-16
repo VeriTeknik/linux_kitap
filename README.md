@@ -1,7 +1,11 @@
 # Kitap Hakkında
 
-Linux Yönetimi dökümanı VeriTeknik ekibinin verdiği eğitimlerde yardımcı olması amacıyla hazırlanmaktadır.  
-**Kitap çoğunlukla Web Hosting ve Uygulama Hosting açısından sürümleri ele almıştır.** Kitabın amacı okuyucuya Hosting ortamının kurulmasında ve işletilmesinde gerekli olacak bilgiyi vermektir.
+Linux Yönetimi kitabı VeriTeknik ekibinin vermiş olduğu Linux, Ağ ve Güvenlik  eğitimlerinde yardımcı bir kaynak olması amacıyla hazırlanmıştır, kitap bir çok konu hakkında derinlemesine bilgi içermekle birlikte, anlatılan konuların kolay ve sürdürülebilir metodları da izah edilmiştir, örneğin Apache ve PHP kısmında sürümlerin derlemesinden bahsedilirken, kitabın sonunda repolar kullanılarak uygulanan hızlı ve güvenilir çözümlere de yer verilmiştir. Bize göre iyi bir Linux uzmanı pratikliğin yanı sıra konulara derinlemesine hakim olmalıdır. Burada paylaştığımız bilgiler veri merkezimizde karşımıza çıkan bir çok problemin de pratik cevaplarını içermektedir. 
+
+İnternet'in kullanımının yoğunlaşması sonucunda açık kaynak kodlu, defalarca sınanmış ve hem kararlılığı hem de güvenliği konusunda ticari yazılımlara alternatif olmaya başlayan GNU/Linux işletim sistemleri, gelecekte de çok yaygın bir şekilde kullanılacaktır. Özellikle Sanayi 4.0 ile birlikte, İnternete bağlanan cihaz sayısı logaritmik olarak yükselmektedir. 
+
+  
+**Kitap çoğunlukla Web Hosting ve Uygulama Hosting açısından sürümleri ele almıştır.** Kitabın amacı okuyucuya Hosting ortamının kurulmasında ve işletilmesinde gerekli olacak bilgiyi vermektir. 
 
 Döküman içeriği zamanla şekillenecek ve yapısını/hiyerarşisini değiştirecektir.
 
