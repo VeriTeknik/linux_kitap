@@ -471,9 +471,74 @@ Standart hata kavramı, Unix'in 6. versiyonunun ardından Dennis Ritchi tarafın
 
 > All programs placed diagnostics on the standard output. This had always caused trouble when the output was redirected into a file, but became intolerable when the output was sent to an unsuspecting process. Nevertheless, unwilling to violate the simplicity of the standard-input-standard-output model, people tolerated this state of affairs through v6. Shortly thereafter Dennis Ritchie cut the Gordian knot by introducing the standard error file. That was not quite enough. With pipelines diagnostics could come from any of sev eral programs running simultaneously. Diagnostics needed to identify themselves. Thus began a never quite finished pacification campaign: a few recalcitrant diagnostics still remain anonymous or appear on the standard output.
 
-Standart girdi, standart çıktı ve standart hata aslında çeşitli sayılarla temsil edilir.
+Standart girdi, standart çıktı ve standart hata, ayrı file descriptor'lar ile temsil edilir. Daha önce incelediğimiz stdio.h için bu gösterimler stdin, stdout, stderr iken, bunlara karşılık gelen tam sayılar da genellikle bash gibi kabuklarda kullanılır.
 
+| İsim | Sayısal Değer | &lt;stdio.h&gt; Kullanımı |
+| :--- | :--- | :--- |
+| Standart Girdi | 0 | stdin |
+| Standart Çıktı | 1 | stdout |
+| Standart Hata | 2 | stderr |
 
+Yukarıdaki tablodan görüleceği gibi, aslında standart çıktının file descriptor'ını sayısal karşılığı 1'dir. Yani, aşağıdaki iki örnek, aynı anlama gelmektedir. İlk başta, daha önce uyguladığımız örneklerde olduğu gibi, file descriptor kullanmadan oluşan sonuca bakalım.
+
+```
+eaydin@eaydin-vt ~/devel/lower $ cat karakterler > cikti1
+eaydin@eaydin-vt ~/devel/lower $ cat cikti1 
+AbCdE
+```
+
+Aşağıda ise, file descriptor ile aynı sonucun elde edildiğini görebiliyoruz.
+
+```
+eaydin@eaydin-vt ~/devel/lower $ cat karakterler 1> cikti2
+eaydin@eaydin-vt ~/devel/lower $ cat cikti2
+AbCdE
+```
+
+Yönlendirmelerde standart çıktı çok sık kullanıldığı için, `1>` kullanımı olmadan da standart çıktı yönlendirmesi gerçekleştirilir.
+
+Şimdi benzer işlemi standart hata yönlendirmesinde kullanalım.
+
+cat programı, kendisine parametre olarak kaç dosya verilirse, tamamını peş peşe eklemekle görevlidir. Aşağıdaki kullanım açıklayıcı olacaktır.
+
+```
+eaydin@eaydin-vt ~/devel/lower $ echo Bu bir cümle > cumleler
+eaydin@eaydin-vt ~/devel/lower $ cat cumleler 
+Bu bir cümle
+eaydin@eaydin-vt ~/devel/lower $ cat karakterler cumleler 
+AbCdE
+Bu bir cümle
+```
+
+Eğer parametre olarak verdiğimiz dosyalardan birisi yoksa \(veya okunamıyorsa\), hata verir.
+
+```
+eaydin@eaydin-vt ~/devel/lower $ cat cumle
+cat: cumle: No such file or directory
+```
+
+Aşağıda, iki dosyayı birleştirmesini istiyoruz.
+
+```
+eaydin@eaydin-vt ~/devel/lower $ cat karakterler cumle > deneme
+cat: cumle: No such file or directory
+eaydin@eaydin-vt ~/devel/lower $ cat deneme
+AbCdE
+```
+
+Ancak gördüğünüz gibi, dosyalardan birisi \(`cumle`\) olmadığı için program hata verdi. Yine de `deneme` dosyası oluşturuldu ve içinde sadece `karakterler` dosyasının içeriği yer alıyor. Eğer çok fazla dosyayı birleştiriyor olsaydık, veya bu işlemi bir script'in içerisinde kullanıyor olsaydık, veya pipe ile birçok işlemi birleştiriyor olsaydık, bu işlemin hatalarını terminal ekranına yazdırmak yerine bir dosyaya yönlendirmesini tercih edebilirdik. Bunun için file descriptor kullanımı gerekir ve yukarıdaki tablodan anlaşılacağı gibi `2>` notasyonuyla bu işlem gerçekleştirilir.
+
+```
+eaydin@eaydin-vt ~/devel/lower $ cat karakterler cumle > deneme 2> hatalar
+eaydin@eaydin-vt ~/devel/lower $ cat deneme 
+AbCdE
+eaydin@eaydin-vt ~/devel/lower $ cat hatalar
+cat: cumle: No such file or directory
+```
+
+Burada önce standart çıktıyı deneme dosyasına yönlendirdiğimizi, standart hatayı ise hatalar dosyasına yönlendirdiğimizi görebilirsiniz.
+
+Burada yaptığımız işlemin sırasının bir önemi yoktu. Y
 
 ## Yaygın Kullanım Biçimleri
 
