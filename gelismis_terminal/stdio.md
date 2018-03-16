@@ -725,7 +725,7 @@ Named pipe'lar hakkında GNU/Linux manual sayfalarında önemli bir bilgi yer al
 
 > The FIFO must be opened on both ends \(reading and writing\) before data can be passed. Normally, opening the FIFO blocks until the other end is opened also.
 
-Yani bir named pipe oluşturduğumuzda, eğer aynı anda okuyan ve yazan birileri varsa veri akışır sağlanır. Yoksa bir taraftan sürekli yazsanız bile, bunu okuyan birileri olmadığı sürece o veri kaybolur. Tıpkı `/dev/null` dosyasına yazmışsınız gibi veri hiçbir yere kaydedilmez.
+Yani bir named pipe oluşturduğumuzda, eğer aynı anda okuyan ve yazan birileri varsa veri akışı sağlanır. Yoksa bir taraftan sürekli yazsanız bile, bunu okuyan birileri olmadığı sürece o veri kaybolur. Tıpkı `/dev/null` dosyasına yazmışsınız gibi veri hiçbir yere kaydedilmez.
 
 Named pipe'lar ile yapılan işlemlerin dosya sisteminde inode oluşturmak dışında herhangi bir yük oluşturmadığını hatırlatmakta fayda var. Birden fazla programın birbiriyle iletişim kurmasını sağlayan bu mekanizma tamamen çekirdek \(kernel\) tarafından idare edilir.
 
