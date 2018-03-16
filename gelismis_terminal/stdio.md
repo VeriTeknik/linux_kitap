@@ -536,9 +536,17 @@ eaydin@eaydin-vt ~/devel/lower $ cat hatalar
 cat: cumle: No such file or directory
 ```
 
-Burada önce standart çıktıyı deneme dosyasına yönlendirdiğimizi, standart hatayı ise hatalar dosyasına yönlendirdiğimizi görebilirsiniz.
+Burada önce standart çıktıyı `deneme` dosyasına yönlendirdiğimizi, standart hatayı ise `hatalar` dosyasına yönlendirdiğimizi görebilirsiniz. Yaptığımız işlemin sırasının bir önemi yok. Yani önce standart hatayı yönlendirip, sonra standart çıktıyı yönlendirebilirdik. Genellikle bu yapılmaz \(1 ve 2 sırasını içgüdüsel olarak koruruz\) ancak yapılmasında bir mahsur bulunmaz.
 
-Burada yaptığımız işlemin sırasının bir önemi yoktu. Y
+```
+eaydin@eaydin-vt ~/devel/lower $ cat karakterler cumle 2> hatalar > deneme
+eaydin@eaydin-vt ~/devel/lower $ cat hatalar
+cat: cumle: No such file or directory
+eaydin@eaydin-vt ~/devel/lower $ cat deneme
+AbCdE
+```
+
+
 
 ## Yaygın Kullanım Biçimleri
 
