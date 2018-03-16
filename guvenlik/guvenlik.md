@@ -37,8 +37,44 @@ symlink,system, exec, proc_close,proc_open,popen,escapeshellarg,escapeshellcmd,m
 c99_sess_ put,fpassthru"
 ```
 
-* Otomatik güncellemeleri açın,
-* tmp partisyonlarından çalıştırma iznini kaldırın
+**Otomatik güncellemeleri açın: **yum gibi bir çok güncelleyici son zamanlarda otomatik güncelleme için destek getirmiş durumda, otomatik güncellemeleri almanız için yum-cron paketini yüklemeniz gerekmektedir, /etc/yum/yum-cron.conf içerisinde tercihinize göre bir düzenlemeyi ayarlamanız mümkündür, hiç bir ayar yapmazsanız sistem genel güncellemeleri indirecektir ancak yamaları yapmayacaktır.
+
+**tmp partisyonlarından çalıştırma iznini kaldırın:** LINUX Sistemlerde PHP gibi birçok script\(betik\) dili session, upload ve cache gibi geçici belgeleri /tmp partisyonunda tutar. Saldırgan tarafından bu dizine erişim sağlanmışsa buraya atılmış olan betikler bu noktadan çalıştırılabilir, bu şekilde bütün sistemin dosyalarına erişim sağlanabilir ya da root erişimine sahip olunabilir. /tmp partisyonuna atılan dosyaların çalıştırılmamasını sağlamak için /tmp partisyonu mount edilirken çalıştırma hakkının verilmemesi gerekir, bu nedenle sistem kurulumu sırasında /tmp dizinini ayrı bir partisyon olarak kurmanızı tavsiye ederiz, bu şekilde güvenlik ayarlarını yapmanız çok kolaylaşacaktır. 
+
+Bu işlemi yapabilmek için sisteminizi kurarken /tmp partisyonunu ayrı bir partisyon olarak belirtmiş olmanız gerekmektedir. Bu şekilde bir ayar yapıp yapmadığınızı görmek için komut satırından "df -h" ya da "mount" komutuyla kontrol ediniz. /tmp ayrı bir mount noktası olarak belirlenmemişse aşağıdaki yöntem ile kendinize yeni bir disk dosya sistemi oluşturabilirsiniz:
+
+```
+cd /dev/
+dd if=/dev/zero of=Tmp bs=1024 count=250000
+mkfs -t ext3 /dev/Tmp
+cd /
+cp -aR  /tmp  /tmp_backup
+mount  -o  loop,noexec,nosuid,rw  /dev/Tmp  /tmp
+cp -aR /tmp_backup/* /tmp/
+chmod 0777 /tmp
+chmod +t  /tmp
+```
+
+Bir sonraki açılışta yeni oluşturduğunuz partisyonun aktif olabilmesi için aşağıdaki komutu /etc/fstab içerisine ekleyin
+
+```
+/dev/Tmp          /tmp          ext3          loop,rw,nosuid,noexec     0 0
+```
+
+Zaten bir /tmp partisyonuna sahipseniz /etc/fstab içerisinde tmp karşısındaki "defaults" değerini aşağıdaki değerle değiştirmeniz yeterli olacaktır.
+
+```
+/dev/VolGroup00/LogVol02 /tmp                    ext3     rw,nosuid,noexec 1 2
+```
+
+Değişikliklerin hemen geçerli olması için ve aynı zamanda açılışta bir problemle karşılaşmamak için aşağıdaki komut ile test yapabilirsiniz:
+
+```
+mount -oremount loop,rw,nosuid,noexec /tmp
+```
+
+Bu komut bir hata olmaması durumunda çıktı vermeden çalışacak ve mount işlemini gerçekleştirecektir.
+
 * Kod özgünlüğü
 * Her sunucunun bir işlevi olması,
 * Her servis için ayrı container, docker ya da sanal sunucu kurulması,
