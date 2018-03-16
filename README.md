@@ -6,7 +6,7 @@ Linux Yönetimi kitabı VeriTeknik ekibinin vermiş olduğu Linux, Ağ ve Güven
 
 **Kitap çoğunlukla Web Hosting ve Uygulama Hosting açısından sürümleri ele almıştır. Gömülü sistemlerin anlatıldığı bölümlerde ise daha çok I/O kullanım bilgilerine değinilecektir.** Kitabın amacı okuyucuya Hosting ortamının/web servislerinin kurulmasında ve işletilmesinde gerekli olacak bilgiyi vermektir.
 
-Veri merkezimizde edindiğimiz bilgiler güncellendikçe, biz de kitapta değişiklikler yapmaktayız, eğer kitabın basılı sürümü elinizdeyse, en son sürüme ve örnek kodlara https://www.gitbook.com/book/veriteknik/linux-yonetimi adresinde de ücretsiz olarak ulaşabilirsiniz.
+Veri merkezimizde edindiğimiz bilgiler güncellendikçe, biz de kitapta değişiklikler yapmaktayız, eğer kitabın basılı sürümü elinizdeyse, en son sürüme ve örnek kodlara [https://www.gitbook.com/book/veriteknik/linux-yonetimi](https://www.gitbook.com/book/veriteknik/linux-yonetimi) adresinde de ücretsiz olarak ulaşabilirsiniz.
 
 Döküman veya GNU/Linux hakkında herhangi sorunuz için bize [iletisim@veriteknik.com](mailto:iletisim@veriteknik.com)  
 adresinden ulaşabilirsiniz.
@@ -24,6 +24,10 @@ Lisans eğitimi sırasında çok miktardaki bilimsel verinin tasniflenmesi ve an
 ## VeriTeknik
 
 VeriTeknik, ağ iletişimi ve altyapısı üzerine uzmanlaşmış mühendislik çözümleri sunmaktadır. Veri merkezleri, dağıtık sunucu sistemleri, ağ güvenliği ve ağ yazılımları üzerinde özgün çalışmalar yapmaktadır. 2004 yılından bu yana kazanmış olduğumuz deneyimi sektördeki diğer meslektaşlarımızla ve siz değerli okuyucularımızla paylaşmak, ülkemizin açık kaynak kodlu sistemlerde bir nebze de olsa gelişme sağlamasını görmekten mutluluk duyarız. VeriTeknik, Ankara ve Amsterdam ofislerinde faaliyet göstermektedir, toplamda 10 ülkede veri merkezleri ile çalışmaktadır. Tübitak Pardus Çözüm ortağı olan VeriTeknik aynı zamanda Ultra Electronics ve Realsec'in Türkiye, Hollanda, Doğu Avrupa ve Türki Cumhuriyetler resmi distribütörüdür.
+
+Teşekkürler
+
+Katkılarından dolayı değerli iş arkadaşlarımız Tunç Yıldırım, Yaşar Celep ve Ömrüm Çetin'e, bu kitabın oluşmasına vesile olan Hazine Müsteşarlığı'na ve Nuri Akman'a teşekkür ederiz.
 
 ## Notlar
 
