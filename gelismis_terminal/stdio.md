@@ -471,13 +471,21 @@ Standart hata kavramı, Unix'in 6. versiyonunun ardından Dennis Ritchi tarafın
 
 > All programs placed diagnostics on the standard output. This had always caused trouble when the output was redirected into a file, but became intolerable when the output was sent to an unsuspecting process. Nevertheless, unwilling to violate the simplicity of the standard-input-standard-output model, people tolerated this state of affairs through v6. Shortly thereafter Dennis Ritchie cut the Gordian knot by introducing the standard error file. That was not quite enough. With pipelines diagnostics could come from any of sev eral programs running simultaneously. Diagnostics needed to identify themselves. Thus began a never quite finished pacification campaign: a few recalcitrant diagnostics still remain anonymous or appear on the standard output.
 
-Standart girdi, standart çıktı ve standart hata, ayrı file descriptor'lar ile temsil edilir. Daha önce incelediğimiz stdio.h için bu gösterimler stdin, stdout, stderr iken, bunlara karşılık gelen tam sayılar da genellikle bash gibi kabuklarda kullanılır.
+Standart hata'nın kullanımı için önce, _file descriptor_ konsepti hakkında kısaca fikir sahibi olmamızda fayda var.
+
+## File Descriptor
+
+Standart girdi, standart çıktı ve standart hata, ayrı file descriptor'lar ile temsil edilir. Unix üzerinde aslında her şey bir dosyadır. Klavyeniz, seri port cihazınız, ethernet cihazınız, yazıcınız, metin dosyanız, ekranınız... tamamını Unix dosya sistemi birer dosya olarak tanımlar. Programlarınız bu dosyalara erişmek istediklerinde, işletim sistemi tarafından erişim izniniz olup olmadığı kontrol edilir, ardından sistem programa "negatif olmayan bir tam sayı" olarak dosyayı sunar. Kısacası program, aslında dosyanın ismiyle, yoluyla neredeyse hiç ilgilenmez, programın etkileşim kurduğu "şey" bir tamsayıdır, bu tamsayı da işletim sistemi tarafından dosya yoluna tercüme edilir. Bu tam sayılar, program ile işletim sistemi arasındaki dosya tanımını yaptığı için, file descriptor ismini alır. Erişilmiş bir dosya hakkındaki bütün bilgi işletim sisteminin sorumluluğundadır, yazılımlar bu programlar sadece birer file descriptor olarak tanırlar. 
+
+ Daha önce incelediğimiz stdio.h için bu gösterimler stdin, stdout, stderr iken, bunlara karşılık gelen tam sayılar da genellikle bash gibi kabuklarda kullanılır.
 
 | İsim | Sayısal Değer | &lt;stdio.h&gt; Kullanımı |
 | :--- | :--- | :--- |
 | Standart Girdi | 0 | stdin |
 | Standart Çıktı | 1 | stdout |
 | Standart Hata | 2 | stderr |
+
+Daha önce gördüğümüz **&lt; ** ve **&gt;** gösterimleri de aslında bunu doğrular niteliktedir. Programlar girdinin nereden geldiğini ve çıktının nereye gideceğini bilmezler, onlar için sadece 1, 2 ve 3 \(veya stdin, stdout ve stderr\) vardır. Kabuk aracılığıyla **&lt; ** ve **&gt;** gösterimlerini kullanarak aslında işletim sistemi hangi programın nereden veri alıp nereye ileteceğini kontrol eder.
 
 Yukarıdaki tablodan görüleceği gibi, aslında standart çıktının file descriptor'ını sayısal karşılığı 1'dir. Yani, aşağıdaki iki örnek, aynı anlama gelmektedir. İlk başta, daha önce uyguladığımız örneklerde olduğu gibi, file descriptor kullanmadan oluşan sonuca bakalım.
 
@@ -551,6 +559,10 @@ Bütün bu işlemlerde, standart çıktı yönlendirmesi için 1&gt; notasyonunu
 ```
 eaydin@eaydin-vt ~/devel/lower $ cat karakterler cumle 2> hatalar 1> deneme
 ```
+
+Bir programın standart çıktısını ve standart hatasını _aynı noktaya_ yönlendirmek sık istenilecek bir işlemdir. 
+
+> A file descriptor is analogous to the file pointer used by the standard library
 
 
 
