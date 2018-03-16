@@ -272,7 +272,7 @@ total 7019320
 
 Bu çıktının en altında görülen `--More--` kısmı aslında, `less` programının getirdiği bir sonuç. Aynı şekilde `less` çalıştırıldıktan sonra, standart girdiden \(klavyeden\) herhangi bir _input_ beklemektedir. Kısacası `less` programı devreye girdikten sonra eğer bir tuşa basarsak, `ls -l` çıktısının geri kalanının ekranımıza sığdığı kadarını karşımızda görebiliriz.
 
-Aslında buradaki notasyon şu şekilde işler. `komut1 | komut2 | komut3` şeklinde sonsuza kadar[^1] komutları birbirine bağlayabilirsiniz. Buradaki komutlar birbirinden farklı olabileceği gibi, birbirleriyle aynı da olabilir. Bu komutların birbirleriyle _konuşabilmeleri_ için bilmeleri gereken bir şey de yoktur. McIlroy'un 2. maddede bahsettiği, _farklı programların birbirleriyle konuşmasını sağlama_ düşüncesi de burada ortaya çıkar.
+Aslında buradaki notasyon şu şekilde işler. `komut1 | komut2 | komut3` şeklinde _-neredeyse-_ sonsuza kadar komutları birbirine bağlayabilirsiniz \(_"Neredeyse sonsuza kadar"_ olmasının sebebini **File Descriptor** bölümünde göreceğiz\). Buradaki komutlar birbirinden farklı olabileceği gibi, birbirleriyle aynı da olabilir. Bu komutların birbirleriyle _konuşabilmeleri_ için bilmeleri gereken bir şey de yoktur. McIlroy'un 2. maddede bahsettiği, _farklı programların birbirleriyle konuşmasını sağlama_ düşüncesi de burada ortaya çıkar.
 
 Örneğin, sistemimizdeki yüklü Python modüllerinin bulunduğu `/usr/local/lib/python3.5/dist-packages` dizini içerisinde sonu `.py` ile _bitmeyen_ dosyaların sayısını öğrenmek istersek, aşağıdaki komut dizisini kullanabiliriz.
 
@@ -560,6 +560,12 @@ Bütün bu işlemlerde, standart çıktı yönlendirmesi için 1&gt; notasyonunu
 eaydin@eaydin-vt ~/devel/lower $ cat karakterler cumle 2> hatalar 1> deneme
 ```
 
+### Open File Descriptor Limiti
+
+File descriptor'ların Unix sistemimiz üzerinde aslında kernel tarafından idare edildiğini öğrendik. Yani bir program standart çıktısının nereye yazıldığını kendisi bilmiyor, ancak işletim sistemi her programı standart çıktısının \(ve standart girisinin ve standart hatasının\) nereye işaret ettiğini, dolayısıyla her programın file descriptor'unun nereye karşılık geldiğini biliyor. Bu durum Unix çekirdeğinin pek çok program için pek çok dosya işaretini aklında tutmasına sebep olur. Bu yüzden sistemde file descriptor'lerin bir limiti bulunur. Buna "o anda sistemin aklında tuttuğu file descriptor'lar" anlamına gelen **open file descriptor limit** denilir.
+
+Daha önce komut1 \| komut2 \| komut3 şeklinde bir pipeline oluştururken aslında -neredeyse sonsuza kadar- bu diziyi uzatabileceğinizi söylemiştik. Buradaki "neredeyse" kısmı da bu limitten kaynaklanır. Aslında sisteminizin open file descriptor limiti kadar uzun bir dizi oluşturabilirsiniz, çünkü buradaki her program için 3 tane file descriptor tanımlanmaktadır. İşletim sistemi bunların ne kadarını aynı anda aklında tutabilirse, o kadar komutu pipeline içerisinde kullanabilirsiniz demektir. Yine de bu limit, pratik kullanımlarda fark etmeyeceğiniz kadar yüksektir.
+
 ### Standart Hatanın Standart Çıktıya Yönlendirilmesi
 
 Her ne kadar standart hata yönlendirmesi, standart çıktı ile aynı noktaya yazılmasını istemediğimizden dolayı ortaya çıkmış olsa da, bazı durumlarda hata ve çıktıyı aynı yere yazmak isteyebiliriz. Bu gibi durumlar için, file descriptor kullanımında farklı bir gösterim kullanılır.
@@ -735,5 +741,5 @@ Oluşturduğunuz bir named pipe'ı rm komutuyla kolayca silebilirsiniz.
 eaydin@eaydin-vt ~/devel/namedpipe $ rm mario
 ```
 
-[^1]: Aslında teknik olarak sonsuza kadar değil, sisteminizin _open file descriptor limit_'ine kadar, ancak bu limit pratik olarak sizi etkilemeyecek kadar büyüktür.
+
 
