@@ -471,7 +471,9 @@ Standart hata kavramı, Unix'in 6. versiyonunun ardından Dennis Ritchi tarafın
 
 > All programs placed diagnostics on the standard output. This had always caused trouble when the output was redirected into a file, but became intolerable when the output was sent to an unsuspecting process. Nevertheless, unwilling to violate the simplicity of the standard-input-standard-output model, people tolerated this state of affairs through v6. Shortly thereafter Dennis Ritchie cut the Gordian knot by introducing the standard error file. That was not quite enough. With pipelines diagnostics could come from any of sev eral programs running simultaneously. Diagnostics needed to identify themselves. Thus began a never quite finished pacification campaign: a few recalcitrant diagnostics still remain anonymous or appear on the standard output.
 
-## 
+Standart girdi, standart çıktı ve standart hata aslında çeşitli sayılarla temsil edilir.
+
+
 
 ## Yaygın Kullanım Biçimleri
 
