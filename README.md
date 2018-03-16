@@ -25,7 +25,7 @@ Lisans eğitimi sırasında çok miktardaki bilimsel verinin tasniflenmesi ve an
 
 VeriTeknik, ağ iletişimi ve altyapısı üzerine uzmanlaşmış mühendislik çözümleri sunmaktadır. Veri merkezleri, dağıtık sunucu sistemleri, ağ güvenliği ve ağ yazılımları üzerinde özgün çalışmalar yapmaktadır. 2004 yılından bu yana kazanmış olduğumuz deneyimi sektördeki diğer meslektaşlarımızla ve siz değerli okuyucularımızla paylaşmak, ülkemizin açık kaynak kodlu sistemlerde bir nebze de olsa gelişme sağlamasını görmekten mutluluk duyarız. VeriTeknik, Ankara ve Amsterdam ofislerinde faaliyet göstermektedir, toplamda 10 ülkede veri merkezleri ile çalışmaktadır. Tübitak Pardus Çözüm ortağı olan VeriTeknik aynı zamanda Ultra Electronics ve Realsec'in Türkiye, Hollanda, Doğu Avrupa ve Türki Cumhuriyetler resmi distribütörüdür.
 
-Teşekkürler
+## Teşekkürler
 
 Katkılarından dolayı değerli iş arkadaşlarımız Tunç Yıldırım, Yaşar Celep ve Ömrüm Çetin'e, bu kitabın oluşmasına vesile olan Hazine Müsteşarlığı'na ve Nuri Akman'a teşekkür ederiz.
 
@@ -69,6 +69,8 @@ Terimler Türkçe karşılıkları belirtilerek çoğunlukla İngilizce olarak k
 **Cem Karaca** & **M. Emre Aydın**
 
 ---
+
+... Veri her yerde ...
 
 Copyright 2015-2018 VeriTeknik Bilişim, Basın ve Yayın Ltd. Şti. İzinsiz alıntı yapılamaz, kopyalanamaz ve çoğaltılamaz.
 
