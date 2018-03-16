@@ -335,7 +335,7 @@ Kısacası `tee` programı, standart girdiden gelen veriyi, hem kendisine parame
 
 Normal şartlar altında **&gt;** işaretinin yaptığı gibi, kendisine parametre olarak verilen dosyaları silip üzerine yazar. Ancak bu dosyaların mevcut bilgilerini koruyup sonuna veri eklemesini istersek \(_append_ etmesini istersek\) `-a` parametresiyle çalıştırmak gerekir. Bu, standart çıktı yönlendirmedeki **&gt;&gt;** işaretinin karşılığı gibi düşünülebilir.
 
-### Bazı tee Örnekleri
+### tee Örneği
 
 Kullanımı hakkında, GNU Core Utils'de paylaşılan birkaç örnek fikir verebilir.
 
