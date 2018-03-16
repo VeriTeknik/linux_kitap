@@ -448,7 +448,7 @@ bu bir cümle
 ^C
 ```
 
-Tanıdık geldi mi? Bu bölümün başlarında `cat` programını tek başına çalıştırdığımızda da benzer manzarayla karşılaşmıştık. Yine standart girdiden veri bekledi. `Biz Bu bir Cümle` yazdıktan sonra, kendisi yine standart çıktıya verinin aynısını yazdı, tıpkı `cat` gibi. Ama bu sefer karakterleri küçülttü. Yine Ctrl+c ile programımızı sonlandırarak çıktık.
+Tanıdık geldi mi? Bu bölümün başlarında `cat` programını tek başına çalıştırdığımızda da benzer manzarayla karşılaşmıştık. Yine standart girdiden veri bekledi. Biz `Bu bir Cümle` yazdıktan sonra, kendisi yine standart çıktıya verinin aynısını yazdı, tıpkı `cat` gibi. Ama bu sefer karakterleri küçülttü. Yine Ctrl+c ile programımızı sonlandırarak çıktık.
 
 Burada dikkat edilmesi gereken bir diğer nokta, programımızın parametrik şekilde girdi almaması. Örneğin karakterler dosyasını argüman olarak kendisine veremezdik, çünkü programımızda gelen argümanlarla neler yapılması gerektiğini belirtmedik. Böyle olunca argümanları görmezden gelecektir, ve yukarıdaki durumun aynısı gerçekleşecektir.
 
