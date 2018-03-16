@@ -2,7 +2,7 @@
 
 GNU/Linux ve benzeri POSIX sistemlerin en güçlü olduğu yönlerden birisi, programların standart girdi ve çıktılarının yönlendirilmesidir. Özellikle birden fazla programın işlemlerini birbirlerine kolayca gönderebilme gücü sağlayan bu yöntem, aslında UNIX'in oluşturulduğu dönemdeki temel felsefeleri en iyi yansıtan özelliklerinden biridir.
 
-1978'de yayımlanan The Bell System Technical Journal'ın UNIX Time-Sharing System dokümanının önsözünde David McIlroy, UNIX'in tasarlanması ve kullanılmasında temel alınan kritik noktaları 4 madde halinde listeler. Bu maddelerden ilki ilerleyen yıllarda çok popüler olmuştur. Maddenin tam hali şu şekildedir:
+1978'de yayımlanan The Bell System Technical Journal'ın UNIX Time-Sharing System dokümanının önsözünde Douglas McIlroy, UNIX'in tasarlanması ve kullanılmasında temel alınan kritik noktaları 4 madde halinde listeler. Bu maddelerden ilki ilerleyen yıllarda çok popüler olmuştur. Maddenin tam hali şu şekildedir:
 
 > Make each program do one thing well. To do a new job, build afresh rather than complicate old programs by adding new "features".
 
@@ -112,7 +112,7 @@ Modern GNU/Linux sistemlerinde, eğer özel bir durum söz konusu değilse, gene
 
 ## Standart Girdi
 
-UNIX Dünyasında, programların standart çıktıları gibi, aslında standart girdileri de vardır. Biraz önceki örneğimizde `cat` programı ile `ls_cikti` dosyasının içeriğini görüntülerken, okunacak veriyi standart girdi olarak sunmayıp, aslında parametre olarak gönderdik. Yani `cat /home/eaydin/ls_cikti` yazdığımız zaman, aslında `cat` programı ilk parametresi olan `/home/eaydin/ls_cikti` değerini okudu. Eğer bu dosyayı parametrik olarak değil de, standart girdi olarak sunmak isteseydik, şöyle bir  işlem yapmamız gerekirdi:
+Unix dünyasında, programların standart çıktıları gibi, aslında standart girdileri de vardır. Biraz önceki örneğimizde `cat` programı ile `ls_cikti` dosyasının içeriğini görüntülerken, okunacak veriyi standart girdi olarak sunmayıp, aslında parametre olarak gönderdik. Yani `cat /home/eaydin/ls_cikti` yazdığımız zaman, aslında `cat` programı ilk parametresi olan `/home/eaydin/ls_cikti` değerini okudu. Eğer bu dosyayı parametrik olarak değil de, standart girdi olarak sunmak isteseydik, şöyle bir  işlem yapmamız gerekirdi:
 
 ```
 eaydin@eaydin-vt ~ $ cat < ls_cikti
@@ -173,7 +173,7 @@ Bu da başka bir cümle
 
 Bütün bu örneklerin hala bir şey ifade etmediğinin farkındayız. Çünkü `cat`, zaten dosya okuma amacı güden bir program. Bunun yerine daha sık kullanılan bir örnek olan, MySQL veritabanının komut satırı aracı `mysql` programının kullanımına bakalım.
 
-MySQL ile ilgili detaylar kitabımızın farklı bir bölümünde anlatılmakta ancak kısaca programın bir veritabanının yapısını komut satırından yönetmeye olanak sağladığını belirtelim. `mysql` programı etkileşimli bir programdır, yani David McIlroy'un ikinci maddede bahsettiği, aslında kaçınmamız gereken program tiplerinden birisidir. Ancak bir veritabanını yönetmenin en kullanışlı yollardından birinin bu olduğu unutulmamalıdır. `mysql` programını doğru parametrelerle çalıştırıp veritabanına bağlandığımızda, bizi kendi kabuğu \(etkileşimli ortamı\) karşılar.
+MySQL ile ilgili detaylar kitabımızın farklı bir bölümünde anlatılmakta ancak kısaca programın bir veritabanının yapısını komut satırından yönetmeye olanak sağladığını belirtelim. `mysql` programı etkileşimli bir programdır, yani Douglas McIlroy'un ikinci maddede bahsettiği, aslında kaçınmamız gereken program tiplerinden birisidir. Ancak bir veritabanını yönetmenin en kullanışlı yollardından birinin bu olduğu unutulmamalıdır. `mysql` programını doğru parametrelerle çalıştırıp veritabanına bağlandığımızda, bizi kendi kabuğu \(etkileşimli ortamı\) karşılar.
 
 ```
 [root@emre ~]# mysql
@@ -234,7 +234,7 @@ Standart girdinin **&lt;** notasyonu ile kullanımı, yıllarca UNIX sistemler y
 
 ## Unix Pipeline
 
-David McIlroy, işletim sistemindeki programların \(veya parçacıkların\) birer standart girdisinin ve standart çıktısının olması gerektiği fikrini aslında yukarıdaki örneklerde bahsettiğimiz gibi sadece dosya yönlendirme amacıyla geliştirmemiştir. McIlroy'un amacı, aslında programların birbirleriyle, arada geçici bir dosya veya kullanıcı müdahalesine gerek olmaksızın veri akışının sağlanmasıdır. Bunu yaparken de, bir programın çıktısının diğer programın girdisi olarak yönlendirilmesini kurgulamıştır. McIlroy bu metodolojiyi ilk defa 1973'te kurgulamıştır ve Ken Thompson, `pipe()` sistem çağrısını Unix versiyon 3 üzerinde uyarlamıştır. Bunu yaparken de yönlendirme işareti olarak `|` kullanılmıştır. McIlroy, bu karakterin kullanımını Thompson'ın geliştirdiğini belirtir. Bu yatak çubuk, aslında bir _boru \(pipe\)_ olarak düşünülünce, tıpkı bir su tesisatındaki boru hattı gibi, bir noktadan giren bilginin, diğer noktadan çıkmasını sağladığı için_ pipeline_ terminolojisini doğurmuştur.
+Douglas McIlroy, işletim sistemindeki programların \(veya parçacıkların\) birer standart girdisinin ve standart çıktısının olması gerektiği fikrini aslında yukarıdaki örneklerde bahsettiğimiz gibi sadece dosya yönlendirme amacıyla geliştirmemiştir. McIlroy'un amacı, aslında programların birbirleriyle, arada geçici bir dosya veya kullanıcı müdahalesine gerek olmaksızın veri akışının sağlanmasıdır. Bunu yaparken de, bir programın çıktısının diğer programın girdisi olarak yönlendirilmesini kurgulamıştır. McIlroy bu metodolojiyi ilk defa 1973'te kurgulamıştır ve Ken Thompson, `pipe()` sistem çağrısını Unix versiyon 3 üzerinde uyarlamıştır. Bunu yaparken de yönlendirme işareti olarak `|` kullanılmıştır. McIlroy, bu karakterin kullanımını Thompson'ın geliştirdiğini belirtir. Bu yatak çubuk, aslında bir _boru \(pipe\)_ olarak düşünülünce, tıpkı bir su tesisatındaki boru hattı gibi, bir noktadan giren bilginin, diğer noktadan çıkmasını sağladığı için_ pipeline_ terminolojisini doğurmuştur.
 
 Örneğin `less` programı, aslında kendisine sağlanan bilginin terminal ekranına sığacak şekilde parçalanmasını sağlar. Tıpkı `cat` programında olduğu gibi, parametrik kullanımla dosya adı belirtilebilir, veya standart girdi olarak veri sağlanabilir.
 
@@ -467,7 +467,11 @@ Aslında Unix üzerinde programların üç temel veri akış biçimi vardır. St
 
 Standart girdi ve standart çıktının varoluş amaçlarını biraz önceki örnelerde irdeledik. Standart hata ise, program çalıştırıldığında, programın hatalarını yönlendireceği noktayı belirtir. Normal şartlar altında bir program sonuçlarını da \(standart çıktı\) hatalarını da \(standart hata\) ekranımıza yönlendirir. Böylece program hata verdiyse, çıktıları arasında görürüz. Ancak bu her zaman istediğimiz bir şey olmayabilir. Özellikle çok fazla çıktı veren programlarda gerçekleşen hataların ayıklanması zorlaşabilir. Ayrıca, programların standart çıktılarını başka program veya dosyalara yönlendirdiğimiz, hataların da burada yer almasını istemeyebiliriz. Bu tip durumların önüne geçebilmek için, standart çıktıdan bağımsız olan bir çıktı biçimi olarak standart hata tanımlanmıştır. Bu sayede örneğin bir programın standart çıktısı pipe ile bir başka programa girdi olarak sunulurken, programın çalışması sırasında oluşacak hatalar kullanıcının terminal ekranında görülebilir.
 
+Standart hata kavramı, Unix'in 6. versiyonunun ardından Dennis Ritchi tarafından geliştirilmiştir. Bu yöntem ile birbirine standart girdi-çıktı yönlendiren programların standart hatalarının terminale yazdırılması durumunda, hangi hata mesajının hangi programdan geldiğinin bilinmemesi problemiyle de karşılaşılmıştır. Douglas McIlroy, bu problemin farkında olduklarını ama asla tamamen çözülmediğini, _UNIX Programmer's Manual_'ın 3. versiyonunda belirtir.
 
+> All programs placed diagnostics on the standard output. This had always caused trouble when the output was redirected into a file, but became intolerable when the output was sent to an unsuspecting process. Nevertheless, unwilling to violate the simplicity of the standard-input-standard-output model, people tolerated this state of affairs through v6. Shortly thereafter Dennis Ritchie cut the Gordian knot by introducing the standard error file. That was not quite enough. With pipelines diagnostics could come from any of sev eral programs running simultaneously. Diagnostics needed to identify themselves. Thus began a never quite finished pacification campaign: a few recalcitrant diagnostics still remain anonymous or appear on the standard output.
+
+## 
 
 ## Yaygın Kullanım Biçimleri
 
