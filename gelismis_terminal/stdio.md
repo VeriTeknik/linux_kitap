@@ -475,9 +475,9 @@ Standart hata'nın kullanımı için önce, _file descriptor_ konsepti hakkında
 
 ## File Descriptor
 
-Standart girdi, standart çıktı ve standart hata, ayrı file descriptor'lar ile temsil edilir. Unix üzerinde aslında her şey bir dosyadır. Klavyeniz, seri port cihazınız, ethernet cihazınız, yazıcınız, metin dosyanız, ekranınız... tamamını Unix dosya sistemi birer dosya olarak tanımlar. Programlarınız bu dosyalara erişmek istediklerinde, işletim sistemi tarafından erişim izniniz olup olmadığı kontrol edilir, ardından sistem programa "negatif olmayan bir tam sayı" olarak dosyayı sunar. Kısacası program, aslında dosyanın ismiyle, yoluyla neredeyse hiç ilgilenmez, programın etkileşim kurduğu "şey" bir tamsayıdır, bu tamsayı da işletim sistemi tarafından dosya yoluna tercüme edilir. Bu tam sayılar, program ile işletim sistemi arasındaki dosya tanımını yaptığı için, file descriptor ismini alır. Erişilmiş bir dosya hakkındaki bütün bilgi işletim sisteminin sorumluluğundadır, yazılımlar bu programlar sadece birer file descriptor olarak tanırlar. 
+Unix üzerinde aslında her şey bir dosyadır. Klavyeniz, seri port cihazınız, ethernet cihazınız, yazıcınız, metin dosyanız, ekranınız... tamamını Unix dosya sistemi birer dosya olarak tanımlar. Programlarınız bu dosyalara erişmek istediklerinde, işletim sistemi tarafından erişim izniniz olup olmadığı kontrol edilir, ardından sistem programa "negatif olmayan bir tam sayı" olarak dosyayı sunar. Kısacası program, aslında dosyanın ismiyle, yoluyla neredeyse hiç ilgilenmez, programın etkileşim kurduğu "şey" bir tamsayıdır, bu tamsayı da işletim sistemi tarafından dosya yoluna tercüme edilir. Bu tam sayılar, program ile işletim sistemi arasındaki dosya tanımını yaptığı için, file descriptor ismini alır. Erişilmiş bir dosya hakkındaki bütün bilgi işletim sisteminin sorumluluğundadır, yazılımlar için bu dosyalar sadece birer file descriptor olarak tanırlar. Standart girdi, standart çıktı ve standart hata, ayrı file descriptor'lar ile temsil edilir. 
 
- Daha önce incelediğimiz stdio.h için bu gösterimler stdin, stdout, stderr iken, bunlara karşılık gelen tam sayılar da genellikle bash gibi kabuklarda kullanılır.
+Daha önce incelediğimiz `stdio.h` için bu gösterimler stdin, stdout, stderr iken, bunlara karşılık gelen tam sayılar da genellikle bash gibi kabuklarda kullanılır.
 
 | İsim | Sayısal Değer | &lt;stdio.h&gt; Kullanımı |
 | :--- | :--- | :--- |
@@ -487,7 +487,7 @@ Standart girdi, standart çıktı ve standart hata, ayrı file descriptor'lar il
 
 Daha önce gördüğümüz **&lt; ** ve **&gt;** gösterimleri de aslında bunu doğrular niteliktedir. Programlar girdinin nereden geldiğini ve çıktının nereye gideceğini bilmezler, onlar için sadece 1, 2 ve 3 \(veya stdin, stdout ve stderr\) vardır. Kabuk aracılığıyla **&lt; ** ve **&gt;** gösterimlerini kullanarak aslında işletim sistemi hangi programın nereden veri alıp nereye ileteceğini kontrol eder.
 
-Yukarıdaki tablodan görüleceği gibi, aslında standart çıktının file descriptor'ını sayısal karşılığı 1'dir. Yani, aşağıdaki iki örnek, aynı anlama gelmektedir. İlk başta, daha önce uyguladığımız örneklerde olduğu gibi, file descriptor kullanmadan oluşan sonuca bakalım.
+Yukarıdaki tablodan görüleceği gibi, aslında standart çıktının file descriptor'ının sayısal karşılığı 1'dir. Yani, aşağıdaki iki örnek, aynı anlama gelmektedir. İlk başta, daha önce uyguladığımız örneklerde olduğu gibi, file descriptor kullanmadan oluşan sonuca bakalım.
 
 ```
 eaydin@eaydin-vt ~/devel/lower $ cat karakterler > cikti1
@@ -507,7 +507,7 @@ Yönlendirmelerde standart çıktı çok sık kullanıldığı için, `1>` kulla
 
 Şimdi benzer işlemi standart hata yönlendirmesinde kullanalım.
 
-cat programı, kendisine parametre olarak kaç dosya verilirse, tamamını peş peşe eklemekle görevlidir. Aşağıdaki kullanım açıklayıcı olacaktır.
+cat programı, kendisine parametre olarak kaç dosya verilirse, tamamını peş peşe eklemekle görevlidir, ismi de zaten buradan gelir, _con**cat**enate_ sözcüğünün kısaltılmışıdır. Aşağıdaki kullanım açıklayıcı olacaktır.
 
 ```
 eaydin@eaydin-vt ~/devel/lower $ echo Bu bir cümle > cumleler
@@ -560,11 +560,37 @@ Bütün bu işlemlerde, standart çıktı yönlendirmesi için 1&gt; notasyonunu
 eaydin@eaydin-vt ~/devel/lower $ cat karakterler cumle 2> hatalar 1> deneme
 ```
 
-Bir programın standart çıktısını ve standart hatasını _aynı noktaya_ yönlendirmek sık istenilecek bir işlemdir. 
+### Standart Hatanın Standart Çıktıya Yönlendirilmesi
 
-> A file descriptor is analogous to the file pointer used by the standard library
+Her ne kadar standart hata yönlendirmesi, standart çıktı ile aynı noktaya yazılmasını istemediğimizden dolayı ortaya çıkmış olsa da, bazı durumlarda hata ve çıktıyı aynı yere yazmak isteyebiliriz. Bu gibi durumlar için, file descriptor kullanımında farklı bir gösterim kullanılır.
 
+```
+eaydin@eaydin-vt ~/devel/lower $ cat karakterler cumle > sonuc 2>&1
+eaydin@eaydin-vt ~/devel/lower $ cat sonuc
+AbCdE
+cat: cumle: No such file or directory
+```
 
+Yukarıdaki örnekte, yine `cat` programı ile `karakterler` ve `cumle` dosyalarını okuyup birleştirmek istedik. Birleşmiş çıktıyı da `sonuc` isminde bir dosyaya yazmak istedik. Ancak `cumle` diye bir dosyamız bulunmadığı için, programın hata vermesini bekleriz. Fakat programı çalıştırırken, standart hatayı da, standart çıktıya yazmasını söyledik. Standart çıktımız `sonuc` dosyası olduğu için, hatalarımızı ekranda görmek yerine, `sonuc` dosyasına görmeyi bekleriz. Gerçekten de `sonuc` dosyasının içeriğine baktığımızda hem `karakterler` dosyasının içeriğini, hem de `cumle` dosyası bulunamadığı için `cat` programınım verdiği hatayı görüyoruz.
+
+Burada standart hatayı, standart çıktıya yönlendirmek için kullanılan notasyon biraz farklı görünebilir: `2>&1`
+
+Bu gösterimin ne anlama geldiği, aslında yine Brian Kernighan ve Dennis Ritchie'nin The C Programming Language kitabının 8. bölümünde yatıyor: 
+
+> A file descriptor is analogous to the file pointer used by the standard library \[...\]
+
+Yani, bir _file descriptor_, aslında C programlama dilinde standart kütüphanenin kullandığı _file pointer'_lar ile aynı işi yapıyor. C'de pointer gösterimi **&** işaret ile yapılmakta. Bunu, daha önce 1 olarak tanımlanmış bir değerin adresi olarak düşünebilirsiniz. Yukarıdaki bash satırında da, `cat` programının standart çıktısı için sonuc tanımlandı. Dolayısıyla 1 \(stdout\) değeri için bir adres belirtmiş olduk. Daha sonra 2 \(stderr\) değeri için adres belirtirken de "daha önce 1 için tanımladığım **adresi** kullan" demiş oluyoruz. Burada **adres** sözcüğüne karşılık gelmesi için de, C'deki pointerlardaki gösterim gibi **&** işareti kullanılmaktadır.
+
+Burada **&** işaretini, bir programı arka planda çalıştırmak için sonuna koyduğumuzdaki kullanımıyla karıştırmamakta fayda var. Eğer ardından 1 veya 2 geliyorsa, doğrudan file desriptor için pointer görevi görmektedir.
+
+Yukarıdaki işlemi de yine tersi olarak yapabilirdik. Yani önce standart hata yönlendirmesi yapıp, daha sonra standart çıktının yönleneceği yerin, standart hatanın adresi olmasını da söyleyebilirdik.
+
+```
+eaydin@eaydin-vt ~/devel/lower $ cat karakterler cumle 2> hatalisonuc 1>&2
+eaydin@eaydin-vt ~/devel/lower $ cat hatalisonuc 
+AbCdE
+cat: cumle: No such file or directory
+```
 
 ## Yaygın Kullanım Biçimleri
 
