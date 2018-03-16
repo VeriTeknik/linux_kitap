@@ -546,6 +546,12 @@ eaydin@eaydin-vt ~/devel/lower $ cat deneme
 AbCdE
 ```
 
+Bütün bu işlemlerde, standart çıktı yönlendirmesi için 1&gt; notasyonunu da kullanabilirdik. Yine, alışkanlık gereği pek kullanılmaz sadece. Yani aşağıdaki işlem ile yukarıdaki aynı işe yarayacaktır.
+
+```
+eaydin@eaydin-vt ~/devel/lower $ cat karakterler cumle 2> hatalar 1> deneme
+```
+
 
 
 ## Yaygın Kullanım Biçimleri
