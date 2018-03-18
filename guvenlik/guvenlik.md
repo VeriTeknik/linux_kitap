@@ -85,6 +85,8 @@ SQL Yapısı bilinen bir sisteme yapılan saldırı
 
 **Her sunucunun bir işlevi olması:** İmkanlar dahilinde her servis için bir sunucu kullanın \(sanal ya da fiziksel\), bu sunucuların firewall'da zone ayrımlarını gerçekleştirdikten sonra sadece hizmete erişmesi gereken sunucuların bu sunucu ile bağlantı kurmasına izin verin.
 
+**Merkezi log sistemi kurun:** Özellikle Linux sistemlerde loglar temel bir işlevsellik oluşturmaktadır, sorun çözümünden analizlere kadar bir çok şeyi loglar üzeriden takip etmeniz mümkündür ancak küme yapısındaki sistemlerde bu logları incelemek hem zahmetli hem de zaman alıcıdır. Kaldı ki incelediğiniz loglar içerisinde aradığınız şeyi bulmak ta kolay olmayabilir. Ossec gibi açık kaynak kodlu log servisleri bu açıdan hayat kurtarıcıdır. Firewall'dan sunuculara kadar her türlü cihazın loglarını Ossec'e gönderip, özel filtreler ile kendinize özel uyarılar oluşturabilirsiniz. 1 den 10'a kadar farklı öncelikler verebileceğiniz bu logların belli bir önem düzeyinden yüksek olanlarının alarm oluşturmasını ve bu alarmların size e-mail kanalıyla gelmesini sağlayabilirsiniz.
+
 * Her servis için ayrı container, docker ya da sanal sunucu kurulması,
 * NTP Senkronizasyonu
 * Cloudlinux gibi, güvenlik açıklarına daha hızlı yama yapabilen sürümlerin kullanılması,
