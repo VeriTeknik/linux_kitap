@@ -87,9 +87,10 @@ SQL Yapısı bilinen bir sisteme yapılan saldırı
 
 **Merkezi log sistemi kurun:** Özellikle Linux sistemlerde loglar temel bir işlevsellik oluşturmaktadır, sorun çözümünden analizlere kadar bir çok şeyi loglar üzeriden takip etmeniz mümkündür ancak küme yapısındaki sistemlerde bu logları incelemek hem zahmetli hem de zaman alıcıdır. Kaldı ki incelediğiniz loglar içerisinde aradığınız şeyi bulmak ta kolay olmayabilir. Ossec gibi açık kaynak kodlu log servisleri bu açıdan hayat kurtarıcıdır. Firewall'dan sunuculara kadar her türlü cihazın loglarını Ossec'e gönderip, özel filtreler ile kendinize özel uyarılar oluşturabilirsiniz. 1 den 10'a kadar farklı öncelikler verebileceğiniz bu logların belli bir önem düzeyinden yüksek olanlarının alarm oluşturmasını ve bu alarmların size e-mail kanalıyla gelmesini sağlayabilirsiniz.
 
-* Her servis için ayrı container, docker ya da sanal sunucu kurulması,
-* NTP Senkronizasyonu
-* Cloudlinux gibi, güvenlik açıklarına daha hızlı yama yapabilen sürümlerin kullanılması,
+**NTP Senkronizasyonu:** Merkezi loglamadan bahsetmişken, log sunucusuna gönderilen kayıtların sıralı ve ilişkilendirilebilir olması için tüm sununucuların aynı zaman dilimi olması ve zamanın eşitlenmiş olması gerekmektedir. NTP sunucuları yapısı itibari ile sanal sunuculara kurulmamaktadır. Sanal sunucuya kurduğunuz NTP sunucusunun donanımsal saate yazma izni olmadığından, sunucu yeniden başlatıldığında sorun yaşamanız olasıdır, ntp1 ve ntp2.veriteknik.com'u bu ihtiyaçlarınız için kullanabilirsiniz.
+
+**Mümkünse Abonelik sistemi olan bir sürüm kullanın:** Cloudlinux ve RedHat gibi, güvenlik açıklarına daha hızlı yama yapabilen sürümleri kritik güvenlik düzeyi olan sunucularda kullanmanızı tavsiye ederiz, bu sürümlerden daha hızlı açıkları kapatmaktadır. Böyle bir imkanınız yoksa sürümlerin ve servislerin kararlı sürümlerini seçmeye özen gösterin, **alpha**, **beta **ya da **Release Candidate **versiyonları kullanmayın. 
+
 * Yedek dizinlerinin okuma erişimlerinin kaldırılması
 * sadece yerel erişim gereken servislerin loopback arayüzüne çekilmesi
 * özel anahtarların HSM içerisinde tutulması
