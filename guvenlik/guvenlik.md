@@ -39,7 +39,7 @@ c99_sess_ put,fpassthru"
 
 **Otomatik güncellemeleri açın: **yum gibi bir çok güncelleyici son zamanlarda otomatik güncelleme için destek getirmiş durumda, otomatik güncellemeleri almanız için yum-cron paketini yüklemeniz gerekmektedir, /etc/yum/yum-cron.conf içerisinde tercihinize göre bir düzenlemeyi ayarlamanız mümkündür, hiç bir ayar yapmazsanız sistem genel güncellemeleri indirecektir ancak yamaları yapmayacaktır.
 
-**tmp partisyonlarından çalıştırma iznini kaldırın:** LINUX Sistemlerde PHP gibi birçok script\(betik\) dili session, upload ve cache gibi geçici belgeleri /tmp partisyonunda tutar. Saldırgan tarafından bu dizine erişim sağlanmışsa buraya atılmış olan betikler bu noktadan çalıştırılabilir, bu şekilde bütün sistemin dosyalarına erişim sağlanabilir ya da root erişimine sahip olunabilir. /tmp partisyonuna atılan dosyaların çalıştırılmamasını sağlamak için /tmp partisyonu mount edilirken çalıştırma hakkının verilmemesi gerekir, bu nedenle sistem kurulumu sırasında /tmp dizinini ayrı bir partisyon olarak kurmanızı tavsiye ederiz, bu şekilde güvenlik ayarlarını yapmanız çok kolaylaşacaktır. 
+**tmp partisyonlarından çalıştırma iznini kaldırın:** LINUX Sistemlerde PHP gibi birçok script\(betik\) dili session, upload ve cache gibi geçici belgeleri /tmp partisyonunda tutar. Saldırgan tarafından bu dizine erişim sağlanmışsa buraya atılmış olan betikler bu noktadan çalıştırılabilir, bu şekilde bütün sistemin dosyalarına erişim sağlanabilir ya da root erişimine sahip olunabilir. /tmp partisyonuna atılan dosyaların çalıştırılmamasını sağlamak için /tmp partisyonu mount edilirken çalıştırma hakkının verilmemesi gerekir, bu nedenle sistem kurulumu sırasında /tmp dizinini ayrı bir partisyon olarak kurmanızı tavsiye ederiz, bu şekilde güvenlik ayarlarını yapmanız çok kolaylaşacaktır.
 
 Bu işlemi yapabilmek için sisteminizi kurarken /tmp partisyonunu ayrı bir partisyon olarak belirtmiş olmanız gerekmektedir. Bu şekilde bir ayar yapıp yapmadığınızı görmek için komut satırından "df -h" ya da "mount" komutuyla kontrol ediniz. /tmp ayrı bir mount noktası olarak belirlenmemişse aşağıdaki yöntem ile kendinize yeni bir disk dosya sistemi oluşturabilirsiniz:
 
@@ -75,8 +75,16 @@ mount -oremount loop,rw,nosuid,noexec /tmp
 
 Bu komut bir hata olmaması durumunda çıktı vermeden çalışacak ve mount işlemini gerçekleştirecektir.
 
-* Kod özgünlüğü
-* Her sunucunun bir işlevi olması,
+**Kod ve değişken özgünlüğü: **Mümkün olduğunca özgün kod kullanmaya çalışın, İnternet'te kolayca bulunabilen bir çok kod örneği ya da CMS sistemlerinin kırılması özgün kodun kırılmasından daha kolaydır, sistemlerin maruz kaldığı atakların bir çoğu çoğunluk tarafından kullanılan sistemlere yapılmaktadır. Açık kaynak kodlu sistemlerde ise yönetim arayüzünün URL linklerini değiştirmekte fayda vardır, örneğin veriteknik.com/admin yerine veriteknik.com/ytnm daha doğru bir tercih olacaktır, oluşturduğunuz bu dizin ismini robots.txt'ye yazmamanızı tavsiye ederiz, bir çok hacker indexlenmemesini istediğiniz dizinleri incelemek için bu dosyayı kontrol edecektir.
+
+![](/assets/sql_injection.jpe)
+
+SQL Yapısı bilinen bir sisteme yapılan saldırı
+
+**Standart kullanıcıları kullanmayın:** Hem işletim sistemlerinde hem de yönetim arayüzlerinde admin, administrator gibi standart yöneticilerin erişimini kapatın, mümkünse sisteme giriş yapan tüm kullanıcılar için hesap açın.
+
+**Her sunucunun bir işlevi olması:** İmkanlar dahilinde her servis için bir sunucu kullanın \(sanal ya da fiziksel\), bu sunucuların firewall'da zone ayrımlarını gerçekleştirdikten sonra sadece hizmete erişmesi gereken sunucuların bu sunucu ile bağlantı kurmasına izin verin.
+
 * Her servis için ayrı container, docker ya da sanal sunucu kurulması,
 * NTP Senkronizasyonu
 * Cloudlinux gibi, güvenlik açıklarına daha hızlı yama yapabilen sürümlerin kullanılması,
