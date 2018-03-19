@@ -1,4 +1,4 @@
-# Kitap Hakkında
+# Linux Kurulum ve Yönetimi
 
 Linux Yönetimi kitabı VeriTeknik ekibinin vermiş olduğu Linux, Ağ ve Güvenlik  eğitimlerinde yardımcı bir kaynak olması amacıyla hazırlanmıştır, kitap bir çok konu hakkında derinlemesine bilgi içermekle birlikte, anlatılan konuların kolay ve sürdürülebilir metodları da izah edilmiştir, örneğin Apache ve PHP kısmında sürümlerin derlemesinden bahsedilirken, kitabın sonunda repolar kullanılarak uygulanan hızlı ve güvenilir çözümlere de yer verilmiştir. Bize göre iyi bir Linux uzmanı pratikliğin yanı sıra konulara derinlemesine hakim olmalıdır. Burada paylaştığımız bilgiler veri merkezimizde karşımıza çıkan bir çok problemin de pratik cevaplarını içermektedir.
 
