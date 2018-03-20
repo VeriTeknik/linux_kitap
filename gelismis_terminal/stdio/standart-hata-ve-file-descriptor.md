@@ -101,11 +101,40 @@ eaydin@eaydin-vt ~/devel/lower $ cat karakterler cumle 2> hatalar 1> deneme
 
 ### Open File Descriptor Limiti
 
-File descriptor'ların Unix sistemimiz üzerinde aslında kernel \(çekirdek\) tarafından idare edildiğini öğrendik. Yani bir program standart çıktısının nereye yazıldığını kendisi bilmiyor, ancak işletim sistemi her programın standart çıktısının \(ve standart girdisinin ve standart hatasının\) nereye işaret ettiğini, dolayısıyla her programın file descriptor'unun nereye karşılık geldiğini biliyor. Bu durum Unix çekirdeğinin pek çok program için pek çok dosya işaretini aklında tutmasına sebep olur. Bu yüzden sistemde file descriptor'ların bir limiti bulunur. Buna "o anda sistemin aklında tuttuğu file descriptor'lar" anlamına gelen **open file descriptor limit** denilir.
+File descriptor'ların Unix sistemimiz üzerinde aslında kernel \(çekirdek\) tarafından idare edildiğini öğrendik. Yani bir program standart çıktısının nereye yazıldığını kendisi bilmiyor, ancak işletim sistemi her programın standart çıktısının \(ve standart girdisinin ve standart hatasının\) nereye işaret ettiğini, dolayısıyla her programın file descriptor'larının nereye karşılık geldiğini biliyor. Bu durum Unix çekirdeğinin pek çok program için pek çok dosya işaretini aklında tutmasına sebep olur. Bu yüzden sistemde file descriptor'ların bir limiti bulunur. Buna "o anda sistemin aklında tuttuğu file descriptor'lar" anlamına gelen **open file descriptor limit** denilir.
 
 Daha önce `komut1 | komut2 | komut3` şeklinde bir pipeline oluştururken aslında _-neredeyse sonsuza kadar-_ bu diziyi uzatabileceğinizi söylemiştik. Buradaki "neredeyse" kısmı da bu limitten kaynaklanır. Aslında sisteminizin open file descriptor limiti kadar uzun bir dizi oluşturabilirsiniz, çünkü buradaki her program için farklı file descriptor'lar tanımlanmaktadır. İşletim sistemi bunların ne kadarını aynı anda aklında tutabilirse, o kadar komutu pipeline içerisinde kullanabilirsiniz demektir. Yine de bu limit, pratik kullanımlarda fark etmeyeceğiniz kadar yüksektir.
 
-Sisteminiz üzerinde bu limitler 
+Sisteminiz üzerinde bu limitler farklı biçimlerde temsil edilir. İşletim sisteminizin tamamının open file descriptor limitini öğrenmek için /proc/sys/fs/file-max dosyasının içeriğine bakmanız yeterli olacaktır. Örneğin:
+
+```
+[root@emre ~]# cat /proc/sys/fs/file-max
+386774
+```
+
+Burada incelediğimiz sistemin _aynı anda_ 386774 tane file descriptor'ın açık olmasını desteklediğini görüyoruz. Yani Unix pipeline'ında peş peşe çalıştırdığımız komutlar maksimum bu sayıya ulaşacak kadar file descriptor oluşturabilirler, ve tabii bu sırada çalışan programları da \(network servislerinin sağlanması, init programı, varsa çalışan veritabanları vb.\) göz önünde bulundurmak gerekir.
+
+Ancak bu durum, tek bir programın 386774 limitinin çok çok büyük bir kısmını, örneğin 386000 tanesini işgal etmesine sebep olabilir. Bu tip durumların önüne geçmek için modern işletim sistemlerinde program başına open file descriptor limiti bulunmaktadır. Bunu öğrenmek için aşağıdaki komutu çalıştırabilirsiniz:
+
+```
+[root@emre ~]# ulimit -n
+1024
+```
+
+Buradan görüleceği üzere, aslında bir program çalıştırıldığında, kendisine işletim sisteminin çekirdeği tarafından 1024 tane file descriptor oluşturma hakkı tanınır.
+
+_"Ama biraz önce programların stdin, stdout ve stderr şeklinde 3 tane file descriptor'ı olduğunu söylemiştik?"_
+
+Doğru, ve bu sorunun cevabını ilerleyen bölümlerde, file descriptor'ların doğasını daha derinlemesine irdelediğimizde alacağız. Şimdilik bu soruyu bir kenara bırakalım.
+
+Sistemimizdeki open file descriptor limiti, program başına olsun veya olmasın, işletim sistemimizin limitlerine ve RAM'ine bağlı olduğu için, hali hazırda çekirdeğin aklında tuttuğu file descriptor sayısını görmek isteyebiliriz. Bunun için aşağıdaki komutu çalıştırabiliriz:
+
+```
+[root@emre ~]# cat /proc/sys/fs/file-nr
+736	0	386774
+```
+
+Burada yine biraz önceki sayı olan 386774'ü, yani üst limiti görüyoruz. İlk baştaki 736 ise aslında sistemin şu anda aklında tuttuğu file descriptor sayısıdır. Dolayısıyla bu sistem üzerinde 386774-736 tane daha file desciptor açabiliriz, ancak bunları programlara \(process'lere\) yaymak gerekecektir.
 
 ### Standart Hatanın Standart Çıktıya Yönlendirilmesi
 
