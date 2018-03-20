@@ -112,7 +112,7 @@ Sisteminiz üzerinde bu limitler farklı biçimlerde temsil edilir. İşletim si
 386774
 ```
 
-Burada incelediğimiz sistemin _aynı anda_ 386774 tane file descriptor'ın açık olmasını desteklediğini görüyoruz. Yani Unix pipeline'ında peş peşe çalıştırdığımız komutlar maksimum bu sayıya ulaşacak kadar file descriptor oluşturabilirler, ve tabii bu sırada çalışan programları da \(network servislerinin sağlanması, init programı, varsa çalışan veritabanları vb.\) göz önünde bulundurmak gerekir.
+Burada incelediğimiz sistemin _aynı anda_ 386774 tane file descriptor'ın açık olmasını desteklediğini görüyoruz. Yani Unix pipeline'ında peş peşe çalıştırdığımız komutlar maksimum bu sayıya ulaşacak kadar file descriptor oluşturabilirler, ve tabii bu sırada çalışan programları da \(network servislerinin sağlanması, init programı, varsa çalışan veritabanları, başka yazılımlar vb.\) göz önünde bulundurmak gerekir.
 
 Ancak bu durum, tek bir programın 386774 limitinin çok çok büyük bir kısmını, örneğin 386000 tanesini işgal etmesine sebep olabilir. Bu tip durumların önüne geçmek için modern işletim sistemlerinde program başına open file descriptor limiti bulunmaktadır. Bunu öğrenmek için aşağıdaki komutu çalıştırabilirsiniz:
 
@@ -131,7 +131,7 @@ Sistemimizdeki open file descriptor limiti, program başına olsun veya olmasın
 
 ```
 [root@emre ~]# cat /proc/sys/fs/file-nr
-736	0	386774
+736    0    386774
 ```
 
 Burada yine biraz önceki sayı olan 386774'ü, yani üst limiti görüyoruz. İlk baştaki 736 ise aslında sistemin şu anda aklında tuttuğu file descriptor sayısıdır. Dolayısıyla bu sistem üzerinde 386774-736 tane daha file desciptor açabiliriz, ancak bunları programlara \(process'lere\) yaymak gerekecektir.
