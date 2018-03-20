@@ -134,7 +134,7 @@ Sistemimizdeki open file descriptor limiti, program başına olsun veya olmasın
 736    0    386774
 ```
 
-Burada yine biraz önceki sayı olan 386774'ü, yani üst limiti görüyoruz. İlk baştaki 736 ise aslında sistemin şu anda aklında tuttuğu file descriptor sayısıdır. Dolayısıyla bu sistem üzerinde 386774-736 tane daha file desciptor açabiliriz, ancak bunları programlara \(process'lere\) yaymak gerekecektir.
+Burada yine biraz önceki sayı olan 386774'ü, yani üst limiti görüyoruz. İlk baştaki 736 ise aslında sistemin şu anda aklında tuttuğu file descriptor sayısıdır. Dolayısıyla bu sistem üzerinde `386774-736=386038` tane daha file desciptor açabiliriz, ancak bunları programlara \(process'lere\) yaymak gerekecektir.
 
 ### Standart Hatanın Standart Çıktıya Yönlendirilmesi
 
