@@ -143,13 +143,13 @@ Bu limitlerin nasıl düzenleneceğini, program başına neden limitler olduğun
 Her ne kadar standart hata yönlendirmesi, standart çıktı ile aynı noktaya yazılmasını istemediğimizden dolayı ortaya çıkmış olsa da, bazı durumlarda hata ve çıktıyı aynı yere yazmak isteyebiliriz. Bu gibi durumlar için, file descriptor kullanımında farklı bir gösterim kullanılır.
 
 ```
-eaydin@eaydin-vt ~/devel/lower $ cat karakterler cumle > sonuc 2>&1
+eaydin@eaydin-vt ~/devel/lower $ cat karakterler paragraf > sonuc 2>&1
 eaydin@eaydin-vt ~/devel/lower $ cat sonuc
 AbCdE
-cat: cumle: No such file or directory
+cat: paragraf: No such file or directory
 ```
 
-Yukarıdaki örnekte, yine `cat` programı ile `karakterler` ve `cumle` dosyalarını okuyup birleştirmek istedik. Birleşmiş çıktıyı da `sonuc` isminde bir dosyaya yazmak istedik. Ancak `cumle` diye bir dosyamız bulunmadığı için, programın hata vermesini bekleriz. Fakat programı çalıştırırken, standart hatayı da, standart çıktıya yazmasını söyledik. Standart çıktımız `sonuc` dosyası olduğu için, hatalarımızı ekranda görmek yerine, `sonuc` dosyasına görmeyi bekleriz. Gerçekten de `sonuc` dosyasının içeriğine baktığımızda hem `karakterler` dosyasının içeriğini, hem de `cumle` dosyası bulunamadığı için `cat` programınım verdiği hatayı görüyoruz.
+Yukarıdaki örnekte, yine `cat` programı ile `karakterler` ve `paragraf` dosyalarını okuyup birleştirmek istedik. Birleşmiş çıktıyı da `sonuc` isminde bir dosyaya yazmak istedik. Ancak `paragraf` diye bir dosyamız bulunmadığı için, programın hata vermesini bekleriz. Fakat programı çalıştırırken, standart hatayı da, standart çıktıya yazmasını söyledik. Standart çıktımız `sonuc` dosyası olduğu için, hatalarımızı ekranda görmek yerine, `sonuc` dosyasına görmeyi bekleriz. Gerçekten de `sonuc` dosyasının içeriğine baktığımızda hem `karakterler` dosyasının içeriğini, hem de `paragraf` dosyası bulunamadığı için `cat` programınım verdiği hatayı görüyoruz.
 
 Burada standart hatayı, standart çıktıya yönlendirmek için kullanılan notasyon biraz farklı görünebilir: `2>&1`
 
@@ -164,10 +164,10 @@ Burada **&** işaretini, bir programı arka planda çalıştırmak için sonuna 
 Yukarıdaki işlemi de yine tersi olarak yapabilirdik. Yani önce standart hata yönlendirmesi yapıp, daha sonra standart çıktının yönleneceği yerin, standart hatanın adresi olmasını da söyleyebilirdik.
 
 ```
-eaydin@eaydin-vt ~/devel/lower $ cat karakterler cumle 2> hatalisonuc 1>&2
+eaydin@eaydin-vt ~/devel/lower $ cat karakterler paragraf 2> hatalisonuc 1>&2
 eaydin@eaydin-vt ~/devel/lower $ cat hatalisonuc 
 AbCdE
-cat: cumle: No such file or directory
+cat: paragraf: No such file or directory
 ```
 
 ### Çıktı Yönlendirme Örneği
