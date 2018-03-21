@@ -42,7 +42,9 @@ The Bell System Technical Journal, UNIX Time-Sharing View, 1978
 
 GNU Core Utils, tee: Redirect output to multiple files or processes \(Erişim, Mart 2018\) [https://www.gnu.org/software/coreutils/manual/html\_node/tee-invocation.html](https://www.gnu.org/software/coreutils/manual/html_node/tee-invocation.html)
 
-A Research UNIX Reader: Annotated Excerpts from the Programmer's Manual, 1971-1986, M. Douglas McIlroy, http://www.cs.dartmouth.edu/~doug/reader.pdf
+A Research UNIX Reader: Annotated Excerpts from the Programmer's Manual, 1971-1986, M. Douglas McIlroy, [http://www.cs.dartmouth.edu/~doug/reader.pdf](http://www.cs.dartmouth.edu/~doug/reader.pdf)
 
+Red Hat Bugzilla Bug 432903 \(Erişim Tarihi: Mart 2018\) https://bugzilla.redhat.com/show\_bug.cgi?id=432903
 
+Red Hat Bugzilla Bug 919793 \(Erişim Tarihi: Mart 2018\) https://bugzilla.redhat.com/show\_bug.cgi?id=919793
 
