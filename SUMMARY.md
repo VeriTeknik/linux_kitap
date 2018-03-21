@@ -14,7 +14,7 @@
 * [Standart Girdi ve Çıktı](gelismis_terminal/stdio.md)
   * [Standart Çıktı](gelismis_terminal/stdio/standart-cikti.md)
   * [Standart Girdi](gelismis_terminal/stdio/standart-girdi.md)
-  * [Unix Pipeline](gelismis_terminal/stdio/unix-pipeline.md)
+  * [UNIX Pipeline](gelismis_terminal/stdio/unix-pipeline.md)
   * [Olmazsa Olmaz: stdio.h](gelismis_terminal/stdio/olmazsa-olmaz-stdioh.md)
   * [Standart Hata ve File Descriptor](gelismis_terminal/stdio/standart-hata-ve-file-descriptor.md)
   * [Named Pipe](gelismis_terminal/stdio/named-pipe.md)
