@@ -204,9 +204,28 @@ root@ubuntu:~# ./checkmate.py > /dev/null/ 2>&1
 
 Bu tip kullanıma, en çok \(yine ileride göreceğimiz\) zamanlanmış görevlerde rastlarız. `crontab` içine yazılan satırların çoğu, eğer loglanmasını istemediğimiz işlemler yapılıyorsa bu şekilde yazılır.
 
+## Programların File Descriptor'ları
+
+Aşağıdaki C kodunun derlendiği bir programı düşünelim.
+
+```
+#include <stdio.h>
+#include <unistd.h>
+
+main() {
+    while (1)
+        printf("Test\n");
+        sleep(1000);
+}
+```
+
+Eğer bu programı deneme.c olarak kaydedip aşağıdaki şekilde derler ve çalıştırırsak, her 1000 milisaniyede bir ekrana Test yazmasını bekleriz.
+
+
+
 ## Daha Fazla File Descriptor
 
-Bu bölüm boyunca, programların üç tane file descriptor'ında bahsettik. Standart girdi, standart çıktı, standart hata. Aslında Dennis Ritchie standart hata'yı UNIX'in 6. versiyonu üzerinde tanımladığında tam olarak şunu yaptı: Bir program çalışmaya başladığında, programın _ön tanımlı_ 3 tane file descriptor'ı olsun. Bu yüzden bunlara _standart_ diyoruz aslında. Çünkü programlar -neredeyse- her zaman bu üç tip file descriptor'a ihtiyaç duyuyorlar. Ancak bir programın 3'ten fazla file descriptor'ı olabilir.
+Bu bölüm boyunca, programların üç tane file descriptor'ından bahsettik. Standart girdi, standart çıktı, standart hata. Aslında Dennis Ritchie standart hata'yı UNIX'in 6. versiyonu üzerinde tanımladığında tam olarak şunu yaptı: Bir program çalışmaya başladığında, programın _ön tanımlı_ 3 tane file descriptor'ı olsun. Bu yüzden bunlara _standart_ diyoruz aslında. Çünkü programlar -neredeyse- her zaman bu üç tip file descriptor'a ihtiyaç duyuyorlar. Ancak bir programın 3'ten fazla file descriptor'ı olabilir.
 
 Daha önce herhangi bir C programının `getchar` veya `putchar` gibi fonksiyonlar ile standart girdi ve standart çıktıyı kontrol ettiğini gördük. Ancak C programı bu işleri yaparken, bir yandan bir dosyayı açıp üzerinde işlem yapmasını sağlayabiliriz. Bu dosya söz konusu standart çıktı olmak zorunda değil. Örneğin bir program parametre olarak dosya ismi alabilir, bu dosya içeriğini düzenleyebilir, eğer düzenleme işlemi başarılı olmuşsa standart çıktıya "BAŞARILI" yazabilir, eğer hatayla karşılaşmışsa da standart hataya bu durumu iletebilir. Hal böyle olunca, aslında programın etkileşim kurduğu farklı bir dosya mevcut demektir.
 
