@@ -114,7 +114,7 @@ Sisteminiz üzerinde bu limitler farklı biçimlerde temsil edilir. İşletim si
 
 Burada incelediğimiz sistemin _aynı anda_ 386774 tane file descriptor'ın açık olmasını desteklediğini görüyoruz. Yani UNIX pipeline'ında peş peşe çalıştırdığımız komutlar maksimum bu sayıya ulaşacak kadar file descriptor oluşturabilirler, ve tabii bu sırada çalışan programları da \(network servislerinin sağlanması, init programı, varsa çalışan veritabanları, başka yazılımlar vb.\) göz önünde bulundurmak gerekir. Hiç pipeline oluşturmasak bile, aslında çalışan programların da toplam bu kadar file descriptor oluşturabileceği anlamına gelir.
 
-Ancak bu durum, tek bir programın 386774 limitinin çok çok büyük bir kısmını, örneğin 386000 tanesini işgal etmesine sebep olabilir. Bu tip durumların önüne geçmek için modern işletim sistemlerinde program başına open file descriptor limiti bulunmaktadır. Bunu öğrenmek için aşağıdaki komutu çalıştırabilirsiniz:
+Ancak bu durum, tek bir programın \(veya kullanıcının\) 386774 limitinin çok çok büyük bir kısmını, örneğin 386000 tanesini işgal etmesine sebep olabilir. Bu tip durumların önüne geçmek için modern işletim sistemlerinde program başına open file descriptor limiti bulunmaktadır. Bunu öğrenmek için aşağıdaki komutu çalıştırabilirsiniz:
 
 ```
 [root@emre ~]# ulimit -n
@@ -123,7 +123,7 @@ Ancak bu durum, tek bir programın 386774 limitinin çok çok büyük bir kısm�
 
 Buradan görüleceği üzere, aslında bir program çalıştırıldığında, kendisine işletim sisteminin çekirdeği tarafından 1024 tane file descriptor oluşturma hakkı tanınır.
 
-_"Ama önceki bölümlerde programların stdin, stdout ve stderr şeklinde 3 tane file descriptor'ı olduğunu söylemiştik?"_
+_"Ama önceki bölümlerde programların stdin, stdout ve stderr şeklinde 3 tane file descriptor'ı olduğunu söylemiştik? Tek program neden 1024 tane file descriptor'a ihtiyaç duysun ki?"_
 
 Doğru, ve bu sorunun cevabını ilerleyen bölümlerde, file descriptor'ların doğasını daha derinlemesine irdelediğimizde alacağız. Şimdilik bu soruyu bir kenara bırakalım.
 
@@ -134,7 +134,7 @@ Sistemimizdeki open file descriptor limiti, program başına olsun veya olmasın
 736    0    386774
 ```
 
-Burada yine biraz önceki sayı olan 386774'ü, yani üst limiti görüyoruz. İlk baştaki 736 ise aslında sistemin şu anda aklında tuttuğu file descriptor sayısıdır. Dolayısıyla bu sistem üzerinde `386774-736=386038` tane daha file desciptor açabiliriz, ancak bunları programlara \(process'lere\) yaymak gerekecektir.
+Burada yine biraz önceki sayı olan 386774'ü, yani üst limiti görüyoruz. İlk baştaki 736 ise aslında sistemin şu anda aklında tuttuğu file descriptor sayısıdır. Dolayısıyla bu sistem üzerinde `386774-736=386038` tane daha file desciptor açabiliriz, ancak bunları programlara \(process'lere\) yaymak gerekecektir. Ortadaki 0 sayısı ise, sistem tarafından rezerve edilmiş \(_allocated_\) ancak kullanılmayan file descriptor'ların sayısını gösteriyor. Yani bu örnekte sistem "rezerve ettiği" bütün file descriptorları \(736 tane\) kullanmış.
 
 ### Standart Hatanın Standart Çıktıya Yönlendirilmesi
 
