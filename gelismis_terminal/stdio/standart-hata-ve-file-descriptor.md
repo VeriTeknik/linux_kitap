@@ -136,6 +136,8 @@ Sistemimizdeki open file descriptor limiti, program başına olsun veya olmasın
 
 Burada yine biraz önceki sayı olan 386774'ü, yani üst limiti görüyoruz. İlk baştaki 736 ise aslında sistemin şu anda aklında tuttuğu file descriptor sayısıdır. Dolayısıyla bu sistem üzerinde `386774-736=386038` tane daha file desciptor açabiliriz, ancak bunları programlara \(process'lere\) yaymak gerekecektir. Ortadaki 0 sayısı ise, sistem tarafından rezerve edilmiş \(_allocated_\) ancak kullanılmayan file descriptor'ların sayısını gösteriyor. Yani bu örnekte sistem "rezerve ettiği" bütün file descriptorları \(736 tane\) kullanmış.
 
+Bu limitlerin nasıl düzenleneceğini, program başına neden limitler olduğunu biraz daha ilerleyen bölümlerde irdeleyeceğiz. Şimdi programların üç temel file descriptor'ına geri dönelim.
+
 ### Standart Hatanın Standart Çıktıya Yönlendirilmesi
 
 Her ne kadar standart hata yönlendirmesi, standart çıktı ile aynı noktaya yazılmasını istemediğimizden dolayı ortaya çıkmış olsa da, bazı durumlarda hata ve çıktıyı aynı yere yazmak isteyebiliriz. Bu gibi durumlar için, file descriptor kullanımında farklı bir gösterim kullanılır.
