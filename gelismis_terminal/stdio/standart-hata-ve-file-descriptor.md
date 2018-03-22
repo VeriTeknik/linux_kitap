@@ -230,7 +230,6 @@ Test
 Test
 Test
 Test
-
 ```
 
 Yani aslında program standart çıktıya Test yazıyor. Şimdi bu programın Linux üzerindeki process ID'sini \(PID\) öğrenelim. \(Bunu program çalışırken yapıyoruz\)
@@ -260,9 +259,27 @@ lrwx------ 1 eaydin eaydin 64 Mar 22 14:34 2 -> /dev/pts/1
 
 Buradan görüleceği üzere, aslında programın standart girdisi, standart çıktısı, standart hatası aynı noktaya işaret ediyor, terminal ekranımıza.
 
+Şimdi programımızı durdurup, tekrar çalıştırırken standart çıktısını bir dosyaya yönlendirelim.
 
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme > cikti
 
+```
 
+Yeni PID'yi öğrenip, file descriptorlarına baktığımızda durum aşağıdaki gibi oluyor:
+
+```
+eaydin@eaydin-vt ~ $ ps ax | grep deneme
+18895 pts/1    S+     0:00 ./deneme
+18899 pts/2    S+     0:00 grep --color=auto deneme
+eaydin@eaydin-vt ~ $ ls -l /proc/18895/fd
+total 0
+lrwx------ 1 eaydin eaydin 64 Mar 22 14:41 0 -> /dev/pts/1
+l-wx------ 1 eaydin eaydin 64 Mar 22 14:41 1 -> /home/eaydin/devel/sleep-test/cikti
+lrwx------ 1 eaydin eaydin 64 Mar 22 14:40 2 -> /dev/pts/1
+```
+
+Standart girdi hala terminal ekranı, standart hata da öyle, ancak standart çıktıyı yönlendirdiğimiz dosyayı burada görebiliyoruz. Öyleyse sistem üzerinde çalışan programların hangi dosyalara eriştiğini, dolayısıyla açık file descriptor'larını bu şekilde öğrenebiliyoruz.
 
 ## Daha Fazla File Descriptor
 
