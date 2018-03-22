@@ -1,6 +1,6 @@
 ## Named Pipe
 
-Bu bölümde programların standart girdi ve çıktılarını birbirlerine veya çeşitli dosyalara yönlendirme işlemlerini detaylarını gördük. Özellikle Unix pipeline'ı oluşturan bu süreçte, genellikle programları birbirleriyle bağlarken `|` işaretinin nasıl kullanıldığını gördük.
+Bu bölümde programların standart girdi ve çıktılarını birbirlerine veya çeşitli dosyalara yönlendirme işlemlerini detaylarını gördük. Özellikle UNIX pipeline'ı oluşturan bu süreçte, genellikle programları birbirleriyle bağlarken `|` işaretinin nasıl kullanıldığını gördük.
 
 Bu kullanımdaki temel problemler, programlar arasındaki bağlantının tek seferlik yapılması, tek yönlü olması ve tek yazılım tarafından kullanılabilmesi. Örneğin bir programın çıktısının birden fazla program tarafından girdi olarak kullanılmasını sağlamak, veya birden fazla programın girdi sağlayabileceği ortam sağlamak mümkün olmaz.
 
