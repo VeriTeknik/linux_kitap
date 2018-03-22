@@ -456,3 +456,33 @@ lrwx------ 1 eaydin eaydin 64 Mar 22 16:29 2 -> /dev/pts/2
 
 Her ne kadar ilk üç file descriptor standart olarak belirlenmiş olsa da, programın kodlarında ilgili descriptorları kapatıp yeniden bir dosya açtığımızda işletim sistemi çekirdeğinin bu descriptor'ları kullandığını gözlemek mümkün. Yani 1 numaralı file descriptor'ı C kodundan kapatırsak, sonra C kodu içerisinde yeni bir dosyaya erişim sağlayacak olursak, işletim sistemi ilk uygun boş sayı 1 olacağı için bu değeri kullanacaktır.
 
+### Alternatif File Descriptor'ın Pipeline'da Kullanımı
+
+Programları birbirlerine pipeline ile bağlarken, eğer bir programın alternatif file descriptorlarından birini kullanmak istiyorsak biraz dolambaçlı bir yol izlemek gerekecektir. Örneğin biraz önceki `deneme4` programımızın 3. file descriptor çıktısını `grep`'e göndermek istiyorsak, ve sadece 3. file descriptor'ı ile ilgileniyorsak, programın 1. descriptor'ı ile 3. descriptor'ını yer değiştirebiliriz. Böylece programın sanki standart çıktısından bu bilgiler çıkıyormuş gibi davranır, pipe ise bunu olduğu gibi diğer programa taşır.
+
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme4 3>&1 | grep Dos
+Dosyaya yazdırma
+Dosyaya yazdırma
+Dosyaya yazdırma
+^C
+```
+
+Ancak bu örnekte standart çıktıya yazılan `Test` satırlarını kaybettik. Eğer hem 3. hem de 1. descriptor'ın sonuçlarıyla ilgileniyorsak, process substitution tekniğini kullanabiliriz.
+
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme4 3> >(grep Dos)
+Test
+Dosyaya yazdırma
+Test
+Dosyaya yazdırma
+Test
+Dosyaya yazdırma
+^C
+
+```
+
+Burada dikkat edilmesi gereken nokta, standart çıktının verilerini `grep` programına yollamadık, dolayısıyla ekranda gördüğümüz `Test` satırları `grep`'in işlemlerinden geçmedi, sadece `Dosyaya yazdırma` satırları buradan geçti.
+
+Eğer birden fazla file descriptor'ın birden fazla programa çeşitli yollarda gönderilmesini istiyorsak, en pratik çözüm bir sonraki bölümde göreceğimiz **named pipe** kullanımı olacaktır.
+
