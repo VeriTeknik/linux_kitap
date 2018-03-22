@@ -235,7 +235,7 @@ Test
 Yani aslında program standart çıktıya Test yazıyor. Şimdi bu programın Linux üzerindeki process ID'sini \(PID\) öğrenelim. \(Bunu program çalışırken yapıyoruz\)
 
 ```
-eaydin@eaydin-vt ~ $ ps ax|grep deneme
+eaydin@eaydin-vt ~ $ ps ax | grep deneme
 18622 pts/1    S+     0:00 ./deneme
 18650 pts/2    S+     0:00 grep --color=auto deneme
 ```
@@ -263,7 +263,6 @@ Buradan görüleceği üzere, aslında programın standart girdisi, standart ç�
 
 ```
 eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme > cikti
-
 ```
 
 Yeni PID'yi öğrenip, file descriptorlarına baktığımızda durum aşağıdaki gibi oluyor:
