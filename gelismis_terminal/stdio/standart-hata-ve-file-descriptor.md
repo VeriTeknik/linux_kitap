@@ -479,10 +479,71 @@ Dosyaya yazdırma
 Test
 Dosyaya yazdırma
 ^C
-
 ```
 
 Burada dikkat edilmesi gereken nokta, standart çıktının verilerini `grep` programına yollamadık, dolayısıyla ekranda gördüğümüz `Test` satırları `grep`'in işlemlerinden geçmedi, sadece `Dosyaya yazdırma` satırları buradan geçti.
 
 Eğer birden fazla file descriptor'ın birden fazla programa çeşitli yollarda gönderilmesini istiyorsak, en pratik çözüm bir sonraki bölümde göreceğimiz **named pipe** kullanımı olacaktır.
+
+## Open File Descriptor Limiti'ne Dönüş
+
+Daha önce işletim sisteminin aklında tuttuğu file decriptor sayısına bir limit getirdiğini, üstelik program başına da bir limit getirdiğini görmüştük. Daha önce incelediğimiz örnekte bunun bir PID başına 1024 tane olduğuyla karşılaşmıştık. Bir programın neden 3'ten fazla file descriptor'a ihtiyaç duyabileceği, alternatif file descriptor'lar ile tanıştığımızda netleşmiştir herhalde.
+
+Örneğin bir sunucu üzerinde çalışan MySQL Veritabanı servisinin açık file descriptor'larından bir kesit aşağıda görülebilir:
+
+```
+[root@emre ~]# ls -l /proc/6274/fd
+total 0
+lr-x------ 1 root root 64 Mar 20 18:26 0 -> /dev/null
+l-wx------ 1 root root 64 Mar 20 18:26 1 -> /var/log/mysqld.log
+lrwx------ 1 root root 64 Mar 20 18:26 10 -> socket:[187781]
+lrwx------ 1 root root 64 Mar 20 18:26 11 -> /tmp/ibnc02LB (deleted)
+lrwx------ 1 root root 64 Mar 20 18:26 12 -> socket:[187782]
+lrwx------ 1 root root 64 Mar 20 18:26 13 -> /var/lib/mysql/mysql/host.MYI
+lrwx------ 1 root root 64 Mar 20 18:26 14 -> /var/lib/mysql/mysql/host.MYD
+lrwx------ 1 root root 64 Mar 20 18:26 15 -> /var/lib/mysql/mysql/user.MYI
+lrwx------ 1 root root 64 Mar 20 18:26 16 -> /var/lib/mysql/mysql/user.MYD
+lrwx------ 1 root root 64 Mar 20 18:26 17 -> /var/lib/mysql/mysql/db.MYI
+lrwx------ 1 root root 64 Mar 20 18:26 18 -> /var/lib/mysql/mysql/db.MYD
+lrwx------ 1 root root 64 Mar 20 18:26 19 -> /var/lib/mysql/mysql/tables_priv.MYI
+l-wx------ 1 root root 64 Mar 20 18:26 2 -> /var/log/mysqld.log
+lrwx------ 1 root root 64 Mar 20 18:26 20 -> /var/lib/mysql/mysql/tables_priv.MYD
+lrwx------ 1 root root 64 Mar 20 18:26 21 -> /var/lib/mysql/mysql/columns_priv.MYI
+lrwx------ 1 root root 64 Mar 20 18:26 22 -> /var/lib/mysql/mysql/columns_priv.MYD
+...
+lrwx------ 1 root root 64 Mar 20 18:26 25 -> /var/lib/mysql/mysql/servers.MYI
+lrwx------ 1 root root 64 Mar 20 18:26 26 -> /var/lib/mysql/mysql/servers.MYD
+lrwx------ 1 root root 64 Mar 20 18:26 27 -> /var/lib/mysql/mysql/event.MYI
+lrwx------ 1 root root 64 Mar 20 18:26 28 -> /var/lib/mysql/mysql/event.MYD
+lrwx------ 1 root root 64 Mar 20 18:26 3 -> /var/lib/mysql/ibdata1
+lrwx------ 1 root root 64 Mar 20 18:26 30 -> /var/lib/mysql/mysql/func.MYI
+lrwx------ 1 root root 64 Mar 20 18:26 31 -> /var/lib/mysql/mysql/func.MYD
+...
+lrwx------ 1 root root 64 Mar 20 18:26 37 -> /var/lib/mysql/mysql/help_keyword.MYD
+lrwx------ 1 root root 64 Mar 20 18:26 38 -> /var/lib/mysql/mysql/help_relation.MYI
+lrwx------ 1 root root 64 Mar 20 18:26 39 -> /var/lib/mysql/mysql/help_relation.MYD
+lrwx------ 1 root root 64 Mar 20 18:26 4 -> /tmp/ibGquxvh (deleted)
+lrwx------ 1 root root 64 Mar 20 18:26 40 -> /var/lib/mysql/mysql/help_topic.MYI
+...
+lrwx------ 1 root root 64 Mar 20 18:26 46 -> /var/lib/mysql/mysql/proc.MYI
+lrwx------ 1 root root 64 Mar 20 18:26 47 -> /var/lib/mysql/mysql/proc.MYD
+lrwx------ 1 root root 64 Mar 20 18:26 48 -> /var/lib/mysql/mysql/slow_log.CSM
+lr-x------ 1 root root 64 Mar 20 18:26 49 -> /var/lib/mysql/mysql/slow_log.CSV
+lrwx------ 1 root root 64 Mar 20 18:26 5 -> /tmp/ibGbuH88 (deleted)
+lrwx------ 1 root root 64 Mar 20 18:26 50 -> /var/lib/mysql/mysql/time_zone.MYI
+lrwx------ 1 root root 64 Mar 20 18:26 51 -> /var/lib/mysql/mysql/time_zone.MYD
+lrwx------ 1 root root 64 Mar 20 18:26 52 -> /var/lib/mysql/mysql/time_zone_leap_second.MYI
+lrwx------ 1 root root 64 Mar 20 18:26 53 -> /var/lib/mysql/mysql/time_zone_leap_second.MYD
+...
+```
+
+Çok uzun olduğu için çıktıyı keserek paylaşmak durumunda kaldık. Sadece bu işlemin 86 tane açık file descriptor'ı mevcut ancak çok yoğun veritabanı kullanımlarında bu sayı çok daha yüksek olabiliyor. Yukarıdaki örnekten MySQL'in log dosyalarına, yardım dosyalarına ve time zone dosyalarına erişim sağlaması söz konusu. Hatta `/tmp` dizini altında kullandığı bazı geçici dosyalar silinmiş bile. Böyle bir durumda çok fazla file descriptor harcayabilir, tek başına işletim sisteminin diğer programlara file descriptor ayırabilmesi olanaksız hale gelebilir. Bu durumun önüne geçmek için kernel parametrelerinde çeşitli sınırlandırmalar sağlanır.
+
+
+
+
+
+
+
+
 
