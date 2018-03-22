@@ -294,7 +294,7 @@ int main() {
 
     FILE *fp;
     fp = fopen("yaz.txt", "w");
-    
+
     while (1) {
         printf("Test\n");
         sleep(1);
@@ -315,4 +315,117 @@ l-wx------ 1 eaydin eaydin 64 Mar 22 15:45 3 -> /home/eaydin/devel/sleep-test/ya
 ```
 
 Burada daha önce görmediğimiz, yeni bir file descriptor açığa çıktı. Standart 0, 1 ve 2 dışında bir de 3 numaralı file descriptor. Kod içerisinde `yaz.txt` dosyasını açmasını söyledik, işletim sistemi de programın çalıştığı dizin altında `yaz.txt` diye bir dosya oluşturup bunu programın 3 numaralı file descriptor'ı ile eşleştirdi.
+
+Eğer programımızı yaz.txt içerisine de satırlar yazıp kaydedecek şekilde düzenlersek, burada da bir takım sonuçlar görmeyi bekleriz. Örneğin kodumuz aşağıdaki gibi olsaydı:
+
+```
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+
+    FILE *fp;
+    fp = fopen("yaz.txt", "w");
+    
+    int i;
+
+    for (i=0;i<10;i++) {
+        printf("Test\n");
+        fprintf(fp, "Dosyaya yazdırma\n");
+        sleep(1);
+    }
+    fclose(fp);
+    return 0;
+}
+```
+
+Bu durumda ekrana \(standart çıktıya\) Test yazarken, yaz.txt içerisine Dosyaya yazdırma yazmasını beklerdik. Bunu 10 kere yapıp \(her birini bir saniye arayla\) sonra da program sonlanırdı. Bu durumda da yine yaz.txt'nin file descriptor'lar arasında 3 numaraya sahip olacağını düşünmek normal. Peki programı çalıştırırken, 3 numaralı file descriptor'ı yeni bir dosyaya yönlendirirsek? yaz.txt içerisine yazılacak verinin başka yere yazılmasını mı bekleriz?
+
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme3 3>yeni.txt
+Test
+Test
+Test
+
+```
+
+Bu durumda kodumuzun 3. çıktısını yeni.txt'ye yönlendiriyoruz. Hemen sistemde açık file descriptor'larına bakalım.
+
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ ls -l /proc/23705/fd
+total 0
+lrwx------ 1 eaydin eaydin 64 Mar 22 15:59 0 -> /dev/pts/2
+lrwx------ 1 eaydin eaydin 64 Mar 22 15:59 1 -> /dev/pts/2
+lrwx------ 1 eaydin eaydin 64 Mar 22 15:59 2 -> /dev/pts/2
+l-wx------ 1 eaydin eaydin 64 Mar 22 15:59 3 -> /home/eaydin/devel/sleep-test/yeni.txt
+l-wx------ 1 eaydin eaydin 64 Mar 22 15:59 4 -> /home/eaydin/devel/sleep-test/yaz.txt
+```
+
+Beklediğimiz sonucu vermedi. Sistem 3. file descriptor'ı terminalde belirttiğimiz gibi `yeni.txt` dosyasına yönlendirdi, program içerisinde açtığımız `yaz.txt` ise kendine yeni bir numara edinerek 4. file descriptor oldu.
+
+İşletim sisteminin çekirdeği şu şekilde davranıyor: "Bu program ile ilgili bir dosya işlemi talep edildiğinde, eğer bana file descriptor adresi \(numarası\) verilmemişse, ben sıradan uygun ilk rakamı tahsis edeyim."
+
+Öyleyse kodumuz içerisinde özellikle `yaz.txt` yolunu belirtmek yerine, file descriptora yazmasını belirtebilirdik.
+
+```
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+
+    int i;
+
+    for (i=0;i<10;i++) {
+        printf("Test\n");
+        write(3, "Dosyaya yazdırma\n", 18);
+        sleep(1);
+    }
+    return 0;
+}
+```
+
+Programı derleyip çalıştırdığımızda, standart çıktıya sadece Test yazdığını görüyoruz.
+
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme4 3>yeni.txt
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+```
+
+Öte yandan, 3. file descriptor'ını yeni.txt'ye yönlendirmiştik. Kodun içerisinde hiçbir yerde dosya ismi belirtmedik, ancak kodda 3. file descriptor'a bir yazma işlemi söz konusu. PID'den açık file descriptor'lara bakalım.
+
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ ls -l /proc/24419/fd
+total 0
+lrwx------ 1 eaydin eaydin 64 Mar 22 16:18 0 -> /dev/pts/2
+lrwx------ 1 eaydin eaydin 64 Mar 22 16:18 1 -> /dev/pts/2
+lrwx------ 1 eaydin eaydin 64 Mar 22 16:18 2 -> /dev/pts/2
+l-wx------ 1 eaydin eaydin 64 Mar 22 16:18 3 -> /home/eaydin/devel/sleep-test/yeni.txt
+```
+
+Öyleyse yeni.txt içerisinde beklediğimiz satılar olmalı.
+
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ cat yeni.txt 
+Dosyaya yazdırma
+Dosyaya yazdırma
+Dosyaya yazdırma
+Dosyaya yazdırma
+Dosyaya yazdırma
+Dosyaya yazdırma
+Dosyaya yazdırma
+Dosyaya yazdırma
+Dosyaya yazdırma
+Dosyaya yazdırma
+```
+
+Her ne kadar ilk üç file descriptor standart olarak belirlenmiş olsa da, programın kodlarında ilgili descriptorları kapatıp yeniden bir dosya açtığımızda işletim sistemi çekirdeğinin bu descriptor'ları kullandığını gözlemek mümkün. Yani 1 numaralı file descriptor'ı C kodundan kapatırsak, sonra C kodu içerisinde yeni bir dosyaya erişim sağlayacak olursak, işletim sistemini ilk uygun boş sayı 1 olacağı için bu değeri kullanacaktır.
 
