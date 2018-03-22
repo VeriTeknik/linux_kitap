@@ -134,7 +134,9 @@ Sistemimizdeki open file descriptor limiti, program başına olsun veya olmasın
 736    0    386774
 ```
 
-Burada yine biraz önceki sayı olan 386774'ü, yani üst limiti görüyoruz. İlk baştaki 736 ise aslında sistemin şu anda aklında tuttuğu file descriptor sayısıdır. Dolayısıyla bu sistem üzerinde `386774-736=386038` tane daha file desciptor açabiliriz, ancak bunları programlara \(process'lere\) yaymak gerekecektir. Ortadaki 0 sayısı ise, sistem tarafından rezerve edilmiş \(_allocated_\) ancak kullanılmayan file descriptor'ların sayısını gösteriyor. Yani bu örnekte sistem "rezerve ettiği" bütün file descriptorları \(736 tane\) kullanmış.
+Burada yine biraz önceki sayı olan 386774'ü, yani üst limiti görüyoruz. İlk baştaki 736 ise aslında sistemin şu anda aklında tuttuğu, rezerve edilmiş \(_allocated_\) file descriptor sayısıdır. Dolayısıyla bu sistem üzerinde `386774-736=386038` tane daha file desciptor açabiliriz. Ortadaki 0 sayısı ise, sistem tarafından rezerve edilmiş \(_allocated_\) ancak kullanılmayan file descriptor'ların sayısını gösteriyor. Yani bu örnekte sistem "rezerve ettiği" bütün file descriptorları \(736 tane\) kullanmış.
+
+İşletim sistemi çekirdeği, file descriptor'ları olduğu gibi açıp kapatmaz, daha ziyade bir geri-dönüşüm \(recycle\) mekanizması kullanır. Örneğin bir program bir file descriptor açıp sonra kapattıysa, sistem onu hala rezerve edip kullanmayabilir, daha sonra tekrar talep edildiğinde bu rezerve olan file descriptor'ı kullanır. Ortadaki 0 sayısı aslında buna karşılık gelmektedir. Eskiden, Linux çekirdeğinin 2.4 versiyonunda ortadaki sayı "rezerve edilen file descriptor'ların kaçının kullanıldığını" gösteriyordu, ancak çekirdeğin 2.6 versiyona gelmesinden sonra bu sayı, "rezerve edilen file descriptor'lardan kullanılmayanları" göstermeye başladı. Bu açıdan, üzerinde çalıştığınız sistemin Linux çekirdek versiyonu eski ise ters sonuç görebileceğinizi göz önünde bulundurmakta fayda var.
 
 Bu limitlerin nasıl düzenleneceğini, program başına neden limitler olduğunu biraz daha ilerleyen bölümlerde irdeleyeceğiz. Şimdi programların üç temel file descriptor'ına geri dönelim.
 
@@ -553,7 +555,9 @@ Limitler iki çeşittir. Hardlimit ve Softlimit. Hardlimit sadece root tarafınd
 
 Demek ki bu sunucu üzerinde `mysql` kullanıcısının Hardlimit'i 4096, Softlimit'i 1024. Bu şu anlama gelir, bir program `mysql` kullanıcısı olarak çalıştırıldığında, aynı anda 1024'ten fazla file descriptor oluşturamaz. Eğer 1024'ten fazlasına ihtiyaç duyarsa, bu sayıyı kendisi artırabilir, ancak asla Hardlimit olan 4096 sayısını geçemez. Bu sayıyı geçmesi için root yetkisi olan yöneticisinden izin alması gerekir ve ancak root kullanıcısı Hardlimit değerini düzenleyebilir.
 
-Oluşabilecek bir yanlış anlaşılmayı gidermek adına not edelim, bu limitler kullanıcı bazlı olsa bile, kullanıcıların bütün programları için toplanarak giden bir değer değildir. Kullanıcının her bir programı bu limitler dahilinde davranabilir. Yani Hardlimit'i 4096 olan bir kullanıcının iki farklı programı ayrı ayrı 4000'er dosya açabilir.
+Oluşabilecek bir yanlış anlaşılmayı gidermek adına not edelim, bu limitler kullanıcı bazlı olsa bile, kullanıcıların bütün programları için toplanarak giden bir değer değildir. Kullanıcının her bir programı bu limitler dahilinde davranabilir. Yani Hardlimit'i 4096 olan bir kullanıcının, Softlimit'i de uygun ayarlandığında, iki farklı programı ayrı ayrı 4000'er dosya açabilir.
+
+
 
 
 

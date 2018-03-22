@@ -44,7 +44,11 @@ GNU Core Utils, tee: Redirect output to multiple files or processes \(Erişim, M
 
 A Research UNIX Reader: Annotated Excerpts from the Programmer's Manual, 1971-1986, M. Douglas McIlroy, [http://www.cs.dartmouth.edu/~doug/reader.pdf](http://www.cs.dartmouth.edu/~doug/reader.pdf)
 
-Red Hat Bugzilla Bug 432903 \(Erişim Tarihi: Mart 2018\) https://bugzilla.redhat.com/show\_bug.cgi?id=432903
+Red Hat Bugzilla Bug 432903 \(Erişim Tarihi: Mart 2018\) [https://bugzilla.redhat.com/show\_bug.cgi?id=432903](https://bugzilla.redhat.com/show_bug.cgi?id=432903)
 
-Red Hat Bugzilla Bug 919793 \(Erişim Tarihi: Mart 2018\) https://bugzilla.redhat.com/show\_bug.cgi?id=919793
+Red Hat Bugzilla Bug 919793 \(Erişim Tarihi: Mart 2018\) [https://bugzilla.redhat.com/show\_bug.cgi?id=919793](https://bugzilla.redhat.com/show_bug.cgi?id=919793)
+
+Red Hat Enterprise Linux Oracle Tuning Guide, Chapter 9: Setting File Handlers \(Erişim Tarihi: Mart 2018\) https://access.redhat.com/documentation/en-us/red\_hat\_enterprise\_linux/5/html/tuning\_and\_optimizing\_red\_hat\_enterprise\_linux\_for\_oracle\_9i\_and\_10g\_databases/chap-oracle\_9i\_and\_10g\_tuning\_guide-setting\_file\_handles
+
+
 
