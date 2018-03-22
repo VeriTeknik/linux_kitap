@@ -221,7 +221,13 @@ main() {
 
 Eğer bu programı `deneme.c` olarak kaydedip aşağıdaki şekilde derler ve çalıştırırsak, her 1000 milisaniyede bir ekrana `Test` yazmasını bekleriz \(Aslında 1000 milisaniye değeri ortamınıza bağlı, örneğin bazı durumlarda 1000 saniyeye karşılık gelebilir, ancak şu anda bu detay üzerinde durmayacağız\).
 
-
+```
+[root@emre ~]# gcc deneme.c -o deneme
+[root@emre ~]# ./deneme
+Test
+Test
+Test
+```
 
 
 
