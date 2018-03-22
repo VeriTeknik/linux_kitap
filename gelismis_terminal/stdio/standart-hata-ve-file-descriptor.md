@@ -539,7 +539,7 @@ lrwx------ 1 root root 64 Mar 20 18:26 53 -> /var/lib/mysql/mysql/time_zone_leap
 ...
 ```
 
-Çok uzun olduğu için çıktıyı keserek paylaşmak durumunda kaldık. Sadece bu işlemin 86 tane açık file descriptor'ı mevcut ancak çok yoğun veritabanı kullanımlarında bu sayı çok daha yüksek \(binlerce\) olabiliyor. Yukarıdaki örnekten MySQL'in log dosyalarına, yardım dosyalarına ve time zone dosyalarına erişim sağlaması söz konusu. Hatta `/tmp` dizini altında kullandığı bazı geçici dosyalar silinmiş bile. Böyle bir durumda çok fazla file descriptor harcayabilir, tek başına işletim sisteminin diğer programlara file descriptor ayırabilmesi olanaksız hale gelebilir. Bu durumun önüne geçmek için kernel parametrelerinde çeşitli sınırlandırmalar sağlanır. Bu sınırlandırmalar sistem genelinde olabileceği gibi, kullanıcı bazlı da değişebilir.
+Çok uzun olduğu için çıktıyı keserek paylaşmak durumunda kaldık. Sadece bu işlemin 86 tane açık file descriptor'ı mevcut ancak çok yoğun veritabanı kullanımlarında bu sayı çok daha yüksek \(binlerce\) olabiliyor. Yukarıdaki örnekte MySQL'in log dosyalarına, yardım dosyalarına, time zone ve çok çeşitli farklı dosyaya eriştiği görülebilir. Hatta `/tmp` dizini altında kullandığı bazı geçici dosyalar silinmiş bile. Böyle bir durumda çok fazla file descriptor harcayabilir, tek başına işletim sisteminin diğer programlara file descriptor ayırabilmesi olanaksız hale gelebilir. Bu durumun önüne geçmek için kernel parametrelerinde çeşitli sınırlandırmalar sağlanır. Bu sınırlandırmalar sistem genelinde olabileceği gibi, kullanıcı bazlı da değişebilir.
 
 Limitler iki çeşittir. Hardlimit ve Softlimit. Hardlimit sadece root tarafından düzenlenebilecek limitlerdir. Softlimit ise bir kullanıcının kendi düzenleyebileceği limittir.
 
@@ -556,8 +556,4 @@ Limitler iki çeşittir. Hardlimit ve Softlimit. Hardlimit sadece root tarafınd
 Demek ki bu sunucu üzerinde `mysql` kullanıcısının Hardlimit'i 4096, Softlimit'i 1024. Bu şu anlama gelir, bir program `mysql` kullanıcısı olarak çalıştırıldığında, aynı anda 1024'ten fazla file descriptor oluşturamaz. Eğer 1024'ten fazlasına ihtiyaç duyarsa, bu sayıyı kendisi artırabilir, ancak asla Hardlimit olan 4096 sayısını geçemez. Bu sayıyı geçmesi için root yetkisi olan yöneticisinden izin alması gerekir ve ancak root kullanıcısı Hardlimit değerini düzenleyebilir.
 
 Oluşabilecek bir yanlış anlaşılmayı gidermek adına not edelim, bu limitler kullanıcı bazlı olsa bile, kullanıcıların bütün programları için toplanarak giden bir değer değildir. Kullanıcının her bir programı bu limitler dahilinde davranabilir. Yani Hardlimit'i 4096 olan bir kullanıcının, Softlimit'i de uygun ayarlandığında, iki farklı programı ayrı ayrı 4000'er dosya açabilir.
-
-
-
-
 
