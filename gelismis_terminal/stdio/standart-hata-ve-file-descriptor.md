@@ -326,7 +326,7 @@ int main() {
 
     FILE *fp;
     fp = fopen("yaz.txt", "w");
-    
+
     int i;
 
     for (i=0;i<10;i++) {
@@ -346,7 +346,6 @@ eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme3 3>yeni.txt
 Test
 Test
 Test
-
 ```
 
 Bu durumda kodumuzun 3. çıktısını yeni.txt'ye yönlendiriyoruz. Hemen sistemde açık file descriptor'larına bakalım.
@@ -426,6 +425,34 @@ Dosyaya yazdırma
 Dosyaya yazdırma
 Dosyaya yazdırma
 ```
+
+İşin ilginç tarafı, programımızı çalıştırırken 3. numaralı file descriptor'ı hiçbir yere yönlendirmeseydik, sistem üzerinde file descriptor oluşmayacaktı bile.
+
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme4
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+Test
+```
+
+Bu durumda açık file descriptor'lara bakacak olursak:
+
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ ls -l /proc/24890/fd
+total 0
+lrwx------ 1 eaydin eaydin 64 Mar 22 16:29 0 -> /dev/pts/2
+lrwx------ 1 eaydin eaydin 64 Mar 22 16:29 1 -> /dev/pts/2
+lrwx------ 1 eaydin eaydin 64 Mar 22 16:29 2 -> /dev/pts/2
+```
+
+Çünkü ne programın içinde, ne de programı çalıştırırken 3. file descriptor'ın nereye işaret edeceğini söylemedik.
 
 Her ne kadar ilk üç file descriptor standart olarak belirlenmiş olsa da, programın kodlarında ilgili descriptorları kapatıp yeniden bir dosya açtığımızda işletim sistemi çekirdeğinin bu descriptor'ları kullandığını gözlemek mümkün. Yani 1 numaralı file descriptor'ı C kodundan kapatırsak, sonra C kodu içerisinde yeni bir dosyaya erişim sağlayacak olursak, işletim sistemini ilk uygun boş sayı 1 olacağı için bu değeri kullanacaktır.
 
