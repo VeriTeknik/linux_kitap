@@ -280,7 +280,7 @@ lrwx------ 1 eaydin eaydin 64 Mar 22 14:40 2 -> /dev/pts/1
 
 Standart girdi hala terminal ekranı, standart hata da öyle, ancak standart çıktıyı yönlendirdiğimiz dosyayı burada görebiliyoruz. Öyleyse sistem üzerinde çalışan programların hangi dosyalara eriştiğini, dolayısıyla açık file descriptor'larını bu şekilde öğrenebiliyoruz.
 
-## Daha Fazla File Descriptor
+## Standart Olmayan File Descriptor'lar
 
 Bu bölüm boyunca, programların üç tane file descriptor'ından bahsettik. Standart girdi, standart çıktı, standart hata. Aslında Dennis Ritchie standart hata'yı UNIX'in 6. versiyonu üzerinde tanımladığında tam olarak şunu yaptı: Bir program çalışmaya başladığında, programın _ön tanımlı_ 3 tane file descriptor'ı olsun. Bu yüzden bunlara _standart_ diyoruz aslında. Çünkü programlar -neredeyse- her zaman bu üç tip file descriptor'a ihtiyaç duyuyorlar. Ancak bir programın 3'ten fazla file descriptor'ı olabilir.
 
