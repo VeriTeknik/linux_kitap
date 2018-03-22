@@ -247,7 +247,7 @@ eaydin@eaydin-vt ~ $ ls /proc/18622/fd/
 0  1  2
 ```
 
-Buradaki notasyona ve sonuçlarına dikkat edecek olursak, /proc isminde özel bir dizine baktık. Bu dizin Linux çekirdeğiyle ilgili işlemleri tutuyor. Bunun altında hangi PID'li işleme bakacaksak, onun için açılan dizine girdik. Onun içinde de File Descriptor'ın kısaltmasını temsil eden fd dizinine baktık. Burada 3 tane file descriptor ile karşılaştık. Her program çalıştırıldığında işletim sistemi çekirdeğinin öntanımlı olarak atadığı standart file descriptorlar. Aslında burada gördüğümüz üç dosya, birer sembolik link, daha detaylı bakacak olursak:
+Buradaki notasyona ve sonuçlarına dikkat edecek olursak, `/proc` isminde özel bir dizine baktık. Bu dizin Linux çekirdeğiyle ilgili işlemleri tutuyor. Bunun altında hangi PID'li işleme bakacaksak, onun için açılan dizine girdik. Onun içinde de File Descriptor'ın kısaltmasını temsil eden `fd` dizinine baktık. Burada 3 tane file descriptor ile karşılaştık. Her program çalıştırıldığında işletim sistemi çekirdeğinin öntanımlı olarak atadığı standart file descriptorlar. Aslında burada gördüğümüz üç dosya, birer sembolik link, daha detaylı bakacak olursak:
 
 ```
 eaydin@eaydin-vt ~ $ ls -l /proc/18622/fd/
@@ -284,5 +284,35 @@ Standart girdi hala terminal ekranı, standart hata da öyle, ancak standart ç�
 
 Bu bölüm boyunca, programların üç tane file descriptor'ından bahsettik. Standart girdi, standart çıktı, standart hata. Aslında Dennis Ritchie standart hata'yı UNIX'in 6. versiyonu üzerinde tanımladığında tam olarak şunu yaptı: Bir program çalışmaya başladığında, programın _ön tanımlı_ 3 tane file descriptor'ı olsun. Bu yüzden bunlara _standart_ diyoruz aslında. Çünkü programlar -neredeyse- her zaman bu üç tip file descriptor'a ihtiyaç duyuyorlar. Ancak bir programın 3'ten fazla file descriptor'ı olabilir.
 
-Daha önce herhangi bir C programının `getchar` veya `putchar` gibi fonksiyonlar ile standart girdi ve standart çıktıyı kontrol ettiğini gördük. Ancak C programı bu işleri yaparken, bir yandan bir dosyayı açıp üzerinde işlem yapmasını sağlayabiliriz. Bu dosya söz konusu standart çıktı olmak zorunda değil. Örneğin bir program parametre olarak dosya ismi alabilir, bu dosya içeriğini düzenleyebilir, eğer düzenleme işlemi başarılı olmuşsa standart çıktıya "BAŞARILI" yazabilir, eğer hatayla karşılaşmışsa da standart hataya bu durumu iletebilir. Hal böyle olunca, aslında programın etkileşim kurduğu farklı bir dosya mevcut demektir.
+Daha önce herhangi bir C programının `getchar` veya `putchar` gibi fonksiyonlar ile standart girdi ve standart çıktıyı kontrol ettiğini gördük. Ancak C programı bu işleri yaparken, bir yandan bir dosyayı açıp üzerinde işlem yapmasını sağlayabiliriz. Bu dosya söz konusu standart çıktı olmak zorunda değil. Örneğin biraz önce yazdığımız deneme programı ekrana \(standart çıktıya\) Test yazdırırken, bir yandan yaz.txt isimli bir dosya açıp içinde işlemler yapabilir. Aşağıdaki kodu deneme2.c olarak yazıp derlersek bu durumu irdeleyebiliriz.
+
+```
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+
+    FILE *fp;
+    fp = fopen("yaz.txt", "w");
+    
+    while (1) {
+        printf("Test\n");
+        sleep(1);
+    }
+    return 0;
+}
+```
+
+Programı derleyip yine PID'sini öğrenip file descriptor'larına bakalım:
+
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ ls -l /proc/22447/fd
+total 0
+lrwx------ 1 eaydin eaydin 64 Mar 22 15:45 0 -> /dev/pts/2
+lrwx------ 1 eaydin eaydin 64 Mar 22 15:45 1 -> /dev/pts/2
+lrwx------ 1 eaydin eaydin 64 Mar 22 15:45 2 -> /dev/pts/2
+l-wx------ 1 eaydin eaydin 64 Mar 22 15:45 3 -> /home/eaydin/devel/sleep-test/yaz.txt
+```
+
+Burada daha önce görmediğimiz, yeni bir file descriptor açığa çıktı. Standart 0, 1 ve 2 dışında bir de 3 numaralı file descriptor. Kod içerisinde `yaz.txt` dosyasını açmasını söyledik, işletim sistemi de programın çalıştığı dizin altında `yaz.txt` diye bir dosya oluşturup bunu programın 3 numaralı file descriptor'ı ile eşleştirdi.
 
