@@ -212,22 +212,55 @@ Aşağıdaki C kodunun derlendiği bir programı düşünelim.
 #include <stdio.h>
 #include <unistd.h>
 
-main() {
-    while (1)
+int main() {
+    while (1) {
         printf("Test\n");
-        sleep(1000);
+        sleep(1);
+    }
+    return 0;
 }
 ```
 
-Eğer bu programı `deneme.c` olarak kaydedip aşağıdaki şekilde derler ve çalıştırırsak, her 1000 milisaniyede bir ekrana `Test` yazmasını bekleriz \(Aslında 1000 milisaniye değeri ortamınıza bağlı, örneğin bazı durumlarda 1000 saniyeye karşılık gelebilir, ancak şu anda bu detay üzerinde durmayacağız\).
+Eğer bu programı `deneme.c` olarak kaydedip aşağıdaki şekilde derler ve çalıştırırsak, her saniye ekrana `Test` yazmasını bekleriz.
 
 ```
-[root@emre ~]# gcc deneme.c -o deneme
-[root@emre ~]# ./deneme
+eaydin@eaydin-vt ~/devel/sleep-test $ gcc deneme.c -o deneme
+eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme
 Test
 Test
 Test
+Test
+
 ```
+
+Yani aslında program standart çıktıya Test yazıyor. Şimdi bu programın Linux üzerindeki process ID'sini \(PID\) öğrenelim. \(Bunu program çalışırken yapıyoruz\)
+
+```
+eaydin@eaydin-vt ~ $ ps ax|grep deneme
+18622 pts/1    S+     0:00 ./deneme
+18650 pts/2    S+     0:00 grep --color=auto deneme
+```
+
+Programın sistem üzerindeki PID'si 18622'ymiş. İşletim sisteminin çekirdeği tarafından bu işlemciye ayrılan file descriptorları, /proc dizini altında görebiliriz \(Yine, program hala çalışıyorken yapıyoruz bu işlemleri\).
+
+```
+eaydin@eaydin-vt ~ $ ls /proc/18622/fd/
+0  1  2
+```
+
+Buradaki notasyona ve sonuçlarına dikkat edecek olursak, /proc isminde özel bir dizine baktık. Bu dizin Linux çekirdeğiyle ilgili işlemleri tutuyor. Bunun altında hangi PID'li işleme bakacaksak, onun için açılan dizine girdik. Onun içinde de File Descriptor'ın kısaltmasını temsil eden fd dizinine baktık. Burada 3 tane file descriptor ile karşılaştık. Her program çalıştırıldığında işletim sistemi çekirdeğinin öntanımlı olarak atadığı standart file descriptorlar. Aslında burada gördüğümüz üç dosya, birer sembolik link, daha detaylı bakacak olursak:
+
+```
+eaydin@eaydin-vt ~ $ ls -l /proc/18622/fd/
+total 0
+lrwx------ 1 eaydin eaydin 64 Mar 22 14:36 0 -> /dev/pts/1
+lrwx------ 1 eaydin eaydin 64 Mar 22 14:36 1 -> /dev/pts/1
+lrwx------ 1 eaydin eaydin 64 Mar 22 14:34 2 -> /dev/pts/1
+```
+
+Buradan görüleceği üzere, aslında programın standart girdisi, standart çıktısı, standart hatası aynı noktaya işaret ediyor, terminal ekranımıza.
+
+
 
 
 
