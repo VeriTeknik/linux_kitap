@@ -1,6 +1,6 @@
 ## Standart Girdi
 
-Unix dünyasında, programların standart çıktıları gibi, aslında standart girdileri de vardır. Biraz önceki örneğimizde `cat` programı ile `ls_cikti` dosyasının içeriğini görüntülerken, okunacak veriyi standart girdi olarak sunmayıp, aslında parametre olarak gönderdik. Yani `cat /home/eaydin/ls_cikti` yazdığımız zaman, aslında `cat` programı ilk parametresi olan `/home/eaydin/ls_cikti` değerini okudu. Eğer bu dosyayı parametrik olarak değil de, standart girdi olarak sunmak isteseydik, şöyle bir  işlem yapmamız gerekirdi:
+UNIX dünyasında, programların standart çıktıları gibi, aslında standart girdileri de vardır. Biraz önceki örneğimizde `cat` programı ile `ls_cikti` dosyasının içeriğini görüntülerken, okunacak veriyi standart girdi olarak sunmayıp, aslında parametre olarak gönderdik. Yani `cat /home/eaydin/ls_cikti` yazdığımız zaman, aslında `cat` programı ilk parametresi olan `/home/eaydin/ls_cikti` değerini okudu. Eğer bu dosyayı parametrik olarak değil de, standart girdi olarak sunmak isteseydik, şöyle bir  işlem yapmamız gerekirdi:
 
 ```
 eaydin@eaydin-vt ~ $ cat < ls_cikti
@@ -98,7 +98,7 @@ mysql> show databases;
 
 Aslında, buradaki `show databases` bilgisini, `mysql` komutuna standart girdiden, yani klavyemizden girmiş bulunduk.
 
-Bunun yerine, bir metin dosyasına `show databases` yazıp, bu metin doyasını `mysql` programına standart girdi olarak sunabilirdik. `komutlar` dosyasının içeriği `show databases` olmak üzere, aşağıdaki gibi bir notasyonla, `mysql` programına komutlarımızı gönderebiliriz.
+Bunun yerine, bir metin dosyasına `show databases` yazıp, bu metin dosyasını `mysql` programına standart girdi olarak sunabilirdik. `komutlar` dosyasının içeriği `show databases` olmak üzere, aşağıdaki gibi bir notasyonla, `mysql` programına komutlarımızı gönderebiliriz.
 
 ```
 [root@emre ~]# mysql < komutlar
@@ -110,9 +110,21 @@ mysql
 wordpress
 ```
 
-Çıktılardaki ufak fark \(tablolu yapı, kaç satır döndüğü vs.\) sizi yanıltmasın. Bu tamamen `mysql` programının ayarlarıyla ilgili. Burada esas dikkat edilmesi gereken nokta, MySQL geliştiricilerinin, programlarını standart girdiden veri okuyabilecek şekilde yazmış olması. Bu açıdan bakınca, aslında David McIlroy'un ikinci maddesi ile uyum bir yazılım ortaya çıkmış oluyor. Program, _etkileşimli girdi konusunda ısrarcı olmuyor_. Ayrıca çıktıda, yine McIlroy'un bahsettiği gibi "gereksiz tablolu yapılar" bulunmuyor.
+Çıktılardaki ufak fark \(tablolu yapı, kaç satır döndüğü vs.\) sizi yanıltmasın. Bu tamamen `mysql` programının ayarlarıyla ilgili. Burada esas dikkat edilmesi gereken nokta, MySQL geliştiricilerinin, programlarını standart girdiden veri okuyabilecek şekilde yazmış olması. Bu açıdan bakınca, aslında David McIlroy'un ikinci maddesi ile uyumlu bir yazılım ortaya çıkmış oluyor. Program, _etkileşimli girdi konusunda ısrarcı olmuyor_. Ayrıca çıktıda, yine McIlroy'un bahsettiği gibi "gereksiz tablolu yapılar" bulunmuyor.
 
 MySQL bir yana, hemen her veritabanı programı bu şekilde çalışmaktadır. Bu özellikle de veritabanlarına yedeklerin yüklenmesi konusunda kullanılan yöntemlerden birisidir. Aslında bir veritabanı yedeği aldığınızda, size bir dizi komut çıktısı verir. Bu çıktıyı dilediğiniz gibi şekillendirebilir, ve yeniden programlara standart girdiden sunabiliriniz.
+
+Eğer `mysql` programına komutları dosya içerisinden değil de, doğrudan terminal ile sunmak istersek, **&lt;&lt;&lt;** notasyonunu kullanabiliriz. Biraz önceki örneğimizde komutlar dosyasının içerisine `show databases` yazıp, `komutlar` dosyasını standart girdi olarak sunmuştuk. Aslında bu dosyayı hiç oluşturmadan aşağıdaki gibi bir yöntem de izleyebilirdik.
+
+```
+[root@emre ~]# mysql <<< 'show databases'
+Database
+information_schema
+veriteknik
+sanallastirma.com
+mysql
+wordpress
+```
 
 Hatırlarsanız bu bölümde `cat` programına parametrik kullanım ve standart girdi ile veri sağlanmasının kullanıcı açısından pek bir fark yaratmadığını, ancak ufak bir farklılığı olduğundan bahsetmiştik.
 
