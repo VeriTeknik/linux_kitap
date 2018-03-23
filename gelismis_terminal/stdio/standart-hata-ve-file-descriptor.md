@@ -557,6 +557,8 @@ Demek ki bu sunucu üzerinde `mysql` kullanıcısının Hardlimit'i 4096, Softli
 
 Oluşabilecek bir yanlış anlaşılmayı gidermek adına not edelim, bu limitler kullanıcı bazlı olsa bile, kullanıcıların bütün programları için toplanarak giden bir değer değildir. Kullanıcının her bir programı bu limitler dahilinde davranabilir. Yani Hardlimit'i 4096 olan bir kullanıcının, Softlimit'i de uygun ayarlandığında, iki farklı programı ayrı ayrı 4000'er dosya açabilir.
 
+### Kullanıcı Limitlerini Düzenlemek
+
 Kullanıcı bazlı bu limitleri düzenlemek için `/etc/security/limits.conf` dosyasını düzenlemek gerekir. Örneğin mysql kullanıcısı için Softlimit 2048, Hardlimit 8192 olsun istersek, dosya içerisinde şöyle satırlar oluşturmamız gerekir.
 
 ```
@@ -566,7 +568,35 @@ mysql hard nofile 8192
 
 Dosyayı kaydetmek yeterli olacaktır. Ardından yine ilgili kullanıcı ile login olup `ulimit` komutu yardımıyla güncellenmiş değerleri görebiliriz.
 
-Red Hat, CentOS ve türevi dağıtımlarda /etc/pam.d/login dosyasını da düzenlemek gerekir. Aşağıdaki satırın dosyada yer almasına dikkat edin.
+Red Hat, CentOS ve türevi dağıtımlarda `/etc/pam.d/login` dosyasını da düzenlemek gerekir. Aşağıdaki satırın dosyada yer almasına dikkat edin.
 
 `session required pam_limits.so`
+
+### Sistem Limitlerini Düzenlemek
+
+Sistemin genel limitini `/proc/sys/fs/file-max` dosyasını okuyarak öğrenebiliriz demiştik. Bu dosya aynı zamanda üzerine yazılabilir bir dosyadır, dolayısıyla bu dosyaya değeri yazarak da kernel parametresini düzenleyebiliriz. Örneğin sistemin limitini 386774'ten 10000'e düşürmek için aşağıdaki komutu kullanabiliriz.
+
+```
+[root@emre ~]# echo 10000 > /proc/sys/fs/file-max
+```
+
+Bunun yerine, `sysctl` komutu ile de kernel parametrelerini düzenleyebiliriz.
+
+```
+[root@emre ~]# sysctl -w fs.file-max=10000
+```
+
+Bu yöntemler ile kernel parametres doğrudan düzenlendiği için, çalışan sistem üzerinde değişikliğin etkisini hemen görürüz. Ancak sistem bir kez reboot olursa değişiklikler kalıcı olmaz. Eğer değişikliği kalıcı yapmak istersek, `/etc/sysctl.conf` dosyasını düzenlemek gerekecektir. Bu dosya içerisinde aşağıdaki parametre yoksa eklemek, varsa değiştirmek gerekir.
+
+```
+fs.file-max = 10000
+```
+
+Eğer sadece dosyayı değiştirdiysek, bu sefer kernel'in dosya içerisinden parametreleri yeniden okumasını söylemek gerekir. Bunu da yine sysctl komutu ile yaparız.
+
+```
+[root@emre ~]# sysctl -p
+```
+
+
 
