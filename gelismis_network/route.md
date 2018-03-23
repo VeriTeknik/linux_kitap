@@ -1,6 +1,6 @@
 # route
 
-```route``` komutu da ```ifconfig``` gibi artık desteklenmeyen komutlar arasındadır. Yerin ```ip``` komutunun route parametresi kullanılmalıdır.
+`route` komutu da `ifconfig` gibi artık desteklenmeyen komutlar arasındadır. Yerin `ip` komutunun route parametresi kullanılmalıdır.
 
 ## Mevcut Route Tablosunu Görmek
 
@@ -16,7 +16,7 @@ default         192.168.99.1    0.0.0.0         UG    0      0        0 wlan0
 192.168.99.0    *               255.255.255.0   U     9      0        0 wlan0
 ```
 
-```-n``` parametresiyle adreslerin nümerik değerleri gösterilir.
+`-n` parametresiyle adreslerin nümerik değerleri gösterilir.
 
 ```bash
 eaydin@dixon ~ $ route -n
@@ -28,14 +28,15 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 192.168.99.0    0.0.0.0         255.255.255.0   U     9      0        0 wlan0
 ```
 
-Linux çekirdeği daha hızlı routing (yönlendirme) yapabilmek için bir routing cache tutar. Cache değerlerini görmek için ```route -Cn``` komutunu kullanabilirsiniz.
+Linux çekirdeği daha hızlı routing \(yönlendirme\) yapabilmek için bir routing cache tutar. Cache değerlerini görmek için `route -Cn` komutunu kullanabilirsiniz.
 
 ## Route Tablosuna Müdahale Etmek
+
 Route tablosuna yeni bir gateway eklenebilir, silinebilir veya bazı yollar engellenebilir. Bu bölümde örneklerini inceleyeceğiz.
 
 ### Default Gateway Eklemek
 
-Belirli bir ağ aralığında (network range) bulunmayan paketler default gateway'e yönlenir. Örneğin yukarıdaki routing tablosunda, 172.16.77.0/24, 172.16.148.0/24 ve 192.168.99.0/24 dışındaki adreslere yönlendirilecek bütün paketler, 192.168.99.1 adresine gönderilir. Burası bulunduğumuz ağdaki router'dır, kendisi de gelen paketleri Internet Servis Sağlayıcıya iletir. Default gateway'in kendisi olduğunu, **Flags** kolonundaki **G** ifadesi belirtmektedir.
+Belirli bir ağ aralığında \(network range\) bulunmayan paketler default gateway'e yönlenir. Örneğin yukarıdaki routing tablosunda, 172.16.77.0/24, 172.16.148.0/24 ve 192.168.99.0/24 dışındaki adreslere yönlendirilecek bütün paketler, 192.168.99.1 adresine gönderilir. Burası bulunduğumuz ağdaki router'dır, kendisi de gelen paketleri Internet Servis Sağlayıcıya iletir. Default gateway'in kendisi olduğunu, **Flags** kolonundaki **G** ifadesi belirtmektedir.
 
 ```bash
 route add default gw 192.168.99.5
@@ -73,6 +74,7 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 192.168.59.128  0.0.0.0         255.255.255.128 U     0      0        0 eth0
 192.168.99.0    0.0.0.0         255.255.255.0   U     9      0        0 wlan0
 ```
+
 ### Gateway Silmek
 
 Yukarıda eklediğimiz gateway'i silmek için
@@ -141,8 +143,6 @@ route add -net 192.168.55.0 netmask 255.255.255.0 gw 192.168.55.1
 
 Bu tanıma göre artık 192.168.55.0/24 ağ aralığına gidecek bütün paketler 192.168.55.1 IP adresine yönlendirilecektir.
 
-
-
 # Örnek Route Senaryosu
 
 Aşağıdaki örneği dikkate alalım. **VT** isminde bir sunucumuz olsun. Üzerinde 3 tane ethernet kartı var, ikisi farklı yerel ağ'lara bağlı, biriyse internete çıkıyor. **VT** sunucumuz, bu iki ağı hem birbiriyle, hem de internetle konuşturmak istiyor. Senaryo aşağıdaki gibi olsun:
@@ -151,7 +151,7 @@ Aşağıdaki örneği dikkate alalım. **VT** isminde bir sunucumuz olsun. Üzer
 
 Yukarıdaki senaryoda, VT sunucumuzun 3 IP adresi olacaktır. 192.168.59.10 ve 10.0.42.1 IP adresleri yerel ağları yönetecek, 94.103.32.80 IP adresi ise internete çıkışını sağlayacaktır.
 
-Bu senaryoda, 192.168.59.0/24 bloğundaki cihazların (teknik ekip), 10.0.42.0/24 bloğundaki cihazlarla (muhasebe ekibi), ve internetin geri kalanıyla haberleşebilmesini sağlamak gerekiyor.
+Bu senaryoda, 192.168.59.0/24 bloğundaki cihazların \(teknik ekip\), 10.0.42.0/24 bloğundaki cihazlarla \(muhasebe ekibi\), ve internetin geri kalanıyla haberleşebilmesini sağlamak gerekiyor.
 
 ## Uçbirimlerin Gateway Ayarlaması
 
@@ -169,14 +169,15 @@ route add default gw 10.0.42.16
 
 ## VT Makinasında Teknik Grubun Route Kuralı
 
-VT makinası, kendisine 192.168.59.0/24 ağına gitmek üzere gönderilen paketleri hangi IP'ye (192.168.59.10) göndereceğini bilmelidir. Bunun için aşağıdaki route kura VT makinasında yazılır.
+VT makinası, kendisine 192.168.59.0/24 ağına gitmek üzere gönderilen paketleri hangi IP'ye \(192.168.59.10\) göndereceğini bilmelidir. Bunun için aşağıdaki route kura VT makinasında yazılır.
 
 ```bash
 route add -net 192.168.59.0 netmask 255.255.255.0 gw 192.168.59.10
 ```
+
 ## VT Makinasında Muhasebe Grubunun Route Kuralı
 
-Benzer şekilde, VT makinasının 10.0.42.0/24 ağına gönderilecek paketleri hangi IP'ye (10.0.42.1) yönlendirmesi gerektiği belirtilmelidir.
+Benzer şekilde, VT makinasının 10.0.42.0/24 ağına gönderilecek paketleri hangi IP'ye \(10.0.42.1\) yönlendirmesi gerektiği belirtilmelidir.
 
 ```bash
 route add -net 10.0.42.0 netmask 255.255.255.0 gw 10.0.42.1
@@ -184,7 +185,7 @@ route add -net 10.0.42.0 netmask 255.255.255.0 gw 10.0.42.1
 
 ## İnternet Erişimi Sağlamak
 
-Kuralları yukarıdaki haliyle bırakırsal, muhasebe ve teknik grupları hem kendi araların, hem de birbiriyle rahatlıkla haberleşirler.
+Kuralları yukarıdaki haliyle bırakırsak, muhasebe ve teknik grupları hem kendi aralarında, hem de birbiriyle rahatlıkla haberleşirler.
 
 Örneğin 10.0.42.16 makinası, 10.0.42.20'ye paket göndermek istediğinde bu önce 10.0.42.1 kartına gider, bu kart da route kurallarından ilgili paketin 10.0.42.0/24 bloğunda olduğunu anlayıp 10.0.42.1 üzerinden geri 10.0.42.20 adresine gönderir.
 
@@ -199,3 +200,4 @@ route add default gw 94.103.32.80
 ```
 
 Artık bütün ağ birbiriyle konuşabilir ve internete çıkabilir.
+
