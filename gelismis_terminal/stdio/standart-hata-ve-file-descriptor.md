@@ -619,7 +619,7 @@ Burada open fonksiyonuna parametre olarak yeni file descriptor'ımızın nereye 
 
 Öyleyse, bu modda açtığımız için, eğer `yaz2.txt` dosyası içerisinde bir veri olsaydı silinmiş olacaktı.
 
-Bu yeni dosya açma işleminin sonucunda `$1 = 4` yazması, ilk çalıştırdığımız komutun çıktısında 4 elde ettiğimiz anlamına geliyor. Burada 4 değeri, open fonksiyonunun sonucu olduğu için, aslında programın yeni file descriptor'ının sayısal karşılığıdır. File descriptor'ların listesinden de bu görülebilir.
+Bu yeni dosya açma işleminin sonucunda `$1 = 4` yazması, ilk çalıştırdığımız komutun çıktısında 4 elde ettiğimiz anlamına geliyor. Burada 4 değeri, `open` fonksiyonunun sonucu olduğu için, aslında programın yeni file descriptor'ının sayısal karşılığıdır. File descriptor'ların listesinden de bu görülebilir.
 
 ```
 eaydin@eaydin-vt /proc/381/fd $ ls -l
@@ -640,7 +640,7 @@ Hatırlarsanız bu sayısal değerler sadece 0,1,2,... gibi değerler olabiliyor
 $2 = 3
 ```
 
-Burada C'nin `dup2` fonksiyonunu çağırmış olduk, yani 4. file descriptor'ınn bir kopyasını oluşturup 3. file descriptor'a yazdık. Aslında bu, terminal üzerinde` komut 3>&4` işlemi yapmakla aynı anlama geliyor, 3 numaralı file descriptor 4'ün adresine yönlendiriliyor. Şimdi file descriptor'larımızın listesine göz atacak olursak, 3 ve 4'ün aynı noktaya işaret ettiğini görebiliriz.
+Burada C'nin `dup2` fonksiyonunu çağırmış olduk, yani 4. file descriptor'ınn bir kopyasını oluşturup 3. file descriptor'a yazdık. Aslında bu, terminal üzerinde`komut 3>&4` işlemi yapmakla aynı anlama geliyor, 3 numaralı file descriptor 4'ün adresine yönlendiriliyor. Şimdi file descriptor'larımızın listesine göz atacak olursak, 3 ve 4'ün aynı noktaya işaret ettiğini görebiliriz.
 
 ```
 eaydin@eaydin-vt /proc/381/fd $ ls -l
