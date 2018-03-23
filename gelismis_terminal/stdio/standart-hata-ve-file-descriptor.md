@@ -631,11 +631,72 @@ l-wx------ 1 eaydin eaydin 64 Mar 24 00:56 3 -> /home/eaydin/devel/sleep-test/ya
 l-wx------ 1 eaydin eaydin 64 Mar 24 00:56 4 -> /home/eaydin/devel/sleep-test/yaz2.txt
 ```
 
-Hatırlarsanız bu sayısal değerler sadece 0,1,2,... gibi değerler olabiliyordu. Eğer hatalı bir işlem söz konusu olursa, gdb burada -1 değerini döndürecektir ve file descriptor'ları listesinde yeni dosyamız görülmeyecektir.
+Hatırlarsanız bu sayısal değerler sadece 0,1,2,... gibi değerler olabiliyordu. Eğer hatalı bir işlem söz konusu olursa, gdb burada -1 değerini döndürecektir ve file descriptor'lar listesinde yeni dosyamız görülmeyecektir.
 
-Şimdi 3 numaralı file descriptor'ın kopyasının 
+Şimdi 4 numaralı file descriptor'ın kopyasının 3 numaralı file descriptor'a yönlenmesini sağlayacağız.
 
+```
+(gdb) call dup2(4,3)
+$4 = 3
+```
 
+Burada C'nin dup2 fonksiyonunu çağırmış olduk, yani 4'ün bir kopyasını oluşturup 3'e yazdık. Aslında bu terminal üzerinde deneme5 3&gt;&4 işlemi yapmakla aynı anlama geliyor, 3 numaralı file descriptor 4'ün adresine yönlendiriliyor. Şimdi file descriptor'larımızın listesine göz atacak olursak, 3 ve 4'ün aynı noktaya işaret ettiğini görebiliriz.
+
+```
+eaydin@eaydin-vt /proc/381/fd $ ls -l
+total 0
+lrwx------ 1 eaydin eaydin 64 Mar 24 02:28 0 -> /dev/pts/11
+lrwx------ 1 eaydin eaydin 64 Mar 24 02:28 1 -> /dev/pts/11
+lrwx------ 1 eaydin eaydin 64 Mar 24 02:28 2 -> /dev/pts/11
+l-wx------ 1 eaydin eaydin 64 Mar 24 02:28 3 -> /home/eaydin/devel/sleep-test/yaz2.txt
+l-wx------ 1 eaydin eaydin 64 Mar 24 02:28 4 -> /home/eaydin/devel/sleep-test/yaz2.txt
+```
+
+Artık, kullanmadığımız 4 numaralı file descriptor'ını kapatabiliriz.
+
+```
+(gdb) call close(4)
+$5 = 0
+```
+
+Bunun sonucunda, file descriptor listesinde 4 numaralı adresi görmemeyi bekleriz.
+
+```
+eaydin@eaydin-vt /proc/381/fd $ ls -l
+total 0
+lrwx------ 1 eaydin eaydin 64 Mar 24 02:28 0 -> /dev/pts/11
+lrwx------ 1 eaydin eaydin 64 Mar 24 02:28 1 -> /dev/pts/11
+lrwx------ 1 eaydin eaydin 64 Mar 24 02:28 2 -> /dev/pts/11
+l-wx------ 1 eaydin eaydin 64 Mar 24 02:28 3 -> /home/eaydin/devel/sleep-test/yaz2.txt
+```
+
+Artık gdb ile bağlandı kurduğumuz PID'den kopyabiliriz.
+
+```
+(gdb) detach
+Detaching from program: /home/eaydin/devel/sleep-test/deneme5, process 381
+```
+
+Bunu yaptığımız anda, tekrardan programın standart çıktıya Test yazmaya devam ettiğini görebiliriz, Ayrıca yaz.txt'ye artık veril yazılmadığını, ancak takip ettiğimiz yaz2.txt üzerine yeni tarih/saat değerlerinin yazıldığını görebiliriz.
+
+```
+(yaz2.txt dosyasının içeriği)
+Dosyaya yazdırma: Sat Mar 24 02:34:19 2018
+Dosyaya yazdırma: Sat Mar 24 02:34:20 2018
+Dosyaya yazdırma: Sat Mar 24 02:34:21 2018
+Dosyaya yazdırma: Sat Mar 24 02:34:22 2018
+Dosyaya yazdırma: Sat Mar 24 02:34:23 2018
+```
+
+gdb'den çıkmak için quit yazmamız yeterli.
+
+```
+(gdb) quit
+```
+
+Bu yöntem ile, programın 3. file descriptor'ının işaret ettiği dosyayı değiştirmiş olduk. Bu işlem sırasında programı duraklattık ancak programı öldürmedik. Yani programın PID'si değişmedi. Ayrıca program durduğundan bile haberdar olmadı. Eğer program bu sırada bir matematiksel işlem yapıyor olsaydı, durduğu için bir problem yaşamayacaktı. Bu tip işlemler özellikle logrotate gibi programlar tarafından kullanılır, Apache veya MySQL gibi p
+
+Yani terminal üzerinde sanki deneme5 4&gt;&3 işlemi yapmışız gibi
 
 ## Open File Descriptor Limitine Dönüş
 
