@@ -36,7 +36,7 @@ sed -i 's/#MaxAuthTries.*/MaxAuthTries 3/' /etc/ssh/sshd_config
 
 ### PHP Yüklemesi
 
-PHP'yi remi repo üzerinden yüklemenizi tavsiye ederiz, hem yüklemesi kolaydır hem de "yum-config-manager --enable remi-php7X" şeklindeki komut ile PHP versiyonları üzerinde kolayca geçiş sağlayabiliriz, varsayılan olarak PHP72 seçmiş olalım, bu komut sayesinde versiyon kodu ile yüklemek zorunda kalmazsınız, örneğin PHP-7.2 yüklemek için "yum install php70-php-fpm" yerine her seferinde "yum install php-fpm" demeniz yeterli olacaktır. Böylelikle kolayca versiyonlar arasında geçiş sağlayabilirsiniz, ayrıca versiyona bağlı dizinlerden de kurtulmuş olursunuz. Tüm PHP dosyaları varsayılan yerinde duracaktır, /opt/remi/php72/etc/php.ini yerine /etc/php.ini gibi. Versiyon değişikliği yaparken eski versiyonu da kaldırmayı unutmamalısınız: --enable remi-php71 gibi 
+PHP'yi remi repo üzerinden yüklemenizi tavsiye ederiz, hem yüklemesi kolaydır hem de "yum-config-manager --enable remi-php7X" şeklindeki komut ile PHP versiyonları üzerinde kolayca geçiş sağlayabiliriz, varsayılan olarak PHP72 seçmiş olalım, bu komut sayesinde versiyon kodu ile yüklemek zorunda kalmazsınız, örneğin PHP-7.2 yüklemek için "yum install php70-php-fpm" yerine her seferinde "yum install php-fpm" demeniz yeterli olacaktır. Böylelikle kolayca versiyonlar arasında geçiş sağlayabilirsiniz, ayrıca versiyona bağlı dizinlerden de kurtulmuş olursunuz. Tüm PHP dosyaları varsayılan yerinde duracaktır, /opt/remi/php72/etc/php.ini yerine /etc/php.ini gibi. Versiyon değişikliği yaparken eski versiyonu da kaldırmayı unutmamalısınız: --enable remi-php71 gibi
 
 ```
 yum install epel-release yum-utils
@@ -51,13 +51,15 @@ systemctl disable avahi-daemon.socket avahi-daemon.service
 
 Eğer dikkatinizi çektiyse, bir web sunucusu kurmanızı gerektirecek yüklemelerin yanı sıra atop, lsof, iptraf, bind-utils ve net-tools gibi her zaman işinize yarayacak paketleri de pratikte sunucuya kurmayı seviyoruz. Bu sayede sistem takibi kolaylaşmakla birlikte, soruna müdahale etmenizi gerektirecek durumlarda bu paketlerin yüklenmesi için gereken süreden de tasarruf sağlamış olursunuz. Bu kütüphaneler içerisindeki komutları özet geçecek olursak:
 
-**lsof:** bir prosesin id'si ile ya da port ile açılmış dosyaları bulmak için kullanılır, örneğin:
+**lsof:** bir prosesin id'si ile ya da port ile açılmış dosyaları bulmak  
+ için kullanılır, örneğin:
 
 ```
 lsof -p 12345 ya da lsof -i tcp:443 gibi
 ```
 
-**dig:** alan adlarının DNS bilgisini verir, Windowstaki nslookup'ın benzeridir, örneğin:
+**dig:** alan adlarının DNS bilgisini verir, Windowstaki nslookup'ın benzeridir,  
+ örneğin:
 
 ```
 dig veriteknik.com ya da dig NS veriteknik.com,

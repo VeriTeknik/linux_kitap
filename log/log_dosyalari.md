@@ -56,11 +56,21 @@ Syslog log önem derecesi şu şekilde sınıflandırılabilir:
 | 6 | Bilgi Amaçlı | info | Operasyonel mesajlar | Örneğin bir işlem tamamlandığında |
 | 7 | Debug | debug | tasarımcılar için özel debug mesajları | Fonksiyon giriş ve çıkış noktaları |
 
-
-
 ### Kişisel Log Dosyaları ve Rotasyon
 
 Kişisel uygulamalarınız ya da Virtual Host yapılandırmalarınız için de mutlaka log dosyası ayarlamalısınız. Kendini seven Sistem Yöneticisi kurduğu her servis için log dosyası ayarlamalı ve bu log dosyalarının rotasyonunu sağlamalıdır, rotasyon yapmazsanız o bir gün gelecek ve sunucunuzdaki tüm disk alanınız dolacaktır. Tabi siz bunu MySQL çalışmıyor şikayeti alarak öğreneceksiniz, bu durumda yapmanız gereken ilk önce df -h ve df -i ile disk dolu mu ona bakmak olacaktır. Rotasyon aynı zamanda log tutma konusundaki yasal yükümlülüklerinizi yerine getirmenizde de yardımcı olacaktır, bu şekilde eskimiş log dosyalarınızı sıkıştırabilir ve arşivleyebilirsiniz.
+
+Apache Virtual Host kullanan bir web sitesi için php-fpm yüklemesi ile birlikte kullanıcı bazlı log yapılandırması ve logrotate şu şekilde ayarlanabilir, diyelim ki kullanıcı adı veriteknik, web sitesi ismi de sanallastirma.com olsun, dizin hiyerarşisi şu şekilde olacaktır:
+
+```
+/                            
+└─home
+  ├─veriteknik
+    ├─logs
+    ├─sanallastirma.com
+    ├─session
+    ├─tmp
+```
 
 
 
