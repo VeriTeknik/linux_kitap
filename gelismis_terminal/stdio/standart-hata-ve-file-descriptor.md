@@ -487,7 +487,7 @@ Burada dikkat edilmesi gereken nokta, standart çıktının verilerini `grep` pr
 
 Eğer birden fazla file descriptor'ın birden fazla programa çeşitli yollarda gönderilmesini istiyorsak, en pratik çözüm bir sonraki bölümde göreceğimiz **named pipe** kullanımı olacaktır.
 
-## Open File Descriptor Limiti'ne Dönüş
+## Open File Descriptor Limitine Dönüş
 
 Daha önce işletim sisteminin aklında tuttuğu file decriptor sayısına bir limit getirdiğini, üstelik program başına da bir limit getirdiğini görmüştük. Daha önce incelediğimiz örnekte bunun bir PID başına 1024 tane olduğuyla karşılaşmıştık. Bir programın neden 3'ten fazla file descriptor'a ihtiyaç duyabileceği, alternatif file descriptor'lar ile tanıştığımızda netleşmiştir herhalde.
 
@@ -556,4 +556,17 @@ Limitler iki çeşittir. Hardlimit ve Softlimit. Hardlimit sadece root tarafınd
 Demek ki bu sunucu üzerinde `mysql` kullanıcısının Hardlimit'i 4096, Softlimit'i 1024. Bu şu anlama gelir, bir program `mysql` kullanıcısı olarak çalıştırıldığında, aynı anda 1024'ten fazla file descriptor oluşturamaz. Eğer 1024'ten fazlasına ihtiyaç duyarsa, bu sayıyı kendisi artırabilir, ancak asla Hardlimit olan 4096 sayısını geçemez. Bu sayıyı geçmesi için root yetkisi olan yöneticisinden izin alması gerekir ve ancak root kullanıcısı Hardlimit değerini düzenleyebilir.
 
 Oluşabilecek bir yanlış anlaşılmayı gidermek adına not edelim, bu limitler kullanıcı bazlı olsa bile, kullanıcıların bütün programları için toplanarak giden bir değer değildir. Kullanıcının her bir programı bu limitler dahilinde davranabilir. Yani Hardlimit'i 4096 olan bir kullanıcının, Softlimit'i de uygun ayarlandığında, iki farklı programı ayrı ayrı 4000'er dosya açabilir.
+
+Kullanıcı bazlı bu limitleri düzenlemek için `/etc/security/limits.conf` dosyasını düzenlemek gerekir. Örneğin mysql kullanıcısı için Softlimit 2048, Hardlimit 8192 olsun istersek, dosya içerisinde şöyle satırlar oluşturmamız gerekir.
+
+```
+mysql soft nofile 2048
+mysql hard nofile 8192
+```
+
+Dosyayı kaydetmek yeterli olacaktır. Ardından yine ilgili kullanıcı ile login olup `ulimit` komutu yardımıyla güncellenmiş değerleri görebiliriz.
+
+Red Hat, CentOS ve türevi dağıtımlarda /etc/pam.d/login dosyasını da düzenlemek gerekir. Aşağıdaki satırın dosyada yer almasına dikkat edin.
+
+`session required pam_limits.so`
 
