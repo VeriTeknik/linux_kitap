@@ -487,6 +487,134 @@ Burada dikkat edilmesi gereken nokta, standart çıktının verilerini `grep` pr
 
 Eğer birden fazla file descriptor'ın birden fazla programa çeşitli yollarda gönderilmesini istiyorsak, en pratik çözüm ilerleyen bölümlerde göreceğimiz **named pipe** kullanımı olacaktır.
 
+### Çalışan Programların File Descriptor'larına Müdahale Etmek
+
+Daha önceki örneklerimizde, yazdığımız programın hangi dosyayla işlem yapacağını kodun içinde belirttiğimiz takdirde, bunları /proc dizini altından görebildiğimizi, örneğin yaz.txt dosyasına satır yazan programımızda gördük. Ancak programı çalıştırırken file descriptor yönlendirmesi ile bu dosyayı değiştiremedik, çünkü sistem yeni bir file descriptor olarak tanımladı.
+
+GNU'yu geliştirirken Richard Stallman'ın ilk yazdığı programlardan birisi, bu bölümde de sıkça kullandığımız gcc olmuştur, yani GNU C Compiler. Yine hemen ardından gdb ismi verilen, GNU Debugger'ı geliştirmiştir. GNU Debugger sayesinde, sistemde çalışan programlara müdahale etmek mümkündür. Çalışan bir programı öldürmeden de file descriptor'larına bu araç sayesinde müdahale edilebilir.
+
+Daha önce yazdığımız programı biraz daha şekillendirip aşağıdaki şekle sokalım.
+
+```
+#include <stdio.h>
+#include <unistd.h>
+#include <time.h>
+
+int main() {
+
+    FILE *fp;
+    fp = fopen("yaz.txt", "w");
+
+    while (1) {
+        printf("Test\n");
+        time_t now;
+        time(&now);
+        fprintf(fp, "%s: %s", "Dosyaya yazdırma", ctime(&now));
+	fflush(fp);
+	sleep(1);
+    }
+}
+```
+
+Burada program kısaca şunu yapıyor:
+
+* `yaz.txt` isminde bir dosya açıyor.
+* Sonsuz döngüye giriyor, ve standart çıktıya `Test` yazıyor.
+* Mevcut tarihi/saati öğreniyor.
+* `yaz.txt` dosyasına`Dosyaya yazdırma` cümlesini  ve mevcut saati aynı satırda yazıyor.
+* Dosyaya söz konusu satırı yazma işlemini yapıyor. \(Eğer `fflush` kullanmazsak, dosyayı kapatana kadar veriler dosyaya yazılmaz, ancak programımız sonsuza kadar çalışsın istediğimiz için bu durumu tercih etmiyoruz\)
+* 1 saniye uyuyup, döngüye baştan başlıyor.
+
+Daha önce gördüğümüz gibi bu programın `yaz.txt`'ye farklı veri, standart çıktıya farklı veri yazmasını bekleriz.
+
+Programı çalıştırınca terminale Test yazdığını görebiliriz.
+
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme5
+Test
+Test
+Test
+```
+
+Aynı anda farklı bir terminalden `yaz.txt` dosyasını takip edebiliriz, orada da beklediğimiz gibi her saniye tarih yazıyor.
+
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ tailf yaz.txt 
+Dosyaya yazdırma: Sat Mar 24 00:34:58 2018
+Dosyaya yazdırma: Sat Mar 24 00:34:59 2018
+Dosyaya yazdırma: Sat Mar 24 00:35:00 2018
+```
+
+Şimdi yine farklı bir terminalde yaz2.txt isminde boş bir dosya oluşturalım, ve onu da takip edelim.
+
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ tailf yaz2.txt
+
+
+
+```
+
+Normal olarak bu dosya boş. Şimdi derlediğimiz kodun PID'sini öğrenip açık file descriptor'larına bakalım.
+
+```
+eaydin@eaydin-vt ~ $ ps aux|grep deneme5 
+eaydin     381  0.0  0.0   4352   648 pts/11   S+   00:37   0:00 ./deneme5
+eaydin     395  0.0  0.0  15628  1088 pts/15   S+   00:38   0:00 grep --color=auto deneme5
+```
+
+Programımıza işletim sistemi 381 PID'sini atamış.
+
+```
+eaydin@eaydin-vt ~ $ cd /proc/381/fd
+eaydin@eaydin-vt /proc/381/fd $ ls -l
+total 0
+lrwx------ 1 eaydin eaydin 64 Mar 24 00:38 0 -> /dev/pts/11
+lrwx------ 1 eaydin eaydin 64 Mar 24 00:38 1 -> /dev/pts/11
+lrwx------ 1 eaydin eaydin 64 Mar 24 00:38 2 -> /dev/pts/11
+l-wx------ 1 eaydin eaydin 64 Mar 24 00:38 3 -> /home/eaydin/devel/sleep-test/yaz.txt
+```
+
+3 numaralı file descriptor yaz.txt dosyasına işaret ediyor. Bunda şaşılacak bir şey yok. Bu yüzden saat bilgisini buradan okuyoruz. Şimdi gdb ile 381 PID'li işleme _bağlanırsak, _program üzerinde bir takım müdahalelerde bulunabiliriz. Bu işlemi root yetkisiyle yapmak gerekiyor. Doğrudan aşağıdaki gibi bir çıktı sizi karşılayacaktır.
+
+```
+eaydin@eaydin-vt ~/devel/sleep-test $ sudo gdb -p 381
+GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word".
+Attaching to process 381
+Reading symbols from /home/eaydin/devel/sleep-test/deneme5...(no debugging symbols found)...done.
+Reading symbols from /lib/x86_64-linux-gnu/libc.so.6...Reading symbols from /usr/lib/debug//lib/x86_64-linux-gnu/libc-2.23.so...done.
+done.
+Reading symbols from /lib64/ld-linux-x86-64.so.2...Reading symbols from /usr/lib/debug//lib/x86_64-linux-gnu/ld-2.23.so...done.
+done.
+0x00007f84c88632f0 in __nanosleep_nocancel () at ../sysdeps/unix/syscall-template.S:84
+84	../sysdeps/unix/syscall-template.S: No such file or directory.
+(gdb) 
+
+```
+
+Bu işlemi yapar yapmaz, aslında gdb bizim işlemimizi durdurdu. Ancak kesinlikle işlemi öldürmedi, çekirdek tarafından programımız kısa süreli olarak durduruldu. Bu yüzden ne standart çıktıya Test yazmaya devam etmektedir, ne de yaz.txt içerisine mevcut saati yazmaktadır. Yine de bu dosyaları izlemeye devam edelim.
+
+Bu noktada gdb ile programa bir dosya açma çağrısı yapacağız. Sanki program içinde dosya açan yeni bir satır kod varmış gibi davranacak.
+
+```
+(gdb) call open("/home/eaydin/devel/sleep-test/yaz2.txt", 577, 0644)
+$3 = 4
+```
+
+Burada open fonksiyonuna parametre olarak yeni file descriptor'ımızın 
+
 ## Open File Descriptor Limitine Dönüş
 
 Daha önce işletim sisteminin aklında tuttuğu file decriptor sayısına bir limit getirdiğini, üstelik program başına da bir limit getirdiğini görmüştük. Daha önce incelediğimiz örnekte bunun bir PID başına 1024 tane olduğuyla karşılaşmıştık. Bir programın neden 3'ten fazla file descriptor'a ihtiyaç duyabileceği, alternatif file descriptor'lar ile tanıştığımızda netleşmiştir herhalde.
