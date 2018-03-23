@@ -234,7 +234,7 @@ Test
 Test
 ```
 
-Yani aslında program standart çıktıya Test yazıyor. Şimdi bu programın Linux üzerindeki process ID'sini \(PID\) öğrenelim. \(Bunu program çalışırken yapıyoruz\)
+Yani aslında program standart çıktıya `Test` yazıyor. Şimdi bu programın Linux üzerindeki process ID'sini \(PID\) öğrenelim. \(Bunu program çalışırken yapıyoruz\)
 
 ```
 eaydin@eaydin-vt ~ $ ps ax | grep deneme
@@ -242,14 +242,14 @@ eaydin@eaydin-vt ~ $ ps ax | grep deneme
 18650 pts/2    S+     0:00 grep --color=auto deneme
 ```
 
-Programın sistem üzerindeki PID'si 18622'ymiş. İşletim sisteminin çekirdeği tarafından bu işlemciye ayrılan file descriptorları, /proc dizini altında görebiliriz \(Yine, program hala çalışıyorken yapıyoruz bu işlemleri\).
+Programın sistem üzerindeki PID'si 18622'ymiş. İşletim sisteminin çekirdeği tarafından bu işlemciye ayrılan file descriptorları, `/proc` dizini altında görebiliriz \(Yine, program hala çalışıyorken yapıyoruz bu işlemleri\).
 
 ```
 eaydin@eaydin-vt ~ $ ls /proc/18622/fd/
 0  1  2
 ```
 
-Buradaki notasyona ve sonuçlarına dikkat edecek olursak, `/proc` isminde özel bir dizine baktık. Bu dizin Linux çekirdeğiyle ilgili işlemleri tutuyor. Bunun altında hangi PID'li işleme bakacaksak, onun için açılan dizine girdik. Onun içinde de File Descriptor'ın kısaltmasını temsil eden `fd` dizinine baktık. Burada 3 tane file descriptor ile karşılaştık. Her program çalıştırıldığında işletim sistemi çekirdeğinin öntanımlı olarak atadığı standart file descriptorlar. Aslında burada gördüğümüz üç dosya, birer sembolik link, daha detaylı bakacak olursak:
+Buradaki notasyona ve sonuçlarına dikkat edecek olursak, `/proc` isminde özel bir dizine baktık. Bu dizin Linux çekirdeğiyle ilgili işlemleri tutuyor. Bunun altında hangi PID'li işleme bakacaksak, onun için açılan dizine girdik. Onun içinde de File Descriptor'ın kısaltmasını temsil eden `fd` dizinine baktık. Burada 3 tane file descriptor ile karşılaştık: her program çalıştırıldığında işletim sistemi çekirdeğinin öntanımlı olarak atadığı standart file descriptorlar. Aslında burada gördüğümüz üç dosya, birer sembolik link, daha detaylı bakacak olursak:
 
 ```
 eaydin@eaydin-vt ~ $ ls -l /proc/18622/fd/
@@ -259,7 +259,7 @@ lrwx------ 1 eaydin eaydin 64 Mar 22 14:36 1 -> /dev/pts/1
 lrwx------ 1 eaydin eaydin 64 Mar 22 14:34 2 -> /dev/pts/1
 ```
 
-Buradan görüleceği üzere, aslında programın standart girdisi, standart çıktısı, standart hatası aynı noktaya işaret ediyor, terminal ekranımıza.
+Buradan görüleceği üzere, aslında programın standart girdisi, standart çıktısı, standart hatası aynı noktaya işaret ediyor, `/dev/pts/1` yani terminal ekranımıza.
 
 Şimdi programımızı durdurup, tekrar çalıştırırken standart çıktısını bir dosyaya yönlendirelim.
 
@@ -284,9 +284,9 @@ Standart girdi hala terminal ekranı, standart hata da öyle, ancak standart ç�
 
 ## Standart Olmayan File Descriptor'lar
 
-Bu bölüm boyunca, programların üç tane file descriptor'ından bahsettik. Standart girdi, standart çıktı, standart hata. Aslında Dennis Ritchie standart hata'yı UNIX'in 6. versiyonu üzerinde tanımladığında tam olarak şunu yaptı: Bir program çalışmaya başladığında, programın _ön tanımlı_ 3 tane file descriptor'ı olsun. Bu yüzden bunlara _standart_ diyoruz aslında. Çünkü programlar -neredeyse- her zaman bu üç tip file descriptor'a ihtiyaç duyuyorlar. Ancak bir programın 3'ten fazla file descriptor'ı olabilir.
+Bu bölüm boyunca, programların üç tane file descriptor'ından bahsettik. Standart girdi, standart çıktı, standart hata. Aslında Dennis Ritchie standart hata'yı UNIX'in 6. versiyonu üzerinde tanımladığında tam olarak şunu yaptı: bir program çalışmaya başladığında, programın _ön tanımlı_ 3 tane file descriptor'ı olsun. Bu yüzden bunlara _standart_ diyoruz aslında. Çünkü programlar -neredeyse- her zaman bu üç tip file descriptor'a ihtiyaç duyuyorlar. Ancak bir programın 3'ten fazla file descriptor'ı olabilir.
 
-Daha önce herhangi bir C programının `getchar` veya `putchar` gibi fonksiyonlar ile standart girdi ve standart çıktıyı kontrol ettiğini gördük. Ancak C programı bu işleri yaparken, bir yandan bir dosyayı açıp üzerinde işlem yapmasını sağlayabiliriz. Bu dosya söz konusu standart çıktı olmak zorunda değil. Örneğin biraz önce yazdığımız deneme programı ekrana \(standart çıktıya\) Test yazdırırken, bir yandan yaz.txt isimli bir dosya açıp içinde işlemler yapabilir. Aşağıdaki kodu deneme2.c olarak yazıp derlersek bu durumu irdeleyebiliriz.
+Daha önce herhangi bir C programının `getchar` veya `putchar` gibi fonksiyonlar ile standart girdi ve standart çıktıyı kontrol ettiğini gördük. Ancak C programı bu işleri yaparken, bir yandan bir dosyayı açıp üzerinde işlem yapmasını sağlayabiliriz. Bu dosya söz konusu standart çıktı olmak zorunda değil. Örneğin biraz önce yazdığımız `deneme` programı ekrana \(standart çıktıya\) `Test` yazdırırken, bir yandan `yaz.txt` isimli bir dosya açıp içinde işlemler yapabilir. Aşağıdaki kodu `deneme2.c` olarak kaydedip derlersek bu durumu irdeleyebiliriz.
 
 ```
 #include <stdio.h>
@@ -318,7 +318,7 @@ l-wx------ 1 eaydin eaydin 64 Mar 22 15:45 3 -> /home/eaydin/devel/sleep-test/ya
 
 Burada daha önce görmediğimiz, yeni bir file descriptor açığa çıktı. Standart 0, 1 ve 2 dışında bir de 3 numaralı file descriptor. Kod içerisinde `yaz.txt` dosyasını açmasını söyledik, işletim sistemi de programın çalıştığı dizin altında `yaz.txt` diye bir dosya oluşturup bunu programın 3 numaralı file descriptor'ı ile eşleştirdi.
 
-Eğer programımızı yaz.txt içerisine de satırlar yazıp kaydedecek şekilde düzenlersek, burada da bir takım sonuçlar görmeyi bekleriz. Örneğin kodumuz aşağıdaki gibi olsaydı:
+Eğer programımızı `yaz.txt` içerisine de satırlar yazıp kaydedecek şekilde düzenlersek, burada da bir takım sonuçlar görmeyi bekleriz. Örneğin kodumuz aşağıdaki gibi olsaydı:
 
 ```
 #include <stdio.h>
@@ -341,7 +341,7 @@ int main() {
 }
 ```
 
-Bu durumda ekrana \(standart çıktıya\) Test yazarken, yaz.txt içerisine Dosyaya yazdırma yazmasını beklerdik. Bunu 10 kere yapıp \(her birini bir saniye arayla\) sonra da program sonlanırdı. Bu durumda da yine yaz.txt'nin file descriptor'lar arasında 3 numaraya sahip olacağını düşünmek normal. Peki programı çalıştırırken, 3 numaralı file descriptor'ı yeni bir dosyaya yönlendirirsek? yaz.txt içerisine yazılacak verinin başka yere yazılmasını mı bekleriz?
+Bu durumda ekrana \(standart çıktıya\) `Test` yazarken, `yaz.txt` içerisine `Dosyaya yazdırma` yazmasını beklerdik. Bunu 10 kere yapıp \(her birini bir saniye arayla\) sonra da program sonlanırdı. Bu durumda da yine `yaz.txt`'nin file descriptor'lar arasında 3 numaraya sahip olacağını düşünmek normal. Peki programı çalıştırırken, 3 numaralı file descriptor'ı yeni bir dosyaya yönlendirirsek? `yaz.txt` içerisine yazılacak verinin başka yere yazılmasını mı bekleriz?
 
 ```
 eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme3 3>yeni.txt
@@ -350,7 +350,7 @@ Test
 Test
 ```
 
-Bu durumda kodumuzun 3. çıktısını yeni.txt'ye yönlendiriyoruz. Hemen sistemde açık file descriptor'larına bakalım.
+Bu durumda kodumuzun 3. çıktısını `yeni.txt`'ye yönlendiriyoruz. Hemen sistemde açık file descriptor'larına bakalım.
 
 ```
 eaydin@eaydin-vt ~/devel/sleep-test $ ls -l /proc/23705/fd
@@ -366,7 +366,7 @@ Beklediğimiz sonucu vermedi. Sistem 3. file descriptor'ı terminalde belirttiğ
 
 İşletim sisteminin çekirdeği şu şekilde davranıyor: "Bu program ile ilgili bir dosya işlemi talep edildiğinde, eğer bana file descriptor adresi \(numarası\) verilmemişse, ben sıradan uygun ilk rakamı tahsis edeyim."
 
-Öyleyse kodumuz içerisinde özellikle `yaz.txt` yolunu belirtmek yerine, file descriptora yazmasını belirtebilirdik.
+Öyleyse kodumuz içerisinde özellikle `yaz.txt` yolunu belirtmek yerine, file descriptor'a yazmasını belirtebilirdik.
 
 ```
 #include <stdio.h>
@@ -401,7 +401,7 @@ Test
 Test
 ```
 
-Öte yandan, 3. file descriptor'ını yeni.txt'ye yönlendirmiştik. Kodun içerisinde hiçbir yerde dosya ismi belirtmedik, ancak kodda 3. file descriptor'a bir yazma işlemi söz konusu. PID'den açık file descriptor'lara bakalım.
+Öte yandan, 3. file descriptor'ını `yeni.txt`'ye yönlendirmiştik. Kodun içerisinde hiçbir yerde dosya ismi belirtmedik, ancak kodda 3. file descriptor'a bir yazma işlemi söz konusu. PID'den açık file descriptor'lara bakalım.
 
 ```
 eaydin@eaydin-vt ~/devel/sleep-test $ ls -l /proc/24419/fd
@@ -456,7 +456,7 @@ lrwx------ 1 eaydin eaydin 64 Mar 22 16:29 2 -> /dev/pts/2
 
 Çünkü ne programın içinde, ne de programı çalıştırırken 3. file descriptor'ın nereye işaret edeceğini söylemedik.
 
-Her ne kadar ilk üç file descriptor standart olarak belirlenmiş olsa da, programın kodlarında ilgili descriptorları kapatıp yeniden bir dosya açtığımızda işletim sistemi çekirdeğinin bu descriptor'ları kullandığını gözlemek mümkün. Yani 1 numaralı file descriptor'ı C kodundan kapatırsak, sonra C kodu içerisinde yeni bir dosyaya erişim sağlayacak olursak, işletim sistemi ilk uygun boş sayı 1 olacağı için bu değeri kullanacaktır.
+Her ne kadar ilk üç file descriptor standart olarak belirlenmiş olsa da, programın kodlarında ilgili descriptor'ları kapatıp yeniden bir dosya açtığımızda işletim sistemi çekirdeğinin bu descriptor'ları kullandığını gözlemek mümkün. Yani 1 numaralı file descriptor'ı C kodundan kapatırsak, sonra C kodu içerisinde yeni bir dosyaya erişim sağlayacak olursak, işletim sistemi ilk uygun boş sayı 1 olacağı için bu değeri kullanacaktır.
 
 ### Alternatif File Descriptor'ın Pipeline'da Kullanımı
 
@@ -485,7 +485,7 @@ Dosyaya yazdırma
 
 Burada dikkat edilmesi gereken nokta, standart çıktının verilerini `grep` programına yollamadık, dolayısıyla ekranda gördüğümüz `Test` satırları `grep`'in işlemlerinden geçmedi, sadece `Dosyaya yazdırma` satırları buradan geçti.
 
-Eğer birden fazla file descriptor'ın birden fazla programa çeşitli yollarda gönderilmesini istiyorsak, en pratik çözüm bir sonraki bölümde göreceğimiz **named pipe** kullanımı olacaktır.
+Eğer birden fazla file descriptor'ın birden fazla programa çeşitli yollarda gönderilmesini istiyorsak, en pratik çözüm ilerleyen bölümlerde göreceğimiz **named pipe** kullanımı olacaktır.
 
 ## Open File Descriptor Limitine Dönüş
 
@@ -543,7 +543,7 @@ lrwx------ 1 root root 64 Mar 20 18:26 53 -> /var/lib/mysql/mysql/time_zone_leap
 
 Limitler iki çeşittir. Hardlimit ve Softlimit. Hardlimit sadece root tarafından düzenlenebilecek limitlerdir. Softlimit ise bir kullanıcının kendi düzenleyebileceği limittir.
 
-Örneğin biraz önceki sunucuda mysql kullanıcısının limitlerini öğrenmek için, bu kullanıcı ile login olduktan sonra aşağıdaki komutları uygulayabiliriz.
+Örneğin biraz önceki sunucuda `mysql` kullanıcısının limitlerini öğrenmek için, bu kullanıcı ile login olduktan sonra aşağıdaki komutları uygulayabiliriz.
 
 ```
 [root@emre ~]# su - mysql
@@ -559,7 +559,7 @@ Oluşabilecek bir yanlış anlaşılmayı gidermek adına not edelim, bu limitle
 
 ### Kullanıcı Limitlerini Düzenlemek
 
-Kullanıcı bazlı bu limitleri düzenlemek için `/etc/security/limits.conf` dosyasını düzenlemek gerekir. Örneğin mysql kullanıcısı için Softlimit 2048, Hardlimit 8192 olsun istersek, dosya içerisinde şöyle satırlar oluşturmamız gerekir.
+Kullanıcı bazlı bu limitleri düzenlemek için `/etc/security/limits.conf` dosyasını düzenlemek gerekir. Örneğin `mysql` kullanıcısı için Softlimit 2048, Hardlimit 8192 olsun istersek, dosya içerisinde şöyle satırlar oluşturmamız gerekir.
 
 ```
 mysql soft nofile 2048
@@ -586,13 +586,13 @@ Bunun yerine, `sysctl` komutu ile de kernel parametrelerini düzenleyebiliriz.
 [root@emre ~]# sysctl -w fs.file-max=10000
 ```
 
-Bu yöntemler ile kernel parametres doğrudan düzenlendiği için, çalışan sistem üzerinde değişikliğin etkisini hemen görürüz. Ancak sistem bir kez reboot olursa değişiklikler kalıcı olmaz. Eğer değişikliği kalıcı yapmak istersek, `/etc/sysctl.conf` dosyasını düzenlemek gerekecektir. Bu dosya içerisinde aşağıdaki parametre yoksa eklemek, varsa değiştirmek gerekir.
+Bu yöntemler ile kernel parametresi doğrudan düzenlendiği için, çalışan sistem üzerinde değişikliğin etkisini hemen görürüz. Ancak sistem bir kez reboot olursa değişiklikler kalıcı olmaz. Eğer değişikliği kalıcı yapmak istersek, `/etc/sysctl.conf` dosyasını düzenlemek gerekecektir. Bu dosya içerisinde aşağıdaki parametre yoksa eklemek, varsa değiştirmek gerekir.
 
 ```
 fs.file-max = 10000
 ```
 
-Eğer sadece dosyayı değiştirdiysek, bu sefer kernel'in dosya içerisinden parametreleri yeniden okumasını söylemek gerekir. Bunu da yine sysctl komutu ile yaparız.
+Eğer sadece dosyayı değiştirdiysek, yani `sysctl -w fs.file-max=10000` komutuyla düzenleme yapmamışsak, bu sefer kernel'in dosya içerisinden parametreleri yeniden okumasını söylemek gerekir. Bunu da yine `sysctl` komutu ile yaparız.
 
 ```
 [root@emre ~]# sysctl -p
