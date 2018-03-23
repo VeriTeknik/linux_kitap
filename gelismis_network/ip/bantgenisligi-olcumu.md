@@ -98,21 +98,21 @@ Standart portları kullanmak istemiyorsanız `-p` ile port belirtebilirsiniz. Ay
 
 ## speedtest-cli
 
-Pratik bir şekilde bir sunucunun internet hızını ölçmek istiyorsanız kullanışlı bir program. Tarayıcınızdan speedtest.net adresine girdiğinizde yaptığınız ölçüm benzerini gerçekleştirir. Doğrudan github üzerinden curl veya wget ile yükleyebilir ve test edebilirsiniz. Veya dağıtımınızın repository'lerinde varsa indirip kullanabilirsiniz.
+Pratik bir şekilde bir sunucunun internet hızını ölçmek istiyorsanız kullanışlı bir program. Tarayıcınızdan speedtest.net adresine girdiğinizde yaptığınız ölçüm benzerini gerçekleştirir. Doğrudan github üzerinden `curl` veya `wget` ile yükleyebilir ve test edebilirsiniz. Veya dağıtımınızın repository'lerinde varsa indirip kullanabilirsiniz.
 
-curl ile programı hiç indirmeden, tek seferde test edip sonuç almak için:
-
-```
-curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -
-```
-
-Bu komut çalıştırdığınızda doğrudan sonucu göreceksiniz ve program diske yazılmamış olacaktır. Eğer kodu saklamak ve tekrar tekrar kullanmak isterseniz wget ile indirip sonra python ile çalıştırabilirsiniz.
+`curl` ile programı hiç indirmeden, tek seferde test edip sonuç almak için:
 
 ```
-wget https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
+eaydin@eaydin-vt ~ curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -
 ```
 
-Ardından python ile test ettiğinizde şöyle bir sonuç görebilirsiniz.
+Bu komut çalıştırdığınızda doğrudan sonucu göreceksiniz ve program diske yazılmamış olacaktır. Eğer kodu saklamak ve tekrar tekrar kullanmak isterseniz `wget` ile indirip sonra Python ile çalıştırabilirsiniz.
+
+```
+eaydin@eaydin-vt ~ wget https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
+```
+
+Ardından Python ile test ettiğinizde şöyle bir sonuç görebilirsiniz.
 
 ```
 eaydin@eaydin-vt ~/devel/calisma $ python speedtest.py 
