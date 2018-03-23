@@ -11,7 +11,7 @@ Diğer işletim sistemlerinin aksine, LINUX tek satırlık log girdileri tutar, 
 tailf komutu ile log dosyasının sonunu okumakla birlikte, yeni gelen her satır da ekranınıza düşmektedir, son eklenen satırları okumak için yeniden başlatmanıza gerek yoktur. Bazı sistemlerde tailf aliası olmaması nedeniyle tail -f kullanılması gerekebilir. Bu akan log ekranını pipe ile grep'e yönlendirdiğimizde ise \(-i\) direktifi sayesinde büyük/küçük harf duyarsızlaştırdığımız sonuçlar arasından 404 hatasını aramış oluyoruz, örnek sonuç aşağıdadır:
 
 ```
-root:ckaraca ~ tailf /var/log/httpd/access_log | grep -i 404
+[root@ckaraca~]# tailf /var/log/httpd/access_log | grep -i 404
 66.249.64.94 - - [23/Mar/2018:22:44:46 +0300] "GET /forum/member.php?u=14 HTTP/1.1" 404 3645 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 ```
 
@@ -72,5 +72,26 @@ Apache Virtual Host kullanan bir web sitesi için php-fpm yüklemesi ile birlikt
     ├─tmp
 ```
 
+Yukarıdaki dizin yapısına göre log dosyalarını rotate\(evirecek\) edecek yapılandırma şu şekilde oluşturulmalıdır:
 
+```
+[root@ckaraca~]# echo "/home/*/logs/*log { 
+        daily 
+        rotate 720 
+        missingok 
+        compress 
+        delaycompress 
+        postrotate 
+        /usr/sbin/apachectl graceful 
+        endscript 
+}" > /etc/logrotate.d/veriteknik
+```
+
+Komutunu çalıştırdığımızda /etc/logrotate.d/veriteknik betiği içerisinde tüm /home/ dizini altındaki tüm kullanıcıların logs dizini içerisindeki log uzantılı dosyaları rotate edecek komutu yazmış oluruz. Bu betik toplam 720 günlük log tutacağı gibi, bu logları sıkıştırıp apache'yi de konu hakkında bilgilendiriyor. Bu şekilde sonradan açacağınız her kullanıcı için yeniden ayar yapmanıza gerek kalmaz. Yaptığınız ayarların doğru çalışıp çalışmadığını da aşağıdaki komut ile test edebilirsiniz:
+
+```
+logrotate -df /etc/logrotate.d/veriteknik
+```
+
+İşlem sonucunda log dosyalarınızın arşivlendiğini görebilirsiniz.
 
