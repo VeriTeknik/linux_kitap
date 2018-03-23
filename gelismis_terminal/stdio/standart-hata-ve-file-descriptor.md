@@ -510,8 +510,8 @@ int main() {
         time_t now;
         time(&now);
         fprintf(fp, "%s: %s", "Dosyaya yazdırma", ctime(&now));
-	fflush(fp);
-	sleep(1);
+    fflush(fp);
+    sleep(1);
     }
 }
 ```
@@ -549,9 +549,6 @@ Dosyaya yazdırma: Sat Mar 24 00:35:00 2018
 
 ```
 eaydin@eaydin-vt ~/devel/sleep-test $ tailf yaz2.txt
-
-
-
 ```
 
 Normal olarak bu dosya boş. Şimdi derlediğimiz kodun PID'sini öğrenip açık file descriptor'larına bakalım.
@@ -574,7 +571,7 @@ lrwx------ 1 eaydin eaydin 64 Mar 24 00:38 2 -> /dev/pts/11
 l-wx------ 1 eaydin eaydin 64 Mar 24 00:38 3 -> /home/eaydin/devel/sleep-test/yaz.txt
 ```
 
-3 numaralı file descriptor yaz.txt dosyasına işaret ediyor. Bunda şaşılacak bir şey yok. Bu yüzden saat bilgisini buradan okuyoruz. Şimdi gdb ile 381 PID'li işleme _bağlanırsak, _program üzerinde bir takım müdahalelerde bulunabiliriz. Bu işlemi root yetkisiyle yapmak gerekiyor. Doğrudan aşağıdaki gibi bir çıktı sizi karşılayacaktır.
+3 numaralı file descriptor yaz.txt dosyasına işaret ediyor. Bunda şaşılacak bir şey yok. Bu yüzden saat bilgisini buradan okuyoruz. Şimdi gdb ile 381 PID'li işleme \_bağlanırsak, \_program üzerinde bir takım müdahalelerde bulunabiliriz. Bu işlemi root yetkisiyle yapmak gerekiyor. Doğrudan aşağıdaki gibi bir çıktı sizi karşılayacaktır.
 
 ```
 eaydin@eaydin-vt ~/devel/sleep-test $ sudo gdb -p 381
@@ -599,9 +596,8 @@ done.
 Reading symbols from /lib64/ld-linux-x86-64.so.2...Reading symbols from /usr/lib/debug//lib/x86_64-linux-gnu/ld-2.23.so...done.
 done.
 0x00007f84c88632f0 in __nanosleep_nocancel () at ../sysdeps/unix/syscall-template.S:84
-84	../sysdeps/unix/syscall-template.S: No such file or directory.
-(gdb) 
-
+84    ../sysdeps/unix/syscall-template.S: No such file or directory.
+(gdb)
 ```
 
 Bu işlemi yapar yapmaz, aslında gdb bizim işlemimizi durdurdu. Ancak kesinlikle işlemi öldürmedi, çekirdek tarafından programımız kısa süreli olarak durduruldu. Bu yüzden ne standart çıktıya Test yazmaya devam etmektedir, ne de yaz.txt içerisine mevcut saati yazmaktadır. Yine de bu dosyaları izlemeye devam edelim.
@@ -610,10 +606,36 @@ Bu noktada gdb ile programa bir dosya açma çağrısı yapacağız. Sanki progr
 
 ```
 (gdb) call open("/home/eaydin/devel/sleep-test/yaz2.txt", 577, 0644)
-$3 = 4
+$1 = 4
 ```
 
-Burada open fonksiyonuna parametre olarak yeni file descriptor'ımızın 
+Burada open fonksiyonuna parametre olarak yeni file descriptor'ımızın nereye işaret edeceğini, yani dosya ismini, bu dosyaya erişim biçimini \(577\) ve bu dosyanın izinlerini \(0644\) belirttik. 0644 daha önce gördüğümüz izin yapısıdır. Bu örnekte 577 olarak verdiğimiz dosyaya erişim biçimi, **&gt; **işaretine tekabül eder. Eğer **&gt;&gt;** şeklinde davranmasını isteseydik, 1089 değerini girmek gerekecekti. Daha net olmak gerekirse,
+
+| gdb Dosya Erişim Biçimi | C Karşılığı | Terminal Yönlendirme Karşılığı |
+| :--- | :--- | :--- |
+| 577 | O\_WRONLY \| O\_CREAT \| O\_TRUNC | &gt; |
+| 1089 | O\_WRONLY \| O\_CREAT \| O\_APPEND | &gt;&gt; |
+| 0 | O\_RDONLY | &lt; |
+
+Öyleyse, bu modda açtığımız için, eğer yaz2.txt dosyası içerisinde bir veri olsaydı silinmiş olacaktı.
+
+Bu yeni dosya açma işleminin sonucunda $1 = 4 yazması, ilk çalıştırdığımız komutun çıktısında 4 elde ettiğimiz anlamına geliyor. Burada 4 değeri, open fonksiyonunun sonucu olduğu için, aslında programın yeni file descriptor'ının sayısal karşılığıdır. File descriptor'ların listesinden de bu görülebilir.
+
+```
+eaydin@eaydin-vt /proc/381/fd $ ls -l
+total 0
+lrwx------ 1 eaydin eaydin 64 Mar 24 00:56 0 -> /dev/pts/11
+lrwx------ 1 eaydin eaydin 64 Mar 24 00:56 1 -> /dev/pts/11
+lrwx------ 1 eaydin eaydin 64 Mar 24 00:56 2 -> /dev/pts/11
+l-wx------ 1 eaydin eaydin 64 Mar 24 00:56 3 -> /home/eaydin/devel/sleep-test/yaz.txt
+l-wx------ 1 eaydin eaydin 64 Mar 24 00:56 4 -> /home/eaydin/devel/sleep-test/yaz2.txt
+```
+
+Hatırlarsanız bu sayısal değerler sadece 0,1,2,... gibi değerler olabiliyordu. Eğer hatalı bir işlem söz konusu olursa, gdb burada -1 değerini döndürecektir ve file descriptor'ları listesinde yeni dosyamız görülmeyecektir.
+
+Şimdi 3 numaralı file descriptor'ın kopyasının 
+
+
 
 ## Open File Descriptor Limitine Dönüş
 
