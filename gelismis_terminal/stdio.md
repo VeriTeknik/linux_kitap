@@ -1,8 +1,8 @@
 # Standart Girdi ve Çıktı
 
-GNU/Linux ve benzeri POSIX sistemlerin en güçlü olduğu yönlerden birisi, programların standart girdi ve çıktılarının yönlendirilmesidir. Özellikle birden fazla programın işlemlerini birbirlerine kolayca gönderebilme gücü sağlayan bu yöntem, aslında Unix'in oluşturulduğu dönemdeki temel felsefeleri en iyi yansıtan özelliklerinden biridir.
+GNU/Linux ve benzeri POSIX sistemlerin en güçlü olduğu yönlerden birisi, programların standart girdi ve çıktılarının yönlendirilmesidir. Özellikle birden fazla programın işlemlerini birbirlerine kolayca gönderebilme gücü sağlayan bu yöntem, aslında UNIX'in oluşturulduğu dönemdeki temel felsefeleri en iyi yansıtan özelliklerinden biridir.
 
-1978'de yayımlanan _The Bell System Technical Journal'ın UNIX Time-Sharing System_ dokümanının önsözünde Douglas McIlroy, Unix'in tasarlanması ve kullanılmasında temel alınan kritik noktaları 4 madde halinde listeler. Bu maddelerden ilki ilerleyen yıllarda çok popüler olmuştur. Maddenin tam hali şu şekildedir:
+1978'de yayımlanan _The Bell System Technical Journal'ın UNIX Time-Sharing System_ dokümanının önsözünde Douglas McIlroy, UNIX'in tasarlanması ve kullanılmasında temel alınan kritik noktaları 4 madde halinde listeler. Bu maddelerden ilki ilerleyen yıllarda çok popüler olmuştur. Maddenin tam hali şu şekildedir:
 
 > Make each program do one thing well. To do a new job, build afresh rather than complicate old programs by adding new "features".
 
