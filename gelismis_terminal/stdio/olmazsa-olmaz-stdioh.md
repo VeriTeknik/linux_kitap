@@ -41,7 +41,7 @@ eaydin@eaydin-vt ~/devel/lower $ ./lower < karakterler
 abcde
 ```
 
-Kısacası programımız için bilginin pipe ile veya **&lt;** gelmesinin bir önemi yok. İkisi de standart girdi çünkü. Benzer şekilde `ls` çıktısını da programımıza yönlendirebilirdik.
+Kısacası programımız için bilginin pipe ile veya **&lt; **işareti ile gelmesinin bir önemi yok. İkisi de standart girdi çünkü. Benzer şekilde `ls` çıktısını da programımıza yönlendirebilirdik.
 
 ```
 eaydin@eaydin-vt ~/devel/lower $ ls
