@@ -2,9 +2,20 @@
 
 Log dosyaları LINUX ve UNIX sistemlerin en önemli ve ayrılmaz parçalarından biridir. Diğer işletim sistemlerinde şahit olduğumuz "hatır-şinas" loglama bu sistemlerde "ciddi" loglama olarak karşımıza çıkıyor. Genelde /var/log dizini altında yer alan log dosyalarının her birinin bir ya da birden çok servisi logladığını görebilirsiniz.
 
-Diğer işletim sistemlerinin aksine, LINUX tek satırlık log girdileri tutar, okumayı kolaylaştıran bu sistem sayesinde loglar içerisinde kaybolmazsınız.
+Diğer işletim sistemlerinin aksine, LINUX tek satırlık log girdileri tutar, okumayı kolaylaştıran bu sistem sayesinde loglar içerisinde kaybolmazsınız. Ayrıca standart girdi/çıktı araçlarıyla hataları ayıklamanız kolaylaşır, öyle ki aşağıdaki şu basit sorgu bile bir kaç saniyede hataları ayıklamanıza yardımcı olacaktır:
 
-Web Hosting yapan bir Sistem Uzmanının sürekli takip etmesi gereken log dosyaları şunlardır:
+```
+[root@ckaraca~]# tailf /var/log/httpd/access.log | grep -i 404
+```
+
+tailf komutu ile log dosyasının sonunu okumakla birlikte, yeni gelen her satır da ekranınıza düşmektedir, son eklenen satırları okumak için yeniden başlatmanıza gerek yoktur. Bazı sistemlerde tailf aliası olmaması nedeniyle tail -f kullanılması gerekebilir. Bu akan log ekranını pipe ile grep'e yönlendirdiğimizde ise \(-i\) direktifi sayesinde büyük/küçük harf duyarsızlaştırdığımız sonuçlar arasından 404 hatasını aramış oluyoruz, örnek sonuç aşağıdadır:
+
+```
+root:ckaraca ~ tailf /var/log/httpd/access_log | grep -i 404
+66.249.64.94 - - [23/Mar/2018:22:44:46 +0300] "GET /forum/member.php?u=14 HTTP/1.1" 404 3645 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+```
+
+Web Hosting Sistem Uzmanının sürekli takip etmesi gereken log dosyaları şunlardır:
 
 | LOG | Yolu | Amacı |
 | --- | --- | --- |
@@ -34,16 +45,22 @@ Syslog'a gelen hata ve uyarı mesajları gönderen servise göre sınıflandır�
 
 Syslog log önem derecesi şu şekilde sınıflandırılabilir:
 
-|  | Değer | Önem | Anahtar Kelime | Açıklama | örnek |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-|  | 0 | Kriz | emerg | Sistem kullanılamaz | kernel panik |
-|  | 1 | Alarm | alert | Acilen düzeltilmesi gereken durum | IO ya da RAID hataları |
-|  | 2 | Kritik | crit | Kritik durumlar | Disk Dolması gibi |
-| 3 | Hata | err | Hata durumları | Uygulama Hataları | Apache config hatası |
-|  | 4 | Uyarı | warning | Uyarı mesajları | PHP.ini dosyasında date alanının tanımsız olması |
-|  | 5 | Bildirim | notice | Hata mahiyetinde olmayan ancak bildirim gerektiren durumlar | depreciated komutlar |
-|  | 6 | Bilgi Amaçlı | info | Operasyonel mesajlar | Örneğin bir işlem tamamlandığında |
-|  | 7 | Debug | debug | tasarımcılar için özel debug mesajları | Fonksiyon giriş ve çıkış noktaları |
+| Değer | Önem | Anahtar Kelime | Açıklama | örnek |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | Kriz | emerg | Sistem kullanılamaz | kernel panik |
+| 1 | Alarm | alert | Acilen düzeltilmesi gereken durum | IO ya da RAID hataları |
+| 2 | Kritik | crit | Kritik durumlar | Disk Dolması gibi |
+| 3 | Hata | err | Uygulama Hataları | Apache config hatası |
+| 4 | Uyarı | warning | Uyarı mesajları | PHP.ini dosyasında date alanının tanımsız olması |
+| 5 | Bildirim | notice | Hata mahiyetinde olmayan ancak bildirim gerektiren durumlar | depreciated komutlar |
+| 6 | Bilgi Amaçlı | info | Operasyonel mesajlar | Örneğin bir işlem tamamlandığında |
+| 7 | Debug | debug | tasarımcılar için özel debug mesajları | Fonksiyon giriş ve çıkış noktaları |
+
+
+
+### Kişisel Log Dosyaları ve Rotasyon
+
+Kişisel uygulamalarınız ya da Virtual Host yapılandırmalarınız için de mutlaka log dosyası ayarlamalısınız. Kendini seven Sistem Yöneticisi kurduğu her servis için log dosyası ayarlamalı ve bu log dosyalarının rotasyonunu sağlamalıdır, rotasyon yapmazsanız o bir gün gelecek ve sunucunuzdaki tüm disk alanınız dolacaktır. Tabi siz bunu MySQL çalışmıyor şikayeti alarak öğreneceksiniz, bu durumda yapmanız gereken ilk önce df -h ve df -i ile disk dolu mu ona bakmak olacaktır. Rotasyon aynı zamanda log tutma konusundaki yasal yükümlülüklerinizi yerine getirmenizde de yardımcı olacaktır, bu şekilde eskimiş log dosyalarınızı sıkıştırabilir ve arşivleyebilirsiniz.
 
 
 
