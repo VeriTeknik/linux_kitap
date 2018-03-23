@@ -1,10 +1,10 @@
 ## UNIX Pipeline
 
-Douglas McIlroy, işletim sistemindeki programların \(veya parçacıkların\) birer standart girdisinin ve standart çıktısının olması gerektiği fikrini aslında yukarıdaki örneklerde bahsettiğimiz gibi sadece dosya yönlendirme amacıyla geliştirmemiştir. McIlroy'un amacı, aslında programların birbirleriyle, arada geçici bir dosya veya kullanıcı müdahalesine gerek olmaksızın veri akışının sağlanmasıdır. Bunu yaparken de, bir programın çıktısının diğer programın girdisi olarak yönlendirilmesini kurgulamıştır. McIlroy bu metodolojiyi ilk defa 1973'te kurgulamıştır ve Ken Thompson,`pipe()`sistem çağrısını UNIX versiyon 3 üzerinde uyarlamıştır. Bunu yaparken de yönlendirme işareti olarak`|`kullanılmıştır. McIlroy, bu karakterin kullanımını Thompson'ın geliştirdiğini belirtir. Bu yatak çubuk, aslında bir\_boru \(pipe\)\_olarak düşünülünce, tıpkı bir su tesisatındaki boru hattı gibi, bir noktadan giren bilginin, diğer noktadan çıkmasını sağladığı için\_pipeline\_terminolojisini doğurmuştur.
+Douglas McIlroy, işletim sistemindeki programların \(veya parçacıkların\) birer standart girdisinin ve standart çıktısının olması gerektiği fikrini aslında yukarıdaki örneklerde bahsettiğimiz gibi sadece dosya yönlendirme amacıyla geliştirmemiştir. McIlroy'un amacı, aslında programların birbirleriyle, arada geçici bir dosya veya kullanıcı müdahalesine gerek olmaksızın veri akışının sağlanmasıdır. Bunu yaparken de, bir programın çıktısının diğer programın girdisi olarak yönlendirilmesini kurgulamıştır. McIlroy bu metodolojiyi ilk defa 1973'te kurgulamıştır ve Ken Thompson,`pipe()`sistem çağrısını UNIX versiyon 3 üzerinde uyarlamıştır. Bunu yaparken de yönlendirme işareti olarak`|`kullanılmıştır. McIlroy, bu karakterin kullanımını Thompson'ın geliştirdiğini belirtir. Bu yatak çubuk, aslında bir _boru \(pipe\)_ olarak düşünülünce, tıpkı bir su tesisatındaki boru hattı gibi, bir noktadan giren bilginin, diğer noktadan çıkmasını sağladığı için _pipeline_ terminolojisini doğurmuştur.
 
 Örneğin`less`programı, aslında kendisine sağlanan bilginin terminal ekranına sığacak şekilde parçalanmasını sağlar. Tıpkı`cat`programında olduğu gibi, parametrik kullanımla dosya adı belirtilebilir, veya standart girdi olarak veri sağlanabilir.
 
-Eğer çok fazla dosya içeren bir dizin içerisinde`ls -l`komutunu çalıştırırsak, standart çıktı içerisinde kaybolabiliriz. Bunun için`ls -l`komutunun çıktısını,`less`programına girdi olarak sunabiliriz. Bunun için yapmamız gereken tek şey, aralarında\_pipe\_işaretini kullanmak olacaktır.
+Eğer çok fazla dosya içeren bir dizin içerisinde`ls -l`komutunu çalıştırırsak, standart çıktı içerisinde kaybolabiliriz. Bunun için`ls -l`komutunun çıktısını,`less`programına girdi olarak sunabiliriz. Bunun için yapmamız gereken tek şey, aralarında _pipe_ işaretini kullanmak olacaktır.
 
 ```
 root@ubuntu:/mnt/backups/orthogonal/# ls -l | less
@@ -36,11 +36,11 @@ total 7019320
 --More--
 ```
 
-Bu çıktının en altında görülen`--More--`kısmı aslında,`less`programının getirdiği bir sonuç. Aynı şekilde`less`çalıştırıldıktan sonra, standart girdiden \(klavyeden\) herhangi bir\_input\_beklemektedir. Kısacası`less`programı devreye girdikten sonra eğer bir tuşa basarsak,`ls -l`çıktısının geri kalanının ekranımıza sığdığı kadarını karşımızda görebiliriz.
+Bu çıktının en altında görülen`--More--`kısmı aslında,`less`programının getirdiği bir sonuç. Aynı şekilde`less`çalıştırıldıktan sonra, standart girdiden \(klavyeden\) herhangi bir _input_ beklemektedir. Kısacası`less`programı devreye girdikten sonra eğer bir tuşa basarsak,`ls -l`çıktısının geri kalanının ekranımıza sığdığı kadarını karşımızda görebiliriz.
 
-Aslında buradaki notasyon şu şekilde işler.`komut1 | komut2 | komut3`şeklinde _-neredeyse- sonsuza kadar _komutları birbirine bağlayabilirsiniz \("Neredeyse sonsuza kadar" olmasının sebebini **File Descriptor **bölümünde göreceğiz\). Buradaki komutlar birbirinden farklı olabileceği gibi, birbirleriyle aynı da olabilir. Bu komutların birbirleriyle\_konuşabilmeleri\_için bilmeleri gereken bir şey de yoktur. McIlroy'un 2. maddede bahsettiği,\_farklı programların birbirleriyle konuşmasını sağlama\_düşüncesi de burada ortaya çıkar.
+Aslında buradaki notasyon şu şekilde işler.`komut1 | komut2 | komut3`şeklinde _-neredeyse- sonsuza kadar_ komutları birbirine bağlayabilirsiniz \("Neredeyse sonsuza kadar" olmasının sebebini **File Descriptor **bölümünde göreceğiz\). Buradaki komutlar birbirinden farklı olabileceği gibi, birbirleriyle aynı da olabilir. Bu komutların birbirleriyle _konuşabilmeleri_ için bilmeleri gereken bir şey de yoktur. McIlroy'un 2. maddede bahsettiği, farklı programların birbirleriyle konuşmasını sağlama düşüncesi de burada ortaya çıkar.
 
-Örneğin, sistemimizdeki yüklü Python modüllerinin bulunduğu`/usr/local/lib/python3.5/dist-packages`dizini içerisinde sonu`.py`ile\_bitmeyen\_dosyaların sayısını öğrenmek istersek, aşağıdaki komut dizisini kullanabiliriz.
+Örneğin, sistemimizdeki yüklü Python modüllerinin bulunduğu`/usr/local/lib/python3.5/dist-packages`dizini içerisinde sonu`.py`ile bitmeyen dosyaların sayısını öğrenmek istersek, aşağıdaki komut dizisini kullanabiliriz.
 
 ```
 eaydin@eaydin-vt ~ $ ls /usr/local/lib/python3.5/dist-packages | grep -v .py$ | wc -l
@@ -95,11 +95,11 @@ bcrypt
 bcrypt-3.1.4.dist-info
 ```
 
-`tee`programı, aslında Unix pipeline'ında bir T-Pipe görevi gördüğü için bu ismi almıştır. Unix pipeline'ı aslında bir boru tesisatı gibi düşünülebilir, ismi de buradan gelir zaten. Yazılımlar birbirlerine borularla bağlıdır, ve akış tek yönlüdür. Soldan sağa doğru akış gerçekleşir. Eğer bu akış içerisinde bir dallanmaya ihtiyaç duyarsak, boru tesisatlarında olduğu gibi T şeklinde bir boru kullanmamız gerekir. Böylece akışı iki veya daha fazla dala ayırabiliriz. Programa birden fazla parametre verip, çıktının birden fazla dosyaya da yazdırılmasını sağlayabiliriz.
+`tee`programı, aslında UNIX pipeline'ında bir T-Pipe görevi gördüğü için bu ismi almıştır. UNIX pipeline'ı aslında bir boru tesisatı gibi düşünülebilir, ismi de buradan gelir zaten. Yazılımlar birbirlerine borularla bağlıdır, ve akış tek yönlüdür. Soldan sağa doğru akış gerçekleşir. Eğer bu akış içerisinde bir dallanmaya ihtiyaç duyarsak, boru tesisatlarında olduğu gibi T şeklinde bir boru kullanmamız gerekir. Böylece akışı iki veya daha fazla dala ayırabiliriz. Programa birden fazla parametre verip, çıktının birden fazla dosyaya da yazdırılmasını sağlayabiliriz.
 
 Kısacası`tee`programı, standart girdiden gelen veriyi, hem kendisine parametre olarak verilen dosyalara yazar, hem de standart çıktıya yönlendirir. Böylece kendi standart çıktısı hangi programa standart girdi olarak sunulmuşsa, komutların akışı devam edebilir.
 
-Normal şartlar altında **&gt; **işaretinin yaptığı gibi, kendisine parametre olarak verilen dosyaları silip üzerine yazar. Ancak bu dosyaların mevcut bilgilerini koruyup sonuna veri eklemesini istersek \(_append_ etmesini istersek\)`-a`parametresiyle çalıştırmak gerekir. Bu, standart çıktı yönlendirmedeki**&gt;&gt;**işaretinin karşılığı gibi düşünülebilir.
+Normal şartlar altında **&gt; **işaretinin yaptığı gibi, kendisine parametre olarak verilen dosyaları silip üzerine yazar. Ancak bu dosyaların mevcut bilgilerini koruyup sonuna veri eklemesini istersek \(_append_ etmesini istersek\)`-a`parametresiyle çalıştırmak gerekir. Bu, standart çıktı yönlendirmedeki **&gt;&gt; **işaretinin karşılığı gibi düşünülebilir.
 
 ### tee Örneği
 
@@ -111,7 +111,7 @@ Kullanımı hakkında, GNU Core Utils'de paylaşılan birkaç örnek fikir vereb
 wget -O - http://mirror.veriteknik.net.tr/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso | tee centos7.iso | md5sum > centos7.md5
 ```
 
-Yukarıdaki komut VeriTeknik mirrorlarından CentOS 7 Minimal güncel versiyonunu indirir,`tee`ile dosya`centos7.iso`olarak kaydedilir ancak standart çıktıya yazılan veri`tee`ile`md5sum`programına aktarılır ve MD5 Checksum hesaplandıktan sonra`centos7.md5`dosyasına kaydedilir. Burada önemli olan noktalardan birisi, MD5 hesaplanması için verinin tamamının indirilmesinin beklenmemesidir. Veri indikçe md5sum programına veri akacak ve hesaplama başlayacaktır. Dolayısıyla verinin önce diske yazılması beklenmemektedir. Verinin önce diske yazılmasını, sonra`md5sum`programının diskten tekrar okumasını sağlamak için şöyle yapabilirdik:
+Yukarıdaki komut VeriTeknik mirrorlarından CentOS 7 Minimal güncel versiyonunu indirir,`tee`ile dosya`centos7.iso`olarak kaydedilir ancak standart çıktıya yazılan veri`tee`ile`md5sum`programına aktarılır ve MD5 Checksum hesaplandıktan sonra`centos7.md5`dosyasına kaydedilir. Burada önemli olan noktalardan birisi, MD5 hesaplanması için verinin tamamının indirilmesinin beklenmemesidir. Veri indikçe `md5sum` programına veri akacak ve hesaplama başlayacaktır. Dolayısıyla verinin önce diske yazılması beklenmemektedir. Verinin önce diske yazılmasını, sonra`md5sum`programının diskten tekrar okumasını sağlamak için şöyle yapabilirdik:
 
 ```
 wget http://mirror.veriteknik.net.tr/CentOS/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso centos7.iso && md5sum centos7.iso
@@ -148,7 +148,7 @@ eaydin@eaydin-vt ~/Downloads $ cat centos7.sha1
 aae20c8052a55cf179af88d9dd35f1a889cd5773  -
 ```
 
-Yukarıdaki komut dizisinin kritik noktası,`tee >(sha1sum > centos7.sha1) >(md5sum > centos7.md5)`bölümüdür. Burada `tee`, standart çıktısını iki farklı işleme daha yönlendirir. Bu işlemler parantez içinde belirtilir, ve daha önce gördüğümüz**&gt;**işareti ile bu işlemlere yönlendirme yapılır. Burada dikkat edilmesi gereken nokta,**&gt;**işareti ile**\(**arasında boşluk bulunmaması gerektiğidir. Öte yandan`sha1sum`ve`md5sum`sonrasında gelen**&gt;**işaretleri doğrudan bu programların standart çıktılarını yönlendirme amacıyla yazıldığından, boşluk konması problem yaratmaz, zaten parantez içinde kullanılma sebepleri de budur.
+Yukarıdaki komut dizisinin kritik noktası,`tee >(sha1sum > centos7.sha1) >(md5sum > centos7.md5)`bölümüdür. Burada `tee`, standart çıktısını iki farklı işleme daha yönlendirir. Bu işlemler parantez içinde belirtilir, ve daha önce gördüğümüz **&gt; **işareti ile bu işlemlere yönlendirme yapılır. Burada dikkat edilmesi gereken nokta, **&gt; **işareti ile **\( **arasında boşluk bulunmaması gerektiğidir. Öte yandan`sha1sum`ve`md5sum`sonrasında gelen **&gt; **işaretleri doğrudan bu programların standart çıktılarını yönlendirme amacıyla yazıldığından, boşluk konması problem yaratmaz, zaten parantez içinde kullanılma sebepleri de budur.
 
-Sanki`tee`programı iki farklı dosyaya yazmak yerine, iki farklı işleme standart çıktıyı yönlendirmektedir. Burada dosya \(_file_\) yerine işlem \(_process_\) koyduğumuz için, bir değişiklik \(_substitution_\) işlemi yapmış olduk. Bu yüzden bu yönteme\_process substituion\_denilir. Bu örnekte de, indirme işleminin, SHA1 hesaplamasının ve MD5 hesaplamasının birbirlerini beklemediğini, işlemin paralel gerçekleştirildiğini hatırlatmakta fayda var.
+Sanki`tee`programı iki farklı dosyaya yazmak yerine, iki farklı işleme standart çıktıyı yönlendirmektedir. Burada dosya \(_file_\) yerine işlem \(_process_\) koyduğumuz için, bir değişiklik \(_substitution_\) işlemi yapmış olduk. Bu yüzden bu yönteme _process substituion_ denilir. Bu örnekte de, indirme işleminin, SHA1 hesaplamasının ve MD5 hesaplamasının birbirlerini beklemediğini, işlemin paralel gerçekleştirildiğini hatırlatmakta fayda var.
 
