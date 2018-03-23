@@ -617,9 +617,9 @@ Burada open fonksiyonuna parametre olarak yeni file descriptor'ımızın nereye 
 | 1089 | O\_WRONLY \| O\_CREAT \| O\_APPEND | &gt;&gt; |
 | 0 | O\_RDONLY | &lt; |
 
-Öyleyse, bu modda açtığımız için, eğer yaz2.txt dosyası içerisinde bir veri olsaydı silinmiş olacaktı.
+Öyleyse, bu modda açtığımız için, eğer `yaz2.txt` dosyası içerisinde bir veri olsaydı silinmiş olacaktı.
 
-Bu yeni dosya açma işleminin sonucunda $1 = 4 yazması, ilk çalıştırdığımız komutun çıktısında 4 elde ettiğimiz anlamına geliyor. Burada 4 değeri, open fonksiyonunun sonucu olduğu için, aslında programın yeni file descriptor'ının sayısal karşılığıdır. File descriptor'ların listesinden de bu görülebilir.
+Bu yeni dosya açma işleminin sonucunda `$1 = 4` yazması, ilk çalıştırdığımız komutun çıktısında 4 elde ettiğimiz anlamına geliyor. Burada 4 değeri, open fonksiyonunun sonucu olduğu için, aslında programın yeni file descriptor'ının sayısal karşılığıdır. File descriptor'ların listesinden de bu görülebilir.
 
 ```
 eaydin@eaydin-vt /proc/381/fd $ ls -l
@@ -637,10 +637,10 @@ Hatırlarsanız bu sayısal değerler sadece 0,1,2,... gibi değerler olabiliyor
 
 ```
 (gdb) call dup2(4,3)
-$4 = 3
+$2 = 3
 ```
 
-Burada C'nin dup2 fonksiyonunu çağırmış olduk, yani 4'ün bir kopyasını oluşturup 3'e yazdık. Aslında bu terminal üzerinde deneme5 3&gt;&4 işlemi yapmakla aynı anlama geliyor, 3 numaralı file descriptor 4'ün adresine yönlendiriliyor. Şimdi file descriptor'larımızın listesine göz atacak olursak, 3 ve 4'ün aynı noktaya işaret ettiğini görebiliriz.
+Burada C'nin `dup2` fonksiyonunu çağırmış olduk, yani 4. file descriptor'ınn bir kopyasını oluşturup 3. file descriptor'a yazdık. Aslında bu, terminal üzerinde` komut 3>&4` işlemi yapmakla aynı anlama geliyor, 3 numaralı file descriptor 4'ün adresine yönlendiriliyor. Şimdi file descriptor'larımızın listesine göz atacak olursak, 3 ve 4'ün aynı noktaya işaret ettiğini görebiliriz.
 
 ```
 eaydin@eaydin-vt /proc/381/fd $ ls -l
@@ -656,7 +656,7 @@ Artık, kullanmadığımız 4 numaralı file descriptor'ını kapatabiliriz.
 
 ```
 (gdb) call close(4)
-$5 = 0
+$3 = 0
 ```
 
 Bunun sonucunda, file descriptor listesinde 4 numaralı adresi görmemeyi bekleriz.
@@ -670,14 +670,14 @@ lrwx------ 1 eaydin eaydin 64 Mar 24 02:28 2 -> /dev/pts/11
 l-wx------ 1 eaydin eaydin 64 Mar 24 02:28 3 -> /home/eaydin/devel/sleep-test/yaz2.txt
 ```
 
-Artık gdb ile bağlandı kurduğumuz PID'den kopyabiliriz.
+Artık `gdb` ile bağlantı kurduğumuz PID'den kopyabiliriz.
 
 ```
 (gdb) detach
 Detaching from program: /home/eaydin/devel/sleep-test/deneme5, process 381
 ```
 
-Bunu yaptığımız anda, tekrardan programın standart çıktıya Test yazmaya devam ettiğini görebiliriz, Ayrıca yaz.txt'ye artık veril yazılmadığını, ancak takip ettiğimiz yaz2.txt üzerine yeni tarih/saat değerlerinin yazıldığını görebiliriz.
+Bunu yaptığımız anda, tekrardan programın standart çıktıya `Test` yazmaya devam ettiğini görebiliriz, Ayrıca `yaz.txt`'ye artık veri yazılmadığını, ancak takip ettiğimiz `yaz2.txt` üzerine yeni tarih/saat değerlerinin yazıldığını görebiliriz.
 
 ```
 (yaz2.txt dosyasının içeriği)
@@ -688,15 +688,13 @@ Dosyaya yazdırma: Sat Mar 24 02:34:22 2018
 Dosyaya yazdırma: Sat Mar 24 02:34:23 2018
 ```
 
-gdb'den çıkmak için quit yazmamız yeterli.
+`gdb`'den çıkmak için quit yazmamız yeterli.
 
 ```
 (gdb) quit
 ```
 
-Bu yöntem ile, programın 3. file descriptor'ının işaret ettiği dosyayı değiştirmiş olduk. Bu işlem sırasında programı duraklattık ancak programı öldürmedik. Yani programın PID'si değişmedi. Ayrıca program durduğundan bile haberdar olmadı. Eğer program bu sırada bir matematiksel işlem yapıyor olsaydı, durduğu için bir problem yaşamayacaktı. Bu tip işlemler özellikle logrotate gibi programlar tarafından kullanılır, Apache veya MySQL gibi p
-
-Yani terminal üzerinde sanki deneme5 4&gt;&3 işlemi yapmışız gibi
+Bu yöntem ile programın 3. file descriptor'ının işaret ettiği dosyayı değiştirmiş olduk. Bu işlem sırasında programı duraklattık ancak programı öldürmedik. Yani programın PID'si değişmedi. Ayrıca program durduğundan bile haberdar olmadı. Eğer program bu sırada bir matematiksel işlem yapıyor olsaydı, durduğu için bir problem yaşamayacaktı. Bu tip işlemler özellikle `logrotate` gibi programlar tarafından kullanılır, Apache veya MySQL gibi servislerin log yazdığı dosyaların, programların hizmet kesintisine sebep olmadan değiştirilmesine olanak tanır.
 
 ## Open File Descriptor Limitine Dönüş
 
