@@ -574,25 +574,25 @@ Red Hat, CentOS ve türevi dağıtımlarda `/etc/pam.d/login` dosyasını da dü
 
 ### Sistem Limitlerini Düzenlemek
 
-Sistemin genel limitini `/proc/sys/fs/file-max` dosyasını okuyarak öğrenebiliriz demiştik. Bu dosya aynı zamanda üzerine yazılabilir bir dosyadır, dolayısıyla bu dosyaya değeri yazarak da kernel parametresini düzenleyebiliriz. Örneğin sistemin limitini 386774'ten 10000'e düşürmek için aşağıdaki komutu kullanabiliriz.
+Sistemin genel limitini `/proc/sys/fs/file-max` dosyasını okuyarak öğrenebiliriz demiştik. Bu dosya aynı zamanda üzerine yazılabilir bir dosyadır, dolayısıyla bu dosyaya değeri yazarak da kernel parametresini düzenleyebiliriz. Örneğin sistemin limitini 386774'ten 15000'e düşürmek için aşağıdaki komutu kullanabiliriz.
 
 ```
-[root@emre ~]# echo 10000 > /proc/sys/fs/file-max
+[root@emre ~]# echo 15000 > /proc/sys/fs/file-max
 ```
 
 Bunun yerine, `sysctl` komutu ile de kernel parametrelerini düzenleyebiliriz.
 
 ```
-[root@emre ~]# sysctl -w fs.file-max=10000
+[root@emre ~]# sysctl -w fs.file-max=15000
 ```
 
 Bu yöntemler ile kernel parametresi doğrudan düzenlendiği için, çalışan sistem üzerinde değişikliğin etkisini hemen görürüz. Ancak sistem bir kez reboot olursa değişiklikler kalıcı olmaz. Eğer değişikliği kalıcı yapmak istersek, `/etc/sysctl.conf` dosyasını düzenlemek gerekecektir. Bu dosya içerisinde aşağıdaki parametre yoksa eklemek, varsa değiştirmek gerekir.
 
 ```
-fs.file-max = 10000
+fs.file-max = 15000
 ```
 
-Eğer sadece dosyayı değiştirdiysek, yani `sysctl -w fs.file-max=10000` komutuyla düzenleme yapmamışsak, bu sefer kernel'in dosya içerisinden parametreleri yeniden okumasını söylemek gerekir. Bunu da yine `sysctl` komutu ile yaparız.
+Eğer sadece dosyayı değiştirdiysek, yani `sysctl -w fs.file-max=15000` komutuyla düzenleme yapmamışsak, bu sefer kernel'in dosya içerisinden parametreleri yeniden okumasını söylemek gerekir. Bunu da yine `sysctl` komutu ile yaparız.
 
 ```
 [root@emre ~]# sysctl -p
