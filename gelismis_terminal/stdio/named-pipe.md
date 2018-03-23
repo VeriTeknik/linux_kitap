@@ -1,10 +1,10 @@
 ## Named Pipe
 
-Bu bölümde programların standart girdi ve çıktılarını birbirlerine veya çeşitli dosyalara yönlendirme işlemlerini detaylarını gördük. Özellikle UNIX pipeline'ı oluşturan bu süreçte, genellikle programları birbirleriyle bağlarken `|` işaretinin nasıl kullanıldığını gördük.
+Bu bölümde programların standart girdi ve çıktılarını birbirlerine veya çeşitli dosyalara yönlendirme işlemlerinin detaylarını gördük. Özellikle UNIX pipeline'ı oluşturan bu süreçte, genellikle programları birbirleriyle bağlarken `|` işaretinin nasıl kullanıldığını gördük.
 
 Bu kullanımdaki temel problemler, programlar arasındaki bağlantının tek seferlik yapılması, tek yönlü olması ve tek yazılım tarafından kullanılabilmesi. Örneğin bir programın çıktısının birden fazla program tarafından girdi olarak kullanılmasını sağlamak, veya birden fazla programın girdi sağlayabileceği ortam sağlamak mümkün olmaz.
 
-Bunun için _named pipe_ denilen dosyalar kullanılır. Hatırlarsanız daha önce "Unix üzerinde her şey bir dosyadır" demiştik. Burada da özel bir dosya tipinden bahsediyoruz. Sistem üzerinde öyle bir dosya tanımlanır ki, bu dosyaya birden fazla program yazabilir, ve bu dosyayı birden fazla program okuyabilir. Üstelik bu dosya hiç yer kaplamaz. Aslında daha önce kullandığımız pipe işleminin sadece iki program arasında değil, birden fazla program arasında kullanılmasına olanak sağlar. Bunu yapmak için dosya sistemi üzerinde ilgili pipe'ı isimlendirmemiz gerektiğinden, bunlara named pipe denilir. Böyle olunca da, daha önce kullandığımız pipe işaretlerine _anonymous pipe_ \(anonim pipe\) veya _regular pipe_ \(normal pipe\) denilir.
+Bunun için _named pipe_ denilen dosyalar kullanılır. Hatırlarsanız daha önce "UNIX üzerinde her şey bir dosyadır" demiştik. Burada da özel bir dosya tipinden bahsediyoruz. Sistem üzerinde öyle bir dosya tanımlanır ki, bu dosyaya birden fazla program yazabilir, ve bu dosyayı birden fazla program okuyabilir. Üstelik bu dosya hiç yer kaplamaz. Aslında daha önce kullandığımız pipe işleminin sadece iki program arasında değil, birden fazla program arasında kullanılmasına olanak sağlar. Bunu yapmak için dosya sistemi üzerinde ilgili pipe'ı isimlendirmemiz gerektiğinden, bunlara _named pipe_ denilir. Böyle olunca da, daha önce kullandığımız pipe işaretlerine _anonymous pipe_ \(anonim pipe\) veya _regular pipe_ \(normal pipe\) denilir.
 
 Named pipe'lar, üzerine yazılan verinin aynı sırayı koruyarak okunmasını sağlarlar. Kısacası ilk yazdığımız veri, ilk okunacak veridir. Bu tip sistemlere _First In First Out_'un kısaltması olan FIFO denilir. Yani işleme alınacak verilerde öncelik, en eski oluşturulan veriye tanınır. Örneğin bunun bir alternatifi, _Last In First Out_'un kısaltması olan LIFO'lardır. Ancak named pipe'lar, FIFO şeklinde çalıştığı için, aşağıdaki komut ile bir named pipe oluşturulur.
 
@@ -22,7 +22,7 @@ prw-rw-r-- 1 eaydin eaydin 0 Mar 16 15:39 mario
 
 Burada `mario`'nun dosya tipinin **p** olduğu görülüyor. Bu, dosyanın pipe olduğunu ifade etmektedir. Gördüğünüz üzere dosyanın boyutu da 0 Byte'dır. Yani disk üzerinde yer kaplamaz.
 
-Eğer aşağıdaki gibi ufak bir script yazarsak, çalıştırıldığında her saniye mevcut tarih/saati standart çıktıya yazdırmasını sağlayabiliriz. Bu scripti telltime.sh olarak kaydettiğimizi düşünelim.
+Eğer aşağıdaki gibi ufak bir script yazarsak, çalıştırıldığında her saniye mevcut tarih/saati standart çıktıya yazdırmasını sağlayabiliriz. Bu script'i `telltime.sh` olarak kaydettiğimizi düşünelim.
 
 ```
 eaydin@eaydin-vt ~/devel/namedpipe $ cat telltime.sh 
@@ -91,7 +91,7 @@ Fri Mar 16 16:09:35 +03 2018
 ^C
 ```
 
-Özellikle başlarda ve sonlarda 2'den fazla saat satırı görmeniz normal, çünkü `tellname` scripti arada çalıştırıp durdurduk. Yukarıdaki örnekten `tellme` scriptini saat 16:09:24'te çalıştırdığımızı ve 16:09:33 veya 16:09:34'te durdurduğumuzu anlayabiliriz. Yani `mario` pipe'ına aynı anda yeni programlar veri yazıp durdurabilir, ve okuyan taraf sadece sonuçları görerek etkilenir. Dosyayı yeniden açıp kapatmasına bile ihtiyaç duymaz.
+Özellikle başlarda ve sonlarda 2'den fazla saat satırı görmeniz normal, çünkü `tellname` scriptini arada çalıştırıp durdurduk. Yukarıdaki örnekten `tellname` scriptini saat 16:09:24'te çalıştırdığımızı ve 16:09:33 veya 16:09:34'te durdurduğumuzu anlayabiliriz. Yani `mario` pipe'ına aynı anda yeni programlar veri yazıp durdurabilir, ve okuyan taraf sadece sonuçları görerek etkilenir. Dosyayı yeniden açıp kapatmasına bile ihtiyaç duymaz.
 
 Named pipe'lar hakkında GNU/Linux manual sayfalarında önemli bir bilgi yer alır.
 
@@ -101,7 +101,7 @@ Yani bir named pipe oluşturduğumuzda, eğer aynı anda okuyan ve yazan biriler
 
 Named pipe'lar ile yapılan işlemlerin dosya sisteminde inode oluşturmak dışında herhangi bir yük oluşturmadığını hatırlatmakta fayda var. Birden fazla programın birbiriyle iletişim kurmasını sağlayan bu mekanizma tamamen çekirdek \(kernel\) tarafından idare edilir.
 
-Oluşturduğunuz bir named pipe'ı rm komutuyla kolayca silebilirsiniz.
+Oluşturduğunuz bir named pipe'ı `rm` komutuyla kolayca silebilirsiniz.
 
 ```
 eaydin@eaydin-vt ~/devel/namedpipe $ rm mario
