@@ -613,8 +613,8 @@ Burada open fonksiyonuna parametre olarak yeni file descriptor'ımızın nereye 
 
 | gdb Dosya Erişim Biçimi | C Karşılığı | Terminal Yönlendirme Karşılığı |
 | :--- | :--- | :--- |
-| 577 | O\_WRONLY \| O\_CREAT \| O\_TRUNC | &gt; |
-| 1089 | O\_WRONLY \| O\_CREAT \| O\_APPEND | &gt;&gt; |
+| 577 | O\_WRONLY, O\_CREAT, O\_TRUNC | &gt; |
+| 1089 | O\_WRONLY, O\_CREAT, O\_APPEND | &gt;&gt; |
 | 0 | O\_RDONLY | &lt; |
 
 Öyleyse, bu modda açtığımız için, eğer `yaz2.txt` dosyası içerisinde bir veri olsaydı silinmiş olacaktı.
