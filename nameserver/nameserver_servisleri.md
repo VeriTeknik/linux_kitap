@@ -68,7 +68,7 @@ options {
     directory     "/var/named";
     allow-transfer { none; };
     allow-recursion { genelsorgu; };
-     allow-query-cache { genelsorgu; };
+    allow-query-cache { genelsorgu; };
     recursion yes;
 
     /* Path to ISC DLV key */
@@ -87,4 +87,51 @@ listen-on-v6 port 53 { any; }; Aynı şekilde eğer kullanıyorsanız IPv6 adres
 directory "/var/named"; Yetkili alan adlarının ayar dosyalarının bulunduğu dizin
 
 allow-transfer { none; }; Bu kısıma slave sunucunun IP adresi yazılabilir, bu kısmı ayar dosyasına koymazsanız bu DNS sunucusunun içerdiği tüm verileri ALL sorgusu ile alabilirler, bu durumda XFER ataklarına açık halde olur, bu nedenle tavsiye etmiyoruz.
+
+allow-recursion { genelsorgu }; bu kısıma recursion yani harici DNS verisi sorgulamasına izin verdiğiniz IP ya da subnetleri yazabilirsiniz. allow-query-cache ise ön bellekteki kayıtlara ulaşabilmek için yazılmalıdır.
+
+recursion yes; recursion yapılmasını sağlar, eğer recursion yapılmasını istemiyorsanız bunu kapatınız, bu ayar kapalı olduğunda allow-recursion kısmı da etkili olmayacaktır.
+
+```
+controls {
+    inet 127.0.0.1 allow { localhost; } keys { rndckey; };
+};
+
+logging {
+    category lame-servers {null;};
+    channel default_debug {
+    file "data/named.run";
+    severity dynamic;
+//  severity debug;
+    };
+};
+
+zone "." IN {
+        type hint;
+        file "named.ca";
+};
+
+include "/etc/rndc.key";
+include "/etc/named.rfc1912.zones";
+```
+
+Yukarıdaki ayarlar ise standart named.conf'ta bulunması gereken ayarlardır, controls kısmında sistemin rndc ile yönetilebileceği ve bunun sadece localhost'tan olabileceği belirtilmektedir.
+
+logging kısmı, named'in ne kadar detaylı log üreteceğini belirtmektedir, detaylı loglama istedeğiniz zaman severity dynamic kısmını kapatıp severity debug kısmını açabilirsiniz, "//" ile başlayan satırları named yorum olarak algılayacaktır.
+
+Aşağıda açıklayacağımız kısım ise, DNS sunucusunun yetkili olduğu alan adlarının bilgisini içermektedir, aşağıda gösterildiği şekilde ekleyeceğiniz her domain bind tarafından servis edilecektir.
+
+```
+zone "sanallastirma.com" { type master; file "/var/named/sanallastirma.com.db"; };
+```
+
+Burada eklediğimiz domain için bu DNS sunucusu "master" konumundadır, slave sunucuda ise yapılması gereken şudur:
+
+```
+zone "sanallastirma.com" { type slave; file "/var/named/sanallastirma.com"; masters { BIRINCI_SUNUCU_IP; }; notify no; }; 
+```
+
+Şimdi de /var/named/sanallastirma.com.db dosyasına bakalım:
+
+
 
