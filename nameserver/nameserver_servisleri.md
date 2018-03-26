@@ -23,7 +23,7 @@ Bu yapılan işlem hem Bind DNS hem de Power DNS için geçerlidir. DNS Sunucusu
 | MX | sanallastirma.com. | 5 mail.sanallastirma.com | Posta Sunucuları |
 | TXT | sanallastirma.com. | "düz metin ifade" | Açıklamalar ve kurallar |
 
-Sırasıyla, 
+Sırasıyla,
 
 NS: sanallastirma.com için yetkili alan adı sunucusunun ns1.sanallastirma.com olduğunu ifade eder  
 A/AAAA: sanallastirma.com sorgulandığında karşılık gelen IP adresi gönderilir  
@@ -33,7 +33,51 @@ TXT: Genelde anti-spam sistemleri tarafından belirlenmiş olan ifadeler ya da a
 
 Not: alan adlarının sonunda "." işareti varsa ifade named tarafından tamamlanmaz, nokta koymadığınız durumlarda named bu alanı tamamlayacaktır, örneğin www yazdığınızda named bunu www.sanallastirma.com olarak algılayacaktır.
 
-### Bind Alan Adı Sunucusu Kurulumu 
+### Bind Alan Adı Sunucusu Kurulumu
+
+Bind DNS sunucusu kullandığınız GNU/Linux sürümünün standart reposunda gelmektedir.Yüklemek için "named" paketini tercih ettiğiniz paket yöneticisi ile indirip kurabilirsiniz.Kurulum tamamlandıktan sonra başlatma betikleri ve ayar dosyaları sisteminize yüklenecektir, named standart yüklemede ayar dosyasını /etc dizinine koyar, /etc/named.conf dosyasında genel ayarlamalarınızı yapabilirsiniz, oluşturacağınız alan adlarının bilgileri de /var/named dizininde saklanır.
+
+#### Yetkili Alan Adı Sunucusu Kurulumu
+
+Yetkili alan adı sunucusu kurulumu named.conf dosyasının düzenlenmesi ile oluşturulur. named.conf içerisindeki ayarlara kısaca göz atalım:
+
+```
+acl "genelsorgu" {
+        localhost;
+	94.103.32.0/20;
+        185.35.20.0/22;
+	185.96.170.0/24;
+        192.168.15.0/24;
+	2a00:7300::1/32;
+};
+```
+
+acl, access-list İngilizce teriminin kısaltmasıdır, bu acl ile DNS sunucusunda "recursion" yani dış sorgu yapabilecek IP bloklarının bilgisini yazıyoruz, yetkili DNS sunucusu kendi bünyesinde hizmet verdiği alan adlarının bilgileri dışında harici alan adlarını da sorgulayabilir durumdadır, yukarıda belirtilmiş olan IP blokları bu hizmetten faydalanabilecektir, bu IP grupları dışında harici alan adlarını sorgulamaya kalkan IP adreslerine cevap dönmeyecektir. Bu yapılandırmayı test etmek için belirtilen IP bloklarından birinden dig komutu ile sorgulama yapabilirsiniz
+
+```
+dig google.com @DNS_SUNUCU_IP_ADRESI
+```
+
+Bu sorguyu yaptığınızda harici alan adının IP adresini görebilmeniz gerekir. acl kısmından sonra options ise şu ifadeleri içerir:
+
+```
+options {
+	version "Not disclosed";
+	listen-on port 53 { 127.0.0.1;IP_ADRESI_1;IP_ADRESI_2;};
+	listen-on-v6 port 53 { any; };
+	directory 	"/var/named";
+	dump-file 	"/var/named/data/cache_dump.db";
+        statistics-file "/var/named/data/named_stats.txt";
+        memstatistics-file "/var/named/data/named_mem_stats.txt";
+	allow-transfer { none; };
+	allow-recursion { genelsorgu; };
+ 	allow-query-cache { genelsorgu; };
+	recursion yes;
+
+	/* Path to ISC DLV key */
+	bindkeys-file "/etc/named.iscdlv.key";
+};
+```
 
 
 
