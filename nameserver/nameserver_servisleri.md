@@ -35,7 +35,7 @@ Not: alan adlarının sonunda "." işareti varsa ifade named tarafından tamamla
 
 ### Bind Alan Adı Sunucusu Kurulumu
 
-Bind DNS sunucusu kullandığınız GNU/Linux sürümünün standart reposunda gelmektedir.Yüklemek için "named" paketini tercih ettiğiniz paket yöneticisi ile indirip kurabilirsiniz.Kurulum tamamlandıktan sonra başlatma betikleri ve ayar dosyaları sisteminize yüklenecektir, named standart yüklemede ayar dosyasını /etc dizinine koyar, /etc/named.conf dosyasında genel ayarlamalarınızı yapabilirsiniz, oluşturacağınız alan adlarının bilgileri de /var/named dizininde saklanır.
+Bind DNS sunucusu kullandığınız GNU/Linux sürümünün standart reposunda gelmektedir.Yüklemek için "named" paketini tercih ettiğiniz paket yöneticisi ile indirip kurabilirsiniz.Kurulum tamamlandıktan sonra başlatma betikleri ve ayar dosyaları sisteminize yüklenecektir, named standart yüklemede ayar dosyasını /etc dizinine koyar, /etc/named.conf dosyasında genel ayarlamalarınızı yapabilirsiniz, oluşturacağınız alan adlarının bilgileri de /var/named dizininde saklanır. Loglar ile ilgili özel bir düzenleme yapmazsanız, hata loglarını messages içerisinden inceleyebilirsiniz.
 
 #### Yetkili Alan Adı Sunucusu Kurulumu
 
@@ -44,11 +44,11 @@ Yetkili alan adı sunucusu kurulumu named.conf dosyasının düzenlenmesi ile ol
 ```
 acl "genelsorgu" {
         localhost;
-	94.103.32.0/20;
+    94.103.32.0/20;
         185.35.20.0/22;
-	185.96.170.0/24;
+    185.96.170.0/24;
         192.168.15.0/24;
-	2a00:7300::1/32;
+    2a00:7300::1/32;
 };
 ```
 
@@ -62,22 +62,29 @@ Bu sorguyu yaptığınızda harici alan adının IP adresini görebilmeniz gerek
 
 ```
 options {
-	version "Not disclosed";
-	listen-on port 53 { 127.0.0.1;IP_ADRESI_1;IP_ADRESI_2;};
-	listen-on-v6 port 53 { any; };
-	directory 	"/var/named";
-	dump-file 	"/var/named/data/cache_dump.db";
-        statistics-file "/var/named/data/named_stats.txt";
-        memstatistics-file "/var/named/data/named_mem_stats.txt";
-	allow-transfer { none; };
-	allow-recursion { genelsorgu; };
- 	allow-query-cache { genelsorgu; };
-	recursion yes;
+    version "Not disclosed";
+    listen-on port 53 { 127.0.0.1;IP_ADRESI_1;IP_ADRESI_2;};
+    listen-on-v6 port 53 { any; };
+    directory     "/var/named";
+    allow-transfer { none; };
+    allow-recursion { genelsorgu; };
+     allow-query-cache { genelsorgu; };
+    recursion yes;
 
-	/* Path to ISC DLV key */
-	bindkeys-file "/etc/named.iscdlv.key";
+    /* Path to ISC DLV key */
+    bindkeys-file "/etc/named.iscdlv.key";
 };
 ```
 
+options kısmı Bind DNS sunucusunun nasıl çalışacağını belirten ayarları içermektedir, sırasıyla inceleyelim:
 
+version "Not Disclosed": Bind sunucusuna sorgu yapıldığında sunucu versiyonu da iletilir, güvenlik açısından versiyon bilgisi paylaşmak istemezseniz bu satırı eklemeniz gerekmektedir.
+
+listen-on port 53 { 127.0.0.1;IP\_ADRESI\_1;IP\_ADRESI\_2;}; Bind sunucusunun dinleyeceği portu ve IP adreslerini içerir, her bir IP adresini ";" ile ayırmayı unutmayınız, sunucuyu hem master hem de slave olarak kullanacaksanız buraya en az iki IP adresi girmelisiniz.
+
+listen-on-v6 port 53 { any; }; Aynı şekilde eğer kullanıyorsanız IPv6 adresleri için de bu ayarlamayı yapmanız gerekmektedir.
+
+directory "/var/named"; Yetkili alan adlarının ayar dosyalarının bulunduğu dizin
+
+allow-transfer { none; }; Bu kısıma slave sunucunun IP adresi yazılabilir, bu kısmı ayar dosyasına koymazsanız bu DNS sunucusunun içerdiği tüm verileri ALL sorgusu ile alabilirler, bu durumda XFER ataklarına açık halde olur, bu nedenle tavsiye etmiyoruz.
 
