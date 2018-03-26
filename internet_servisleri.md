@@ -1,10 +1,10 @@
 # İnternet Servisleri
 
-GNU/Linux sunucular yapıları itibariyle her çeşit servisi bir çok farklı donanım üzerinden sunabilecek yapıya sahiptir, bu servisler Raspberry pi gibi sistemlerde çalışabildiği gibi, çok işlemcili mimarilerde de çalışabilmektedir. En sık kullanılan servisler Web \(http/hhtps\), mail, DNS, SNMP ve NTP'dir. IoT'nin gelişimi ile birlikte bir çok M2M \(Makinadan-Makinaya\) servisler de sıkça kullanılmaya başlanmıştır. Ancak sonuç pek değişmemektedir, kullanım kolaylığı açısından DNS yönlendirmede ve HTTPS ise güvenli iletişimi sağlamakta diğer bütün servislere kolayca ev sahipliği yapabilmektedir. Aşağıdaki tabloda sıkça kullanılan servisler ve açıklamaları yer almaktadır, kitap içerisinde de derince anlatılan bu konular kolay erişilebilirlik açısından burada kısaca değinilmiştir:
+GNU/Linux işletim sistemleri hafif çekirdek yapısı sayesinde her türlü servisi büyükten küçüğe her türlü donanım üzerinden sunabilecek yapıya sahiptir, bu servisler Raspberry pi gibi sistemlerde çalışabildiği gibi, çok işlemcili mimarilerde de çalışabilmektedir. En sık kullanılan servisler Web \(http/hhtps\), mail, DNS, SNMP ve NTP'dir. IoT'nin gelişimi ile birlikte bir çok M2M \(Makinadan-Makinaya\) servisler de sıkça kullanılmaya başlanmıştır. Ancak sonuç pek değişmemektedir, kullanım kolaylığı açısından DNS yönlendirmede ve HTTPS ise güvenli iletişimi sağlamakta diğer bütün servislere kolayca ev sahipliği yapabilmektedir. Aşağıdaki tabloda sıkça kullanılan servisler ve açıklamaları yer almaktadır, kitap içerisinde de derince anlatılan bu konular kolay erişilebilirlik açısından burada kısaca değinilmiştir:
 
 | Servis | Protokol/Port | Açıklama | Kullanım Alanları |
 | :--- | :--- | :--- | :--- |
-| HTTP | TCP\(80\) | Şifrelenmemiş Web servisleri  | Web içeriği, Web Servisleri |
+| HTTP | TCP\(80\) | Şifrelenmemiş Web servisleri | Web içeriği, Web Servisleri |
 | HTTPS | TCP\(443\) | Şifrelenmiş Web Servisleri | Web içeriği, Web Servisleri |
 | DNS | UDP\(53\), TCP\(53\) | Karmaşık IP adreslerinin sabit bir alan adı ile eşleştirilmesinde kullanılır. | Alan adına karşılık gelen IPv4 ya da IPv6 adresini verir |
 | NTP | UDP\(123\) | Zaman Sunucusu | Tüm sunucuların aynı zaman senkronizasyonunda kalmasını sağlar |
