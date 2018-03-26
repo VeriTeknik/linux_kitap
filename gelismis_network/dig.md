@@ -335,5 +335,5 @@ Yukarıdaki komut, yerel ağımızdaki 192.168.19.23 IP adresli DNS sunucusuna 5
 
 ## Daha Fazla Bilgi
 
-dig programı alanadları için tanılanmış standartlara uygunluk gösterir. Bu standartlar hakkındaki detaylar [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt)'te tanımlanmıştır.
+dig programı alanadları için tanımlanmış standartlara uygunluk gösterir. Bu standartlar hakkındaki detaylar [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt)'te tanımlanmıştır.
 
