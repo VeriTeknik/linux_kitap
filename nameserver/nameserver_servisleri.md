@@ -16,22 +16,22 @@ Bu yapılan işlem hem Bind DNS hem de Power DNS için geçerlidir. DNS Sunucusu
 
 | Kayıt Tipi | Örnek Değer | İfade | Kullanım Amacı |
 | :--- | :--- | :--- | :--- |
-| NS | sanallastirma.com. | ns1.sanallastirma.com. | Alan adı sunucusunun ismi |
-| A | sanallastirma.com. | 192.168.0.2 | isime karşılık gelen IP adresi |
-| AAAA | sanallastirma.com. | 2a00:7300:100::2 | isime karşılık gelen IPv6 adresi |
-| CNAME | www | sanallastirma.com. | Takma isim |
-| MX | sanallastirma.com. | 5 mail.sanallastirma.com | Posta Sunucuları |
-| TXT | sanallastirma.com. | "düz metin ifade" | Açıklamalar ve kurallar |
+| NS | rackdc.com. | ns1.rackdc.com. | Alan adı sunucusunun ismi |
+| A | rackdc.com. | 192.168.0.2 | isime karşılık gelen IP adresi |
+| AAAA | rackdc.com. | 2a00:7300:100::2 | isime karşılık gelen IPv6 adresi |
+| CNAME | www | rackdc.com. | Takma isim |
+| MX | rackdc.com. | 5 mail.rackdc.com | Posta Sunucuları |
+| TXT | rackdc.com. | "düz metin ifade" | Açıklamalar ve kurallar |
 
 Sırasıyla,
 
-NS: sanallastirma.com için yetkili alan adı sunucusunun ns1.sanallastirma.com olduğunu ifade eder  
-A/AAAA: sanallastirma.com sorgulandığında karşılık gelen IP adresi gönderilir  
+NS: rackdc.com için yetkili alan adı sunucusunun ns1.rackdc.com olduğunu ifade eder  
+A/AAAA: rackdc.com sorgulandığında karşılık gelen IP adresi gönderilir  
 CNAME: Bir alan adına takma ad olarak kullanılır, bu yapı DNS sunucusunda iki defa sorgu atılmasına neden olduğu için pratikte kullanılmaz,  
 MX: alan adına bağlı olan E-Posta sunucusunun bilgisini içerir, bu kısıma IP adresi yerine alan adı yazılmalıdır  
 TXT: Genelde anti-spam sistemleri tarafından belirlenmiş olan ifadeler ya da alan adı sahipliğini doğrulayan metinler içerebilir.
 
-Not: alan adlarının sonunda "." işareti varsa ifade named tarafından tamamlanmaz, nokta koymadığınız durumlarda named bu alanı tamamlayacaktır, örneğin www yazdığınızda named bunu www.sanallastirma.com olarak algılayacaktır.
+Not: alan adlarının sonunda "." işareti varsa ifade named tarafından tamamlanmaz, nokta koymadığınız durumlarda named bu alanı tamamlayacaktır, örneğin www yazdığınızda named bunu www.rackdc.com olarak algılayacaktır.
 
 ### Bind Alan Adı Sunucusu Kurulumu
 
@@ -122,16 +122,50 @@ logging kısmı, named'in ne kadar detaylı log üreteceğini belirtmektedir, de
 Aşağıda açıklayacağımız kısım ise, DNS sunucusunun yetkili olduğu alan adlarının bilgisini içermektedir, aşağıda gösterildiği şekilde ekleyeceğiniz her domain bind tarafından servis edilecektir.
 
 ```
-zone "sanallastirma.com" { type master; file "/var/named/sanallastirma.com.db"; };
+zone "rackdc.com" { type master; file "/var/named/rackdc.com.db"; };
 ```
 
 Burada eklediğimiz domain için bu DNS sunucusu "master" konumundadır, slave sunucuda ise yapılması gereken şudur:
 
 ```
-zone "sanallastirma.com" { type slave; file "/var/named/sanallastirma.com"; masters { BIRINCI_SUNUCU_IP; }; notify no; }; 
+zone "rackdc.com" { type slave; file "/var/named/rackdc.com"; masters { BIRINCI_SUNUCU_IP; }; notify no; };
 ```
 
-Şimdi de /var/named/sanallastirma.com.db dosyasına bakalım:
+Şimdi de /var/named/rackdc.com.db dosyasına bakalım:
+
+```
+$TTL 14400
+@       IN      SOA     ns1.rackdc.com.      hostmaster.rackdc.com. (
+        2018270301	; serial
+        14400		; Yenileme
+        3600		; Tekrar deneme
+        1209600		; Zaman aşımı
+        86400 )		; TTL
+; Ad Sunucuları
+rackdc.com.	NS	ns1.rackdc.com.
+rackdc.com.	NS	ns2.rackdc.com.
+
+; Standart Bölüm
+localhost       A   127.0.0.1
+localhost       AAAA    ::1
+
+ns1		A		NS_IP_1
+ns1		AAAA    NS_IPv6_1
+
+ns2		A		NS_IP_2
+ns2		AAAA	NS_IPv6_2
+
+;MX Ayarı
+@		MX		5 mail
+
+; A Kayıtları
+@		AAAA    SUNUCU_IPv6
+@		A		SUNUCU_IP
+www		A		SUNUCU_IP
+mail	A		MAIL_SUNUCU_IP
+```
+
+SOA kısmının her alan adı kaydında bulunması gerekir, İngilizce State of Authority kelimelerinin baş harfleridir. Alan adı hakkında seri numarası, Yenileme süresi, tekrar deneme ve zaman aşımı gibi domain bazlı değişkenleri içerir. Global Server Load Balancing kullanılan DNS sunucularında Zaman aşımı düşük bir miktar, örneğin 10 saniyeye alınır, bu şekilde istemcinin sürekli IP adresini sorgulaması istenir. 
 
 
 
