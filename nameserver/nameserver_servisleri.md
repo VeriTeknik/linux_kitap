@@ -136,36 +136,70 @@ zone "rackdc.com" { type slave; file "/var/named/rackdc.com"; masters { BIRINCI_
 ```
 $TTL 14400
 @       IN      SOA     ns1.rackdc.com.      hostmaster.rackdc.com. (
-        2018270301	; serial
-        14400		; Yenileme
-        3600		; Tekrar deneme
-        1209600		; Zaman aşımı
-        86400 )		; TTL
+        2018270301    ; serial
+        14400        ; Yenileme
+        3600        ; Tekrar deneme
+        1209600        ; Zaman aşımı
+        86400 )        ; TTL
 ; Ad Sunucuları
-rackdc.com.	NS	ns1.rackdc.com.
-rackdc.com.	NS	ns2.rackdc.com.
+rackdc.com.    NS    ns1.rackdc.com.
+rackdc.com.    NS    ns2.rackdc.com.
 
 ; Standart Bölüm
 localhost       A   127.0.0.1
 localhost       AAAA    ::1
 
-ns1		A		NS_IP_1
-ns1		AAAA    NS_IPv6_1
+ns1        A        NS_IP_1
+ns1        AAAA    NS_IPv6_1
 
-ns2		A		NS_IP_2
-ns2		AAAA	NS_IPv6_2
+ns2        A        NS_IP_2
+ns2        AAAA    NS_IPv6_2
 
 ;MX Ayarı
-@		MX		5 mail
+@        MX        5 mail
 
 ; A Kayıtları
-@		AAAA    SUNUCU_IPv6
-@		A		SUNUCU_IP
-www		A		SUNUCU_IP
-mail	A		MAIL_SUNUCU_IP
+@        AAAA    SUNUCU_IPv6
+@        A        SUNUCU_IP
+www        A        SUNUCU_IP
+mail    A        MAIL_SUNUCU_IP
 ```
 
-SOA kısmının her alan adı kaydında bulunması gerekir, İngilizce State of Authority kelimelerinin baş harfleridir. Alan adı hakkında seri numarası, Yenileme süresi, tekrar deneme ve zaman aşımı gibi domain bazlı değişkenleri içerir. Global Server Load Balancing kullanılan DNS sunucularında Zaman aşımı düşük bir miktar, örneğin 10 saniyeye alınır, bu şekilde istemcinin sürekli IP adresini sorgulaması istenir. 
+SOA kısmının her alan adı kaydında bulunması gerekir, İngilizce State of Authority kelimelerinin baş harfleridir. Alan adı hakkında seri numarası, Yenileme süresi, tekrar deneme ve zaman aşımı gibi domain bazlı değişkenleri içerir. Global Server Load Balancing kullanılan DNS sunucularında Zaman aşımı düşük bir miktar, örneğin 10 saniyeye alınır, bu şekilde istemcinin sürekli IP adresini sorgulaması istenir.
+
+Bu kayıt dosyasında alan adına karşılık gelen @ işareti de kullanılabilir, eğer ifadelerin sonunda "." işareti yoksa sistem ifadeyi subdomain olarak algılayacaktır.
+
+SOA kısmı ilk yetkili DNS sunucusunun ismini \(ns1.rackdc.com\) ve yetkili email adresini içermektedir, bu kısımda yazılan email adresi @ yerine nokta ile yazılır. Buraya hostmaster yerine istediğiniz bir adresi de yazabilirsiniz. SOA kısmından sonra yetkili DNS sunucularının bilgilerini vermeniz gerekmektedir, sunucunun kendisi DNS sunucusu olsa bile alan adı farklı DNS hizmetlerini kullanıyor olabilir, bu nedenle alan adının yetkili sunucuları sırasıyla yazılır. Bu alana yazdığınız NS sunucusu sayısı kadar sunucu bu alan adı için yetkili olacaktır. Unutmayınız aynı bilgileri alan adı aldığınız kayıtçının kontrol panelinden de girmelisiniz.
+
+```
+rackdc.com. NS ns1.rackdc.com.
+rackdc.com. NS ns2.rackdc.com.
+```
+
+Yukarıdaki ifade rackdc.com adresi için ns1 ve ns2.rackdc.com yetkilidir demektir. Bu ifade tam anlamıyla doğru olmasına rağmen sorgulama yapan istemciye nameserverların IP adresini vermeyecektir, bunun için istemci tekrardan sorgulama yapar ve sunucuların A kayıtlarını ister:
+
+```
+ns1 A NS_IP_1
+ns2 A NS_IP_2
+```
+
+Bu kayıtlar istendikten sonra istemcinin sorgulama algoritmasına göre DNS sunucularından her hangi birinden asıl istenen sorgu yapılır, bu sorgulama bir A kaydı için, TXT kaydı için ya da MX kaydı için olabilir, aynı şekilde IPv6 için ise AAAA ile ifade edilen sorgular geçerli olacaktır. 
+
+Alan adına hizmet vermekte olan bir e-posta sunucusu varsa bu kayıt MX ifadesi ile yer almalıdır, eğer birden çok e-posta sunucusu alan adı için hizmet veriyorsa bu sunucular öncelik sırasına göre ifade edilir, en öncelikli sunucu en küçük değeri almaktadır, bu ifadenin farklı şekillerdeki yazımları aşağıda belirtilmiştir:
+
+```
+@                MX    10 mail
+rackdc.com.      MX    20 posta.rackdc.com.
+```
+
+MX için yazdığınız sunucu isimlerinin de ayrı bir ifadede A kayıtlarının girilmesi gerekecektir:
+
+```
+mail.rackdc.com.    A    MAIL_SUNUCU_IP_ADRESI
+posta               A    MAIL_2_SUNUCU_IP_ADRESI
+```
+
+Bir alan adının 
 
 
 
