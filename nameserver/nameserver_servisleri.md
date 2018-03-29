@@ -183,7 +183,7 @@ ns1 A NS_IP_1
 ns2 A NS_IP_2
 ```
 
-Bu kayıtlar istendikten sonra istemcinin sorgulama algoritmasına göre DNS sunucularından her hangi birinden asıl istenen sorgu yapılır, bu sorgulama bir A kaydı için, TXT kaydı için ya da MX kaydı için olabilir, aynı şekilde IPv6 için ise AAAA ile ifade edilen sorgular geçerli olacaktır. 
+Bu kayıtlar istendikten sonra istemcinin sorgulama algoritmasına göre DNS sunucularından her hangi birinden asıl istenen sorgu yapılır, bu sorgulama bir A kaydı için, TXT kaydı için ya da MX kaydı için olabilir, aynı şekilde IPv6 için ise AAAA ile ifade edilen sorgular geçerli olacaktır.
 
 Alan adına hizmet vermekte olan bir e-posta sunucusu varsa bu kayıt MX ifadesi ile yer almalıdır, eğer birden çok e-posta sunucusu alan adı için hizmet veriyorsa bu sunucular öncelik sırasına göre ifade edilir, en öncelikli sunucu en küçük değeri almaktadır, bu ifadenin farklı şekillerdeki yazımları aşağıda belirtilmiştir:
 
@@ -199,7 +199,26 @@ mail.rackdc.com.    A    MAIL_SUNUCU_IP_ADRESI
 posta               A    MAIL_2_SUNUCU_IP_ADRESI
 ```
 
-Bir alan adının 
+Bir alan adının bulundurması gereken zorunlu ifadelerin yanı sıra, hatırlamakta zorluk çektiğiniz IP adresleri için de ifadeler yazabilirsiniz, örneğin evinizde statik IP kullanıyorsanız onu da burada tanımlayıp RDP ya da SSH gibi uygulamalarda DNS adı ile erişim sağlayabilirsiniz, öyle ki iç ağınızdaki cihazlar için de tanımlama yapmanız mümkündür:
 
+```
+ev.rackdc.com.    A    EV_IP_ADRESI
+ofis.rackdc.com.  A    OFIS_IP_ADRESI
+printer           A    192.168.0.2
+switch            A    192.168.0.3
+```
 
+Named servisinin kurulumu tamamlandıktan sonra sistem açılışında otomatik olarak çalışması için aşağıdaki komutu girmelisiniz:
+
+```
+systemctl enable named.service
+```
+
+Çalıştırmak için ise
+
+```
+systemctl start named
+```
+
+DNS kayıtlarında değişiklik yaptığınızda ise rndc reload komutu ile DNS sunucusunu yeniden başlatmadan güncelleme yapabilirsiniz, var olan bir alan adı üzerinde yapılan değişikliklerde seri numara mutlaka yükseltilmelidir.
 
