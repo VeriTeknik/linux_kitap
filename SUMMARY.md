@@ -17,6 +17,7 @@
   * [UNIX Pipeline](gelismis_terminal/stdio/unix-pipeline.md)
   * [Olmazsa Olmaz: stdio.h](gelismis_terminal/stdio/olmazsa-olmaz-stdioh.md)
   * [Standart Hata ve File Descriptor](gelismis_terminal/stdio/standart-hata-ve-file-descriptor.md)
+  * [Forkbomb](gelismis_terminal/stdio/standart-hata-ve-file-descriptor/forkbomb.md)
   * [Named Pipe](gelismis_terminal/stdio/named-pipe.md)
 * [Gelişmiş Terminal Komutları](gelismis_terminal/gelismis_terminal_komutlari.md)
   * [Tarih ve Saat Ayarlama](gelismis_terminal/tarih_ve_saat_ayarlama.md)
