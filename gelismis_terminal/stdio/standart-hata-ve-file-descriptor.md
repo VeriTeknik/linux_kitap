@@ -766,6 +766,52 @@ Demek ki bu sunucu üzerinde `mysql` kullanıcısının Hardlimit'i 4096, Softli
 
 Oluşabilecek bir yanlış anlaşılmayı gidermek adına not edelim, bu limitler kullanıcı bazlı olsa bile, kullanıcıların bütün programları için toplanarak giden bir değer değildir. Kullanıcının her bir programı bu limitler dahilinde davranabilir. Yani Hardlimit'i 4096 olan bir kullanıcının, Softlimit'i de uygun ayarlandığında, iki farklı programı ayrı ayrı 4000'er dosya açabilir.
 
+Bir kullanıcının bütün Hardlimit'lerini görmek için aşağıdaki komut kullanılabilir:
+
+```
+eaydin@eaydin-vt ~ $ ulimit -aH
+core file size          (blocks, -c) unlimited
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 47455
+max locked memory       (kbytes, -l) 64
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 1048576
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) unlimited
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 47455
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+```
+
+Benzer şekilde, kullanıcının bütün Softlimit'leri aşağıdaki gibi görülebilir:
+
+```
+eaydin@eaydin-vt ~ $ ulimit -aS
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 47455
+max locked memory       (kbytes, -l) 64
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 1024
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 47455
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+```
+
+Burada file descriptor haricindeki sistem limitlerinin de bulunduğu görülebilir. Bu bölümün kapsamı dışında olduğu için maddelerin üzerinden tek tek geçmeyeceğiz.
+
 ### Kullanıcı Limitlerini Düzenlemek
 
 Kullanıcı bazlı bu limitleri düzenlemek için `/etc/security/limits.conf` dosyasını düzenlemek gerekir. Örneğin `mysql` kullanıcısı için Softlimit 2048, Hardlimit 8192 olsun istersek, dosya içerisinde şöyle satırlar oluşturmamız gerekir.
