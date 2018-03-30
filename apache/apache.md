@@ -1,25 +1,28 @@
 # Apache Web Sunucusu
 
-Apache Web Sunucusu, Apache Vakfı tarafından sunulan, ücretsiz, Apache lisansı ile dağıtılan bir sunucu yazılımıdır. Temel olarak RFC2616* direktifleri ve türevlerinin direktifleri doğrultusunda Web Yayım Hizmeti gerçekleştirir. HTTP OSI ISO katmanı 7'de anlamlı bilgi ve her türlü medyayı içeren dijital yayın hizmetinin temel ilkelerini belirler. Apache bu protokolün içeriğine katkıda bulunmadan, en güvenli, hızlı ve doğru biçimde sunulmasını sağlayan açık kaynak kodlu yazılımlardan biridir. Rakiplerine göre kullanım yaygınlığı, taşınabilirlik ve uyumluluk avantajları vardır. 
+Apache Web Sunucusu, Apache Vakfı tarafından sunulan, ücretsiz, Apache lisansı ile dağıtılan bir sunucu yazılımıdır. Temel olarak RFC2616\* direktifleri ve türevlerinin direktifleri doğrultusunda Web Yayım Hizmeti gerçekleştirir. HTTP OSI ISO katmanı 7'de anlamlı bilgi ve her türlü medyayı içeren dijital yayın hizmetinin temel ilkelerini belirler. Apache bu protokolün içeriğine katkıda bulunmadan, en güvenli, hızlı ve doğru biçimde sunulmasını sağlayan açık kaynak kodlu yazılımlardan biridir. Rakiplerine göre kullanım yaygınlığı, taşınabilirlik ve uyumluluk avantajları vardır.
 
-Adını Amerikan Yerli'lerinden alan bu yazılım, NCSA httpd'nin 1.3 sürmünü temel alan ilk sürümünü 1995 yılında yapmıştır. Genişletilebilirlik için modüler API sunması rakipleri ile arasındaki farkın açılmasına neden olmuş ve liderlik koltuğunu kapmıştır. Bu yazı yazılırken (2015) halen liderlik Apache'dedir**.
+Adını Amerikan Yerli'lerinden alan bu yazılım, NCSA httpd'nin 1.3 sürmünü temel alan ilk sürümünü 1995 yılında yapmıştır. Genişletilebilirlik için modüler API sunması rakipleri ile arasındaki farkın açılmasına neden olmuş ve liderlik koltuğunu kapmıştır. Bu yazı yazılırken \(2015\) halen liderlik Apache'dedir\*\*.
 
-Apache'yi kaynak kodundan kurabileceğiniz gibi, sisteminize uygun binary arşivini de bulmanız mümkündür, kaynak koddan derlemenin günümüzde pek bir faydası olmayacağı aşikar olmakla birlikte, gerçekten kodun içerisine girip kendi yamalarınızı yapmayı düşünüyorsanız, tavsiye ederiz. Biz yine de kaynak kod derlemesinin nasıl yapıldığını göstereceğiz: 
+Apache'yi kaynak kodundan kurabileceğiniz gibi, sisteminize uygun binary arşivini de bulmanız mümkündür, kaynak koddan derlemenin günümüzde pek bir faydası olmayacağı aşikar olmakla birlikte, gerçekten kodun içerisine girip kendi yamalarınızı yapmayı düşünüyorsanız, tavsiye ederiz. Biz yine de kaynak kod derlemesinin nasıl yapıldığını göstereceğiz:
 
-Öncelikle gerekli olabilecek paketleri yükleyin, daha sonra bu paketleri kaldırabilirsiniz:
+Öncelikle gerekli olabilecek paketleri yükleyin, daha sonra bu paketleri kaldırabilirsiniz:  
 Yüklemek için
+
 ```bash
 yum groupinstall "Development Tools"
 yum install cmake wget ncurses-devel openssl-devel \
 pcre-devel libxml2-devel curl-devel gd-devel libxslt-devel
 ```
-En son kararlı sürümü indirmek için http://ftp.itu.edu.tr/Mirror/Apache/httpd/ adresini ziyaret ediniz.
+
+En son kararlı sürümü indirmek için [http://ftp.itu.edu.tr/Mirror/Apache/httpd/](http://ftp.itu.edu.tr/Mirror/Apache/httpd/) adresini ziyaret ediniz.
 
 ```bash
 wget http://ftp.itu.edu.tr/Mirror/Apache/httpd/httpd-2.2.31.tar.gz
 tar zxvf httpd-2.2.31.tar.gz
 cd httpd-2.2.31
 ```
+
 Tüm özellikleri ile çalışan temel Apache sürümü için aşağıdaki config yapısını kullanabilirsiniz:
 
 ```bash
@@ -61,12 +64,14 @@ Tüm özellikleri ile çalışan temel Apache sürümü için aşağıdaki confi
         "--with-ssl=/usr" \
         "--enable-headers"
 ```
+
 configure hatasız bir şekilde tamamlandıktan sonra, "make" ile derleyip, "make install" ile yüklemeyi tamamlayabilirsiniz.
 
 ```bash
 make
 make install
 ```
+
 Yükleme tamamlanınca her derlemede olduğu gibi README dosyasını okumayı unutmayınız. Yükleme tamamlanınca PREFIX/bin/apachectl start komutu ile yazılımı çalıştırabilir ya da init scripti ile başlangıçta açılacak şekilde ayarlayabilirsiniz
 
 ```bash
@@ -80,12 +85,25 @@ cat /var/log/error.log
 # resuming normal operations
 ```
 
-Apache yüklendiğinde, /etc/httpd içerisine conf dosyalarını atar, ana ayar dosyası /etc/httpd/conf içerisindeki httpd.conf dosyasıdır. Bu dosya gayet düz, okunabilir ve yapısaldır. Biraz sabırla okursanız tüm ayarları öğrenebilirsiniz. Sunucu direktifleri tek bir host için ayaralanıyormuş hissi uyandırırsa, tahminlerinizde yanılmazsınız. Bu servis ilk tasarlandığında bir IP adresi ya da sunucuda birden çok web sitesi tutulabileceği düşünülmemişti. Bu nedenle conf dosyasının %80'i varsayılan web sitesinin ayarlarını içermektedir. 
+Apache yüklendiğinde, /etc/httpd içerisine conf dosyalarını atar, ana ayar dosyası /etc/httpd/conf içerisindeki httpd.conf dosyasıdır. Bu dosya gayet düz, okunabilir ve yapısaldır. Biraz sabırla okursanız tüm ayarları öğrenebilirsiniz. Sunucu direktifleri tek bir host için ayaralanıyormuş hissi uyandırırsa, tahminlerinizde yanılmazsınız. Bu servis ilk tasarlandığında bir IP adresi ya da sunucuda birden çok web sitesi tutulabileceği düşünülmemişti. Bu nedenle conf dosyasının %80'i varsayılan web sitesinin ayarlarını içermektedir.
 
-Daha sonraki yıllarda kullanılmaya başlayan virtual_host direktifi ile kullanıcılar için oluşturacağınız web sitelerinin ayarlarını barındırabilirsiniz.
+Daha sonraki yıllarda kullanılmaya başlayan virtual\_host direktifi ile kullanıcılar için oluşturacağınız web sitelerinin ayarlarını barındırabilirsiniz.
+
+Paket Yöneticisi ile Kurulum
+
+Paket yükleyicisi ile kurulum oldukça kolaydır, tercih ettiğiniz sürüme göre yüklemeyi şu şekilde yapabilirsiniz:
+
+```
+#CentOS
+yum install httpd mod_ssl
+#Debian, Pardus
+apt-get install apache2 
+```
 
 ### Virtual Host
+
 Öncelikle kullanıcı oluşturalım:
+
 ```bash
 useradd web
 passwd web
@@ -97,6 +115,7 @@ echo "Merhaba Dunya" > /home/web/public_html/index.html
 chown -R web:web /home/web/
 chown daemon:daemon /home/web/logs/php_error.log # config dosyasından kullanıcıyı değiştirebilirsiniz.
 ```
+
 Sanal sunucu eklemek için "/etc/httpd/conf/extra" içerisindeki "httpd-vhosts.conf" dosyasını değiştirmeniz gerekir. Ben bu dosyayı değiştirmek yerine "/etc/httpd/conf.d/" içerisine kendi dosyalarımı atıyorum, bu şekilde ayar dosyalarınız daha taşınabilir şekilde oluyor. Yeni lokasyonun Apache tarafından taranması için "/etc/httpd/conf/httpd.conf" içerisine şu komut ile direktifi ekleyin:
 
 ```bash
@@ -105,7 +124,9 @@ mkdir /etc/httpd/conf.d
 #digerini de silin
 mv /etc/httpd/conf/extra/httpd-vhosts.conf /etc/httpd/conf/extra/httpd-vhosts.conf.old
 ```
+
 Yeni direktif dosyaınızı oluşturun, dosyanız asgari şu komutları içermelidir:
+
 ```bash
 vi /etc/httpd/conf.d/z_web.conf
 NameVirtualHost __IPADRESI__:80
@@ -128,8 +149,10 @@ NameVirtualHost __IPADRESI__:80
 
 Sanal Sunucunuza IP adresi ile de giriş yapılmasını istiyorsanız NameVirtualHost direktifini kullanmanız gerekir
 
-##Sunucu İzleme
+## Sunucu İzleme
+
 Apache web sunucusunu izlemek için araçlar sunmaktadır, extra dizini altında "httpd-info.conf" dosyasını aşağıdaki şekilde edit ediniz:
+
 ```bash
 <Location /sunucu-durumu>
     SetHandler server-status
@@ -147,12 +170,19 @@ ExtendedStatus On
     Allow from 192.168.16.
 </Location>
 ```
-*** Sunucu bilgisinin çıkabilmesi için mod_info'nun yüklü ya da statik olarak derlenmiş olması gerekmeketedir,  apachectl -l | grep mod_info sorusuna cevap alabiliyorsanız modül yüklüdür
+
+_\*_ Sunucu bilgisinin çıkabilmesi için mod\_info'nun yüklü ya da statik olarak derlenmiş olması gerekmeketedir,  apachectl -l \| grep mod\_info sorusuna cevap alabiliyorsanız modül yüklüdür
+
 ```bash
 apachectl -l | grep mod_info
 mod_info.c
 ```
-```Module Name kısmı altında, Module Directives kısmında "none" yazıyorsa bu modülü kullanmıyorsunuz anlamına gelir, kullanmadığınız modülleri güvenle kaldırabilirsiniz```
 
-######* Bkz: https://tools.ietf.org/html/rfc2616
-######** http://news.netcraft.com/archives/category/web-server-survey/
+`Module Name kısmı altında, Module Directives kısmında "none" yazıyorsa bu modülü kullanmıyorsunuz anlamına gelir, kullanmadığınız modülleri güvenle kaldırabilirsiniz`
+
+###### \* Bkz: [https://tools.ietf.org/html/rfc2616](https://tools.ietf.org/html/rfc2616)
+
+###### \*\* [http://news.netcraft.com/archives/category/web-server-survey/](http://news.netcraft.com/archives/category/web-server-survey/)
+
+
+
