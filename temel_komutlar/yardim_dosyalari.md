@@ -31,7 +31,7 @@ man mkdir
 
 Yukarıdaki örnekte man komutu, mkdir'in 1. bölümdeki sayfasını getirecektir, çünkü en düşük bu seviyede dosyası bulunur. Örneğin **null** için bu komut 4. bölümdeki sayfayı getirir, çünkü 1. 2. ve 3. bölümlerde sayfası yok.
 
-Oysa **mkdir** komutunun 2. bölümdeki sayfasına erişmek isteseydik, yazmamız gereken komut şöyle olurdu:
+Oysa `mkdir` komutunun 2. bölümdeki sayfasına erişmek isteseydik, yazmamız gereken komut şöyle olurdu:
 
 ```bash
 man 2 mkdir
@@ -39,7 +39,7 @@ man 2 mkdir
 
 ## apropos ve whatis
 
-Herhangi bir konu hakkında yardım sayfalarını taramak istereniz, **apropos** komutunu kullanabilirsiniz. **man -k** ile aynı işi yapmaktadır, dolayısıyla aşağıdaki komutlar size aynı çıktıyı verecektir:
+Herhangi bir konu hakkında yardım sayfalarını taramak isterseniz, `apropos` komutunu kullanabilirsiniz. `man -k` ile aynı işi yapmaktadır, dolayısıyla aşağıdaki komutlar size aynı çıktıyı verecektir:
 
 ```bash
 man -k malloc
@@ -72,16 +72,16 @@ malloc (3)           - allocate and free dynamic memory
 
 ## man Dosyalarının Yolu
 
-Her ne kadar Dosya Sistemi Hiyerarşi Standardında man dosyalarının yolu için **/usr/share/man** belirlenmişse de, her zaman buna uyulmaz, ve sistem birden fazla noktayı tarar.
+Her ne kadar Dosya Sistemi Hiyerarşi Standardında man dosyalarının yolu için `/usr/share/man` belirlenmişse de, her zaman buna uyulmaz, ve sistem birden fazla noktayı tarar.
 
-Sisteminizde man dosyalarının nerelerde olduğunu öğrenmek için **manpath** komutunu kullanabilirsiniz.
+Sisteminizde man dosyalarının nerelerde olduğunu öğrenmek için `manpath` komutunu kullanabilirsiniz.
 
 ```bash
 manpath
 /usr/local/man:/usr/local/share/man:/usr/share/man
 ```
 
-Yukarıdaki örnekte **:** ile ayrılmış değerler, farklı dizinlere işaret eder. Eğer özellikle bir komutun man sayfalarının nerede olduğunu öğrenmek isterseniz **man -wa foo** komutunu kullanabilirsiniz \(burada **foo** herhangi bir komutu temsil eder, yaygın bir kullanımdır\).
+Yukarıdaki örnekte **:** ile ayrılmış değerler, farklı dizinlere işaret eder. Eğer özellikle bir komutun man sayfalarının nerede olduğunu öğrenmek isterseniz `man -wa foo` komutunu kullanabilirsiniz \(burada **foo** herhangi bir komutu temsil eder, yaygın bir kullanımdır\).
 
 ```bash
 man -wa mkdir
