@@ -16,7 +16,7 @@ GNU/Linux üzerinde temel olarak sınıflandırabileceğimiz komutlar şu şekil
 | echo | Standart çıktıya yazdırma | echo "test" |
 | du | Dizin boyutu gösterme | du -sh . |
 
-Yukarıda sıralanan komutlar, GNU/Linux komut satırının çok küçük bir kısmını oluştursa da, en sık kullanılan komutlar arasında yer aldıklarını söyleyebiliriz. Burada altının çizilmesi gereken önemli bir nokta, GNU/Linux komutlarının birbirleriyle uyum içinde çalışabilecek biçimde tasarlanmışlardır ve bunu yapmak için standart girdi/çıktı yönlendirmeleri haricinde, pek çok parametre alabilmektedirler. Programların parametreleri ve programların genel özellikleri hakkında bilgi almak için man komutu kullanılabilir. Örneğin du komutu hakkında bilgi almak için
+Yukarıda sıralanan komutlar, GNU/Linux komut satırının çok küçük bir kısmını oluştursa da, en sık kullanılan komutlar arasında yer aldıklarını söyleyebiliriz. Burada altının çizilmesi gereken önemli bir nokta, GNU/Linux komutlarının birbirleriyle uyum içinde çalışabilecek biçimde tasarlanmış olmalarıdır ve bunu yapmak için standart girdi/çıktı yönlendirmeleri haricinde, pek çok parametre alabilmektedirler. Programların parametreleri ve programların genel özellikleri hakkında bilgi almak için man komutu kullanılabilir. Örneğin du komutu hakkında bilgi almak için
 
 ```bash
 man du
