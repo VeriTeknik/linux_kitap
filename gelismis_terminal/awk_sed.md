@@ -25,7 +25,7 @@ Dosya Adı: yedek-test2.txt Boyut: 33 kB
 Dosya Adı: yedek-test.txt Boyut: 40 kB
 ```
 
-Ayracı boşluk karateri haricinde bir karakter olarak tanımlamak için **-F** argümanı kullanılır.
+Ayracı boşluk karakteri haricinde bir karakter olarak tanımlamak için **-F** argümanı kullanılır.
 
 ```bash
 eaydin@dixon ~/calisma $ tail -n 5 /etc/passwd
