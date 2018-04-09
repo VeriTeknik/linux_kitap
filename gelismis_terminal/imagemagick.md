@@ -130,7 +130,7 @@ label:'xkcd.com' -gravity center -append center-labelled.png
 
 ![](images/center-labelled.png)
 
-**graviy** seçeneğini daha farklı biçimde kullanabilirdik.
+**gravity** seçeneğini daha farklı biçimde kullanabilirdik.
 
 ```bash
 eaydin@dixon ~/calisma/im $ convert 1604.png -pointsize 20 -draw "gravity east \
