@@ -142,7 +142,7 @@ fill white text 6,11 'xkcd'  " east_wm2.png
 
 ![](images/east_wm1.png) ![](images/east_wm2.png)
 
-Daha şık bir sonuç elde etmek için, önce görüntünün enini bir değişkene saklıyoruz, arından saydam bir katmanla watermark'ımızı ekliyoruz.
+Daha şık bir sonuç elde etmek için, önce görüntünün enini bir değişkende saklıyoruz, ardından saydam bir katmanla watermark'ımızı ekliyoruz.
 
 ```bash
 eaydin@dixon ~/calisma/im $ width=$(identify -format %w 1604.png)
