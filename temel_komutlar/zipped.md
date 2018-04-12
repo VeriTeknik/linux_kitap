@@ -8,17 +8,27 @@ TAR dosyaları, birden fazla dosyayı bir araya getirmek için kullanılır, anc
 
 ### tarball
 
+Basit bir tarball dosyası aşağıdaki gibi oluşturulabilir.
+
 ```bash
 tar -cvf tarball.tar 03-debug.txt putty.log
 ```
+
+Burada `03-debug.txt` ve `putty.log` dosyalarını birleştirip, `tarball.tar` isimli bir dosya oluşturulmaktadır. `-c` parametresi _create_'in kısaltması olarak, bir tar dosyası oluşturulacağını belirtmektedir. `-v` parametresi, hemen her GNU/Linux programında olduğu gibi _verbose_ anlamına gelir, programın yaptığı işlem hakkında bilgi vermesini sağlar. `-f` parametresi ise kendisinden sonra dosya isminin belirtileceği anlamıan gelmektedir, _file_ sözcüğünün kısaltmasıdır.
 
 ```bash
 tar -xvf tarball.tar
 ```
 
+Yukarıdaki örnekteyse, _create_ yerine _extract_'in kısaltması olan `-x` parametresi kullanılmıştır. Tahmin edeceğiniz üzere burada da sadece `tarball.tar` dosyası "açılmaktadır".
+
 ```bash
 tar -xvf tarball.tar putty.log
 ```
+
+Eğer `tarball.tar` dosyası içinden bütün dosyaları değil de, sadece `putty.log` dosyasını çıkarmak istersek, yukarıdaki gibi çıkartılacak dosyayı parametre olarak sağlayabiliriz.
+
+Yukarıdaki gibi, bir tarball içinden sadece belirli bir dosyayı çıkarmak istiyorsak, ilgili tarball'un içeriğini bilmemiz gerekir. Bunun için _list_'in kısaltması olarak kullanılan `-t` parametresini aşağıdaki gibi kullanmak yeterli olacaktır.
 
 ```bash
 eaydin@dixon ~/calisma/zip $ tar -tvf tarball.tar 
@@ -26,19 +36,19 @@ eaydin@dixon ~/calisma/zip $ tar -tvf tarball.tar
 -rwxrwxr-- eaydin/eaydin   112548 2015-11-20 17:49 putty.log
 ```
 
-Dosya izinlerini korumak \(preserve\) için
+Oluşturulan tarball dosyalarında, dosyaların izinleri korunmaz. Mevcut sistemdeki izinleri korumasını istersek, _preserve permissions_'ın kısaltması olan `-p` parametresini de eklemek gerekecektir. 
 
 ```bash
 tar -cvfp tarball.tar *.log
 ```
 
-Mevcut tar dosyasına başka dosya eklemek için \(append\)
+Mevcut tar dosyasına başka dosya eklemek için, _append_ anlamına gelen `-r` parametresi kullanılır.
 
 ```bash
 tar -rf tarball.tar 03-debug.txt
 ```
 
-Sıkıştırılmış dosyalara \(tar.gz, tar.bz2\) dosya ekleyemezsiniz.
+Unutulmaması gereken nokta, tarball dosyasına yeni bir dosya eklemek için, ilgili tarball'un sıkıştırılmış olmaması gerekir. Sıkıştırılmış dosyalara \(tar.gz, tar.bz2\) sonradan dosya ekleyemezsiniz, sıkıştırma algoritmalarının doğası gereği, dosyayı yeniden oluşturmanız gerekir.
 
 ### tar.gz
 
