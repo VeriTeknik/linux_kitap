@@ -36,7 +36,7 @@ eaydin@dixon ~/calisma/zip $ tar -tvf tarball.tar
 -rwxrwxr-- eaydin/eaydin   112548 2015-11-20 17:49 putty.log
 ```
 
-Oluşturulan tarball dosyalarında, dosyaların izinleri korunmaz. Mevcut sistemdeki izinleri korumasını istersek, _preserve permissions_'ın kısaltması olan `-p` parametresini de eklemek gerekecektir. 
+Oluşturulan tarball dosyalarında, dosyaların izinleri korunmaz. Mevcut sistemdeki izinleri korumasını istersek, _preserve permissions_'ın kısaltması olan `-p` parametresini de eklemek gerekecektir.
 
 ```bash
 tar -cvfp tarball.tar *.log
@@ -52,13 +52,19 @@ Unutulmaması gereken nokta, tarball dosyasına yeni bir dosya eklemek için, il
 
 ### tar.gz
 
+Oluşturulacak tarball dosyasının sıkıştırılmış bir dosya olacağını belirtmek için, daha önce kullandığımız standart parametreler arasına, _zip_'in kısaltması olarak `-z` eklenmesi gerekir.
+
 ```bash
 tar -cvzf tarball.tar.gz 03-debug.txt putty.log
 ```
 
+Benzer şekilde sıkıştırılmış bir dosyayı açacağımız zaman da `-z` ile tar programına açacağı dosyanın sıkıştırılmış bir dosya olduğunu belirtmek gerekir.
+
 ```bash
 tar -xvzf tarball.tar.gz
 ```
+
+Bu parametre ile kullanılan algoritma, GNU Zip algoritması olduğu için, aslında arka planda birazdan göreceğimiz `gzip` programını kullanır. Bu yüzden genellikle GNU Zip ile sıkıştırılmış tarball dosyalarına `.tar.gz` uzantısı verilir.
 
 ### tar.bz2
 
