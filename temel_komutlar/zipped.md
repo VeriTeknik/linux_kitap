@@ -2,7 +2,11 @@
 
 ## tar Dosyaları
 
-### tar ball
+TAR dosyaları, birden fazla dosyanın tek bir dosya haline getirilmesine yarar. Eskiden daha yaygın kullanılan kasetler, özellikle dosyaların arşivlenmesi için sıralı okuma/yazma işlemi yapmaktadır. Bu tip cihazlara dosyaları aralarında boşluk olmadan, sıralı bir biçimde okuyup yazabilmek için dosyaları bir araya getirip tek bir dosya haline getirmek gerekmektedir. tar programı TAR dosyası oluşturarak bu işi yapar. İsmi bu yüzden **T**ape **AR**chive sözcüklerinin kısaltmasından gelmektedir. Oluşturulan dosyalara genellikel _tarball_ denilir. Tarball sözcüğü aslında bir kelime oyunudur, denizde veya okyanusta katılaşarak topaklaşan petrol kalıntısına denilir. Bu tip topaklaşmalarda aslında petrol, civarındaki başka parçacıkları da bir araya getirdiği için bu benzetme yapılmıştır.
+
+TAR dosyaları, birden fazla dosyayı bir araya getirmek için kullanılır, ancak sıkıştırma gerçekleştirmezler. tar programı UNIX'in 7. versiyonunda geliştirilmiştir ve ilerileyen yıllarda tar dosyalarının yapısı standartlaştırılmıştır. Her ne kadar tar dosyaları sıkışmış dosyalar olmasa da, tar programı, oluşturduğu dosyayı daha sonra sıkıştırabilecek yeteneklere sahiptir.
+
+### tarball
 
 ```bash
 tar -cvf tarball.tar 03-debug.txt putty.log
@@ -22,19 +26,19 @@ eaydin@dixon ~/calisma/zip $ tar -tvf tarball.tar
 -rwxrwxr-- eaydin/eaydin   112548 2015-11-20 17:49 putty.log
 ```
 
-Dosya izinlerini korumak (preserve) için
+Dosya izinlerini korumak \(preserve\) için
 
 ```bash
 tar -cvfp tarball.tar *.log
 ```
 
-Mevcut tar dosyasına başka dosya eklemek için (append)
+Mevcut tar dosyasına başka dosya eklemek için \(append\)
 
 ```bash
 tar -rf tarball.tar 03-debug.txt
 ```
 
-Sıkıştırılmış dosyalara (tar.gz, tar.bz2) dosya ekleyemezsiniz.
+Sıkıştırılmış dosyalara \(tar.gz, tar.bz2\) dosya ekleyemezsiniz.
 
 ### tar.gz
 
@@ -71,7 +75,6 @@ Veya
 ```bash
 gzip -c putty.log > putty.log.gz
 ```
-
 
 ```bash
 gunzip putty.log.gz
@@ -115,8 +118,8 @@ Archive:  log-dosyalari.zip
 ---------                     -------
  20840751                     2 files
 ```
- 
- ```bash
+
+```bash
  eaydin@dixon ~/calisma/zip $ unzip log-dosyalari.zip -d yeni-dizin
 Archive:  log-dosyalari.zip
   inflating: yeni-dizin/03-debug.txt  
@@ -153,4 +156,5 @@ unrar e arsiv.rar
 
 GNU/Linux sistemlerde özellikle log dosyalarının sıkıştırılarak saklanması yaygın tekniklerdir. Sıkıştırılmış bu dosyalar içinde arama yapmak gerekebilir. Bunun için sıkça kullanılan komutların **z** ile bağlayan versiyonları geliştirilmiştir.
 
-```zcat```, ```zless```, ```zmore```, ```zgrep```, ```zegrep```, ```zdiff``` komutlarını bu tip dosyalar üzerinde çalışmak için kullanabilirsiniz.
+`zcat`, `zless`, `zmore`, `zgrep`, `zegrep`, `zdiff` komutlarını bu tip dosyalar üzerinde çalışmak için kullanabilirsiniz.
+
