@@ -68,6 +68,8 @@ Bu parametre ile kullanılan algoritma, GNU Zip algoritması olduğu için, asl�
 
 ### tar.bz2
 
+Eğer sıkıştırma algoritması olarak GNU Zip yerine bzip2 kullanılmasını istersek, `-z` yerine `-j` parametresini hem tarball oluşturulurken, hem de açılırken kullanmak gerekir.
+
 ```bash
 tar -cvjf tarball.tar.bz2 03-debug.txt putty.log
 ```
