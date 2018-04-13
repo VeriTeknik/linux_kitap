@@ -82,21 +82,29 @@ tar -xvjf tarball.tar.bz2
 
 ### gzip
 
+GNU Zip dosyaları, sıkıştırma amacıyla kullanılır. Tek dosyayı girdi olarak alır. Dolayısıyla birden fazla dosyanın tek paket halinde sıkıştırılması gerekiyorsa, yukarıda gördüğümüz örneklerdeki gibi, önce tarball oluşturulup, sonra gzip ile sıkıştırmak gerekir.
+
+Aşağıda, tek dosyanın doğrudan sıkıştırılması gerçekleştirilir.
+
 ```bash
 gzip putty.log
 ```
 
-Sıkıştırılmamış dosyayı siler.
+Bu işlemin sonucunda `putty.log.gz` isimli bir dosya oluşur ve `putty.log` dosyası silinir.
 
-Veya
+Eğer mevcut dosyanın korunması isteniyorsa, `-c` parametresiyle oluşturulan verinin standart çıktıya yazdırılması sağlanabilir. Standart çıktı hakkında detaylı bilgi kitabın ilerleyen bölümlerinde yer almaktadır.
 
 ```bash
 gzip -c putty.log > putty.log.gz
 ```
 
+Oluşan bir dosyayı "açmak" içinse, GNU Unzip'in kısaltması olan `gunzip` kullanılır.
+
 ```bash
 gunzip putty.log.gz
 ```
+
+Veya gzip'in _decompress_ anlamına gelen `-d` parametresi kullanılabilir.
 
 ```bash
 gzip -d putty.log.gz
