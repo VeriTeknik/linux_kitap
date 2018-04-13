@@ -180,7 +180,7 @@ unrar e arsiv.rar
 
 ## Z Komutları
 
-GNU/Linux sistemlerde özellikle log dosyalarının sıkıştırılarak saklanması yaygın tekniklerdir. Sıkıştırılmış bu dosyalar içinde arama yapmak gerekebilir. Bunun için sıkça kullanılan komutların **z** ile başlayan versiyonları geliştirilmiştir.
+GNU/Linux sistemlerde özellikle log dosyalarının sıkıştırılarak saklanması yaygın tekniklerdir. Sıkıştırılmış bu dosyalar içinde arama yapmak, dosyanın bir kısmını okumak veya dosyalar arası farklılıkları incelemek gerekebilir. Bu tip işlemler için sıkça kullanılan komutların **z** ile başlayan versiyonları geliştirilmiştir.
 
 `zcat`, `zless`, `zmore`, `zgrep`, `zegrep`, `zdiff` komutlarını bu tip dosyalar üzerinde çalışmak için kullanabilirsiniz.
 
