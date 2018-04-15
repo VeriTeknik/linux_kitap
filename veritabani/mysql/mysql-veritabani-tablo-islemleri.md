@@ -30,15 +30,16 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 mysql> SHOW DATABASES;
 +--------------------+
 | Database           |
-+--------------------+                                                                                                                                                                                                                                                         
-| information_schema |                                                                                                                                                                                                                                                         
-| mysql              |                                                                                                                                                                                                                                                         
-| performance_schema |                                                                                                                                                                                                                                                         
-+--------------------+                                                                                                                                                                                                                                                         
-3 rows in set (0.00 sec)
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
 ```
 
-Şu an MySQL'in içinde 3 veritabanını görebiliyoruz. Biz, company adındaki kendi veritabanımızı oluşturacağız. Bunun için `CREATE DATABASE company;` komutunu kullanmamız gerekiyor.
+Şu an MySQL'in içinde 4 veritabanı görüyoruz. Biz, company adındaki kendi veritabanımızı oluşturacağız. Bunun için `CREATE DATABASE company;` komutunu kullanmamız gerekiyor.
 
 ```
 mysql> CREATE DATABASE company;

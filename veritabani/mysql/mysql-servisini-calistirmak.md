@@ -1,6 +1,6 @@
 # MySQL servisini çalıştırmak
 
-Kurulumu tamamladıktan sonra MySQL servisi otomatik olarak çalışmaya başlıyor. MySQL servisini kontrol etmek için, 
+MySQL servisini kontrol etmek için,
 
 `sudo systemctl status mysql` komutunu kullanabiliriz.
 
@@ -30,7 +30,7 @@ Feb 27 10:59:37 veriteknik systemd[1]: Started MySQL Community Server.
 
 Gördüğünüz gibi sağlık bir şekilde çalışıyor. Eğer çalışmıyor olsaydı, `sudo systemctl start mysql` komutunu kullanarak başlatacaktık.
 
- Eğer daha detaylı bilgi almak istiyorsanız `mysqladmin -u root -p version` komutunu kullanabilirsiniz. 
+Eğer daha detaylı bilgi almak istiyorsanız `mysqladmin -u root -p version` komutunu kullanabilirsiniz.
 
 ```bash
 [celep@veriteknik ~]$ mysqladmin -u root -p version
@@ -53,7 +53,7 @@ Threads: 1  Questions: 4  Slow queries: 0  Opens: 67  Flush tables: 1  Open tabl
 
 Şu an MySQL servisimiz çalışır halde fakat bu haliyle canlı sunucularında kullanılabilir halde değil. Güvenlik zafiyetine yer vermemek adına diğer bütün kurulumlarda olduğu gibi sistem sıkılaştırması yapmanızı ve bunun için de OWASP'ın hazırladığı MySQL sıkılaştırma dökümanını kullanmanızı tavsiye ediyoruz.
 
-OWASP Backend Security Project MySQL Hardening, 
+OWASP Backend Security Project MySQL Hardening,
 
 [https://www.owasp.org/index.php/OWASP\_Backend\_Security\_Project\_MySQL\_Hardening](https://www.owasp.org/index.php/OWASP_Backend_Security_Project_MySQL_Hardening "OWASP Backend Security Project MySQL Hardening")
 

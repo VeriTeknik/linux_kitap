@@ -1,4 +1,22 @@
 # Veritabanı
 
-iki boyut, üç boyut
+## Neden?
+
+
+
+## Nedir?
+
+
+
+## İlişkisel veritabanı nedir?
+
+
+
+
+
+
+
+## 
+
+
 
