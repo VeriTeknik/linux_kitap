@@ -14,20 +14,18 @@ Eğer sadece ad soyad kayıtlarını çekmek istiyorsak kolon isimlerini kullanm
 
 ## WHERE
 
-Farkettiyseniz SELECT'i kullanarak çok fazla veri alıyoruz. Fakat bu verilerin hepsini istemediğimiz zamanlar olabilir. 
+Farkettiyseniz SELECT'i kullanarak çok fazla veri alıyoruz. Fakat bu verilerin hepsini istemediğimiz zamanlar olabilir.
 
-Örneğin 
+Örneğin
 
 ### LIKE
 
-```
-SELECT * FROM authors WHERE email LIKE '%.net';
-```
+`SELECT * FROM authors WHERE email LIKE '%example.net';`
 
-
+E-posta adresinin sonu .net ile bitenleri filtreleyebiliriz.  
 
 ```
- mysql> SELECT * FROM authors WHERE email LIKE "%.net";
+ mysql> SELECT * FROM authors WHERE email LIKE "%example.net";
 +----+------------+-----------+---------------------------+------------+---------------------+
 | id | first_name | last_name | email                     | birthdate  | added               |
 +----+------------+-----------+---------------------------+------------+---------------------+
@@ -40,7 +38,7 @@ SELECT * FROM authors WHERE email LIKE '%.net';
 
 ### CONTAINS
 
-
+### INSTR
 
 
 
