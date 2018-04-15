@@ -23,8 +23,11 @@ mysql> SHOW TABLES;
 
 Kontrol edelim.
 
+SHOW \* FROM member;
+
+Bu komutun meali ise şu,  "member" tablosunda bulunan bütün kayıtları bana getir. Kullandığımız asterisk\(yıldız\) sembolü burada "ne varsa" demek. 
+
 ```
-mysql> SELECT * from member;
 +----+------------+-----------+----------------------+------------+---------------------+
 | id | first_name | last_name | e_mail               | birthday   | reg_date            |
 +----+------------+-----------+----------------------+------------+---------------------+
