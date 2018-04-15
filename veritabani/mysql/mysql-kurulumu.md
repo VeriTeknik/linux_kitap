@@ -48,7 +48,7 @@ grep 'temporary password' /var/log/mysqld.log
 Bu komutu çalıştırmamız yeterli olacak.
 
 ```
-2018-03-12T07:57:52.832878Z 1 [Note] A temporary password is generated for celep@localhost: sf/alCzh9ibk
+2018-03-12T07:57:52.832878Z 1 [Note] A temporary password is generated for celep@localhost: _hergTy<b4-j
 ```
 
 Bu parolayı şimdilik kaydetmemiz gerekiyor, az sonra lazım olacak.
