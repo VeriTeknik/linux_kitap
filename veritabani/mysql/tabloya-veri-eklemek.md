@@ -15,7 +15,13 @@ mysql> SHOW TABLES;
 Şimdi bu tabloya veri ekleyelim.
 
     INSERT INTO `member` (`id`,`first_name`,`last_name`,`e_mail`,`birthday`,`reg_date`) VALUES(NULL,"Yasar","Celep","celep@veriteknik.com","1996-12-23",NULL);
-    Hadi, tablomuzu kontrol edelim.
+
+
+
+    mysql> INSERT INTO `member` (`id`,`first_name`,`last_name`,`e_mail`,`birthday`,`reg_date`) VALUES(NULL,"Yasar","Celep","celep@veriteknik.com","1996-12-23",NULL);
+    Query OK, 1 row affected (0.02 sec)
+
+Kontrol edelim.
 
 ```
 mysql> SELECT * from member;
