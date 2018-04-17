@@ -62,7 +62,7 @@
   * [Bootloader Nedir?](kernel-boot/bootloader-nedir.md)
 * [User Space](boot-sureci.md)
   * [Başlangıç: Init](boot-sureci/user-space/baslangic-init.md)
-  * Init Versiyonunu Belirlemek
+  * [Init Versiyonunu Belirlemek](boot-sureci/user-space/init-versiyonunu-belirlemek.md)
   * [System V](boot-sureci/user-space/system-v.md)
     * Servislerin Yönetimi
     * Çalışma Seviyeleri \(Run Levels\)
