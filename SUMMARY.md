@@ -64,7 +64,7 @@
   * [Başlangıç: Init](boot-sureci/user-space/baslangic-init.md)
   * [Init Versiyonunu Belirlemek](boot-sureci/user-space/init-versiyonunu-belirlemek.md)
   * [System V](boot-sureci/user-space/system-v.md)
-    * Servislerin Yönetimi
+    * [Servislerin Yönetimi](boot-sureci/user-space/system-v/servislerin-yonetimi.md)
     * Çalışma Seviyeleri \(Run Levels\)
     * Örnek System V Servis Oluşturma
   * [systemd](boot-sureci/user-space/systemd.md)
