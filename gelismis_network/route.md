@@ -107,7 +107,7 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 Engellemeyi kaldırmak için
 
 ```bash
-route del -host 192.168.59.5 rejec
+route del -host 192.168.59.5 reject
 ```
 
 Tek IP'yi engellemek yerine bir ağ aralığını engelleyebiliriz.
