@@ -1,4 +1,4 @@
-# CentOS'a MMySQL Kurulumu
+# CentOS'a MySQL Kurulumu
 
 CentOS repolarında MySQL bulunmuyor. Bu yüzden RPM paketini MySQL'den indirmemiz gerek.
 
