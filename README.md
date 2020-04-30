@@ -29,7 +29,7 @@ VeriTeknik, ağ iletişimi ve altyapısı üzerine uzmanlaşmış mühendislik �
 
 ## Teşekkürler
 
-Katkılarından dolayı değerli iş arkadaşlarımız Tunç Yıldırım, Yaşar Celep ve Ömrüm Çetin'e, bu kitabın oluşmasına vesile olan Hazine Müsteşarlığı'na ve Nuri Akman'a teşekkür ederiz.
+Katkılarından dolayı çalışma arkadaşlarımız Yaşar Celep ve Ömrüm Çetin'e, bu kitabın oluşmasına vesile olan Hazine Müsteşarlığı'na ve Nuri Akman'a teşekkür ederiz.
 
 ## Notlar
 
@@ -50,7 +50,7 @@ eaydin@dixon ~ $ which vi
 
 Çıktısı çok uzun olan ve yeni girdi kullanılan komutlarda, girdiler ve çıktılar ayrı komut blokları halinde gösterilmiştir.
 
-### Çevrimdışı Okumak
+### Çevrimdışı Okumak İçin
 
 Dökümanın PDF halinde yatay eksende çok uzun olan komutlar veya çıktıları tam olarak görülmemektedir. Bu durumun önüne geçmek için uzun komutlar **\** işareti ile alt satırdan devam etmiştir.
 
@@ -68,7 +68,7 @@ Yukarıdaki komut, bulunduğunuz dizine `kitap` isminde bir dizin oluşturur ve 
 
 Terimler Türkçe karşılıkları belirtilerek çoğunlukla İngilizce olarak kullanılmıştır. Okuyucuların teknik terimleri ve karşılaştıkları problemleri İngilizce kullanarak Google'lamaları tavsiye edilmektedir.
 
-**Cem Karaca** & **M. Emre Aydın**
+**Cem Karaca** & **M. Emre Aydın** & **Tunç Yıldırım**
 
 ---
 
