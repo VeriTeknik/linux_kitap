@@ -17,6 +17,8 @@ adresinden ulaşabilirsiniz.
 
 Üniversite yıllarında, İnternet'in gelişimi ile birlikte Sunucular, Ağ ve Linux ile tanışmıştır, LYNX Browser ile siyah ekranda başlayan serüveni, 2004 yılından bu yana Ankara'da Veri Merkezi işleterek devam etmektedir. Elektrik & Elektronik Yüksek Mühendisi olan yazarın 2003 yılında yayınlanmış "Pedagojik Destekli uzaktan talepli Video Sistemi \(VoD\)" yüksek lisans tezidir. IEEE indeksli makaleleri bulunan yazar, multimedia transferi için kullanılabilen RUDP protokolünü tasarlamıştır. Uzmanlık Alanları: MCF, C/C++, Gömülü Sistemler, Ağ ve Sürücü Programlama.
 
+İnternet üzerinde kredi kartı işlemleri, transferi ve depolaması üzerine bir standart olan PCI-DSS üzerine uzun yıllardır yönetimli servisler sağlamaktadır. VeriTeknik'teki çalışma arkadaşları ile birlikte PCIChecklist'i kurmuş ve gerişim siber güvenlik alanında 1.2 Milyon TL yatırım almıştır. Halen aktif olarak veri merkezi hizmetlerine devam eden yazar aynı zamanda PCICHecklist ile siber güvenlik üzerine çalışmalarına devam etmektedir.
+
 ### Mustafa Emre Aydın
 
 Lisans eğitimi sırasında çok miktardaki bilimsel verinin tasniflenmesi ve anlamlandırılması üzerine çalışırken GNU/Linux sistemler üzerinde MPI ve Embarrasingly Parallel algoritmalar geliştirerek programlama ve sistem yönetimi deneyimi kazanmıştır. Temel bilimler ve sistem programcılığında Python'un yaygınlaşmasıyla "Wavelet Dönüşümüne Dayalı Dinamik Güç Spektrumu Eldesi" konulu yüksek lisans tez çalışmasının yanı sıra pek çok görüntü işleme ve güvenlik sistemini de bu dilde geliştirmiştir. Gömülü Linux sistemlerin yanı sıra sunucu ve ağ programlama yapan yazar, Doktora çalışmasına X-Işın Uydu Gözlemlerinin Hassas Zaman Ölçümü konusunda devam etmektedir.
