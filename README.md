@@ -6,7 +6,7 @@ Linux Yönetimi kitabı VeriTeknik ekibinin vermiş olduğu Linux, Ağ ve Güven
 
 **Kitap çoğunlukla Web Hosting ve Uygulama Hosting açısından sürümleri ele almıştır. Gömülü sistemlerin anlatıldığı bölümlerde ise daha çok I/O kullanım bilgilerine değinilecektir.** Kitabın amacı okuyucuya Hosting ortamının/web servislerinin kurulmasında ve işletilmesinde gerekli olacak bilgiyi vermektir.
 
-Veri merkezimizde edindiğimiz bilgiler güncellendikçe, biz de kitapta değişiklikler yapmaktayız, eğer kitabın basılı sürümü elinizdeyse, en son sürüme ve örnek kodlara [https://www.gitbook.com/book/veriteknik/linux-yonetimi](https://www.gitbook.com/book/veriteknik/linux-yonetimi) adresinde de ücretsiz olarak ulaşabilirsiniz.
+Veri merkezimizde edindiğimiz bilgiler güncellendikçe, biz de kitapta değişiklikler yapmaktayız, eğer kitabın basılı sürümü elinizdeyse, en son sürüme ve örnek kodlara [https://veriteknik.gitbook.io/linux-yonetimi/](https://veriteknik.gitbook.io/linux-yonetimi/) adresinde de ücretsiz olarak ulaşabilirsiniz.
 
 Döküman veya GNU/Linux hakkında herhangi sorunuz için bize [iletisim@veriteknik.com](mailto:iletisim@veriteknik.com)  
 adresinden ulaşabilirsiniz.
