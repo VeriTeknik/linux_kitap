@@ -11,6 +11,8 @@ Veri merkezimizde edindiğimiz bilgiler güncellendikçe, biz de kitapta değiş
 Döküman veya GNU/Linux hakkında herhangi sorunuz için bize [iletisim@veriteknik.com](mailto:iletisim@veriteknik.com)\
 adresinden ulaşabilirsiniz.
 
+Discord kanalımız: [https://discord.gg/YEx4DhNyMj](https://discord.gg/YEx4DhNyMj)
+
 ## Yazarlar Hakkında
 
 ### Cem Karaca
