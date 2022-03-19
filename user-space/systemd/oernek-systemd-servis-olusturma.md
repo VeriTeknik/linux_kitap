@@ -1,0 +1,2 @@
+# Örnek systemd Servis Oluşturma
+

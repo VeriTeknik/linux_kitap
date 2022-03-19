@@ -1,0 +1,4 @@
+# Basit komutlar
+
+
+
