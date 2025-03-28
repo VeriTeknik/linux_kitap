@@ -38,22 +38,39 @@ host dosyası manual dosyasına erişmek için
 man 5 hosts
 ```
 
-## resolv.conf
+## /etc/nsswitch.conf
 
-Sistem üzerinde nameserver'ların (DNS) tutulduğu dosyadır. Aşağıdaki yapıyı izler.
+Bu dosya, sistemin isim çözme (örneğin, ana bilgisayar adlarını IP adreslerine çevirme) gibi işlemler için hangi kaynakları (örn. `files` - `/etc/hosts`, `dns`) ve hangi sırayla kullanacağını belirler. Özellikle `hosts:` satırı önemlidir:
+```
+# Örnek /etc/nsswitch.conf satırı
+hosts:      files dns myhostname
+```
+Bu satır, bir ana bilgisayar adı çözümlenirken önce `/etc/hosts` dosyasına (`files`), sonra DNS sunucularına (`dns`), sonra da sistemin kendi ana bilgisayar adına (`myhostname`) bakılacağını belirtir.
+
+## /etc/resolv.conf
+
+Bu dosya, sistemin alan adı çözümlemesi (DNS) için kullanacağı nameserver (DNS sunucusu) adreslerini ve alan adı arama listesini (search domain) tanımlamak için kullanılır.
+
+**Ancak Dikkat:** Modern Linux sistemlerinde `/etc/resolv.conf` dosyası genellikle **doğrudan düzenlenmez**. Çoğu zaman bu dosya, NetworkManager veya `systemd-resolved` gibi ağ yönetim servisleri tarafından **otomatik olarak oluşturulur ve yönetilir**. Manuel olarak yapılan değişiklikler, servis yeniden başladığında veya ağ bağlantısı değiştiğinde kaybolabilir.
+
+**Yapısı:**
+Eğer manuel olarak düzenleniyorsa veya otomatik olarak oluşturulduğunda, genellikle aşağıdaki gibi görünür:
 
 ```
-domain dixon
-nameserver 8.8.8.8
-nameserver 8.8.4.4
+# Otomatik olarak NetworkManager veya systemd-resolved tarafından oluşturulmuş olabilir
+search example.com internal.example.com # Alan adı arama listesi
+nameserver 8.8.8.8                     # Birincil DNS sunucusu
+nameserver 8.8.4.4                     # İkincil DNS sunucusu
 ```
+*   `nameserver <IP_adresi>`: Kullanılacak DNS sunucusunun IP adresini belirtir. Genellikle birden fazla `nameserver` satırı bulunabilir (yedeklilik için).
+*   `search <alan_adı1> <alan_adı2> ...`: Tam olmayan ana bilgisayar adları çözümlenirken denenecek alan adlarının listesini belirtir. Örneğin, `ping server1` komutu çalıştırıldığında sistem önce `server1.example.com`'u, sonra `server1.internal.example.com`'u çözmeye çalışır.
+*   `domain <alan_adı>`: Sistemin yerel alan adını belirtir. `search` listesindeki ilk alan adı olarak davranır. Genellikle `search` veya `domain` direktiflerinden sadece biri kullanılır.
 
-Yukarıdaki haliyle sistem nameserver olarak Google'ın 8.8.8.8 ve 8.8.4.4 adreslerini kullanmaktadır.
+**Modern Sistemlerde Yönetim:**
 
-domain ifadesi sistemin kendi ismine (localhost) işaret eder. Buraya domain yazılmasaydı, sistem hostname'i kendisi okuyacaktı.
+*   **NetworkManager:** DHCP'den alınan veya bağlantı ayarlarında statik olarak belirtilen DNS sunucularını kullanarak `/etc/resolv.conf` dosyasını (genellikle `systemd-resolved` aracılığıyla veya doğrudan) yönetir. DNS ayarlarını değiştirmek için `nmcli` veya `nmtui` kullanılmalıdır.
+*   **systemd-resolved:** Bu servis aktif olduğunda, `/etc/resolv.conf` genellikle `/run/systemd/resolve/stub-resolv.conf` dosyasına bir sembolik link olur. Bu `stub-resolv.conf` dosyası sadece `127.0.0.53` adresini içerir. Gerçek DNS sunucuları `systemd-resolved` tarafından yönetilir ve `resolvectl status` komutu ile görülebilir. DNS sunucuları `systemd-networkd` yapılandırması (`.network` dosyaları) veya NetworkManager aracılığıyla `systemd-resolved`'a iletilir.
 
-resolv.conf dosyası manual dosyasına erişmek için
+Özetle, `/etc/resolv.conf` dosyasının içeriğini anlamak önemli olsa da, modern sistemlerde bu dosyayı doğrudan düzenlemek yerine, ağı yöneten servisin (NetworkManager, systemd-networkd) yapılandırma araçlarını kullanmak gerekir.
 
-```bash
-man 5 resolv.conf
-```
+Detaylı bilgi için `resolv.conf(5)` ve `nsswitch.conf(5)` man sayfalarına bakılabilir.

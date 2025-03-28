@@ -83,51 +83,118 @@ hwclock -s
 hwclock -w
 ```
 
-## NTP ile Tarihin Güncellenmesi
+## NTP ile Zaman Senkronizasyonu (Modern Yöntemler)
 
-NTP (Network Time Protocol) tarih ve saatin ağ üzerinden hassas bir biçimde iletilmesini sağlamak amacıyla geliştirilmiştir. Bugün internete bağlı bütün cihazlar, ve yerel ağlarda çalışan bütün güvenlik sistemleri bu protokol yardımıyla tarihlerini güncel tutmaktadır.
+NTP (Network Time Protocol), ağ üzerindeki sunuculardan hassas zaman bilgisi alarak sistem saatini doğru tutmak için kullanılan standart protokoldür. Modern Linux dağıtımları genellikle zaman senkronizasyonu için `systemd-timesyncd` veya `chrony` servislerini kullanır. `ntpdate` komutu çoğu sistemde artık önerilmemektedir (deprecated).
 
-Sunucunuzun saatini ntp kullanarak güncellemek için aşağıdaki komutu kullanabilirsiniz.
+### systemd-timesyncd
 
+Birçok modern dağıtımda varsayılan olarak gelen basit bir NTP istemcisidir. Genellikle ek kurulum gerektirmez.
+
+**Durumu Kontrol Etme:**
+`timedatectl status` komutu ile hem zaman ayarlarını hem de NTP senkronizasyon durumunu görebilirsiniz:
 ```bash
-ntpdate -v -b ntp1.veriteknik.com
+timedatectl status
+               Local time: Cum 2025-03-28 02:05:10 +03
+           Universal time: Per 2025-03-27 23:05:10 UTC
+                 RTC time: Per 2025-03-27 23:05:10
+                Time zone: Europe/Istanbul (+03, +0300)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no 
 ```
+`System clock synchronized: yes` ve `NTP service: active` satırları senkronizasyonun çalıştığını gösterir.
 
-Bu komut, saatin nereden ayarlanacağını belirtmektadır.
-
-Bazı sistemlerde **ntpdate** artık terk edilmekte (deprecated) ve yerine doğrudan **ntpd** kullanılmaktadır. Böyle bir sistem kullanıyorsanız, önce ntp servislerinizi durdurmanız, ardından ntp'ye zorla gidip saati kontrol ettirmeniz gerekmektedir.
-
-```
-service ntp stop
-ntpd -gq
-service ntp start
-```
-
-Buradaki **-g** parametresi ntp'ye "saatimiz okuduğun değerden çok farklıysa da değişikliği yap" bilgisini gönderir. **-q** ise değişikliğin ardından problemsiz çıkması (quit) gerektiğini ifade eder.
-
-İlk örneğimizde hangi NTP sunucuyu kullanmamız gerektiğini belirtmiş olmamıza rağmen, ikinci örnekte buna gerek olmadı. Çünkü **ntpd** programı kendi ayarlarında bulunan sunucular listesine sırasıyla ulaşmaya çalışmaktadır. Genellikle bu ayar dosyası **/etc/ntp.conf** yolunda bulunur. Dosyayı inceleyebilirsiniz.
-
-Bir diğer yöntemse **sntp** (Simple Network Time Protocol Program) kullanmaktır.
-
+**Etkinleştirme/Devre Dışı Bırakma:**
+`timedatectl` komutu ile NTP senkronizasyonunu açıp kapatabilirsiniz:
 ```bash
-sntp ntp1.veriteknik.com
-15 Nov 19:52:17 sntp[8379]: Started sntp
-2015-11-15 19:52:18.033704 (-0200) +0.013936 +/- 0.094574 secs
-2015-11-15 19:52:18.240571 (-0200) +0.016590 +/- 0.146622 secs
-2015-11-15 19:52:18.598237 (-0200) +0.067291 +/- 0.111588 secs
-2015-11-15 19:52:18.953649 (-0200) +0.082531 +/- 0.049759 secs
+# NTP senkronizasyonunu etkinleştir
+sudo timedatectl set-ntp true
+
+# NTP senkronizasyonunu devre dışı bırak
+sudo timedatectl set-ntp false 
 ```
+`systemd-timesyncd` servisi genellikle `/etc/systemd/timesyncd.conf` dosyasından yapılandırılır ve varsayılan olarak dağıtımın belirlediği NTP sunucu havuzlarını (pool) kullanır.
 
-Yukarıdaki komut sadece farkı gösterir. Eğer ayarlama yapmak istiyorsanız **-s** parametresini kullanabilirsiniz.
+### chrony
 
-NTP ile de ayarlamalarınızı yaptıktan sonra, RTC modülünüzü **hwclock** komutuyla güncellemeyi unutmayın.
+`ntpd`'ye göre daha modern, hızlı ve esnek bir NTP istemcisi ve sunucusudur. Özellikle sık sık uyku moduna giren veya ağ bağlantısı kararsız olan sistemler için daha uygundur. Bazı dağıtımlar (örneğin RHEL/CentOS 7 ve sonrası) varsayılan olarak `chrony` kullanır.
 
-## Saat Diliminin Seçilmesi
-
-Sistemde saat dilimi, **/etc/localtime** dosyasında tanımlanır. Bu dosya _binary_ bir dosyadır. Mevcut saat dilimlerini görmek için **/usr/share/zoneinfo** dizinine göz atılabilir. Örneğin Türkiye için ayarlamak yapmak istiyorsak aşağıdaki şekilde **/usr/share/zoneinfo/Europe/Istanbul** dosyasını kopyalamak yeterli olacaktır.
-
+**Kurulum (Gerekliyse):**
 ```bash
-cp -f /usr/share/zoneinfo/Europe/Istanbul /etc/localtime
+# Debian/Ubuntu
+sudo apt install chrony
+
+# RHEL/CentOS/Fedora
+sudo dnf install chrony 
 ```
 
-**/etc/localtime** dosyasının silinmesi durumunda, sistem kendini UTC (GMT+0) saatine göre ayarlayacaktır.
+**Durumu Kontrol Etme:**
+`chronyc` komutu ile senkronizasyon durumu ve kaynaklar hakkında detaylı bilgi alınabilir:
+```bash
+chronyc sources -v
+```
+```bash
+chronyc tracking
+```
+
+**Yapılandırma:**
+`chrony` genellikle `/etc/chrony/chrony.conf` (veya `/etc/chrony.conf`) dosyasından yapılandırılır. Kullanılacak NTP sunucuları bu dosyada `server` veya `pool` direktifleri ile belirtilir.
+
+**Servis Yönetimi:**
+`chrony` bir sistem servisidir ve `systemctl` ile yönetilir:
+```bash
+sudo systemctl start chronyd
+sudo systemctl enable chronyd
+sudo systemctl status chronyd
+```
+
+**Önemli Not:** Sistemde aynı anda sadece bir NTP istemcisinin (örneğin `systemd-timesyncd` veya `chrony` veya eski `ntpd`) aktif olması önerilir. Çakışmaları önlemek için kullanılmayacak olan servisleri devre dışı bırakmak gerekir.
+
+Zaman senkronizasyonu yapıldıktan sonra, sistem saatindeki değişikliğin donanım saatine (RTC) yazılması genellikle bu servisler tarafından otomatik olarak veya periyodik olarak yapılır. Ancak manuel olarak yapmak isterseniz `hwclock -w` komutunu kullanabilirsiniz.
+
+## Saat Diliminin Ayarlanması
+
+Sistem saat dilimi (timezone), sistemin yerel saati doğru göstermesi için önemlidir.
+
+### timedatectl ile Ayarlama (Önerilen Yöntem)
+
+Modern systemd tabanlı sistemlerde saat dilimini ayarlamanın en kolay ve önerilen yolu `timedatectl` komutunu kullanmaktır.
+
+**Mevcut Saat Dilimini Görme:**
+```bash
+timedatectl status | grep "Time zone"
+# veya sadece:
+timedatectl
+```
+
+**Kullanılabilir Saat Dilimlerini Listeleme:**
+```bash
+timedatectl list-timezones
+# Belirli bir bölgeyi filtrelemek için grep kullanılabilir:
+timedatectl list-timezones | grep Europe
+timedatectl list-timezones | grep Istanbul
+```
+
+**Saat Dilimini Ayarlama:**
+Örneğin, saat dilimini İstanbul olarak ayarlamak için:
+```bash
+sudo timedatectl set-timezone Europe/Istanbul
+```
+Bu komut, gerekli sembolik linki (`/etc/localtime` -> `/usr/share/zoneinfo/...`) otomatik olarak oluşturur veya günceller.
+
+### Manuel Yöntem (Eski veya systemd olmayan sistemler)
+
+`timedatectl` komutunun bulunmadığı sistemlerde veya manuel olarak yapmak istenirse, `/etc/localtime` dosyası, `/usr/share/zoneinfo` altındaki doğru saat dilimi dosyasına işaret eden bir sembolik link olarak ayarlanır.
+
+Önce mevcut link (varsa) kaldırılır, sonra yenisi oluşturulur:
+```bash
+# Önce mevcut linki kaldır (varsa)
+sudo rm /etc/localtime
+
+# Yeni sembolik linki oluştur (örnek: İstanbul)
+sudo ln -s /usr/share/zoneinfo/Europe/Istanbul /etc/localtime 
+```
+Bazı eski sistemlerde `/etc/timezone` gibi metin tabanlı bir yapılandırma dosyası da bulunabilir ve bunun da güncellenmesi gerekebilir (örneğin içine `Europe/Istanbul` yazmak). Ancak modern sistemlerde genellikle sadece `/etc/localtime` linki yeterlidir.
+
+`/etc/localtime` dosyası, saat dilimi kurallarını içeren _binary_ bir dosyaya işaret eden bir sembolik linktir. Bu dosyanın doğrudan kopyalanması yerine sembolik link kullanılması, `tzdata` paketi güncellendiğinde saat dilimi kurallarının da otomatik olarak güncellenmesini sağlar. `/etc/localtime` dosyasının veya linkinin olmaması durumunda, sistem genellikle saat dilimini UTC (GMT+0) olarak varsayar.

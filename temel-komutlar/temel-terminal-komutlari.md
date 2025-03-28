@@ -14,7 +14,11 @@ GNU/Linux üzerinde temel olarak sınıflandırabileceğimiz komutlar şu şekil
 | mv | Dosya taşıma | mv /root/hosts.bak /root/hosts.bak2 |
 | cat | Dosya içeriği görüntüleme | cat /etc/hosts |
 | echo | Standart çıktıya yazdırma | echo "test" |
-| du | Dizin boyutu gösterme | du -sh . |
+| du | Dizin/dosya boyutu gösterme | du -sh . |
+| touch | Boş dosya oluşturma / Erişim zamanını güncelleme | touch yeni_dosya.txt |
+| head | Dosyanın başlangıcını gösterme (varsayılan 10 satır) | head /var/log/syslog |
+| tail | Dosyanın sonunu gösterme (varsayılan 10 satır) | tail /var/log/syslog |
+| less | Dosya içeriğini sayfa sayfa gösterme | less /etc/passwd |
 
 Yukarıda sıralanan komutlar, GNU/Linux komut satırının çok küçük bir kısmını oluştursa da, en sık kullanılan komutlar arasında yer aldıklarını söyleyebiliriz. Burada altının çizilmesi gereken önemli bir nokta, GNU/Linux komutlarının birbirleriyle uyum içinde çalışabilecek biçimde tasarlanmış olmalarıdır ve bunu yapmak için standart girdi/çıktı yönlendirmeleri haricinde, pek çok parametre alabilmektedirler. Programların parametreleri ve programların genel özellikleri hakkında bilgi almak için man komutu kullanılabilir. Örneğin du komutu hakkında bilgi almak için
 
@@ -45,4 +49,3 @@ cp /etc/hosts .
 ```
 
 Çoğunlukla GNU/Linux dizin yapısına yeni başlayan kişilerin karıştırdığı nokta, göreli dizinlerdir. Yukarıdaki örnekte `/etc/hosts` şeklinde dizin ifade ettik. Eğer bunu başındaki `/` olmadan yazsaydık, yani `etc/hosts` şeklinde yazsaydık, mevcut dizinin altında bir `etc` klasörü, onun da altında bir `hosts` dosyası arayacaktı sistem. Dolayısıyla mevcut dizinimize göre \(yani göreli\) bir gösterim kullanmış olacaktık.
-

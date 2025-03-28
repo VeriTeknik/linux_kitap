@@ -1,8 +1,14 @@
-# netcat
+# netcat (`nc`)
 
-Netcat aslında çok az iş yapan, ancak yaptığı işi hem çok basit hem de çok verimli yaptığı için sistem yöneticilerinin, ağ yöneticilerinin ve hatta programcıların vazgeçilmez araçlarından biri olmuştur. Az tanımlı işi iyi yapmasıyla da Unix felsefesinin en iyi temsilcilerindendir.
+`netcat` (veya kısaca `nc`), TCP ve UDP protokolleri üzerinden ağ bağlantıları kurarak veri okuma ve yazma işlemleri yapabilen, son derece esnek ve güçlü bir komut satırı aracıdır. Basitliği ve çok yönlülüğü nedeniyle "ağların İsviçre çakısı" olarak da adlandırılır. Sistem ve ağ yöneticileri tarafından ağ sorunlarını teşhis etmek, portları test etmek, basit sunucu/istemci uygulamaları oluşturmak, veri transferi yapmak gibi birçok amaçla kullanılır.
 
-Yaptığı iş sadece şu: TCP ve UDP kullanarak ağdan veri okuyup yazmak.
+**Farklı Sürümler:** Linux dağıtımlarında `netcat`'in farklı implementasyonları bulunabilir:
+*   **OpenBSD `nc`:** Birçok dağıtımda bulunan yaygın ve genellikle daha modern özelliklere sahip sürüm.
+*   **GNU `netcat`:** Daha eski bir sürüm, bazı seçenekleri farklı olabilir.
+*   **`ncat`:** Nmap projesinin bir parçası olan, SSL desteği gibi ek özellikler sunan gelişmiş bir versiyon.
+Bu bölümdeki örnekler genellikle OpenBSD `nc` sürümüyle uyumludur, ancak bazı seçenekler (`-k` gibi) veya davranışlar kullandığınız sürüme göre farklılık gösterebilir. `man nc` veya `man ncat` komutları ile sisteminizdeki sürümün detaylarına bakabilirsiniz.
+
+`netcat`'in temel işlevi TCP veya UDP kullanarak ağdan veri okuyup yazmaktır.
 
 Bu kadar temel bir işi yapan program doğru kullanıldığında birçok ağ problemini teşhis etmede yardımcı olabilir, dosya transferi yapmanıza olanak sağlayabilir, basit proxy'ler kurmanıza veya port taramaları yapmanıza müsaade edebilir.
 
@@ -60,11 +66,14 @@ Content-Type: text/html; charset=iso-8859-1
 
 Burada bizi Apache 2.4.6 web sunucusu karşıladı ve gönderdiğimiz pakedi anlamadığını ifade eden 400 Bad Request cevabını HTML olarak döndürdü.
 
-Eğer bağlantıyı TCP olarak değil de, UDP olarak sağlamak isteseydik, -u parametresini kullanmamız yeterli olacaktı.
+Eğer bağlantıyı TCP yerine UDP olarak test etmek isteseydik, `-u` parametresini kullanmamız yeterli olacaktı:
+```bash
+nc -u <hedef_sunucu> <udp_port>
+```
 
-## Port Tarama
+## Port Tarama (`-z`)
 
-Biraz önce bir servisin çalışıp çalışmadığını kontrol ettik. Ancak bunun için hem tek bir port belirtmemiz gerekti, hem de bazı durumlarda veri göndermemiz gerekti. Örneğin ssh ile kurduğumuz bağlantıda ssh server doğrudan bize protokol bilgisini gönderdiği için bağlantı sağlayabildiğimizi anlayabildik, ancak Apache bizden bir input bekledi. Yine de benim TCP bağlantısını başarılı şekilde tamamlayıp tamamlayamadığımı anlayabilmem gerekiyor. Bunun için basit bir -z parametresi sağlıyor netcat.
+Bir veya daha fazla portun açık olup olmadığını (bir servisin o portu dinleyip dinlemediğini) hızlıca kontrol etmek için `-z` (zero-I/O mode) seçeneği kullanılır. Bu modda `nc`, veri göndermeden sadece bağlantı kurmaya çalışır ve sonucu bildirir.
 
 ```
 eaydin@k9 ~ $ nc -z google.com 80
@@ -97,14 +106,14 @@ eaydin@k9 ~ $ nc -vz google.com 81
 
 Normal şartlar altında bir TCP bağlantısı karşını karşı taraf reddederse bunun sinyalini alırız, ancak firewall'lar özellikle bunu göndermediği için netcat bağlantıyı sonlandırmayıp bekliyor.
 
-Eğer firewall arkasında bulunmayan ancak 81 portundan hizmet sunmayan bir sunucuya tarama isteği gönderirsek aşağıdakine benzer bir sonuç alırız.
-
+Eğer güvenlik duvarı (firewall) bağlantıyı engellemiyorsa ve hedef portta bir servis dinlemiyorsa, genellikle "Connection refused" (Bağlantı reddedildi) hatası alınır:
+```bash
+$ nc -vz 192.168.16.30 81
+nc: connect to 192.168.16.30 port 81 (tcp) failed: Connection refused
 ```
-eaydin@k9 ~ $ nc -vz 192.168.16.30 81
-nc: connectx to 192.168.16.30 port 81 (tcp) failed: Connection refused
-```
+Eğer güvenlik duvarı paketleri sessizce düşürüyorsa (DROP), `nc` bir süre yanıt bekleyip zaman aşımına uğrayabilir. `-w <saniye>` ile zaman aşımı süresi ayarlanabilir.
 
-Belirtilecek portları aralık halinde de verebiliriz. Örneğin sunucunun 20-90 portları aralığını taramak istersek aşağıdaki gibi bir sonuç elde ederiz.
+Port aralığı taraması da yapılabilir:
 
 ```
 [root@emre ~]# nc -z 192.168.16.30 20-90
@@ -160,13 +169,14 @@ test1
 test2
 ```
 
-Eğer client tarafında netcat programını sonlandırırsak, client server'a TCP bağlantısını sonlandıracağı bilgisini göndereceği için, server da sonlanacaktır. Eğer server'ın sürekli dinlemesini istiyorsak, yani bağlantıların TCP Fin paketiyle sonlandırıldığında bile server'ın yeni bağlantı beklemesini istiyorsak, -k parametresiyle başlatılması gerekir.
-
-```
-root@server ~ # nc -lk 84
+Eğer client tarafında netcat programını sonlandırırsak, client server'a TCP bağlantısını sonlandıracağı bilgisini göndereceği için, server da sonlanacaktır. Eğer sunucunun, bir istemci bağlantısı kapandıktan sonra yeni bağlantıları kabul etmeye devam etmesini istiyorsak, `-k` (keep listening) seçeneği kullanılır (Bu seçenek OpenBSD `nc`'de bulunur, diğer sürümlerde farklı olabilir veya olmayabilir).
+```bash
+sudo nc -lk 84
 ```
 
 ## Kullanım Senaryoları
+
+**Uyarı:** Aşağıdaki dosya transferi ve veri yönlendirme örneklerinde `netcat` veriyi **şifrelemeden** gönderir. Güvenilmeyen ağlarda hassas veriler için bu yöntemler kullanılmamalıdır. Bunun yerine SSH (scp, sftp, rsync over ssh) veya `socat` gibi SSL/TLS destekli araçlar tercih edilmelidir. `openssl` ile şifreleme örneği aşağıda gösterilmiştir.
 
 Netcat'in temel olarak ne iş yaptığını gördük. Başta bahsettiğimiz gibi aslında çok basit bir iş yapıyor, ancak sunucu/network yapınızda test sağlamak için kullanışlı olurken, standart girdi/çıktı yönlendirmeleriyle birçok problemi hızla çözmenize olanak sağlıyor.
 
@@ -242,9 +252,6 @@ Gönderiren de ters sırada işlemleri yapmak gerekecektir.
 eaydin@A.client ~ $ mysqldump -u kullanici_adi -p veritabani_ismi | openssl enc -aes-256-cbc -pass pass:GIZLI_S1FR3 -e | gzip | nc B.server 9955
 ```
 
-Veri MySQL sunucusu üzerinde önce şifreleniyor, sonra sıkıştırılıyor, ardından netcat ile diğer sunucuya gönderiliyor. Diğer sunucu önce sıkıştırılmış veriyi açıyor, ardından şifreyi çözüyor ve dosyayı yazıyor.
+Veri MySQL sunucusu üzerinde önce şifreleniyor (`openssl enc -e`), sonra sıkıştırılıyor (`gzip`), ardından netcat ile diğer sunucuya gönderiliyor. Diğer sunucu önce sıkıştırılmış veriyi açıyor (`gzip -d`), ardından şifreyi çözüyor (`openssl enc -d`) ve dosyayı yazıyor.
 
-Burada sıkıştırma işlemini yapmak zorunda değiliz tabii ki, özellikle birden fazla işlemin uç uca eklenmesine güzel örnek sağladığı için, ve işlemlerin sırasının önemini vurgulamak için yaptık.
-
-
-
+Burada sıkıştırma işlemini yapmak zorunda değiliz tabii ki, özellikle birden fazla işlemin uç uca eklenmesine güzel örnek sağladığı için ve işlemlerin sırasının önemini vurgulamak için yaptık. Şifreleme için `GIZLI_S1FR3` yerine çok daha güçlü bir parola veya anahtar dosyası kullanılmalıdır.

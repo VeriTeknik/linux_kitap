@@ -2,6 +2,10 @@
 
 Red Hat için geliştirilmiş paket yönetim sistemidir. Paketler -çoğunlukla olduğu gibi- doğrudan derlenmiş dosyalar olarak dağıtılabileceği gibi, kaynak kodların dağıtımını (srpm, spm) da sağlayabilir.
 
+RPM (RPM Package Manager, eskiden Red Hat Package Manager), RHEL tabanlı dağıtımların (CentOS Stream, Rocky Linux, AlmaLinux, Fedora vb.) kullandığı temel paket yönetim sistemidir. Paketler genellikle `.rpm` uzantılı dosyalardır ve derlenmiş programları, kütüphaneleri, yapılandırma dosyalarını ve kurulum/kaldırma betiklerini içerir. Kaynak kod paketleri ise `.src.rpm` uzantılıdır.
+
+**Önemli Not:** `rpm` komutu, paketleri doğrudan yönetmek için kullanılan düşük seviyeli bir araçtır. **Bağımlılıkları otomatik olarak çözmez.** Bu nedenle, paket kurma, kaldırma veya güncelleme işlemleri için genellikle `dnf` (veya eski sistemlerde `yum`) gibi daha üst seviye paket yöneticilerinin kullanılması **şiddetle tavsiye edilir**. `rpm` komutu daha çok paketleri sorgulamak, dosyaların hangi pakete ait olduğunu bulmak veya bağımlılıkları manuel olarak yönetmek gerektiğinde kullanılır.
+
 RPM paketlerinin isimlendirmesinde genellikle aşağıdaki düzen izlenir.
 
 
@@ -12,109 +16,97 @@ RPM paketlerinin isimlendirmesinde genellikle aşağıdaki düzen izlenir.
 
 Çoğunlukla yukarıdaki bölümlerden **isim** ve **mimari** kısmı bizi ilgilendirecektir. **isim** kısmı, tahmin edeceğiniz üzere yüklemek istediğimiz pakettir. **mimari** ise çalıştığımız sistemin işlemci mimarisidir. Örneğin x86, i386, arm gibi değerler alabilir. noarch yazması, paketin mimari bağımsız olması demektir. Örneğin düz metin dosyaları, Python/Perl scriptleri bu şekilde olabilir.
 
-rpm dosyalarını pek çok yerden edinebilirsiniz. [rpmfind.net](http://rpmfind.net) bunlardan birisidir.
+rpm dosyalarını genellikle dağıtımınızın yapılandırılmış depolarından (`dnf` aracılığıyla) veya güvenilir üçüncü parti kaynaklardan edinebilirsiniz. İnternetten rastgele indirilen RPM paketlerini kurmak güvenlik riski oluşturabilir.
 
-## Yükle
+## `rpm` Komutu ile Sorgulama ve Yönetim
 
-Bir rpm paketini yüklemek için:
+Aşağıda `rpm` komutunun bazı yaygın kullanım örnekleri verilmiştir. Unutmayın, kurulum/kaldırma/güncelleme için genellikle `dnf` tercih edilmelidir.
 
-```
+**Paket Kurulumu (Bağımlılıkları Çözmez!):**
+
+İndirilmiş bir RPM dosyasını kurmak için (genellikle `-ivh` kullanılır: install, verbose, hash marks):
+
+```bash
 rpm -ivh paket-dosyası.rpm
 ```
+**Not:** Eğer bu paket başka paketlere bağımlıysa ve bu bağımlılıklar sistemde kurulu değilse, `rpm` komutu hata verecektir. `dnf install paket-dosyası.rpm` komutu ise bağımlılıkları depolardan otomatik olarak bulup kurmaya çalışır.
 
-## Bağımlı Olduğu Paketleri Göster
+**Paket Sorgulama:**
 
-Bir rpm paketini yüklemeden, bu paketin bağımlı olduğu diğer paketleri öğrenmek için:
+Bir RPM dosyasının (kurulu olmayan) bağımlı olduğu paketleri listelemek için (`-p` ile dosya üzerinde işlem yapılır):
 
-```
+```bash
 rpm -qpR paket-dosyası.rpm
 ```
 
-## Paket Dosyası Hakkında Genel Bilgi Al
-
-```
+Bir RPM dosyasının (kurulu olmayan) içerdiği genel bilgileri görmek için:
+```bash
 rpm -qip paket-dosyası.rpm
 ```
 
-## Bağımlı Olduğu Paketler Hariç Yükle
-
-Bir rpm paketini, bağımlı olduğu diğer paketleri gözardı ederek yükler. Çok sık gerekecek bir durum değildir, kimi zaman sisteminizdeki belirli kütüphanelerin değişmesini istemezseniz yapmanız gerekebilir.
-
-```
-rpm -ivh --nodeps paket-dosyası.rpm
+Bir RPM dosyasının (kurulu olmayan) içerdiği dosyaları listelemek için:
+```bash
+rpm -qlp paket-dosyası.rpm
 ```
 
-## Yüklü Paketler Arasında Birini Sorgula
+**Kurulu Paketleri Sorgulama:**
 
-Yüklü paketleriniz içinde örneğin **htop** olup olmadığını merak ediyorsanız,
-
-```
+Sistemde belirli bir paketin kurulu olup olmadığını kontrol etmek için:
+```bash
 rpm -q htop
 ```
 
-## Yüklü Paketlerin Tamamını Göster
-
+Sistemde kurulu tüm paketleri listelemek için (`less` ile kullanmak faydalıdır):
+```bash
+rpm -qa | less
 ```
-rpm -qa
+
+Kurulu bir paket hakkında detaylı bilgi almak için:
+```bash
+rpm -qi nmap
 ```
 
-## Yüklü Paketin Tüm Dosyalarını Görüntüle
-
-Örneğin sisteminizdeki **nmap** paketinin hangi dosyaları yüklediğini merak ediyorsanız.
-
-```
+Kurulu bir paketin içerdiği dosyaları listelemek için:
+```bash
 rpm -ql nmap
 ```
 
-## Bir Paketi Güncelle
-
+Belirli bir dosyanın hangi kurulu pakete ait olduğunu bulmak için:
+```bash
+rpm -qf /etc/my.cnf
 ```
+
+Kurulu bir paketin dosyalarının bütünlüğünü doğrulamak için (değiştirilmiş, eksik dosyaları vb. kontrol eder):
+```bash
+rpm -V nmap
+```
+(Eğer komut çıktı vermezse, paket dosyaları orijinal durumdadır.)
+
+**Paket Kurulum/Güncelleme/Kaldırma (Düşük Seviye):**
+
+**Uyarı:** Aşağıdaki komutlar bağımlılıkları otomatik yönetmez. Genellikle `dnf` kullanın.
+
+Bağımlılıkları göz ardı ederek paket kurmak (Genellikle önerilmez!):
+
+```bash
+rpm -ivh --nodeps paket-dosyası.rpm
+```
+
+Bir paketi güncellemek veya kurulu değilse kurmak için (`-U` update/install):
+```bash
 rpm -Uvh paket-dosyası.rpm
 ```
+(Sadece kuruluysa güncellemek için `-F` veya `--freshen` kullanılır.)
 
-## Bir Paketi Sil
-
-Bu seçenek ile paket kaldırılır. Eğer bu paketin bağımlı olduğu paketler, başka bir paket tarafından kullanılıyorsa onlar da kaldırılır.
-
+Bir paketi kaldırmak için (`-e` erase):
+```bash
+rpm -e paket-ismi
 ```
-rpm -ev paket-ismi
-```
+**Not:** Bu komut, kaldırılan pakete bağımlı olan diğer paketlerin çalışmasını bozabilir. `dnf remove paket-ismi` komutu bağımlılıkları daha güvenli yönetir.
 
-## Bir Paketi Bağımlı Olduğu Diğer Paketlere Dokunmadan Kaldır
-
-Bu seçenek ile, paket kaldırılır ancak kendisinin bağımlığı olduğu paketlere dokunulmaz.
-
-```
+Bağımlılıkları kontrol etmeden bir paketi kaldırmak için (Genellikle önerilmez!):
+```bash
 rpm -ev --nodeps paket-ismi
 ```
 
-## Bir Dosyanın Hangi Pakete Ait Olduğu
-
-Sisteminizde gördüğünüz bir dosyanın, hangi rpm paketiyle geldiğini öğrenmek istiyorsanız aşağıdaki gibi bir sorgulama yapabilirsiniz. Örneğin **/etc/my.cnf** dosyasının nereden geldiğini merak ediyorsak:
-
-
-```bash
-[root@emre /]# rpm -qf /etc/my.cnf
-mysql55w-libs-5.5.43-1.w6.x86_64
-```
-
-## Yüklenmiş bir RPM Paketi Hakkında Bilgi Almak
-
-```bash
-[root@emre /]# rpm -qi mysql55w
-Name        : mysql55w                     Relocations: (not relocatable)
-Version     : 5.5.43                            Vendor: Webtatic
-Release     : 1.w6                          Build Date: Wed 08 Apr 2015 11:04:32 AM EEST
-Install Date: Thu 07 May 2015 03:01:26 PM EEST      Build Host: mock.dev
-Group       : Applications/Databases        Source RPM: mysql55w-5.5.43-1.w6.src.rpm
-Size        : 29768594                         License: GPLv2 with exceptions
-Signature   : DSA/SHA1, Wed 08 Apr 2015 12:35:33 PM EEST, Key ID b7434b06cf4c4ff9
-Packager    : Andy Thompson <andy@webtatic.com>
-URL         : http://www.mysql.com
-Summary     : MySQL client programs and shared libraries
-Description :
-MySQL is a multi-user, multi-threaded SQL database server. MySQL is a
-client/server implementation consisting of a server daemon (mysqld)
-and many different client programs and libraries. The base package
-contains the standard MySQL client programs and generic MySQL files.
-```
+Özetle, `rpm` komutu paketler hakkında bilgi almak ve düşük seviyeli işlemler yapmak için kullanışlıdır, ancak günlük paket yönetimi (kurulum, kaldırma, güncelleme) için `dnf` komutunu kullanmak daha güvenli ve pratiktir.

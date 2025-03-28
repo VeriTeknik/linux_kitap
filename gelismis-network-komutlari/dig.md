@@ -29,11 +29,20 @@ veritech.net.        14399    IN    A    94.103.32.32
 ;; MSG SIZE  rcvd: 57
 ```
 
-Yukarıdaki çıktı, veritech.net adresinin A kayıtlarını göstermektedir. İlgilendiğimiz kısım `ÀNSWER SECTION` ile başlayan kısımdır. Zaten bu kısımın altındaki satırın başında `;` işareti olmadığını görebilirsiniz. Noktalı virgül işaretleri, ilgili satırın bir açıklama satırı olduğunu ifade etmesi bakımından yazılmaktadır.
+Yukarıdaki çıktı, `veritech.net` adresinin A kaydını (IPv4 adresi) göstermektedir. Çıktı birkaç bölümden oluşur:
+*   **HEADER:** Sorgu ve yanıt hakkında genel bilgiler (opcode, status, flags, ID).
+*   **QUESTION SECTION:** Hangi alan adı ve kayıt tipi için sorgu yapıldığı.
+*   **ANSWER SECTION:** Sorguya verilen yanıt(lar). İlgilendiğimiz ana kısım burasıdır.
+*   **AUTHORITY SECTION:** (Bu örnekte yok) Alan adı için yetkili nameserver'ları gösterir.
+*   **ADDITIONAL SECTION:** (Bu örnekte OPT PSEUDOSECTION var) Yetkili sunucuların IP adresleri gibi ek bilgileri içerebilir.
+*   **İstatistikler:** Sorgu süresi, kullanılan sunucu, yanıt boyutu gibi bilgiler.
 
-Cevaptaki diğer bölümler, programın versiyonu hakkında bilgi vermekte, sorgu hakkında bir takım istatistikler paylaşmaktadır.
-
-`QUESTION SECTION` kısmında sorgunun aslında `veritech.net IN A` için yapıldığı görülebilir. Bu yüzden cevap olarak `veritech.net. 14399 IN A 94.103.32.32` şeklinde gelmiştir cevap. Kısacası **A** kaydı sorulmuş, cevap olarak da bu bilgi gelmiştir.
+**Sadece Yanıtı Görme (`+short`):**
+Eğer sadece sorgunun yanıtını (örneğin IP adresini) görmek isterseniz, `+short` seçeneğini kullanabilirsiniz:
+```bash
+$ dig veritech.net +short
+94.103.32.32
+```
 
 ## Sorgulanabilecek Kayıt Tipleri
 
@@ -188,13 +197,13 @@ Eğer yukarıdaki sorgu hiyerarşisi içerisindeki bir nokta zarar görürse sis
 
 Bütün TLD'lerin listesine ve kimin tarafından yönetildiğini öğrenmek için: [https://www.iana.org/domains/root/db](https://www.iana.org/domains/root/db)
 
-## Kök Sunucular
+## Kök Sunucular ve DNS Hiyerarşisi
 
-`+trace` ile DNS yolunu takip ederken, kök sunuculardan sorgulamaya başladık. Bu sunucular Dünya üzerinde 13 tanedir ve 12 bağımsız organizasyon tarafından yönetilirler. İnternette isim çözümlemenin belkemiği sayılan sunucuların IP adresleri bilinir ve bu adreslere sorgular gönderilir. Bu adreslerin karşılığı kök sunucular haricindeki DNS sunucularda "hint file" adı verilen dosyalarda tutulur. Bu dosyanın güncel haline erişmek için aşağıdaki link izlenebilir:
+`+trace` çıktısında gördüğümüz gibi, DNS hiyerarşik bir yapıya sahiptir. Sorgular genellikle yerel çözümleyiciden başlar, gerekirse kök sunuculara (`.`), oradan ilgili üst seviye alan adı (TLD) sunucularına (`.tr`, `.com` vb.) ve son olarak alan adının kendi yetkili (authoritative) sunucularına ulaşır.
 
-[http://www.internic.net/domain/named.root](http://www.internic.net/domain/named.root)
-
-DNS yolunu izlerken kök sunucuların isimlerini görmüştük. `a.root-servers.net`, `b.root-servers.net` ... gibi isimleri bulunur. Yukarıda linkini verdiğimiz hint dosyası incelenirse, bu sunucuların isimlerinin eskiden farklı olduğu görülebilir. Örneğin e.root-servers.net için "FORMERLY NS.NASA.GOV" ifadesi bulunur. Gerçekten de eskiden kök sunucuların isimleri bulundukları kurumlarla ilişkilendirilmişti ancak sonradan bir isim standardı getirildi. Bugün 13 kök sunucuyu şu kurumlar yönetmektedir.
+*   **Kök Sunucular:** İnternetin en üst seviyesindeki 13 mantıksal sunucu kümesidir (A'dan M'ye kadar harflendirilmiş). Bu sunucular, TLD sunucularının adreslerini bilir. IP adresleri nadiren değişir ve DNS çözümleyiciler tarafından "hints" dosyaları aracılığıyla bilinir (örn. `/etc/named.root`).
+*   **Anycast:** Fiziksel olarak bu 13 kök sunucu, dünya geneline yayılmış yüzlerce sunucudan oluşur. Anycast yönlendirme tekniği sayesinde, bir kök sunucu IP'sine yapılan sorgu, coğrafi olarak en yakın veya ağ açısından en uygun fiziksel sunucuya yönlendirilir. Bu, performansı artırır ve saldırılara karşı dayanıklılığı sağlar. Türkiye'de de farklı kök sunucu operatörlerine ait Anycast sunucuları bulunmaktadır. ([http://www.root-servers.org/](http://www.root-servers.org/))
+*   **IANA:** Kök bölgenin (root zone) ve TLD'lerin yönetimini koordine eden kuruluştur ([https://www.iana.org/domains/root/db](https://www.iana.org/domains/root/db)).
 
 | **Hostname** | **IP Adresi** | **Yönetici Kurum** |
 | --- | --- | --- |
@@ -214,29 +223,6 @@ DNS yolunu izlerken kök sunucuların isimlerini görmüştük. `a.root-servers.
 
 Yukarıdaki listenin güncel haline [https://www.iana.org/domains/root/servers](https://www.iana.org/domains/root/servers) adresinden erişilebilir.
 
-### Kök Sunucu IP Değişikliği
-
-Kök sunucular da zaman zaman IP adreslerini değiştirme ihtiyacı hissederler. Bu tip durumlar uzun süre önce anons edilir ve DNS sunucuların hint dosyalarını güncellemeleri için süre tanınır.
-
-Örneğin d-root sunucusu, yani University of Maryland tarafından yönetilen sunucu, 3 Ocak 2013'te IPv4 adresini değiştireceğini, ancak IPv6 adresinin değişmeyeceğini duyurmuştur. Bu duyuruda, geçişten sonra eski IPv4 adresinin 6 ay daha kullanılacağını, ancak sonunda terk edileceğini de belirtmiştir. Dolayısıyla DNS yöneticilerine hint dosyalarını en kısa sürede güncellemelerini tavsiye etmiştir. Duyuruya şuradan erişebilirsiniz: [http://d.root-servers.org/renumber.html](http://d.root-servers.org/renumber.html)
-
-### Kök Sunucularda IPv6 Desteği
-
-Yukarıdaki listeye baktığınızda, kitabın yazıldığı Aralık 2015 tarihi itibariyle 2 kök sunucunun \(e-root ve g-root\) IPv6 desteği vermediği görülebilir. Kök sunucularda IPv6 desteği 29 Ocak 2008 tarihinde IANA tarafından duyurulmuştur ve 6 tane sunucu ile başlamıştır \(a, f, h, j, k, m\). Daha sonra diğer sunucular da IPv6 desteği vermiştir. Duyuruya ve ilgii rapora şuradan erişebilirsiniz: [http://www.iana.org/reports/2008/root-aaaa-announcement.html](http://www.iana.org/reports/2008/root-aaaa-announcement.html)
-
-Kök sunucuların IPv6 desteği vermesi demek, sunucuların IPv6 adresinin olması, dolayısıyla doğrudan IPv6 ile sorgulanabilmeleri demektir. Bu gelişmeden önce kök sunuculara IPv4 ile sorgu gönderip, IPv6 adres bilgileri edinilebiliyordu. Ama bu durum sorguyu gönderen tarafın hem IPv4 hem de IPv6 protokollerini desteklemesini gerektiriyordu. IPv6 desteği ile bu zorunluluk ortadan kalktı. Tabii kök sunucuların yönlendirdiği DNS sunucular IPv6 desteklemediği sürece bir anlamı kalmayacaktır.
-
-### Kök Sunuculara Yapılan Saldırılar
-
-Daha önce nic.tr'ye yapılan saldırının Türkiye için **.tr** uzantılı alanadlarını etkilediğini belirtmiştik. Benzer şekilde kök sunuculara da saldırılar yapılmakta. Bunların bazıları 2002, 2007, 2015 tarihlerinde yapıldı ve büyük çoğunluğu internet alt yapısını etkileyemedi. 2007'deki saldırı kök sunucularda ciddi sayılabilecek trafiğe neden oldu ve ICANN saldırılar hakkında bir rapor yayımladı: [https://www.icann.org/en/system/files/files/factsheet-dns-attack-08mar07-en.pdf](https://www.icann.org/en/system/files/files/factsheet-dns-attack-08mar07-en.pdf)
-
-### Kök Sunucuların Konumları
-
-Kök sunucular 13 tane olsa da, aslında 13 fiziksel sunucu olarak düşünmemek gerekir. İlk başta 13 fiziksel sunucu bulunuyordu ve tamamı ABD içindeydi ancak zamanla internet kullanımının yaygınlaşması ve talebin dağıtık biçimde karşılanması gerekliliği, sunucuları yaymayı gerektirdi. Bugün 13 IP adresi farklı fiziksel sunucular üzerinde yayın yapmaktadır. Kısacası kök sunucular 12 organizasyon tarafından Dünya üzerinde bir çok ülkede yönetilmektedir. Örneğin VeriSign'ın yönettiği kök sunucular toplamda 70'e yakın sayıdadır. Tamamı aynı IP adresine sahiptir, böylece bulunduğunuz noktadan bu IP adresine erişmeye çalıştığınızda size en yakındaki sunucuya yönlenirsiniz. Eğer bu sunucu cevap vermezse en yakındaki diğer sunucuya yönlenirsiniz. Bu yöntem bir ağ için "routing" metodudur ve **anycast** olarak adlandırılır. Teknolojinin detayı konumuzun dışında olduğu için ilgilenmeyeceğiz ancak Anycast servisleri RFC4786'da tanımlanmıştır: [https://tools.ietf.org/html/rfc4786](https://tools.ietf.org/html/rfc4786)
-
-Aralık 2015 itibariyle kök sunucular 97 farklı ülkeye yayılmıştır. Türkiye'de de 4 tanesi bulunmaktadır. 2'si İstanbul'da D-ROOT ve L-ROOT anycast'leri olarak çalışmakta, 2'si ise Ankara'da I-ROOT ve L-ROOT anycast'leri olarak çalışmaktadır.
-
-Kök sunucuların konumlarını interaktif bir haritayla [http://www.root-servers.org/](http://www.root-servers.org/) adresinden inceleyebilirsiniz, veya trafik detaylarını [http://pch.net/root-servers](http://pch.net/root-servers) adresinden takip edebilirsiniz.
 
 ## Reverse DNS
 
@@ -336,4 +322,3 @@ Yukarıdaki komut, yerel ağımızdaki 192.168.19.23 IP adresli DNS sunucusuna 5
 ## Daha Fazla Bilgi
 
 dig programı alanadları için tanımlanmış standartlara uygunluk gösterir. Bu standartlar hakkındaki detaylar [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt)'te tanımlanmıştır.
-

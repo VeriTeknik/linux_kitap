@@ -1,33 +1,15 @@
 # Temel SQL Sorgularına Giriş
 
-Burada kullanabilmemiz için sahte veri ürettim. Bu verileri internet üzerindeki herhangi bir siteden üretebilirsiniz. Bunları veritabanınıza almak için farklı yollar var.
+Veritabanına veri ekledikten sonra, bu veriyi geri almak, filtrelemek, sıralamak ve işlemek için SQL'in **`SELECT`** komutu kullanılır. `SELECT` komutu, SQL'in en temel ve en sık kullanılan komutlarından biridir.
 
-Örneğin;
+Bu bölümde, `SELECT` komutunun temel kullanımı ve yaygın kullanılan bazı yan tümceleri (clauses) ele alınacaktır:
 
-`mysql -u root -p`
+*   Belirli sütunları seçme.
+*   Tüm sütunları seçme (`*`).
+*   Satırları filtreleme (`WHERE`).
+*   Sonuçları sıralama (`ORDER BY`).
+*   Döndürülecek satır sayısını sınırlama (`LIMIT`).
 
-Giriş yaptıktan sonra,
+Detaylı örnekler için aşağıdaki bölüme bakınız:
 
-```
-CREATE DATABASE dummy;
-USE dummy;
-```
-
-Ardından da
-
-```
-SOURCE /veritabanının_yolu/dosya.sql;
-```
-
-Şeklinde "\*.sql" tablosunu içeri alabiliyoruz. Veritabanın yolunu yazmak için absolute path kullanmanıza gerek yok. Fakat bulunduğunuz dizinden farklı bir üst dizindeyse, absolute path yazmak daha kolay olabilir.
-
-Bunun haricinde;
-
-Varolan bir veritabanına veriyi almak için de şöyle bir yol izleyebilirsiniz;
-
-`mysql -u kullanıcıadı -p veritabanı < dosya.sql`
-
-Bazı \*.sql dosyalarında bu satırı veritabanı belirtememize gerek olmayabilir fakat biz şimdilik bunu gözardı ediyoruz.
-
-
-
+*   [Birinci Bölüm](birinci-boeluem.md)

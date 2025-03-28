@@ -30,7 +30,7 @@ Daha önce gördüğümüz **<** ve **>** gösterimleri de aslında bunu doğrul
 
 Yukarıdaki tablodan görüleceği gibi, aslında standart çıktının file descriptor'ının sayısal karşılığı 1'dir. Yani, aşağıdaki iki örnek, aynı anlama gelmektedir. İlk başta, daha önce uyguladığımız örneklerde olduğu gibi, file descriptor kullanmadan oluşan sonuca bakalım.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/lower $ cat karakterler > cikti1
 eaydin@eaydin-vt ~/devel/lower $ cat cikti1 
 AbCdE
@@ -38,7 +38,7 @@ AbCdE
 
 Aşağıda ise, file descriptor ile aynı sonucun elde edildiğini görebiliyoruz.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/lower $ cat karakterler 1> cikti2
 eaydin@eaydin-vt ~/devel/lower $ cat cikti2
 AbCdE
@@ -50,7 +50,7 @@ Yönlendirmelerde standart çıktı çok sık kullanıldığı için, `1>` kulla
 
 cat programı, kendisine parametre olarak kaç dosya verilirse, tamamını peş peşe eklemekle görevlidir, ismi de zaten buradan gelir, _con**cat**enate_ sözcüğünün kısaltılmışıdır. Aşağıdaki kullanım açıklayıcı olacaktır.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/lower $ echo Bu bir cümle > cumleler
 eaydin@eaydin-vt ~/devel/lower $ cat cumleler 
 Bu bir cümle
@@ -61,14 +61,14 @@ Bu bir cümle
 
 Eğer parametre olarak verdiğimiz dosyalardan birisi yoksa (veya okunamıyorsa), hata verir.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/lower $ cat paragraf
 cat: paragraf: No such file or directory
 ```
 
 Aşağıda, iki dosyayı birleştirmesini istiyoruz.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/lower $ cat karakterler paragraf > deneme
 cat: paragraf: No such file or directory
 eaydin@eaydin-vt ~/devel/lower $ cat deneme
@@ -77,7 +77,7 @@ AbCdE
 
 Ancak gördüğünüz gibi, dosyalardan birisi (`paragraf`) olmadığı için program hata verdi. Yine de `deneme` dosyası oluşturuldu ve içinde sadece `karakterler` dosyasının içeriği yer alıyor. Eğer çok fazla dosyayı birleştiriyor olsaydık, veya bu işlemi bir script'in içerisinde kullanıyor olsaydık, veya pipe ile birçok işlemi birleştiriyor olsaydık, bu işlemin hatalarını terminal ekranına yazdırmak yerine bir dosyaya yönlendirmesini tercih edebilirdik. Bunun için file descriptor kullanımı gerekir ve yukarıdaki tablodan anlaşılacağı gibi `2>` notasyonuyla bu işlem gerçekleştirilir.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/lower $ cat karakterler paragraf > deneme 2> hatalar
 eaydin@eaydin-vt ~/devel/lower $ cat deneme 
 AbCdE
@@ -87,7 +87,7 @@ cat: paragraf: No such file or directory
 
 Burada önce standart çıktıyı `deneme` dosyasına yönlendirdiğimizi, standart hatayı ise `hatalar` dosyasına yönlendirdiğimizi görebilirsiniz. Yaptığımız işlemin sırasının bir önemi yok. Yani önce standart hatayı yönlendirip, sonra standart çıktıyı yönlendirebilirdik. Genellikle bu yapılmaz (1 ve 2 sırasını içgüdüsel olarak koruruz) ancak yapılmasında bir mahsur bulunmaz.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/lower $ cat karakterler paragraf 2> hatalar > deneme
 eaydin@eaydin-vt ~/devel/lower $ cat hatalar
 cat: paragraf: No such file or directory
@@ -97,7 +97,7 @@ AbCdE
 
 Bütün bu işlemlerde, standart çıktı yönlendirmesi için **1>** notasyonunu da kullanabilirdik. Yine, alışkanlık gereği pek kullanılmaz sadece. Yani aşağıdaki işlem ile yukarıdaki aynı işe yarayacaktır.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/lower $ cat karakterler paragraf 2> hatalar 1> deneme
 ```
 
@@ -109,7 +109,7 @@ Daha önce `komut1 | komut2 | komut3` şeklinde bir pipeline oluştururken aslı
 
 Sisteminiz üzerinde bu limitler farklı biçimlerde temsil edilir. İşletim sisteminizin tamamının open file descriptor limitini öğrenmek için `/proc/sys/fs/file-max` dosyasının içeriğine bakmanız yeterli olacaktır. Örneğin:
 
-```
+```bash
 [root@emre ~]# cat /proc/sys/fs/file-max
 386774
 ```
@@ -118,7 +118,7 @@ Burada incelediğimiz sistemin _aynı anda_ 386774 tane file descriptor'ın aç�
 
 Ancak bu durum, tek bir programın (veya kullanıcının) 386774 limitinin çok çok büyük bir kısmını, örneğin 386000 tanesini işgal etmesine sebep olabilir. Bu tip durumların önüne geçmek için modern işletim sistemlerinde program başına open file descriptor limiti bulunmaktadır. Bunu öğrenmek için aşağıdaki komutu çalıştırabilirsiniz:
 
-```
+```bash
 [root@emre ~]# ulimit -n
 1024
 ```
@@ -131,14 +131,17 @@ Doğru, ve bu sorunun cevabını ilerleyen bölümlerde, file descriptor'ların 
 
 Sistemimizdeki open file descriptor limiti, program başına olsun veya olmasın, işletim sistemimizin limitlerine ve RAM'ine bağlı olduğu için, hali hazırda çekirdeğin aklında tuttuğu file descriptor sayısını görmek isteyebiliriz. Bunun için aşağıdaki komutu çalıştırabiliriz:
 
-```
+```bash
 [root@emre ~]# cat /proc/sys/fs/file-nr
 736    0    386774
 ```
 
-Burada yine biraz önceki sayı olan 386774'ü, yani üst limiti görüyoruz. İlk baştaki 736 ise aslında sistemin şu anda aklında tuttuğu, rezerve edilmiş (_allocated_) file descriptor sayısıdır. Dolayısıyla bu sistem üzerinde `386774-736=386038` tane daha file desciptor açabiliriz. Ortadaki 0 sayısı ise, sistem tarafından rezerve edilmiş (_allocated_) ancak kullanılmayan file descriptor'ların sayısını gösteriyor. Yani bu örnekte sistem "rezerve ettiği" bütün file descriptorları (736 tane) kullanmış.
+Bu dosyadaki üç değerin anlamı (modern Linux çekirdeklerinde):
+1.  **Allocated FDs (736):** Çekirdek tarafından ayrılmış (allocate edilmiş) toplam file descriptor sayısı. Bu, o anda kullanılanları içerir.
+2.  **Unused Allocated FDs (0):** Ayrılmış ancak kullanılmayan file descriptor sayısı (bu değer modern çekirdeklerde genellikle 0'dır ve pek kullanılmaz).
+3.  **System-wide Max FDs (386774):** Sistem genelindeki maksimum open file descriptor limiti (`/proc/sys/fs/file-max` ile aynı değer).
 
-İşletim sistemi çekirdeği, file descriptor'ları olduğu gibi açıp kapatmaz, daha ziyade bir geri-dönüşüm (recycle) mekanizması kullanır. Örneğin bir program bir file descriptor açıp sonra kapattıysa, sistem onu hala rezerve edip kullanmayabilir, daha sonra tekrar talep edildiğinde bu rezerve olan file descriptor'ı kullanır. Ortadaki 0 sayısı aslında buna karşılık gelmektedir. Eskiden, Linux çekirdeğinin 2.4 versiyonunda ortadaki sayı "rezerve edilen file descriptor'ların kaçının kullanıldığını" gösteriyordu, ancak çekirdeğin 2.6 versiyona gelmesinden sonra bu sayı, "rezerve edilen file descriptor'lardan kullanılmayanları" göstermeye başladı. Bu açıdan, üzerinde çalıştığınız sistemin Linux çekirdek versiyonu eski ise ters sonuç görebileceğinizi göz önünde bulundurmakta fayda var.
+İlk değer (allocated FDs), sistemdeki mevcut FD kullanımını gösterir. Üçüncü değer ise sistemin izin verdiği toplam üst limittir.
 
 Bu limitlerin nasıl düzenleneceğini, program başına neden limitler olduğunu biraz daha ilerleyen bölümlerde irdeleyeceğiz. Şimdi programların üç temel file descriptor'ına geri dönelim.
 
@@ -146,7 +149,7 @@ Bu limitlerin nasıl düzenleneceğini, program başına neden limitler olduğun
 
 Her ne kadar standart hata yönlendirmesi, standart çıktı ile aynı noktaya yazılmasını istemediğimizden dolayı ortaya çıkmış olsa da, bazı durumlarda hata ve çıktıyı aynı yere yazmak isteyebiliriz. Bu gibi durumlar için, file descriptor kullanımında farklı bir gösterim kullanılır.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/lower $ cat karakterler paragraf > sonuc 2>&1
 eaydin@eaydin-vt ~/devel/lower $ cat sonuc
 AbCdE
@@ -167,18 +170,30 @@ Burada **&** işaretini, bir programı arka planda çalıştırmak için sonuna 
 
 Yukarıdaki işlemi de yine tersi olarak yapabilirdik. Yani önce standart hata yönlendirmesi yapıp, daha sonra standart çıktının yönleneceği yerin, standart hatanın adresi olmasını da söyleyebilirdik.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/lower $ cat karakterler paragraf 2> hatalisonuc 1>&2
 eaydin@eaydin-vt ~/devel/lower $ cat hatalisonuc 
 AbCdE
 cat: paragraf: No such file or directory
 ```
 
+**Bash Shorthand (`&>`)**
+
+Modern Bash kabuklarında (ve zsh gibi diğer bazı kabuklarda), hem standart çıktıyı (1) hem de standart hatayı (2) aynı hedefe yönlendirmek için `&>` veya `>&` kısayolu kullanılabilir. Bu, `> dosya 2>&1` ile eşdeğerdir:
+
+```bash
+# Hem stdout hem de stderr'i sonuc_hepsi dosyasına yönlendir
+cat karakterler paragraf &> sonuc_hepsi 
+
+# Yukarıdaki komut şununla aynıdır:
+# cat karakterler paragraf > sonuc_hepsi 2>&1
+```
+
 ### Çıktı Yönlendirme Örneği
 
 Genellikle standart hatayı ve standart çıktıyı birlikte yönlendirme işini, kalabalık çıktı sunan bir programın arka planda çalışmasında kullanırız. Örneğin checkmate.py isimli geliştirdiğimiz bir Python programı, belirli dizinlerdeki dosyaları tarayıp içlerinde bozuk dosya olup olmadığını kontrol etmektedir. Bu programın çıktısı "dosyaları kontrol ettim, problem yok" veya "dosyaları kontrol ettim, problem var" şeklinde olabilir. Kontrol işlemini bitirince email ile uyarı göndermektedir. Bu programın oluşabilecek hatası ise, kontrol edeceği dizinlere erişememesi durumunda gerçekleşebilir. Öyleyse aşağıdaki gibi programı çalıştırırsak:
 
-```
+```bash
 root@ubuntu:~# ./checkmate.py >> /var/log/checkmate.log 2>&1
 ```
 
@@ -186,7 +201,7 @@ Program çalışmaya başlayacak, ancak hem "kontrol ettim problem var/problem y
 
 Terminalimizde yeni bir işlem yapmak için, programın sonlanmasını beklememiz gerekir. Eğer bunu istemeseydik, sonuna bir **&** işareti daha eklememiz gerekecekti.
 
-```
+```bash
 root@ubuntu:~# ./checkmate.py >> /var/log/checkmate.log 2>&1 &
 ```
 
@@ -194,7 +209,7 @@ Buradaki iki **&** işaretinin farklı görevler gördüğünün daha önce alt�
 
 Bazı durumlarda programlar arka planda çalışırken, standart hataları doğru yere yönlendirilmez. Aşağıdaki gibi bir kullanım buna karşılık gelir:
 
-```
+```bash
 root@ubuntu:~# ./checkmate.py >> /var/log/checkmate.log &
 ```
 
@@ -202,8 +217,10 @@ Bu durumda, `checkmate.py` programı arka planda işini yapacak ve "kontrol etti
 
 Genellikle standart çıktıyı ve standart hatayı aynı yere yönlendirme işlemini `/dev/null` dosyası ile görebilirsiniz. İleride göreceğimiz özel dosyalardan birisi olan `/dev/null`, içine yazılan her şeyi silen özel bir dosyadır. Böylece, örneğin `checkmate.py` programımızın çalışmasını istiyorsak, ancak oluşturacağı çıktılarla hiç ilgilenmiyorsak, bütün çıktılarını `/dev/null` dosyasına yönlendirip, bu çıktıların sistemde tutulmamasını sağlayabiliriz.
 
-```
-root@ubuntu:~# ./checkmate.py > /dev/null/ 2>&1
+```bash
+root@ubuntu:~# ./checkmate.py > /dev/null 2>&1 
+# veya kısayolu ile:
+# ./checkmate.py &> /dev/null
 ```
 
 Bu tip kullanıma, en çok (yine ileride göreceğimiz) zamanlanmış görevlerde rastlarız. `crontab` içine yazılan satırların çoğu, eğer loglanmasını istemediğimiz işlemler yapıyorsa bu şekilde yazılır.
@@ -212,7 +229,7 @@ Bu tip kullanıma, en çok (yine ileride göreceğimiz) zamanlanmış görevlerd
 
 Aşağıdaki C kodunun derlendiği bir programı düşünelim.
 
-```
+```c
 #include <stdio.h>
 #include <unistd.h>
 
@@ -227,7 +244,7 @@ int main() {
 
 Eğer bu programı `deneme.c` olarak kaydedip aşağıdaki şekilde derler ve çalıştırırsak, her saniye ekrana `Test` yazmasını bekleriz.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ gcc deneme.c -o deneme
 eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme
 Test
@@ -238,7 +255,7 @@ Test
 
 Yani aslında program standart çıktıya `Test` yazıyor. Şimdi bu programın Linux üzerindeki process ID'sini (PID) öğrenelim. (Bunu program çalışırken yapıyoruz)
 
-```
+```bash
 eaydin@eaydin-vt ~ $ ps ax | grep deneme
 18622 pts/1    S+     0:00 ./deneme
 18650 pts/2    S+     0:00 grep --color=auto deneme
@@ -246,14 +263,14 @@ eaydin@eaydin-vt ~ $ ps ax | grep deneme
 
 Programın sistem üzerindeki PID'si 18622'ymiş. İşletim sisteminin çekirdeği tarafından bu işlemciye ayrılan file descriptorları, `/proc` dizini altında görebiliriz (Yine, program hala çalışıyorken yapıyoruz bu işlemleri).
 
-```
+```bash
 eaydin@eaydin-vt ~ $ ls /proc/18622/fd/
 0  1  2
 ```
 
 Buradaki notasyona ve sonuçlarına dikkat edecek olursak, `/proc` isminde özel bir dizine baktık. Bu dizin Linux çekirdeğiyle ilgili işlemleri tutuyor. Bunun altında hangi PID'li işleme bakacaksak, onun için açılan dizine girdik. Onun içinde de File Descriptor'ın kısaltmasını temsil eden `fd` dizinine baktık. Burada 3 tane file descriptor ile karşılaştık: her program çalıştırıldığında işletim sistemi çekirdeğinin öntanımlı olarak atadığı standart file descriptorlar. Aslında burada gördüğümüz üç dosya, birer sembolik link, daha detaylı bakacak olursak:
 
-```
+```bash
 eaydin@eaydin-vt ~ $ ls -l /proc/18622/fd/
 total 0
 lrwx------ 1 eaydin eaydin 64 Mar 22 14:36 0 -> /dev/pts/1
@@ -265,13 +282,13 @@ Buradan görüleceği üzere, aslında programın standart girdisi, standart ç�
 
 Şimdi programımızı durdurup, tekrar çalıştırırken standart çıktısını bir dosyaya yönlendirelim.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme > cikti
 ```
 
 Yeni PID'yi öğrenip, file descriptorlarına baktığımızda durum aşağıdaki gibi oluyor:
 
-```
+```bash
 eaydin@eaydin-vt ~ $ ps ax | grep deneme
 18895 pts/1    S+     0:00 ./deneme
 18899 pts/2    S+     0:00 grep --color=auto deneme
@@ -290,7 +307,7 @@ Bu bölüm boyunca, programların üç tane file descriptor'ından bahsettik. St
 
 Daha önce herhangi bir C programının `getchar` veya `putchar` gibi fonksiyonlar ile standart girdi ve standart çıktıyı kontrol ettiğini gördük. Ancak C programı bu işleri yaparken, bir yandan bir dosyayı açıp üzerinde işlem yapmasını sağlayabiliriz. Bu dosya söz konusu standart çıktı olmak zorunda değil. Örneğin biraz önce yazdığımız `deneme` programı ekrana (standart çıktıya) `Test` yazdırırken, bir yandan `yaz.txt` isimli bir dosya açıp içinde işlemler yapabilir. Aşağıdaki kodu `deneme2.c` olarak kaydedip derlersek bu durumu irdeleyebiliriz.
 
-```
+```c
 #include <stdio.h>
 #include <unistd.h>
 
@@ -309,7 +326,7 @@ int main() {
 
 Programı derleyip yine PID'sini öğrenip file descriptor'larına bakalım:
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ ls -l /proc/22447/fd
 total 0
 lrwx------ 1 eaydin eaydin 64 Mar 22 15:45 0 -> /dev/pts/2
@@ -322,7 +339,7 @@ Burada daha önce görmediğimiz, yeni bir file descriptor açığa çıktı. St
 
 Eğer programımızı `yaz.txt` içerisine de satırlar yazıp kaydedecek şekilde düzenlersek, burada da bir takım sonuçlar görmeyi bekleriz. Örneğin kodumuz aşağıdaki gibi olsaydı:
 
-```
+```c
 #include <stdio.h>
 #include <unistd.h>
 
@@ -345,7 +362,7 @@ int main() {
 
 Bu durumda ekrana (standart çıktıya) `Test` yazarken, `yaz.txt` içerisine `Dosyaya yazdırma` yazmasını beklerdik. Bunu 10 kere yapıp (her birini bir saniye arayla) sonra da program sonlanırdı. Bu durumda da yine `yaz.txt`'nin file descriptor'lar arasında 3 numaraya sahip olacağını düşünmek normal. Peki programı çalıştırırken, 3 numaralı file descriptor'ı yeni bir dosyaya yönlendirirsek? `yaz.txt` içerisine yazılacak verinin başka yere yazılmasını mı bekleriz?
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme3 3>yeni.txt
 Test
 Test
@@ -354,7 +371,7 @@ Test
 
 Bu durumda kodumuzun 3. çıktısını `yeni.txt`'ye yönlendiriyoruz. Hemen sistemde açık file descriptor'larına bakalım.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ ls -l /proc/23705/fd
 total 0
 lrwx------ 1 eaydin eaydin 64 Mar 22 15:59 0 -> /dev/pts/2
@@ -370,7 +387,7 @@ Beklediğimiz sonucu vermedi. Sistem 3. file descriptor'ı terminalde belirttiğ
 
 Öyleyse kodumuz içerisinde özellikle `yaz.txt` yolunu belirtmek yerine, file descriptor'a yazmasını belirtebilirdik.
 
-```
+```c
 #include <stdio.h>
 #include <unistd.h>
 
@@ -389,7 +406,7 @@ int main() {
 
 Programı derleyip çalıştırdığımızda, standart çıktıya sadece Test yazdığını görüyoruz.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme4 3>yeni.txt
 Test
 Test
@@ -405,7 +422,7 @@ Test
 
 Öte yandan, 3. file descriptor'ını `yeni.txt`'ye yönlendirmiştik. Kodun içerisinde hiçbir yerde dosya ismi belirtmedik, ancak kodda 3. file descriptor'a bir yazma işlemi söz konusu. PID'den açık file descriptor'lara bakalım.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ ls -l /proc/24419/fd
 total 0
 lrwx------ 1 eaydin eaydin 64 Mar 22 16:18 0 -> /dev/pts/2
@@ -416,7 +433,7 @@ l-wx------ 1 eaydin eaydin 64 Mar 22 16:18 3 -> /home/eaydin/devel/sleep-test/ye
 
 Öyleyse yeni.txt içerisinde beklediğimiz satılar olmalı.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ cat yeni.txt 
 Dosyaya yazdırma
 Dosyaya yazdırma
@@ -432,7 +449,7 @@ Dosyaya yazdırma
 
 İşin ilginç tarafı, programımızı çalıştırırken 3. numaralı file descriptor'ı hiçbir yere yönlendirmeseydik, sistem üzerinde file descriptor oluşmayacaktı bile.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme4
 Test
 Test
@@ -448,7 +465,7 @@ Test
 
 Bu durumda açık file descriptor'lara bakacak olursak:
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ ls -l /proc/24890/fd
 total 0
 lrwx------ 1 eaydin eaydin 64 Mar 22 16:29 0 -> /dev/pts/2
@@ -464,7 +481,7 @@ Her ne kadar ilk üç file descriptor standart olarak belirlenmiş olsa da, prog
 
 Programları birbirlerine pipeline ile bağlarken, eğer bir programın alternatif file descriptorlarından birini kullanmak istiyorsak biraz dolambaçlı bir yol izlemek gerekecektir. Örneğin biraz önceki `deneme4` programımızın 3. file descriptor çıktısını `grep`'e göndermek istiyorsak, ve sadece 3. file descriptor'ı ile ilgileniyorsak, programın 1. descriptor'ı ile 3. descriptor'ını yer değiştirebiliriz. Böylece programın sanki standart çıktısından bu bilgiler çıkıyormuş gibi davranır, pipe ise bunu olduğu gibi diğer programa taşır.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme4 3>&1 | grep Dos
 Dosyaya yazdırma
 Dosyaya yazdırma
@@ -474,7 +491,7 @@ Dosyaya yazdırma
 
 Ancak bu örnekte standart çıktıya yazılan `Test` satırlarını kaybettik. Eğer hem 3. hem de 1. descriptor'ın sonuçlarıyla ilgileniyorsak, process substitution tekniğini kullanabiliriz.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme4 3> >(grep Dos)
 Test
 Dosyaya yazdırma
@@ -490,6 +507,7 @@ Burada dikkat edilmesi gereken nokta, standart çıktının verilerini `grep` pr
 Eğer birden fazla file descriptor'ın birden fazla programa çeşitli yollarda gönderilmesini istiyorsak, en pratik çözüm ilerleyen bölümlerde göreceğimiz **named pipe** kullanımı olacaktır.
 
 ### Çalışan Programların File Descriptor'larına Müdahale Etmek
+**(Not: Bu bölüm, çalışan işlemlere `gdb` gibi araçlarla müdahale etmeyi içerir ve ileri düzey bir konudur. Dikkatli olunmalıdır.)**
 
 Daha önceki örneklerimizde, yazdığımız programın hangi dosyayla işlem yapacağını kodun içinde belirttiğimiz takdirde, bunları /proc dizini altından görebildiğimizi, örneğin yaz.txt dosyasına satır yazan programımızda gördük. Ancak programı çalıştırırken file descriptor yönlendirmesi ile bu dosyayı değiştiremedik, çünkü sistem yeni bir file descriptor olarak tanımladı.
 
@@ -497,7 +515,7 @@ GNU'yu geliştirirken Richard Stallman'ın ilk yazdığı programlardan birisi, 
 
 Daha önce yazdığımız programı biraz daha şekillendirip aşağıdaki şekle sokalım.
 
-```
+```c
 #include <stdio.h>
 #include <unistd.h>
 #include <time.h>
@@ -531,7 +549,7 @@ Daha önce gördüğümüz gibi bu programın `yaz.txt`'ye farklı veri, standar
 
 Programı çalıştırınca terminale Test yazdığını görebiliriz.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ ./deneme5
 Test
 Test
@@ -540,7 +558,7 @@ Test
 
 Aynı anda farklı bir terminalden `yaz.txt` dosyasını takip edebiliriz, orada da beklediğimiz gibi her saniye tarih yazıyor.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ tailf yaz.txt 
 Dosyaya yazdırma: Sat Mar 24 00:34:58 2018
 Dosyaya yazdırma: Sat Mar 24 00:34:59 2018
@@ -549,13 +567,13 @@ Dosyaya yazdırma: Sat Mar 24 00:35:00 2018
 
 Şimdi yine farklı bir terminalde yaz2.txt isminde boş bir dosya oluşturalım, ve onu da takip edelim.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ tailf yaz2.txt
 ```
 
 Normal olarak bu dosya boş. Şimdi derlediğimiz kodun PID'sini öğrenip açık file descriptor'larına bakalım.
 
-```
+```bash
 eaydin@eaydin-vt ~ $ ps aux|grep deneme5 
 eaydin     381  0.0  0.0   4352   648 pts/11   S+   00:37   0:00 ./deneme5
 eaydin     395  0.0  0.0  15628  1088 pts/15   S+   00:38   0:00 grep --color=auto deneme5
@@ -563,7 +581,7 @@ eaydin     395  0.0  0.0  15628  1088 pts/15   S+   00:38   0:00 grep --color=au
 
 Programımıza işletim sistemi 381 PID'sini atamış.
 
-```
+```bash
 eaydin@eaydin-vt ~ $ cd /proc/381/fd
 eaydin@eaydin-vt /proc/381/fd $ ls -l
 total 0
@@ -575,7 +593,7 @@ l-wx------ 1 eaydin eaydin 64 Mar 24 00:38 3 -> /home/eaydin/devel/sleep-test/ya
 
 3 numaralı file descriptor yaz.txt dosyasına işaret ediyor. Bunda şaşılacak bir şey yok. Bu yüzden saat bilgisini buradan okuyoruz. Şimdi gdb ile 381 PID'li işleme \_bağlanırsak, \_program üzerinde bir takım müdahalelerde bulunabiliriz. Bu işlemi root yetkisiyle yapmak gerekiyor. Doğrudan aşağıdaki gibi bir çıktı sizi karşılayacaktır.
 
-```
+```bash
 eaydin@eaydin-vt ~/devel/sleep-test $ sudo gdb -p 381
 GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1
 Copyright (C) 2016 Free Software Foundation, Inc.
@@ -606,7 +624,7 @@ Bu işlemi yapar yapmaz, aslında gdb bizim işlemimizi durdurdu. Ancak kesinlik
 
 Bu noktada gdb ile programa bir dosya açma çağrısı yapacağız. Sanki program içinde dosya açan yeni bir satır kod varmış gibi davranacak.
 
-```
+```gdb
 (gdb) call open("/home/eaydin/devel/sleep-test/yaz2.txt", 577, 0644)
 $1 = 4
 ```
@@ -615,15 +633,15 @@ Burada open fonksiyonuna parametre olarak yeni file descriptor'ımızın nereye 
 
 | gdb Dosya Erişim Biçimi | C Karşılığı                    | Terminal Yönlendirme Karşılığı |
 | ----------------------- | ------------------------------ | ------------------------------ |
-| 577                     | O\_WRONLY, O\_CREAT, O\_TRUNC  | >                              |
-| 1089                    | O\_WRONLY, O\_CREAT, O\_APPEND | >>                             |
+| 577                     | O\_WRONLY \| O\_CREAT \| O\_TRUNC  | >                              |
+| 1089                    | O\_WRONLY \| O\_CREAT \| O\_APPEND | >>                             |
 | 0                       | O\_RDONLY                      | <                              |
 
 Öyleyse, bu modda açtığımız için, eğer `yaz2.txt` dosyası içerisinde bir veri olsaydı silinmiş olacaktı.
 
 Bu yeni dosya açma işleminin sonucunda `$1 = 4` yazması, ilk çalıştırdığımız komutun çıktısında 4 elde ettiğimiz anlamına geliyor. Burada 4 değeri, `open` fonksiyonunun sonucu olduğu için, aslında programın yeni file descriptor'ının sayısal karşılığıdır. File descriptor'ların listesinden de bu görülebilir.
 
-```
+```bash
 eaydin@eaydin-vt /proc/381/fd $ ls -l
 total 0
 lrwx------ 1 eaydin eaydin 64 Mar 24 00:56 0 -> /dev/pts/11
@@ -637,14 +655,14 @@ Hatırlarsanız bu sayısal değerler sadece 0,1,2,... gibi değerler olabiliyor
 
 Şimdi 4 numaralı file descriptor'ın kopyasının 3 numaralı file descriptor'a yönlenmesini sağlayacağız.
 
-```
+```gdb
 (gdb) call dup2(4,3)
 $2 = 3
 ```
 
 Burada C'nin `dup2` fonksiyonunu çağırmış olduk, yani 4. file descriptor'ınn bir kopyasını oluşturup 3. file descriptor'a yazdık. Aslında bu, terminal üzerinde`komut 3>&4` işlemi yapmakla aynı anlama geliyor, 3 numaralı file descriptor 4'ün adresine yönlendiriliyor. Şimdi file descriptor'larımızın listesine göz atacak olursak, 3 ve 4'ün aynı noktaya işaret ettiğini görebiliriz.
 
-```
+```bash
 eaydin@eaydin-vt /proc/381/fd $ ls -l
 total 0
 lrwx------ 1 eaydin eaydin 64 Mar 24 02:28 0 -> /dev/pts/11
@@ -656,14 +674,14 @@ l-wx------ 1 eaydin eaydin 64 Mar 24 02:28 4 -> /home/eaydin/devel/sleep-test/ya
 
 Artık, kullanmadığımız 4 numaralı file descriptor'ını kapatabiliriz.
 
-```
+```gdb
 (gdb) call close(4)
 $3 = 0
 ```
 
 Bunun sonucunda, file descriptor listesinde 4 numaralı adresi görmemeyi bekleriz.
 
-```
+```bash
 eaydin@eaydin-vt /proc/381/fd $ ls -l
 total 0
 lrwx------ 1 eaydin eaydin 64 Mar 24 02:28 0 -> /dev/pts/11
@@ -674,7 +692,7 @@ l-wx------ 1 eaydin eaydin 64 Mar 24 02:28 3 -> /home/eaydin/devel/sleep-test/ya
 
 Artık `gdb` ile bağlantı kurduğumuz PID'den kopyabiliriz.
 
-```
+```gdb
 (gdb) detach
 Detaching from program: /home/eaydin/devel/sleep-test/deneme5, process 381
 ```
@@ -692,7 +710,7 @@ Dosyaya yazdırma: Sat Mar 24 02:34:23 2018
 
 `gdb`'den çıkmak için quit yazmamız yeterli.
 
-```
+```gdb
 (gdb) quit
 ```
 
@@ -704,7 +722,7 @@ Daha önce işletim sisteminin aklında tuttuğu file decriptor sayısına bir l
 
 Örneğin bir sunucu üzerinde çalışan MySQL Veritabanı servisinin açık file descriptor'larından bir kesit aşağıda görülebilir:
 
-```
+```bash
 [root@emre ~]# ls -l /proc/6274/fd
 total 0
 lr-x------ 1 root root 64 Mar 20 18:26 0 -> /dev/null
@@ -756,7 +774,7 @@ Limitler iki çeşittir. Hardlimit ve Softlimit. Hardlimit sadece root tarafınd
 
 Örneğin biraz önceki sunucuda `mysql` kullanıcısının limitlerini öğrenmek için, bu kullanıcı ile login olduktan sonra aşağıdaki komutları uygulayabiliriz.
 
-```
+```bash
 [root@emre ~]# su - mysql
 -bash-4.1$ ulimit -Hn
 4096
@@ -770,7 +788,7 @@ Oluşabilecek bir yanlış anlaşılmayı gidermek adına not edelim, bu limitle
 
 Bir kullanıcının bütün Hardlimit'lerini görmek için aşağıdaki komut kullanılabilir:
 
-```
+```bash
 eaydin@eaydin-vt ~ $ ulimit -aH
 core file size          (blocks, -c) unlimited
 data seg size           (kbytes, -d) unlimited
@@ -792,7 +810,7 @@ file locks                      (-x) unlimited
 
 Benzer şekilde, kullanıcının bütün Softlimit'leri aşağıdaki gibi görülebilir:
 
-```
+```bash
 eaydin@eaydin-vt ~ $ ulimit -aS
 core file size          (blocks, -c) 0
 data seg size           (kbytes, -d) unlimited
@@ -823,9 +841,9 @@ mysql soft nofile 2048
 mysql hard nofile 8192
 ```
 
-Dosyayı kaydetmek yeterli olacaktır. Ardından yine ilgili kullanıcı ile login olup `ulimit` komutu yardımıyla güncellenmiş değerleri görebiliriz.
+Dosyayı kaydetmek yeterli olacaktır. Ardından yine ilgili kullanıcı ile login olup `ulimit` komutu yardımıyla güncellenmiş değerleri görebiliriz. Modern sistemlerde, bu dosya yerine `/etc/security/limits.d/` dizini altındaki `.conf` uzantılı dosyalar da kullanılabilir ve genellikle bu yöntem tercih edilir (örneğin, `/etc/security/limits.d/mysql.conf`). Bu dizindeki dosyalar, ana `limits.conf` dosyasındaki ayarları geçersiz kılabilir veya tamamlayabilir.
 
-Red Hat, CentOS ve türevi dağıtımlarda `/etc/pam.d/login` dosyasını da düzenlemek gerekir. Aşağıdaki satırın dosyada yer almasına dikkat edin.
+Red Hat, CentOS ve türevi dağıtımlarda `/etc/pam.d/login` (veya `system-auth`, `password-auth` gibi ilgili PAM yapılandırma dosyalarında) `pam_limits.so` modülünün yüklendiğinden emin olmak gerekir. Genellikle aşağıdaki gibi bir satır bulunur:
 
 `session required pam_limits.so`
 
@@ -833,17 +851,17 @@ Red Hat, CentOS ve türevi dağıtımlarda `/etc/pam.d/login` dosyasını da dü
 
 Sistemin genel limitini `/proc/sys/fs/file-max` dosyasını okuyarak öğrenebiliriz demiştik. Bu dosya aynı zamanda üzerine yazılabilir bir dosyadır, dolayısıyla bu dosyaya değeri yazarak da kernel parametresini düzenleyebiliriz. Örneğin sistemin limitini 386774'ten 15000'e düşürmek için aşağıdaki komutu kullanabiliriz.
 
-```
+```bash
 [root@emre ~]# echo 15000 > /proc/sys/fs/file-max
 ```
 
 Bunun yerine, `sysctl` komutu ile de kernel parametrelerini düzenleyebiliriz.
 
-```
+```bash
 [root@emre ~]# sysctl -w fs.file-max=15000
 ```
 
-Bu yöntemler ile kernel parametresi doğrudan düzenlendiği için, çalışan sistem üzerinde değişikliğin etkisini hemen görürüz. Ancak sistem bir kez reboot olursa değişiklikler kalıcı olmaz. Eğer değişikliği kalıcı yapmak istersek, `/etc/sysctl.conf` dosyasını düzenlemek gerekecektir. Bu dosya içerisinde aşağıdaki parametre yoksa eklemek, varsa değiştirmek gerekir.
+Bu yöntemler ile kernel parametresi doğrudan düzenlendiği için, çalışan sistem üzerinde değişikliğin etkisini hemen görürüz. Ancak sistem bir kez reboot olursa değişiklikler kalıcı olmaz. Eğer değişikliği kalıcı yapmak istersek, `/etc/sysctl.conf` dosyasını veya modern sistemlerde `/etc/sysctl.d/` dizini altındaki `.conf` uzantılı bir dosyayı (örneğin `/etc/sysctl.d/99-filemax.conf`) düzenlemek gerekecektir. Bu dosya içerisinde aşağıdaki parametre yoksa eklemek, varsa değiştirmek gerekir.
 
 ```
 fs.file-max = 15000
@@ -851,6 +869,9 @@ fs.file-max = 15000
 
 Eğer sadece dosyayı değiştirdiysek, yani `sysctl -w fs.file-max=15000` komutuyla düzenleme yapmamışsak, bu sefer kernel'in dosya içerisinden parametreleri yeniden okumasını söylemek gerekir. Bunu da yine `sysctl` komutu ile yaparız.
 
-```
-[root@emre ~]# sysctl -p
-```
+```bash
+[root@emre ~]# sysctl -p /etc/sysctl.conf 
+# veya belirli bir dosya için:
+# sysctl -p /etc/sysctl.d/99-filemax.conf
+# veya tüm .d dizinini yüklemek için (genellikle sistem başlangıcında yapılır):
+# sysctl --system

@@ -1,95 +1,101 @@
 # Güncelleme Teknikleri
 
-Diğer dağıtımlarda olduğu gibi FreeBSD üzerinde de birden çok paket ve dağıtım güncelleme yöntemi vardır. Ancak bu yöntemler diğer dağıtyımlardaki gibi sadece bir yazılım üzerinde yoğunlaşmamıştır ve neredeyse hepsi aynı popülerliktedir.
+FreeBSD'de güncellemeler iki ana kategoriye ayrılır: **Temel Sistem Güncellemeleri** (işletim sisteminin çekirdeği ve ana kullanıcı alanı araçları) ve **Paket Güncellemeleri** (kurulan üçüncü parti yazılımlar). Bu iki tür güncelleme için farklı araçlar kullanılır.
 
-Çoğunlukla bir update yönteminin çalışmadığı noktada diğer update yöntemi çalışacak ya da hangi update yöntemi ile başlanıldıysa onunla devam etmek doğru olacaktır.
+## 1. Temel Sistem Güncellemeleri (`freebsd-update`)
 
-## Major Güncellemeler
+`freebsd-update` aracı, FreeBSD temel sistemini (kernel ve world) resmi FreeBSD sunucularından indirilen ikili (binary) yamalar veya dosyalar aracılığıyla güncellemek için kullanılır. Kaynak koddan derleme yapmaya gerek kalmadan sistemi güncel tutmanın standart ve önerilen yoludur.
 
-FreeBSD üzerinden Major (X.0) güncellemeleri yapılabilmektedir, portların uyumluluğu gözden geçirildikten sonra bir sorun yaşamadan büyük update gerçekleştirebilirsiniz. FreeBSD üzerinde tüm kodları yeniden derlemek gibi bir opsiyonunuz olsa dahi, 6.3 versiyonundan bu yana binary güncellemeleri de sunulmakta, eşit performansta hızlı bir güncelleme opsiyonu sunulmaktadır.
+**Güvenlik Yamalarını ve Küçük Güncellemeleri Alma/Uygulama:**
 
-Major sürüm güncellemesinden sonra tüm paketlerin sağlıklı bir şekilde yeni sürüme port edilebilmesi için portupgrade paketine ihtiyaç duyulmaktadır, eğer sistemde yüklü değilse portlardan kolaylıkla yükleyebilirsiniz:
-
+Bu, sisteminizi mevcut sürüm dalındaki (örn. 13.2-RELEASE) en son yama seviyesine getirir.
 ```bash
-which portupgrade
+# Güncellemeleri kontrol et ve indir
+sudo freebsd-update fetch
+
+# İndirilen güncellemeleri kur
+sudo freebsd-update install 
+```
+`freebsd-update install` komutu çekirdek güncellemeleri içeriyorsa, genellikle sistemi yeniden başlatmanızı (`sudo shutdown -r now`) ve ardından komutu *tekrar* çalıştırmanızı isteyecektir (kullanıcı alanı güncellemelerini tamamlamak için).
+
+**Yeni Bir Küçük Sürüme (Minor Version) Yükseltme:**
+
+Örneğin, 13.1-RELEASE'den 13.2-RELEASE'e yükseltmek için:
+```bash
+# Hedef sürümü belirterek yükseltme işlemini başlat
+sudo freebsd-update -r 13.2-RELEASE upgrade
+
+# Komut, indirilecek değişiklikleri ve potansiyel olarak manuel müdahale 
+# gerektirebilecek yapılandırma dosyası farklılıklarını gösterecektir.
+# Dikkatlice inceleyin ve onaylayın (genellikle 'yes' ile).
+# ... (İndirme ve hazırlık süreci) ...
+
+# İlk kurulum adımını çalıştır (genellikle yeni çekirdek kurulur)
+sudo freebsd-update install
+
+# Sistemi yeniden başlat
+sudo shutdown -r now
+
+# Yeniden başlattıktan sonra, kalan güncellemeleri kur
+sudo freebsd-update install 
 ```
 
-sorusuna aşağıdaki gibi bir cevap alıyorsanız, portupgrade yüklüdür:
+**Yeni Bir Ana Sürüme (Major Version) Yükseltme:**
+
+Örneğin, 12.4-RELEASE'den 13.2-RELEASE'e yükseltmek için süreç küçük sürüm yükseltmeye benzer, ancak daha fazla değişiklik içerir ve daha dikkatli olunmalıdır:
+```bash
+# Hedef sürümü belirterek yükseltme işlemini başlat
+sudo freebsd-update -r 13.2-RELEASE upgrade
+
+# ... (Değişiklikleri incele, onayla, indir) ...
+
+# İlk kurulum (yeni çekirdek)
+sudo freebsd-update install
+
+# Sistemi yeniden başlat
+sudo shutdown -r now
+
+# Kalan güncellemeleri kur (ilk adım)
+sudo freebsd-update install 
+
+# ÖNEMLİ: Ana sürüm yükseltmesinden sonra, kurulan tüm paketlerin
+# yeni sürümle uyumlu hale getirilmesi gerekir. Bu genellikle 
+# 'pkg upgrade' ile yapılır (bkz. Paket Güncellemeleri).
+sudo pkg bootstrap -f # pkg'nin kendisini güncellemek gerekebilir
+sudo pkg upgrade -y
+
+# Paketler güncellendikten sonra, eski kütüphaneleri vb. kaldırmak için
+# freebsd-update install komutunu SON KEZ çalıştırın.
+sudo freebsd-update install 
+```
+Ana sürüm yükseltmeleri öncesinde mutlaka FreeBSD Sürüm Notları'nı (Release Notes) ve Errata'yı okumak, önemli verileri yedeklemek şiddetle tavsiye edilir.
+
+## 2. Paket Güncellemeleri (`pkg upgrade`)
+
+Sisteminize `pkg install` ile veya Ports üzerinden kurduğunuz üçüncü parti yazılımları (paketleri) güncellemek için `pkg upgrade` komutu kullanılır. Bu komut, yapılandırılmış depolardaki en son paket sürümlerini kontrol eder ve kurulu paketleri günceller.
 
 ```bash
-#/usr/local/sbin/portupgrade
-```
+# Önce paket kataloğunu güncelle (isteğe bağlı ama önerilir)
+sudo pkg update
 
-cevap gelmiyorsa yüklemeyi yapınız:
+# Kurulu tüm paketleri en son sürümlerine yükselt
+sudo pkg upgrade 
+```
+Onay istenecektir (`-y` ile atlanabilir).
+
+Eğer paketleri Ports Koleksiyonu'ndan derleyerek kurduysanız, `pkg upgrade` yine de çalışabilir (eğer güncel binary paketler depoda mevcutsa). Ancak, derleme seçenekleriniz özel ise veya binary paket yoksa, Ports ağacını güncelledikten sonra (`portsnap fetch update` veya `git pull`) ilgili port dizininde `make deinstall install clean` yapmak veya `portmaster -a` gibi bir araç kullanmak gerekebilir. Yine de çoğu durumda `pkg upgrade` yeterli olacaktır.
+
+## 3. Ports Ağacını Güncelleme (`portsnap`)
+
+Eğer yazılımları kaynak koddan derlemek için Ports Koleksiyonu'nu kullanıyorsanız, `/usr/ports` dizinindeki ağacı güncel tutmanız gerekir. Bu işlem, kurulu paketleri *güncellemez*, sadece yeni yazılımları derlemek için gerekli olan "tarifleri" (Makefile vb.) günceller.
 
 ```bash
-cd /usr/ports/ports-mgmt/portupgrade
-make install clean
+# Ports ağacını güncelle
+sudo portsnap fetch update
 ```
+Bu komut, sadece Ports kullanıyorsanız düzenli olarak çalıştırılmalıdır. Sadece `pkg` kullanıyorsanız bu adıma genellikle gerek yoktur.
 
-Major güncellemeyi başlatmak için FreeBSD sitesinden en son kararlı sürüm versiyonuna bakınız, daha sonra şu komutu yazınız:
-
-```bash
-freebsd-update upgrade -r 10.2-RELEASE
-#Fetching metadata signature for 10.1-RELEASE from update5.freebsd.org... done.
-#Fetching metadata index... done.
-#Fetching 1 metadata patches. done.
-#Applying metadata patches... done.
-#Inspecting system... done.
-#
-#The following components of FreeBSD seem to be installed:
-#kernel/generic world/base world/doc world/lib32
-#
-#The following components of FreeBSD do not seem to be installed:
-#src/src world/games
-#
-#Does this look reasonable (y/n)? y
-#.
-#.
-/usr/sbin/freebsd-update install
-#Installing updates...
-#Kernel updates have been installed.  Please reboot and run
-#"/usr/sbin/freebsd-update install" again to finish installing updates.
-reboot
-```
-
-Yükleme sonrası sistemin yeniden başlatılması istenmektedir, yeniden başlattıktan sonra aynı komutu tekrar çalıştırmalısınız:
-
-```bash
-/usr/sbin/freebsd-update install
-#Installing updates... done.
-```
-
-Geçiş yapılan son versiyonu görüntülemek için:
-
-```bash
-uname -a
-# FreeBSD buildtest.veriteknik.com 10.2-RELEASE-p7 FreeBSD 10.2-RELEASE-p7 #0: Mon Nov  2 14:19:39 UTC 2015     root@amd64-builder.daemonology.net:/usr/obj/usr/src/sys/GENERIC  amd64
-```
-
-## Minör Güncellemeler
-
-freebsd-update install komutu ile de indirilen paketlerin güncellemesi sağlanır, bu işlemden sonra ise daha önceki sürüm ile uyumlu olan portların güncellemesi yapılmalıdır. Bu işlem bir kaç saat sürecektir.
-
-```bash
-rm /var/db/pkg/pkgdb.db /usr/ports/INDEX-*.db
-portupgrade -af
-```
-
-Bu işlemden sonra tekrar freebsd-update çalıştırılır ve sisten yeniden başlatılır.
-
-### Portsnap Yöntemi
-
-Portsnap yöntemi ile de tüm portları güncellemeniz mümkündür. Eğer yüklü değilse /var/db/portsnap içerisinden yüklenebilir. Yükleme tamamlandıktan sonra üç adımda tüm paketleri güncelleyebilirsiniz.
-
-```bash
-portsnap fetch
-portsnap extract
-```
-
-Bu iki komutu ilk defa kullandıktan sonra, daha sonra şu şekilde çalıştırabilirsiniz:
-
-```bash
-portsnap fetch
-portsnap update
-```
+Özetle:
+*   Temel FreeBSD sistemi için: `sudo freebsd-update fetch` ve `sudo freebsd-update install`.
+*   Kurulu paketler için: `sudo pkg update` ve `sudo pkg upgrade`.
+*   Ports Koleksiyonu'nun kendisi için (eğer kullanılıyorsa): `sudo portsnap fetch update`.

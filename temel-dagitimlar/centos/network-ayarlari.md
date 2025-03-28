@@ -1,54 +1,129 @@
-# Network Ayarları
+# Network Ayarları (NetworkManager)
 
-RedHat tabanlı sistemler üzerinde network ayarları `/etc/sysconfig/network-scripts` dizinindeki dosyalarda bulunur. Bu dizindeki dosyalar **network** servisi tarafından okunur ve ilgili cihazlar gerekli ayarlamaları alır. Dolayısıyal bu dosyaları düzenledikten sonra network servisini yeniden başlatmak gerekir.
+Modern RHEL tabanlı dağıtımlarda (RHEL 7+, CentOS 7+, Fedora, CentOS Stream, Rocky Linux, AlmaLinux) ağ yapılandırması varsayılan olarak **NetworkManager** servisi tarafından yönetilir. NetworkManager, ağ bağlantılarını ve cihazlarını yönetmek için dinamik ve esnek bir sistem sunar.
 
+Yapılandırma için çeşitli araçlar mevcuttur:
+*   **`nmcli`**: Kapsamlı bir komut satırı aracı. Betiklerde (scripting) ve otomasyonda kullanışlıdır.
+*   **`nmtui`**: Terminal üzerinde çalışan, menü tabanlı, kullanımı kolay bir metin arayüzü (Text User Interface).
+*   **Grafiksel Arayüzler:** GNOME veya KDE gibi masaüstü ortamlarının kendi ağ ayarları arayüzleri (genellikle arka planda NetworkManager kullanır).
+
+Bu bölümde `nmcli` ve `nmtui` üzerine odaklanacağız.
+
+## NetworkManager ile Temel İşlemler (`nmcli`)
+
+`nmcli`, NetworkManager'ı komut satırından yönetmek için ana araçtır.
+
+**Ağ Cihazlarının Durumunu Görme:**
+Sistemdeki ağ cihazlarını ve durumlarını listeler:
 ```bash
-service network restart
+nmcli device status
+# veya kısaca:
+nmcli dev status
+```
+Örnek Çıktı:
+```
+DEVICE  TYPE      STATE      CONNECTION 
+enp0s3  ethernet  connected  Kablolu bağlantı 1 
+lo      loopback  unmanaged  --                 
 ```
 
-Network kartlarının adreslerini `/etc/sysconfig/network-scripts/ifcfg-eth0` gibi dosyalardan düzenleyebilirsiniz. Sisteminizdeki network kartının ismine göre, `ifcfg-eth0` ismi değişiklik gösterebilir. Örneğin Dell T20 sunucularda bu isim doğrudan `ifcfg-em1` şeklinde olur.
-
-Aşağıda bir Fedora Sanal Sunucunun üzerindeki ifcfg-eth0 dosyasının içeriği görülüyor.
-
+**Aktif Bağlantıları Görme:**
+Mevcut aktif ağ bağlantılarını listeler:
 ```bash
-[root@localhost network-scripts]# cat ifcfg-eth0
-# Advanced Micro Devices [AMD] 79c970 [PCnet32 LANCE]
-DEVICE=eth0
-ONBOOT=yes
-BOOTPROTO=dhcp
-HWADDR=00:0c:29:5a:96:3a
+nmcli connection show --active
+# veya kısaca:
+nmcli con show --active
 ```
 
-**DEVICE**: Adından da anlaşılacağı gibi, ayarlarını yaptığımız network cihazının ismini gösteriyor.
+**Tüm Tanımlı Bağlantıları Görme:**
+Aktif olsun veya olmasın, sistemde tanımlı tüm bağlantı profillerini listeler:
+```bash
+nmcli connection show
+# veya kısaca:
+nmcli con show
+```
 
-**ONBOOT**: Cihazın reboot sırasında devreye girip girmeyeceğini belirtiyor.
+**Belirli Bir Bağlantının Detaylarını Görme:**
+Bağlantı adını veya UUID'sini kullanarak detayları gösterir:
+```bash
+nmcli connection show "Kablolu bağlantı 1" 
+# veya UUID ile:
+# nmcli con show <uuid>
+```
+Bu komut, IP adresi, ağ maskesi, ağ geçidi, DNS sunucuları gibi birçok detayı gösterir.
 
-**BOOTPROTO**: Cihaz ayağa kalktığında, nasıl bir protokol izleyeceğini belirtir. Buradaki örnekte _dhcp_ tanımlanmış.
+## Ağ Ayarlarını Değiştirme (`nmcli`)
 
-**HWADDR**: Cihazımızın fiziksel adresi (MAC-Adresi). Kullanılması zorunlu değildir, birden fazla NIC (Network Interface Card) bulunduğunda kullanılması şart olabilir. **HWADDR** yerine **MACADDR** ifadesi de kullanılabilirdi, ancak ikisi bir arada kullanılmamalıdır.
+**Önemli:** Ağ ayarlarını değiştirirken dikkatli olun. Uzak bir sunucuya bağlıysanız, yanlış bir ayar bağlantınızın kopmasına neden olabilir. Değişiklikler genellikle `sudo` yetkisi gerektirir.
 
-Yukarıdaki örnekten, DHCP ile IP alan bir sistemi görmüş olduk. Eğer bu sisteme kendimiz Network bilgilerini tanımlamak isteseydik, dosyanın içeriği farklı olmalıydı.
+**Statik IP Adresi Ayarlama:**
+Mevcut bir bağlantıyı DHCP'den statik IP'ye geçirmek için:
+```bash
+# Bağlantı adını öğrenin (örneğin "Kablolu bağlantı 1")
+nmcli con show
 
-Örneğin aşağıdaki dosya içeriği ile _eth0_ cihazının ağ bilgileri farklı olacaktır.
+# IPv4 metodunu 'manual' yap, IP adresini/maskesini, ağ geçidini ve DNS'i ayarla
+sudo nmcli con modify "Kablolu bağlantı 1" ipv4.method manual ipv4.addresses 192.168.1.100/24 ipv4.gateway 192.168.1.1 ipv4.dns "8.8.8.8,8.8.4.4"
+
+# Bağlantıyı yeniden etkinleştirerek ayarları uygula
+sudo nmcli con down "Kablolu bağlantı 1" && sudo nmcli con up "Kablolu bağlantı 1" 
+```
+*   `ipv4.addresses`: IP adresi ve CIDR formatında alt ağ maskesi (örn. `/24` = `255.255.255.0`).
+*   `ipv4.gateway`: Varsayılan ağ geçidi.
+*   `ipv4.dns`: Virgülle ayrılmış DNS sunucu adresleri.
+
+**DHCP'ye Geri Dönme:**
+```bash
+sudo nmcli con modify "Kablolu bağlantı 1" ipv4.method auto ipv4.gateway "" ipv4.dns ""
+sudo nmcli con down "Kablolu bağlantı 1" && sudo nmcli con up "Kablolu bağlantı 1" 
+```
+
+**Yeni Bağlantı Ekleme:**
+Örneğin, `enp0s8` cihazı için statik IP ile yeni bir Ethernet bağlantısı eklemek:
+```bash
+sudo nmcli con add type ethernet con-name "Statik-Eth1" ifname enp0s8 ipv4.method manual ipv4.addresses 10.0.0.50/24 ipv4.gateway 10.0.0.1 ipv4.dns "10.0.0.1"
+```
+
+## Metin Arayüzü (`nmtui`)
+
+Komut satırı seçenekleri karmaşık geliyorsa, `nmtui` daha kolay bir alternatif sunar. Terminalde `nmtui` komutunu çalıştırarak menü tabanlı arayüzü başlatabilirsiniz.
 
 ```bash
-[root@localhost ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
-# Advanced Micro Devices [AMD] 79c970 [PCnet32 LANCE]
-DEVICE=eth0
-ONBOOT=yes
+sudo nmtui
+```
+
+`nmtui` içinde ok tuşları ve Enter ile gezinebilirsiniz:
+*   **Edit a connection:** Mevcut bağlantıları düzenlemek veya yeni bağlantı eklemek için kullanılır. Statik IP, DHCP, DNS gibi ayarları kolayca yapabilirsiniz.
+*   **Activate a connection:** Bağlantıları etkinleştirmek veya devre dışı bırakmak için kullanılır.
+*   **Set system hostname:** Sistem ana bilgisayar adını değiştirmek için kullanılır.
+
+Değişiklik yaptıktan sonra "OK" veya "Back" seçenekleriyle menülerden çıkın ve en son ana menüden "Quit" seçeneğini seçin. `nmtui` ile yapılan değişiklikler de NetworkManager tarafından yönetilir ve kalıcı olur.
+
+## Eski Yöntem (`ifcfg` Dosyaları)
+
+RHEL/CentOS 6 ve öncesinde ağ yapılandırması `/etc/sysconfig/network-scripts/` dizini altındaki `ifcfg-<arayüz_adı>` (örn. `ifcfg-eth0`, `ifcfg-enp0s3`) dosyaları düzenlenerek ve `network` servisi (`service network restart` veya `systemctl restart network`) yeniden başlatılarak yapılırdı.
+
+Örnek bir statik IP için `ifcfg-enp0s3` dosyası:
+```
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
 BOOTPROTO=static
-IPADDR=172.20.10.3
-NETMASK=255.255.255.240
-GATEWAY=172.20.10.1
-HWADDR=00:0c:29:5a:96:3a
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+NAME=enp0s3
+UUID=...
+DEVICE=enp0s3
+ONBOOT=yes
+IPADDR=192.168.1.100
+PREFIX=24  # veya NETMASK=255.255.255.0
+GATEWAY=192.168.1.1
+DNS1=8.8.8.8
+DNS2=8.8.4.4
 ```
 
-Dosyanın içeriğini yukarıdaki gibi değiştirdikten sonra, yeni değerlerin network servisi tarafından okunabilmesi için, daha önce gördüğümüz `service network restart` komutu ile servisin yeniden başlatılması gerekiyor.
-
-Yukarıdaki örnekte `BROADCAST` veya `NETWORK` gibi değerler tanımlamadık, ancak bu bilgileri de sağlayabilirdik. Bir network tanımı yapılması için IP adresi ve NETMASK bilgisinin yanısıra GATEWAY, BROADCAST veya NETWORK bilgilerinden birinin sağlanması yeterlidir.
-
-**Makale:**
-
-Birden fazla cihaz üzerinde IPv4 ve IPv6 ayarlarının yapılması için detaylı anlatım içeren bir makaleyi aşağıdaki linkten okuyabilirsiniz.
-
-[http://www.plugged.in/linux/bind-multiple-ip-addresses-on-a-single-network-card.html](http://www.plugged.in/linux/bind-multiple-ip-addresses-on-a-single-network-card.html)
+Modern sistemlerde NetworkManager genellikle bu dosyaları okuyabilir ancak yeni yapılandırmalar için `nmcli` veya `nmtui` kullanmak daha standart ve önerilen yöntemdir. Eğer NetworkManager kurulu ve aktifse, `ifcfg` dosyalarını doğrudan düzenlemek yerine NetworkManager araçlarını kullanmak çakışmaları önler. Bazı minimal kurulumlarda veya özel durumlarda NetworkManager yerine hala `network` servisi kullanılabilir, ancak bu durum giderek azalmaktadır.

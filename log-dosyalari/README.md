@@ -1,96 +1,145 @@
-# Log Dosyaları
+# Log Dosyaları (Günlük Kayıtları)
 
-Log dosyaları LINUX ve UNIX sistemlerin en önemli ve ayrılmaz parçalarından biridir. Diğer işletim sistemlerinde şahit olduğumuz "hatır-şinas" loglama bu sistemlerde "ciddi" loglama olarak karşımıza çıkıyor. Genelde /var/log dizini altında yer alan log dosyalarının her birinin bir ya da birden çok servisi logladığını görebilirsiniz.
+Log dosyaları (günlük kayıtları), Linux ve Unix benzeri sistemlerin işleyişini anlamak, sorunları teşhis etmek ve güvenlik olaylarını takip etmek için hayati öneme sahip bilgiler içerir. Sistemde çalışan servisler, çekirdek ve uygulamalar, önemli olayları, uyarıları ve hataları bu dosyalara kaydeder.
 
-Diğer işletim sistemlerinin aksine, LINUX tek satırlık log girdileri tutar, okumayı kolaylaştıran bu sistem sayesinde loglar içerisinde kaybolmazsınız. Ayrıca standart girdi/çıktı araçlarıyla hataları ayıklamanız kolaylaşır, öyle ki aşağıdaki şu basit sorgu bile bir kaç saniyede hataları ayıklamanıza yardımcı olacaktır:
+## Modern Günlükleme: `systemd-journald`
 
-```
-[root@ckaraca~]# tailf /var/log/httpd/access.log | grep -i 404
-```
+Modern Linux dağıtımlarının çoğu, `systemd` init sistemi ile birlikte gelen **`systemd-journald`** servisini merkezi günlükleme sistemi olarak kullanır. `journald`, günlükleri yapılandırılmış, indekslenmiş bir ikili (binary) formatta toplar ve saklar.
 
-tailf komutu ile log dosyasının sonunu okumakla birlikte, yeni gelen her satır da ekranınıza düşmektedir, son eklenen satırları okumak için yeniden başlatmanıza gerek yoktur. Bazı sistemlerde tailf aliası olmaması nedeniyle tail -f kullanılması gerekebilir. Bu akan log ekranını pipe ile grep'e yönlendirdiğimizde ise (-i) direktifi sayesinde büyük/küçük harf duyarsızlaştırdığımız sonuçlar arasından 404 hatasını aramış oluyoruz, örnek sonuç aşağıdadır:
+**`journald`'nin Avantajları:**
+*   **Merkezi Toplama:** Çekirdek (`kmsg`), servislerin standart çıktı/hataları (stdout/stderr), syslog ve diğer kaynaklardan gelen logları tek bir yerde toplar.
+*   **Yapılandırılmış Veri:** Loglar sadece metin değil, aynı zamanda PID, UID, GID, servis adı (unit), önyükleme ID'si gibi meta verilerle birlikte saklanır. Bu, filtrelemeyi ve analizi kolaylaştırır.
+*   **İndeksleme:** Hızlı arama ve filtreleme imkanı sunar.
+*   **Depolama:** Günlükler genellikle `/var/log/journal/` (kalıcı depolama etkinse) veya `/run/log/journal/` (geçici, sadece mevcut önyükleme için) altında saklanır. Depolama boyutu ve süresi yapılandırılabilir.
 
-```
-[root@ckaraca~]# tailf /var/log/httpd/access_log | grep -i 404
-66.249.64.94 - - [23/Mar/2018:22:44:46 +0300] "GET /forum/member.php?u=14 HTTP/1.1" 404 3645 "-" "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
-```
+**`journalctl` Komutu:**
+`journald` tarafından toplanan günlüklere erişmek ve sorgulamak için `journalctl` komutu kullanılır:
+```bash
+# Tüm günlükleri göster (en yeniden en eskiye, less ile sayfalanmış)
+journalctl
 
-Web Hosting Sistem Uzmanının sürekli takip etmesi gereken log dosyaları şunlardır:
+# Sadece mevcut önyüklemedeki günlükleri göster
+journalctl -b
 
-| LOG      | Yolu                     | Amacı                                                                                                                                         |
-| -------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Messages | /var/log/messages        | Genel amaçlı log dosyasıdır, bir çok sistem servisi bu dosyaya loglarını yazar, sistem açılış mesajları, disk arızaları da bu dosyaya yazılır |
-| dmesg    | /var/log/dmesg           | kernel tüm mesajlarını bu dosya içerisine atar, mrneğin PCI portlarıi diskler ve diğer aygıtlar hakkında bu dosyadan bilgi alabilirsiniz.     |
-| HTTP     | /var/log/http/access.log | Apache'nin genel erişim kayıt dosyasıdır. Tüm erişim bilgileri bu dosyada saklanır.                                                           |
-| HTTP     | /var/log/http/error\_log | Apache'nin genel hata kütüğüdür, tüm hataları buradan takip edebilirsiniz                                                                     |
+# Sadece çekirdek mesajlarını göster (dmesg gibi)
+journalctl -k
 
-Bu dosyaların yanı sıra, kernel'in döngülü hafızasında bulunan mesajları da dmesg komutu ile görüntüleyebilirsiniz.Aynı şekilde, hangi kullanıcının en son ne zaman giriş yaptığını görüntülemek için 'lastlog' komutunu kullanabilirsiniz.
+# Belirli bir servisin (unit) günlüklerini göster
+journalctl -u sshd.service
 
-## SYSLOG
+# Belirli bir PID'ye ait günlükleri göster
+journalctl _PID=1234
 
-Syslog programlama yaparken, işletim sistemi hatalarını ve uyarılarını takip ederken kullanılan standart bir loglama mekanizmasıdır, siz kullanmasanız bile o hep ordadır, logluyordur ve hiç durmaz.
+# Belirli bir zaman aralığındaki günlükleri göster
+journalctl --since "yesterday"
+journalctl --since "2023-10-26 10:00:00" --until "2023-10-26 11:00:00"
 
-ilk syslog çalışmaları 2001 yılında başlamıştır, RFC 3164[1](http://www.rfc-editor.org/info/rfc3164) syslogun temelini oluşturur, syslog logların nasıl tutulacağı, ağırlığı ve önemine kadar bir çok noktayı tanımlar, syslog sadece kendi domaini ya da sunucusu ile sınırlı değildir, diğer bütün cihazlardan ya da sunuculardan da log dosyalarını toplayabilir.
+# Günlükleri canlı olarak takip et (-f: follow)
+journalctl -f
 
-Syslog'a gelen hata ve uyarı mesajları gönderen servise göre sınıflandırılabilir, buna orjinal dilinde "Facility" denilmektedir. Ayrıca kullanıcının kendi özel servisleri ya da uzak sunucuları için kullanabileceği 8 ayrı facility bulunmaktadır.
+# Hata (error) seviyesindeki ve daha kritik günlükleri göster (-p: priority)
+journalctl -p err 
+# Seviyeler: emerg (0), alert (1), crit (2), err (3), warning (4), notice (5), info (6), debug (7)
 
-| Servis Kodu | Anahtar Kelime | Açıklama                            |
-| ----------- | -------------- | ----------------------------------- |
-| 0           | kern           | Kernel Mesajları                    |
-| 1           | user           | kullanıcı seviyesi mesajlar         |
-| .           | ..             | ..                                  |
-| 5           | syslog         | syslog tarafından üretilen mesajlar |
-| .           | ..             | ..                                  |
-| 16          | local0         | kişisel kullanım için local0        |
-
-Syslog log önem derecesi şu şekilde sınıflandırılabilir:
-
-| Değer | Önem         | Anahtar Kelime | Açıklama                                                    | örnek                                            |
-| ----- | ------------ | -------------- | ----------------------------------------------------------- | ------------------------------------------------ |
-| 0     | Kriz         | emerg          | Sistem kullanılamaz                                         | kernel panik                                     |
-| 1     | Alarm        | alert          | Acilen düzeltilmesi gereken durum                           | IO ya da RAID hataları                           |
-| 2     | Kritik       | crit           | Kritik durumlar                                             | Disk Dolması gibi                                |
-| 3     | Hata         | err            | Uygulama Hataları                                           | Apache config hatası                             |
-| 4     | Uyarı        | warning        | Uyarı mesajları                                             | PHP.ini dosyasında date alanının tanımsız olması |
-| 5     | Bildirim     | notice         | Hata mahiyetinde olmayan ancak bildirim gerektiren durumlar | depreciated komutlar                             |
-| 6     | Bilgi Amaçlı | info           | Operasyonel mesajlar                                        | Örneğin bir işlem tamamlandığında                |
-| 7     | Debug        | debug          | tasarımcılar için özel debug mesajları                      | Fonksiyon giriş ve çıkış noktaları               |
-
-## Kişisel Log Dosyaları ve Rotasyon
-
-Kişisel uygulamalarınız ya da Virtual Host yapılandırmalarınız için de mutlaka log dosyası ayarlamalısınız. Kendini seven Sistem Yöneticisi kurduğu her servis için log dosyası ayarlamalı ve bu log dosyalarının rotasyonunu sağlamalıdır, rotasyon yapmazsanız o bir gün gelecek ve sunucunuzdaki tüm disk alanınız dolacaktır. Tabi siz bunu MySQL çalışmıyor şikayeti alarak öğreneceksiniz, bu durumda yapmanız gereken ilk önce df -h ve df -i ile disk dolu mu ona bakmak olacaktır. Rotasyon aynı zamanda log tutma konusundaki yasal yükümlülüklerinizi yerine getirmenizde de yardımcı olacaktır, bu şekilde eskimiş log dosyalarınızı sıkıştırabilir ve arşivleyebilirsiniz.
-
-Apache Virtual Host kullanan bir web sitesi için php-fpm yüklemesi ile birlikte kullanıcı bazlı log yapılandırması ve logrotate şu şekilde ayarlanabilir, diyelim ki kullanıcı adı veriteknik, web sitesi ismi de sanallastirma.com olsun, dizin hiyerarşisi şu şekilde olacaktır:
-
-```
-/                            
-└─home
-  ├─veriteknik
-    ├─logs
-    ├─sanallastirma.com
-    ├─session
-    ├─tmp
+# Daha fazla örnek ve filtreleme seçeneği için: man journalctl
 ```
 
-Yukarıdaki dizin yapısına göre log dosyalarını rotate(evirecek) edecek yapılandırma şu şekilde oluşturulmalıdır:
+## Geleneksel Günlükleme: `syslog` ve `/var/log`
+
+`journald`'nin yaygınlaşmasından önce, Linux sistemleri logları toplamak ve yönetmek için **syslog** protokolünü ve `syslogd`, `rsyslog`, `syslog-ng` gibi daemon'ları kullanırdı. Bu daemon'lar, farklı kaynaklardan gelen log mesajlarını alır, filtreler ve genellikle `/var/log/` dizini altındaki çeşitli metin dosyalarına yazardı.
+
+Modern sistemlerde bile, `rsyslog` gibi bir syslog daemon'ı genellikle `journald` ile birlikte çalışır. `rsyslog`, `journald`'den logları okuyabilir ve bunları geleneksel `/var/log/` dosyalarına (örn. `/var/log/syslog`, `/var/log/auth.log`, `/var/log/messages`) yazabilir. Bu, eski araçlarla uyumluluk veya logların metin formatında saklanması gerektiğinde kullanışlıdır.
+
+**Syslog Temelleri:**
+Syslog mesajları genellikle iki ana bilgi içerir:
+*   **Facility (Kaynak):** Mesajı üreten programın türünü belirtir (örn. `kern`, `user`, `mail`, `daemon`, `auth`, `syslog`, `lpr`, `news`, `cron`, `local0` - `local7`).
+*   **Severity/Priority (Önem Derecesi):** Mesajın önemini belirtir (yukarıda `journalctl -p` kısmında listelenmiştir: `emerg`, `alert`, `crit`, `err`, `warning`, `notice`, `info`, `debug`).
+
+`rsyslog` gibi daemon'lar, `/etc/rsyslog.conf` ve `/etc/rsyslog.d/` altındaki dosyalarda tanımlanan kurallara göre, hangi facility/severity kombinasyonuna sahip mesajların hangi dosyaya yazılacağını veya nereye (örn. uzak sunucu) gönderileceğini belirler.
+
+**Yaygın Geleneksel Log Dosyaları (`/var/log/` altında):**
+*   `/var/log/messages` veya `/var/log/syslog`: Genel sistem mesajları, birçok servisin varsayılan log hedefi (dağıtıma göre değişir). `journald` sonrası önemi azalmıştır.
+*   `/var/log/auth.log` veya `/var/log/secure`: Kimlik doğrulama ile ilgili mesajlar (login, sudo, sshd vb.).
+*   `/var/log/kern.log`: Çekirdek mesajları.
+*   `/var/log/dmesg`: Sistem başlangıcındaki çekirdek halka arabelleği (ring buffer) mesajları. `dmesg` komutu ile de okunabilir.
+*   `/var/log/boot.log`: Sistem başlangıç süreciyle ilgili mesajlar.
+*   `/var/log/cron` veya `/var/log/syslog`: Zamanlanmış görev (cron) logları.
+*   `/var/log/maillog` veya `/var/log/mail.log`: Posta sunucusu logları.
+*   `/var/log/httpd/` veya `/var/log/apache2/`: Apache web sunucusu logları (`access_log`, `error_log`).
+*   `/var/log/nginx/`: Nginx web sunucusu logları.
+*   `/var/log/mysql/` veya `/var/log/mariadb/`: Veritabanı sunucusu logları.
+
+Bu dosyalar genellikle düz metin formatındadır ve `cat`, `less`, `tail`, `grep`, `awk`, `sed` gibi standart araçlarla incelenebilir. `tail -f <dosya>` komutu, bir log dosyasını canlı olarak takip etmek için sıkça kullanılır.
+
+## Log Rotasyonu (`logrotate`)
+
+Log dosyaları zamanla çok büyüyebilir ve disk alanını doldurabilir. `logrotate` aracı, log dosyalarını düzenli aralıklarla (günlük, haftalık, aylık) otomatik olarak arşivlemek, sıkıştırmak ve eskiyenleri silmek için kullanılır.
+
+*   **Yapılandırma:** Ana yapılandırma dosyası `/etc/logrotate.conf`'tur. Uygulamaya özel kurallar ise genellikle `/etc/logrotate.d/` dizini altındaki dosyalarda tanımlanır.
+*   **Çalışma:** `logrotate` genellikle bir cron işi tarafından (örn. `/etc/cron.daily/logrotate`) günde bir kez çalıştırılır.
+*   **Örnek Yapılandırma (`/etc/logrotate.d/apache2`):**
+    ```
+    /var/log/apache2/*.log {
+        daily          # Günlük olarak rotate et
+        missingok      # Log dosyası yoksa hata verme
+        rotate 14      # 14 gün boyunca eski logları sakla
+        compress       # Eski logları gzip ile sıkıştır
+        delaycompress  # Bir sonraki rotasyonda sıkıştır (servisin yeniden başlatılmasına zaman tanır)
+        notifempty     # Log dosyası boşsa rotate etme
+        create 640 root adm # Yeni log dosyasını belirtilen izin/sahip/grup ile oluştur
+        sharedscripts  # postrotate/prerotate betiklerini tüm loglar için bir kez çalıştır
+        postrotate
+            # Apache'yi yeniden yükle (logları tekrar açması için)
+            if /etc/init.d/apache2 status > /dev/null ; then \
+                /etc/init.d/apache2 reload > /dev/null; \
+            fi;
+            # veya systemd için: systemctl reload apache2.service
+        endscript
+        prerotate
+            # Rotasyondan önce yapılacaklar (varsa)
+        endscript
+    }
+    ```
+*   **Test Etme:** Bir yapılandırma dosyasının nasıl çalışacağını test etmek için `-d` (debug) seçeneği kullanılır:
+    ```bash
+    sudo logrotate -d /etc/logrotate.d/apache2
+    ```
+*   **Zorla Çalıştırma:** Rotasyonu hemen tetiklemek için `-f` (force) seçeneği kullanılır:
+    ```bash
+    sudo logrotate -f /etc/logrotate.conf
+    ```
+
+Etkili log yönetimi, hem `journald`'nin modern yeteneklerini hem de `logrotate` gibi geleneksel araçları anlamayı gerektirir.
+
+## Uygulama Logları ve Özel Rotasyon
+
+Sistem loglarının yanı sıra, çalıştırdığınız uygulamaların (web sunucuları, veritabanları, özel uygulamalar vb.) kendi log dosyaları olacaktır. Bu logların konumları uygulamaya göre değişir, ancak genellikle `/var/log/` altında kendi alt dizinlerinde (örn. `/var/log/nginx/`) veya uygulamanın kendi dizininde bulunurlar.
+
+Web hosting gibi ortamlarda, her kullanıcı veya sanal ana bilgisayar (virtual host) için ayrı log dosyaları tutmak yaygındır. Bu loglar genellikle kullanıcının ev dizini altında özel bir `logs` klasöründe saklanabilir (örn. `/home/kullanici_adi/logs/`).
+
+Bu özel log dosyalarının da düzenli olarak rotate edilmesi gerekir. `logrotate` bunun için de kullanılabilir. `/etc/logrotate.d/` altına özel bir yapılandırma dosyası ekleyerek bu logları yönetebilirsiniz.
+
+**Örnek: Kullanıcı Loglarını Rotate Etme (`/etc/logrotate.d/virtualhosts`)**
+
+Aşağıdaki örnek, `/home/` altındaki tüm kullanıcıların `logs` dizinlerindeki `.log` uzantılı dosyaları günlük olarak rotate eder, 7 gün saklar ve sıkıştırır:
 
 ```
-[root@ckaraca~]# echo "/home/*/logs/*log { 
-        daily 
-        rotate 720 
-        missingok 
-        compress 
-        delaycompress 
-        postrotate 
-        /usr/sbin/apachectl graceful 
-        endscript 
-}" > /etc/logrotate.d/veriteknik
+/home/*/logs/*.log {
+    daily          # Günlük rotate et
+    rotate 7       # 7 eski log dosyası sakla
+    missingok      # Log dosyası yoksa hata verme
+    compress       # Sıkıştır
+    delaycompress  # Bir sonraki rotasyonda sıkıştır
+    notifempty     # Boşsa rotate etme
+    create 0640 kullanici_grubu www-data # Yeni log dosyasını uygun izin/sahip/grup ile oluştur (kullanici_grubu yerine uygun grup adı yazılmalı)
+    sharedscripts  # Betikleri bir kez çalıştır
+    postrotate
+        # İlgili servise logları yeniden açması için sinyal gönder (gerekirse)
+        # Örneğin Apache için:
+        # if systemctl is-active apache2.service > /dev/null ; then
+        #    systemctl reload apache2.service > /dev/null
+        # fi
+    endscript
+}
 ```
-
-Komutunu çalıştırdığımızda /etc/logrotate.d/veriteknik betiği içerisinde tüm /home/ dizini altındaki tüm kullanıcıların logs dizini içerisindeki log uzantılı dosyaları rotate edecek komutu yazmış oluruz. Bu betik toplam 720 günlük log tutacağı gibi, bu logları sıkıştırıp apache'yi de konu hakkında bilgilendiriyor. Bu şekilde sonradan açacağınız her kullanıcı için yeniden ayar yapmanıza gerek kalmaz. Yaptığınız ayarların doğru çalışıp çalışmadığını da aşağıdaki komut ile test edebilirsiniz:
-
-```
-logrotate -df /etc/logrotate.d/veriteknik
-```
-
-İşlem sonucunda log dosyalarınızın arşivlendiğini görebilirsiniz.
+Bu yapılandırmayı test etmek için `sudo logrotate -d /etc/logrotate.d/virtualhosts` komutunu kullanabilirsiniz. Uygulamanızın log dosyalarını doğru şekilde yeniden açması için `postrotate` betiğini uygun şekilde ayarlamak önemlidir.

@@ -2,37 +2,50 @@
 
 ## top
 
-Linux üzerinde sistem kaynaklarınızı tüketen yazılımları izlemek için kullanılan en pratik programlardan birisi **top** programıdır. Program doğrudan CPU kullanımına göre sıralandırılmış sonuçlar döndürür.
+Linux üzerinde sistem kaynaklarınızı ve çalışan işlemleri gerçek zamanlı olarak izlemek için kullanılan temel programlardan birisi **top** programıdır. Varsayılan olarak işlemleri CPU kullanımına göre sıralı olarak gösterir.
+
+**`top` Ekranını Anlamak:**
+
+*   **İlk Satır:** `uptime` komutunun çıktısına benzer bilgiler içerir: mevcut saat, sistemin ne kadar süredir çalıştığı (up time), kaç kullanıcının bağlı olduğu ve sistem yük ortalamaları (load average) (son 1, 5 ve 15 dakika için). Yük ortalaması, çalışmak için bekleyen veya çalışan işlem sayısının bir ölçüsüdür; 1.00 değeri tek çekirdekli bir CPU'nun tam kapasite çalıştığını gösterir. Çok çekirdekli sistemlerde bu değer çekirdek sayısı ile orantılı olarak artabilir.
+*   **İkinci Satır (Tasks):** Toplam işlem sayısı ve durumlarına göre (çalışan, uyuyan, durmuş, zombi) dağılımı.
+*   **Üçüncü Satır (%Cpu(s)):** CPU kullanımının farklı modlardaki yüzdesi: `us` (user space), `sy` (system/kernel space), `ni` (nice değeri değiştirilmiş user space), `id` (idle/boşta), `wa` (I/O bekleme), `hi` (hardware interrupts), `si` (software interrupts), `st` (steal time - sanal makinelerde).
+*   **Dördüncü/Beşinci Satır (Mem/Swap):** Fiziksel bellek (RAM) ve takas alanı (swap) kullanımı hakkında bilgi (toplam, kullanılan, boş, buffer/cache).
+*   **İşlem Listesi:** Çalışan işlemler ve onlarla ilgili bilgiler (PID, kullanıcı, öncelik (PR), nice değeri (NI), sanal bellek (VIRT), fiziksel bellek (RES), paylaşılan bellek (SHR), durum (S), %CPU, %MEM, çalışma süresi (TIME+), komut (COMMAND)).
 
 ![](../.gitbook/assets/top.png)
 
-_top ekranı_
+_Tipik bir `top` ekranı_
 
-Sisteminizdeki bütün CPU'ların işlem miktarını görmek için **1** tuşuna basılabilir.
+**Etkileşimli `top` Komutları:**
+
+`top` çalışırken aşağıdaki tuşlarla etkileşimde bulunabilirsiniz:
+
+*   **`1`**: Her bir CPU çekirdeğinin kullanımını ayrı ayrı gösterir/gizler.
+*   **`h`** veya **`?`**: Yardım ekranını gösterir.
+*   **`q`**: `top` programından çıkar.
+*   **`k`**: Bir işleme sinyal göndermek (genellikle sonlandırmak) için kullanılır. PID ve sinyal numarası (varsayılan 15/SIGTERM) istenir.
+*   **`r`**: Bir işlemin nice değerini (önceliğini) değiştirmek için kullanılır (renice). PID ve yeni nice değeri istenir.
+*   **`M`**: İşlemleri bellek kullanımına (%MEM) göre sıralar.
+*   **`P`**: İşlemleri CPU kullanımına (%CPU) göre sıralar (varsayılan).
+*   **`u`**: Belirli bir kullanıcının işlemlerini filtreler.
+*   **`f`**: Gösterilecek alanları (sütunları) ve sıralama alanını seçmek için kullanılır.
+*   **`E`**: Bellek birimlerini (KiB, MiB, GiB vb.) değiştirir.
+*   **`z`**: Renkli gösterimi açar/kapatır.
 
 ![](../.gitbook/assets/top2.png)
 
-_Bütün CPU'ları gösteren top ekranı_
+_Her CPU çekirdeğini ayrı gösteren `top` ekranı (`1` tuşuna basıldıktan sonra)_
 
-CPU kullanımı incelenirken dikkat edilmesi gereken nokta, toplam değeri %100'ün üzerinde olmasının mümkün olduğudur Örneğin yukarıdaki örnekte kullandığımız sistemin 4 tane CPU'su bulunduğundan, toplam değer %400 olabilir. Bazı durumlarda bir CPU'nun %100'ün üzerinde değer vermesi mümkündür, bu _top_ programının işlemci kullanımını tespit ederkenki hassasiyetiyle ilgilidir.
+**htop**
 
-**h** tuşuna basılarak programın yardım ekranına erişilebilir.
+`top` programının renklendirilmiş, daha kullanıcı dostu ve etkileşimli bir alternatifidir. Genellikle sistemlerde önyüklü gelmez, ancak paket yöneticisi ile kolayca kurulabilir (`sudo apt install htop` veya `sudo dnf install htop`).
 
-![](../.gitbook/assets/top3.png)
-
-Yukarıdaki yardım ekranından görülebileceği gibi, top ekranındaki değerleri sıralamak için **f** tuşu kullanılabilirmiş.
-
-![](../.gitbook/assets/top-sort.png)
-
-_Hangi parametreye göre sıralanacağını gösteren ekran._
-
-Yukarıdaki ekrandan **memory** seçerek **top** programının bellek tüketimine göre programları sıralaması sağlanabilir. Ardından **q** ile çıktığımızda ekranımız aşağıdakine benzer olacaktır.
-
-![](../.gitbook/assets/top-memory.png)
-
-_Yukarıdaki örnekte python3 belleğin büyük çoğunluğun tüketirken görülüyor._
-
-**top** programının renklendirilmiş ve daha kolay kullanılır hale getirilmiş bir versiyonu **htop** bazı sistemlerde bulunabilir. Daha kolay kullanım ve daha alışıldık bir görünüm sağlar.
+`htop`'ın avantajları:
+*   Renkli ve daha okunaklı arayüz.
+*   Fare ile veya ok tuşları ile işlemler arasında gezinme ve seçme.
+*   Fonksiyon tuşları (F1-F10) ile kolayca işlem sonlandırma (F9 - Kill), nice değerini değiştirme (F7/F8 - Nice +/-), arama (F3 - Search), sıralama (F6 - SortBy), ağaç görünümü (F5 - Tree) gibi işlemleri yapma.
+*   Sistem yükü, bellek ve swap kullanımı için daha görsel çubuklar.
+*   Kolay yapılandırılabilir arayüz (F2 - Setup).
 
 ![](../.gitbook/assets/htop.png)
 
@@ -42,13 +55,29 @@ _htop ekran görüntüsü_
 
 Sistemin genel bellek tüketimini görmek için **free** komutu kullanılabilir.
 
+Sistemin genel bellek (RAM) ve takas alanı (swap) kullanımını görmek için **free** komutu kullanılır.
+
 ```bash
 free
-             total       used       free     shared    buffers     cached
-Mem:       7947480    7095948     851532     482716       6864     781848
--/+ buffers/cache:    6307236    1640244
-Swap:      7193596        276    7193320
+              total        used        free      shared  buff/cache   available
+Mem:        7947480     6307236      851532      482716     1640244     1640244
+Swap:       7193596         276     7193320
 ```
+*   **total:** Toplam fiziksel bellek/swap alanı.
+*   **used:** Kullanılan bellek/swap alanı.
+*   **free:** Tamamen boş olan bellek/swap alanı.
+*   **shared:** Birden fazla işlem tarafından paylaşılan bellek (genellikle tmpfs).
+*   **buff/cache:** Çekirdek tarafından tampon (buffer) ve sayfa önbelleği (page cache) için kullanılan bellek. Bu bellek, ihtiyaç duyulduğunda uygulamalar için serbest bırakılabilir.
+*   **available:** Yeni uygulamaların başlatılması için (swap kullanmadan) kullanılabilecek tahmini bellek miktarı. `free` ve `buff/cache`'in bir kısmını içerir ve genellikle sistemin gerçek boş bellek durumunu `free` sütunundan daha iyi yansıtır.
+
+Daha okunaklı (Megabyte, Gigabyte cinsinden) çıktı almak için `-h` parametresi kullanılır:
+```bash
+free -h
+              total        used        free      shared  buff/cache   available
+Mem:           7.6G        6.0G        831M        471M        1.6G        1.6G
+Swap:          6.9G        276K        6.9G
+```
+Eski `free` sürümlerinde görülen `- / + buffers / cache` satırı artık kullanılmamaktadır ve `available` sütunu daha doğru bir bilgi verir.
 
 ## atop
 
@@ -62,17 +91,45 @@ Sistem kaynaklarının tümünü görmek istediğinizde en iyi seçeneklerden bi
 
 ![](../.gitbook/assets/top-pid.png)
 
-Aslında top programı arka planda aşağıdaki komutu çalıştırır.
+`top` veya `htop` içinden işlem sonlandırma genellikle arka planda `kill` komutunu kullanır. `kill` komutu, belirtilen PID'ye sahip işleme bir sinyal gönderir.
 
 ```bash
-kill -15 6392
+# 6392 PID'li işleme varsayılan sinyali (SIGTERM) gönder
+kill 6392
+
+# 6392 PID'li işleme SIGTERM (15) sinyalini gönder
+kill -15 6392 
+# veya
+kill -TERM 6392
+
+# 6392 PID'li işleme SIGKILL (9) sinyalini gönder (zorla kapatma)
+kill -9 6392
+# veya
+kill -KILL 6392
 ```
 
-**15** numaralı sinyal, aslında programa **TERMINATION** sinyalini gönderir. Doğru yazılmış programlar bu sinyali işleyip kapanmaya çalışırlar. Örneğin açık dosyalarını kapatır, gerekli işlemlerini tamamlar vs. Eğer bir program bu sinyal ile ölmüyorsa, muhtemelen işlemleri arasında bir problem yaşamış demektir. Bu programları sonlandırmak için **KILL** sinyalini **9** ile göndermek gerekir. Bu sinyal her ne olursa olsun programın sonlandırılmasını sağlayacaktır.
+*   **SIGTERM (15):** Programa sonlanması için nazik bir istek gönderir. Program bu sinyali yakalayıp dosyalarını kaydedebilir, bağlantılarını kapatabilir ve düzgün bir şekilde çıkabilir. Genellikle ilk denenmesi gereken sinyal budur.
+*   **SIGKILL (9):** Programa sonlanması için zorlayıcı bir komut gönderir. Program bu sinyali yakalayamaz veya görmezden gelemez; çekirdek tarafından anında sonlandırılır. Bu, veri kaybına veya sistemde tutarsızlıklara yol açabilir, bu yüzden sadece SIGTERM işe yaramadığında kullanılmalıdır.
+*   **SIGHUP (1):** "Hang Up" sinyalidir. Birçok servis (daemon), bu sinyali aldığında yapılandırma dosyalarını yeniden okumak veya kendini yeniden başlatmak (restart) üzere programlanmıştır (örneğin, Apache, Nginx).
+*   **SIGINT (2):** "Interrupt" sinyalidir. Genellikle terminalde çalışan bir programa `CTRL+C` gönderildiğinde bu sinyal iletilir.
 
-Sistem üzerinde pek çok sinyal bulunur. Sinyallerin bir listesini görmek için `kill -l` komutu kullanılabilir. Örneğin **2** numaralı sinyal, **INTERRUPT** sinyalidir, kısacası bir program çalışırken klavyenizle **CTRL+C** göndermekle aynı işi yapar. Bazı durumlarda bu sinyali göndermek, veya programlarınız test etmek için yararlı olabilir.
+Sistemdeki tüm sinyallerin listesini görmek için `kill -l` komutu kullanılabilir.
 
-Bir diğer örnek Hang Up (HUP) sinyalidir. **1** numaralı sinyal olan HUP, pek çok _daemon_ tarafından _restart_ olarak işlenir. Örneğin _apache_ bu sinyali alıp işleyen servislerden birisidir. Apache'nin PID'sine _HUP_ sinyali gönderilirse, Apache kendisini yeniden başlatır.
+**pkill ve killall:**
+
+PID yerine işlem adına veya başka kriterlere göre sinyal göndermek için `pkill` ve `killall` komutları daha kullanışlıdır:
+
+```bash
+# Adı "firefox" olan tüm işlemlere SIGTERM gönder
+pkill firefox
+
+# "emre" kullanıcısına ait tüm "sleep" işlemlerine SIGKILL gönder
+pkill -9 -u emre sleep
+
+# Adı tam olarak "apache2" olan tüm işlemlere SIGHUP gönder (yapılandırmayı yeniden yükle)
+killall -HUP apache2 
+```
+Bu komutları kullanırken dikkatli olunmalıdır, çünkü yanlışlıkla istenmeyen işlemleri sonlandırabilirler.
 
 ## uptime
 
@@ -84,17 +141,49 @@ Sistemin ne zaman başlatıldığını görmek için `who -b` komutu da oldukça
 
 ## ps
 
-**ps** programı (_process status_) sistem üzerinde çalışan yazılımları, işlemleri tespit etmek için kullanılır. Yaygınlıkla kullanılan parametreler `ps aux` ve `ps -ef` şeklindedir. Bu parametreler ile işlemleri listeleyip, farklarına bakabilirsiniz. İşlemler listesinin başını görmek için çıktınızı `head` ile sınırlandırın, veya `more` ile sayfalara bölün.
+**ps** programı (_process status_), sistemde o an çalışan işlemler hakkında anlık bilgi almak için kullanılır. `top` veya `htop` gibi sürekli güncellenmez, çalıştırıldığı andaki durumu gösterir.
 
-İşlemlerin hiyerarşilerini görebilmek için `ps axjf` kullanılabilir. Böylece hangi işlemin, hangisinin **parent**ı olduğu görülebilir. GNU/Linux üzerinde her zaman 1 numaralı **PID**'ye (Process ID) sahip işlem _init\_tir (sebebinin detaylarını ilerleyen bölümlerde göreceğiz). Bütün işlemler bu program tarafından **spawn** edilir. GNU/Linux'ta bir işlemin **parent** işlemini öldürdüğünüzde, **child** işlemleri de ölecektir. Dolayısıyla örneğin bir şekilde **1** numaralı işlemimiz ölürse, bütün sistem duracaktır. Bu durumun önüne geçebilmek için \_init_ işlemi sistem tarafından korunur. _init_ kendisine hangi sinyallerin gönderilebileceğine karar verir. Bu, yazılan Linux çekirdeklerine göre değişiklik gösterebilir, ancak hemen hepsi **kill** sinyaline izin vermez.
+İki yaygın kullanım stili vardır:
+
+1.  **BSD Stili:** Genellikle `-` olmadan kullanılan parametreler.
+    ```bash
+    ps aux 
+    ```
+    *   `a`: Tüm kullanıcılara ait işlemleri gösterir (terminali olanlar).
+    *   `u`: Kullanıcı odaklı formatta gösterir (sahip, CPU/MEM kullanımı vb.).
+    *   `x`: Terminali olmayan işlemleri de (servisler vb.) gösterir.
+
+2.  **System V Stili:** Genellikle `-` ile başlayan parametreler.
+    ```bash
+    ps -ef
+    ```
+    *   `-e`: Tüm işlemleri gösterir (`a` ve `x`'in birleşimi gibi).
+    *   `-f`: Tam formatta listeleme yapar (UID, PID, PPID, C, STIME, TTY, TIME, CMD).
+
+Her iki komut da benzer bilgileri farklı formatlarda sunar. Çıktı genellikle uzundur, bu yüzden `less`, `grep` gibi araçlarla birlikte kullanılır:
+```bash
+ps aux | less
+ps -ef | grep apache
+```
+
+İşlem ağacını (hangi işlemin hangisini başlattığını) hiyerarşik olarak görmek için `pstree` komutu veya `ps`'in bazı özel formatlama seçenekleri (`ps axjf` veya `ps -ejH`) kullanılabilir.
+
+```bash
+pstree
+```
+
+GNU/Linux üzerinde her zaman 1 numaralı **PID**'ye (Process ID) sahip işlem, sistemin başlangıç işlemidir (genellikle `init` veya modern sistemlerde `systemd`). Diğer tüm işlemler doğrudan veya dolaylı olarak bu işlem tarafından başlatılır (fork edilir). 1 numaralı işlem sonlandırılırsa sistem durur, bu nedenle çekirdek tarafından korunur ve genellikle `SIGKILL` gibi sinyallere yanıt vermez. Bir işlemin başlattığı işleme "child process", başlatan işleme ise "parent process" denir. Genellikle bir parent process öldüğünde, child process'leri de sonlanır veya 1 numaralı işlem tarafından evlat edinilir (adopted).
 
 ## nice
 
-Linux üzerinde işlemlerin önceliği, onların ne kadar _nice_ (iyi) olduklarıyla ifade edilir. Bir işlemin _nice_ değeri ne kadar düşükse, o kadar "az iyi" olacağından, o kadar işlemci önceliği vardır, yani daha fazla sistem kaynağı tüketen işlemlerin _nice_ değeri düşüktür. Önceliği düşük olan işlemleri daha \_iyi\_dir çünkü daha az sistem kaynağı tüketirler.
+Linux üzerinde işlemlerin CPU zamanlayıcısındaki önceliği, "nice" değeri ile ayarlanabilir. Nice değeri, bir işlemin diğer işlemlere karşı ne kadar "nazik" (nice) olacağını belirtir.
 
-**top** komutu çıktısındaki **NI** sütunu, ilgili işlemin _nice_ değerine karşılık gelir.
+*   Nice değeri **-20** (en yüksek öncelik, en az nazik) ile **+19** (en düşük öncelik, en nazik) arasında değişir.
+*   Varsayılan nice değeri genellikle **0**'dır.
+*   Daha düşük nice değerine sahip işlemler, CPU zamanlayıcısı tarafından daha öncelikli olarak çalıştırılır.
+*   Normal kullanıcılar sadece kendi işlemlerinin nice değerini artırabilir (önceliği düşürebilir, yani daha "nazik" yapabilir). Nice değerini düşürmek (önceliği artırmak) için genellikle root yetkisi gerekir.
 
-_nice_ değeri -19/-20 ile 19/20 arasında değişebilir. Üst ve alt limitlerin değeri sistemlere göre farklılık gösterir.
+**top** ve `htop` komutlarının çıktısındaki **NI** sütunu, ilgili işlemin nice değerini gösterir.
 
 Bir programı belirli bir _nice_ değeri ile çalıştırmak istersek, programı çalıştırma esnasında bu değeri belirtmek gerekir.
 
@@ -114,6 +203,4 @@ Komutların mevcut nice değerini **ps** ile öğrenmek için, ps çıktısında
 ps ax -o pid,ni,cmd
 ```
 
-**PROBLEM:** Sistem üzerinde 20 dakikadan daha uzun süredir çalışan belirli bir işlemi bulun. **ps** komutunun uygun parametreleriyle elde edilebilir. Bu işlemi öldürün.
-
-Yukarıdaki problemi çözen bir Python yazılımı [https://github.com/eaydin/timebomb](https://github.com/eaydin/timebomb) adresinde görülebilir. Bu yazılım standart GNU/Linux komutlarını kullanmaktadır.
+**PROBLEM:** Sistem üzerinde 20 dakikadan daha uzun süredir çalışan belirli bir işlemi bulun. **ps** komutunun uygun parametreleriyle (`etime` veya `bsdtime` gibi) elde edilebilir. Bu işlemi öldürün.

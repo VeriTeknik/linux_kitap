@@ -1,6 +1,8 @@
 # ping
 
-Network üzerinden yapılan işlemlerin vazgeçilmezi ping-pong mekanizması muhtemelen yakından tanıdığınız bir yapıya sahiptir. Burada ping komutunun pratik birkaç kullanımını göstermeden önce programın tarihinden bahsedeceğiz ve ICMP \(Internet Control Messaging Protocol\) paket yapısını inceleyeceğiz.
+`ping` komutu, ağ üzerindeki başka bir ana bilgisayarın (host) erişilebilir olup olmadığını ve ağ gecikmesini (latency) test etmek için kullanılan temel bir ağ tanılama aracıdır. Bunu, hedef ana bilgisayara ICMP (Internet Control Message Protocol) "Echo Request" (yankı isteği) paketleri göndererek ve ondan gelen "Echo Reply" (yankı yanıtı) paketlerini bekleyerek yapar. Yanıt süresi (genellikle milisaniye cinsinden - ms) ağ gecikmesi hakkında fikir verir.
+
+Network üzerinden yapılan işlemlerin vazgeçilmezi ping-pong mekanizması muhtemelen yakından tanıdığınız bir yapıya sahiptir. Burada ping komutunun pratik birkaç kullanımını göstermeden önce programın tarihinden bahsedeceğiz ve ICMP paket yapısını inceleyeceğiz.
 
 ## Tarihçe
 
@@ -292,6 +294,3 @@ PING google.com (216.58.211.46) 56(84) bytes of data.
 64 bytes from 216.58.211.46: icmp_seq=2 ttl=53 time=32.5 ms
 64 bytes from 216.58.211.46: icmp_seq=3 ttl=53 time=37.1 ms
 ```
-
-
-

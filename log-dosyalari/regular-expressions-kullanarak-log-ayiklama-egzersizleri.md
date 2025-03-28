@@ -1,41 +1,123 @@
-# Regular Expressions Kullanarak Log Ayıklama Egzersizleri
+# Log Dosyalarını İnceleme ve Filtreleme
 
-Log dosyalarının UNIX sistemler üzerinde en verimli şekilde kullanmanın yolu, log dosyası oluşurken anlık olarak takip etmektir. Bu işlemi yaparken "tail" komutu kullanılur. tail argüman verilmeden çalıştırıldığında dosyanın en son satırlarını gösterir, ancak "-f" argümanı ile (çoğu işletim sisteminde **tailf** şeklinde alias olarak bulunmaktadır) dosya oluşurken takip etmek mümkündür. Tipik kullanımı şu şekildedir:
+Log dosyaları, sistemin işleyişi hakkında değerli bilgiler içerir, ancak genellikle çok büyük olabilirler. İhtiyaç duyulan bilgiyi bulmak için logları etkili bir şekilde incelemek ve filtrelemek önemlidir. Bu bölümde, hem geleneksel metin tabanlı log dosyaları hem de `journald` günlükleri için yaygın kullanılan araçlar ve teknikler ele alınacaktır.
 
-```bash
-tailf /var/log/messages
-```
+## Geleneksel Log Dosyaları (`/var/log`)
 
-Yukarıdaki komutu girdikten sonra, en son nerede kaldığınızı hatırlamak için bir kaç kez enter tuşuna basıp satırlar arasında ayırt edici bir boşluk bırakabilirsiniz. Siz enter'a bassanız dahi yeni log oluştuğunda boşluklardan sonra log akmaya devam edecektir.
+Bu dosyalar genellikle düz metin formatındadır ve standart komut satırı araçlarıyla işlenebilir.
 
-Başka güzel bir metod ise, daha hızlı akan loglarda sadece aranan kelimenin bulunduğu satırın gözükmesini sağlamaktır, UNIX log standartlarında, her hatanın bir satır halinde verilmesi olasıdır. Diğer işletim sistemlerinde ya da Java'daki gibi bir hatayı ifade etmek için birden çok satır kullanılmaz.
+**1. Canlı Takip ve Basit Filtreleme (`tail -f | grep`)**
 
-Örnek vermek gerekirse:
+Bir log dosyasını gerçek zamanlı olarak takip etmek ve belirli anahtar kelimeleri içeren satırları anında görmek için `tail -f` ve `grep` kombinasyonu sıkça kullanılır:
 
 ```bash
-mail# tailf maillog | grep IMAP
-May 19 00:20:34 mail imapd: LOGIN, user=user@domain.com.tr, ip=[10.10.128.25], port=[58833], protocol=IMAP
+# /var/log/syslog dosyasını takip et ve içinde "error" geçen satırları göster (büyük/küçük harf duyarsız)
+tail -f /var/log/syslog | grep -i "error"
+
+# /var/log/nginx/access.log dosyasını takip et ve 404 hata kodlarını içeren satırları göster
+tail -f /var/log/nginx/access.log | grep ' 404 ' 
 ```
+*   `tail -f`: Dosyanın sonunu gösterir ve yeni eklenen satırları sürekli olarak ekrana basar.
+*   `grep`: Standart girdiden gelen satırlar içinde belirtilen kalıbı arar.
 
-Yukarıda yoğun bir mail sunucusunda sadece "IMAP" eventleri filtrelenmiştir, bu şekilde bir tarafta log ekreanı açıkken diğer tarafta denemelerinizi yapabilir, sonuçlarını canlı izleyebilirsiniz.
+**2. Regex ile Gelişmiş Filtreleme (`grep -E`)**
 
-## Journalctl
-
-Yeni nesil işletim sistemlerinde "journalctl" komutuyla aynı işi daha kolay yapabilirsiniz. Günlük servisi (systemd-journald.service) sisteminizde çalışıyorsa, tutulan günlüğün en son halini şu şekilde öğrenebilirsiniz:
-
-en baştan günlüğe bakmak isterseniz:
+Daha karmaşık kalıpları eşleştirmek için `grep -E` (veya `egrep`) ile düzenli ifadeler (regular expressions) kullanılır:
 
 ```bash
-journalctl -xm
->Apr 20 02:13:02 localhost systemd-journal[112]: Runtime journal is using 8.0M ...
->Apr 20 02:13:02 localhost systemd-journal[112]: Runtime journal is ...
+# Apache access_log dosyasında belirli bir IP adresinden gelen istekleri bul
+grep -E '^192\.168\.1\.10 ' /var/log/apache2/access.log
+
+# auth.log dosyasında başarısız SSH login denemelerini bul
+grep -E 'sshd\[[0-9]+\]: Failed password for' /var/log/auth.log
+
+# access_log dosyasından sadece GET isteklerini içeren satırları çıkar
+grep -E '^(\S+) (\S+) (\S+) \[.*\] "GET ' /var/log/nginx/access.log
 ```
 
-en son günlük bilgilerini almak için ise journalctl -xn kullanılabilir, bu komut hakkında daha detaylı bilgi man arşivlerinde bulunmaktadır.Journal dosyasını sürekli akar şekilde takip etmek isterseniz şu komutu kullanabilirsiniz:
+**3. Alanlara Göre İşleme (`awk`)**
 
+Log satırları genellikle boşluk veya başka bir ayırıcı ile ayrılmış alanlardan oluşur. `awk`, bu alanlara göre işlem yapmak için çok güçlü bir araçtır:
+
+```bash
+# access_log dosyasındaki her satırın ilk alanını (IP adresi) yazdır
+tail -n 50 /var/log/nginx/access.log | awk '{print $1}'
+
+# Belirli bir IP adresinden gelen isteklerin sayısını bul
+awk '$1 == "192.168.1.10" { count++ } END { print count }' /var/log/nginx/access.log
+
+# 404 hatası veren isteklerin URL'lerini (7. alan) yazdır
+awk '$9 == "404" { print $7 }' /var/log/nginx/access.log | head
 ```
-[root@ckaraca ~]# journalctl -xf
--- Logs begin at Mon 2018-03-05 18:25:01 +03. --
-Apr 06 23:25:02 manage postfix/cleanup[1095]: 165932084F53: message-id=<20180406202502.165932084F53@manage>
-Apr 06 23:25:02 manage postfix/local[1103]: 14B002084F55: to=<manage>, relay=local, delay=0.01...
+
+**4. Metin Değiştirme (`sed`)**
+
+Loglar üzerinde basit metin değiştirme veya ayıklama işlemleri için `sed` kullanılabilir:
+
+```bash
+# syslog dosyasındaki tüm "WARN" kelimelerini "UYARI" ile değiştir (sadece ekrana basar)
+sed 's/WARN/UYARI/g' /var/log/syslog | less
+
+# access_log dosyasından tarih/saat bilgisini çıkar
+sed -E 's/^([^ ]+) ([^ ]+) ([^ ]+) \[.*\] (.*)/\1 \4/' /var/log/nginx/access.log | head
 ```
+
+## `systemd-journald` Günlükleri (`journalctl`)
+
+`journald`, logları yapılandırılmış bir formatta sakladığı için `journalctl` komutu güçlü filtreleme yetenekleri sunar.
+
+**Canlı Takip:**
+```bash
+# Tüm günlükleri canlı takip et
+sudo journalctl -f
+
+# Belirli bir servisin günlüklerini canlı takip et
+sudo journalctl -f -u nginx.service
+```
+
+**Filtreleme:**
+
+*   **Servise Göre (`-u`):**
+    ```bash
+    sudo journalctl -u sshd.service
+    ```
+*   **Önem Derecesine Göre (`-p`):**
+    ```bash
+    # Sadece hata ve daha kritik mesajları göster
+    sudo journalctl -p err 
+
+    # Uyarı ve daha kritik mesajları göster
+    sudo journalctl -p warning..alert 
+    ```
+*   **Zamana Göre (`--since`, `--until`):**
+    ```bash
+    sudo journalctl --since "1 hour ago"
+    sudo journalctl --since "09:00" --until "10:30"
+    ```
+*   **Çekirdek Mesajları (`-k`):**
+    ```bash
+    sudo journalctl -k
+    ```
+*   **Belirli Önyükleme (`-b`):**
+    ```bash
+    sudo journalctl -b    # Mevcut önyükleme
+    sudo journalctl -b -1 # Bir önceki önyükleme
+    sudo journalctl --list-boots # Tüm önyüklemeleri listele
+    ```
+*   **Meta Veri Alanlarına Göre:** `journald` logları birçok meta veri alanı ile saklar (`_PID`, `_UID`, `_EXE`, `_SYSTEMD_UNIT`, `SYSLOG_FACILITY` vb.). Bu alanlara göre filtreleme yapılabilir:
+    ```bash
+    # Belirli bir PID'ye ait loglar
+    sudo journalctl _PID=12345
+
+    # Belirli bir çalıştırılabilir dosyaya ait loglar
+    sudo journalctl /usr/sbin/sshd
+
+    # Belirli bir syslog facility koduna ait loglar
+    sudo journalctl SYSLOG_FACILITY=10 # authpriv için
+    ```
+*   **Metin Arama (`grep` ile):** `journalctl` çıktısı metin tabanlı olduğu için `grep` ile de filtrelenebilir:
+    ```bash
+    sudo journalctl -u nginx.service | grep "denied"
+    ```
+
+Logları etkili bir şekilde incelemek, sistem yönetimi ve sorun gidermenin önemli bir parçasıdır. Hem geleneksel araçları hem de `journalctl`'i bilmek, farklı durumlarla başa çıkmanıza yardımcı olur.

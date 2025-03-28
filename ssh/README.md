@@ -8,7 +8,9 @@ Güvenliden kasıt, sunucu tarafında belirlenen kimlik doğrulama (authenticati
 
 SSH 1995 yılında Finlandiya'da Tatu Ylönen tarafından geliştirildi ancak uzun süre açık kaynak olarak dağıtılmadı. Bunun üzerine 1999 yılında Björn Grönvall tarafından OSSH adı altında açık kaynak kodlu lisansı olan bir SSH versiyonu geliştirildi. Bu kodları kendi sistemine uyarlayıp kısa sürede hızla geliştiren OpenBSD geliştiricileri, bu versiyona [OpenSSH](http://www.openssh.com) ismini verdiler. Bugün kullandığınız hemen her sunucudaki SSH versiyonu OpenSSH'tır ve geliştirilmesi hala devam etmektedir.
 
-OpenSSH her ne kadar çok yaygın olsa da, bugün yaygınca kullanılan SSHv2 protokolü haricinde, SSHv1'i de destekler. Ancak bazı gömülü sistemlerde işlemci ve bellek kullanımını aza indirmek için bu protokoller kullanılmak istenmez. Örneğin [Dropbear](https://matt.ucc.asn.au/dropbear/dropbear.html) bu sistemlerde (modemler, switchler vs.) yaygınca kullanılan bir SSH sunucusudur.
+OpenSSH her ne kadar çok yaygın olsa da, eski sürümleri hem modern SSHv2 protokolünü hem de artık güvensiz kabul edilen eski SSHv1 protokolünü destekleyebiliyordu. **Günümüzde SSHv1 protokolü kesinlikle kullanılmamalı ve tüm sunucu yapılandırmalarında devre dışı bırakılmalıdır.** Modern OpenSSH sürümleri genellikle varsayılan olarak SSHv1'i desteklemez veya devre dışı bırakır.
+
+Bazı gömülü sistemlerde veya özel durumlarda, kaynak kullanımı daha düşük olan alternatif SSH sunucuları (örn. [Dropbear](https://matt.ucc.asn.au/dropbear/dropbear.html)) kullanılabilir, ancak OpenSSH standart ve en yaygın kullanılan çözümdür.
 
 SSH Sunucuların bir listesine ve yapabildiklerine aşağıdaki Wikipedia sayfasından ulaşabilirsiniz.
 

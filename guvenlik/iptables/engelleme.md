@@ -1,2 +1,0 @@
-# IP ve Port Engelleme
-

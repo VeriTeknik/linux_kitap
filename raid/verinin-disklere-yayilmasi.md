@@ -1,10 +1,11 @@
-# Verinin Disklere Yayılması
+# Verinin Disklere Yayılması: Striping, Stripe Width ve Stripe Size
 
-RAID yapılarını incelerken verilerin parçalanması durumunu (_striping_) gördük. Özellikle RAID 0, RAID 5, RAID 10 gibi sıkça kullanılan yapılarda veri parçalanarak disklere yayılmaktadır. Bu durum iki terimin doğmasına neden olur.
+RAID 0, RAID 5, RAID 6, RAID 10 gibi birçok RAID seviyesi, performansı artırmak için **şeritleme (striping)** tekniğini kullanır. Striping, veriyi daha küçük bloklara (şeritlere) bölerek bu blokları RAID dizisindeki farklı disklere eş zamanlı olarak yazma işlemidir. Bu, tek bir diskin okuma/yazma hız limitini aşmayı sağlar.
 
-Verileri kaç parçaya böldüğümüz, kısacası stripe'ların toplam genişliği _stripe width_ olarak adlandırılır. Eğer elimizde 2 diskten oluşan bir RAID 0 dizisi varsa, stripe width'imiz 2'dir. Genellikle stripe width tanımlanırken parity bit'lerin yazıldığı diskler de sayılır. Bu yüzden örneğin 7 disk'ten oluşan bir RAID 4 dizisinin stripe width'i 7'dir, 6 değildir. Stripe width arttıkça okuma (ve bazen yazma) hızımızın artacağı aşikar.
+Bu işlemle ilgili iki önemli kavram vardır:
 
-Stripe size ise başka bir kavramı ifade eder ve sistemin verimliliği açısından doğru seçilmesi önemlidir. Hatırlarsanız RAID 0 bölümündeki örneğimizde 1 Byte'lık verimizi iki tane nibble'a parçalamıştık, böylece her bir diske 4 bit'lik veri yazmıştık. Bu örnekte 4 bit, her bir diske yazılan atomik veri boyutu olduğundan, stripe size'ımız 4 bit olacaktır. Kısacası stripe size, yazma işlemi sırasında RAID kartının veriyi disklere bölerken kullanacağı en küçük parçacık birimine karşılık gelir. Bu yüzden ismi stripe _size_'dır, her bir parçacığın _boyutu_. Bazen stripe size yerine _stripe length, chunk size, block size_ gibi terimler kullanılabilir, tamamı aynı anlamı ifade etmektedir.
+1.  **Stripe Width (Şerit Genişliği):** Tek bir şeritleme operasyonuna katılan **disk sayısıdır**. Örneğin, 4 diskli bir RAID 0 veya RAID 5 dizisinde stripe width genellikle 4'tür. RAID 10 (1+0) gibi iç içe geçmiş seviyelerde, striping'in uygulandığı ayna (mirror) gruplarının sayısıdır (örn. 4 diskli RAID 10'da 2 mirror grubu varsa stripe width 2'dir). Stripe width arttıkça, teorik paralel okuma/yazma kapasitesi de artar.
+2.  **Stripe Size (Şerit Boyutu / Chunk Size):** Tek bir diske tek bir şeritleme operasyonunda yazılan veri bloğunun **boyutudur**. Bu değer genellikle RAID kontrolcüsü veya yazılımsal RAID (`mdadm`) oluşturulurken ayarlanabilir (örn. 4KB, 16KB, 64KB, 128KB, 256KB...). Bazen _chunk size_, _block size_ veya _stripe length_ olarak da adlandırılır. **Stripe size**, stripe width ile karıştırılmamalıdır. Tam bir şerit (full stripe), `stripe width * stripe size` kadar veri içerir.
 
 Her ne kadar örneklerimizde stripe size'ı 4 bit olarak kullanmış olsak da, pratikte RAID kartları bu kadar küçük değerler kullanmazlar. Değerler genellikle 2kB mertebesinden başlar ve MB mertebesine kadar gider (2kB, 4kB, 8kB, 16kB şeklinde ikilik olarak artar). Stripe size'ın ne kadar büyük veya küçük seçileceği tamamen disklere yazılacak verilerin büyüklüğü, okuma/yazma sıklığı, bir veriye ulaşıldığında komşu verilerin ne kadar sık kullanılacağı, sıralı okuma yapılıp yapılmayacağı gibi bir çok parametreye bağlı olduğundan, RAID kartlarında bu seçenek ayarlanabilir olarak bırakılır. Bu yüzden stripe size, verinin _konumlandırılması_ ve _aktarılması_ işlemlerinin hızını etkiler.
 
@@ -30,15 +31,25 @@ diski
 
 &#x20;vardır. İkisine de aynı dosyalar yazılır. Dosyalar farklı renklerle gösterilmiştir. Yani kırmızı dosya, pembe, dosya, mavi dosya ve yeşil dosya olmak üzere 4 tane dosya var. Soldaki konfigürasyonda stripe size 4kB seçilmiştir, sağdaki konfigürasyonda ise aynı dosyalar aynı disklere 64kB stripe size ile yazılmıştır.
 
-![](<../.gitbook/assets/stripe size.png>)
+*(Burada, farklı stripe size'ların (örn. 4KB vs 64KB) 4 diskli bir RAID 0 dizisinde farklı boyutlardaki dosyaları (kırmızı, pembe, mavi, yeşil) nasıl dağıttığını gösteren bir diagram hayal edilebilir. Küçük stripe size (4KB) ile pembe dosyanın (44KB) 11 parçaya bölünüp 4 diske yayıldığı, büyük stripe size (64KB) ile ise pembe dosyanın tek bir diske sığdığı görülebilir. Daha büyük olan mavi ve yeşil dosyalar her iki durumda da birden fazla diske yayılır.)*
 
-Şekildeki bloklar stripe size'ı işaret etmektedir. Bu örnekte kırmızı dosya 4kB boyuta, pembe dosya 44 kB, mavi dosya 120 kB ve yeşil dosya 212 kB boyuta sahiptir. Örnekten görülebileceği gibi her iki konfigürasyonda da kırmızı dosya tek diske yazılır, çünkü stripe size 4kB'dan küçük olmadığı sürece, 4kB'lık dosyayı parçalayamayız. İlginç olan, pembe dosyanın durumudur. 4kB stripe size kullanıldığında pembe dosya 4 diske yayılırken, 64kB stripe size kullanıldığında bütün dosya tek diske yazılmıştır. Pembe dosyayı soldaki RAID dizisinden okumak istersek, 4 kat hızlı okuyacağız demektir, ancak dosyanın konumunun hesaplanması için 4 farklı diskte adresleme işlemi yapılması gerekmektedir. Kısacası dosyaya&#x20;
+Bu dağılımın performansa etkisi şöyledir:
+*   **Küçük Stripe Size:**
+    *   **Avantaj:** Büyük dosyalar veya birden fazla küçük dosyaya eş zamanlı erişim durumunda, veri daha fazla diske yayıldığı için **paralel okuma/yazma artar**, toplam transfer hızı yükselir.
+    *   **Dezavantaj:** Tek bir dosyaya erişmek için daha fazla diskin kafa hareket ettirmesi (seek) gerekebilir, bu da **erişim süresini (latency) artırabilir**. Özellikle tek, küçük bir dosyaya erişirken verimsiz olabilir.
+*   **Büyük Stripe Size:**
+    *   **Avantaj:** Küçük dosyalar genellikle tek bir diske sığar, bu da o dosyaya erişirken **kafa hareketini azaltır ve erişim süresini kısaltır**.
+    *   **Dezavantaj:** Büyük dosyalar daha az diske yayılabilir veya tek bir dosyaya erişim sırasında daha az paralellik sağlanır, bu da **maksimum transfer hızını düşürebilir**.
 
-_ilk erişim_
+**Doğru Stripe Size Nasıl Seçilir?**
 
-&#x20;daha yavaş olacaktır, ancak bir kez eriştik mi hızla okuyacağız demektir. Öte yandan sağdaki RAID dizisinde pembe dosyayı hemen buluruz, ancak okuma hızımız tek diskin okuma hızından öteye gidemez.
+Optimum stripe size, sistemin iş yüküne (workload) bağlıdır:
+*   **Büyük Dosyalar ve Sıralı Erişim (örn. Video Streaming, Yedekleme):** Genellikle daha **büyük** stripe size (örn. 128KB, 256KB veya daha fazla) tercih edilir. Bu, tek bir dosyanın daha az parçaya bölünmesini sağlar ve sıralı okuma/yazma performansını artırabilir.
+*   **Küçük Dosyalar ve Rastgele Erişim (örn. Veritabanları, Sanallaştırma, Çok Kullanıcılı Sistemler):** Genellikle daha **küçük** stripe size (örn. 16KB, 32KB, 64KB) tercih edilir. Bu, rastgele I/O işlemlerinin daha fazla diske dağıtılmasını sağlayarak genel performansı ve yanıt süresini iyileştirebilir.
 
-Farkındaysanız yeşil dosya her iki senaryoda da 4 diske yayılmış durumda. Bunun birkaç sebebi olabilir, birincisi seçilen stripe size yeterince büyük değildir, ikincisi ise dosyanın beraber barındırıldığı diğer dosyalardan farklı bir yapıya sahip olması olabilir. Örneğin bir sürü küçük dosyamız varsa ancak bir tane devasa dosyamız varsa bile, RAID dizisi üzerindeki konumlaması diğerlerinden farklı olacaktır. Bu bile performansı etkileyen etmenleden birisidir. Bu yüzden genellikle benzer yapıdaki dosyaların benzer disk yapılarına yazılması tercih edilebilir, ancak problemi her zaman bu kadar sınırlandırarak uygulamak pratikte mümkün olmaz.
+Genel bir başlangıç noktası olarak **64KB** veya **128KB** stripe size sıkça kullanılır, ancak en iyi değeri bulmak için spesifik iş yükü altında testler yapmak gerekebilir. RAID kontrolcüsünün veya yazılımının varsayılan değeri genellikle makul bir başlangıçtır.
+
+**Not:** ZFS gibi modern dosya sistemleri, genellikle sabit bir stripe size yerine dinamik veya değişken blok boyutları kullanarak bu ayarlamaları otomatik olarak optimize etmeye çalışır.
 
 Bir diğer nokta, dosyaların büyüklüğünden ziyade erişim biçimidir. Rastgele okuma işlemleri ile sıralı okuma işlemleri hem disk üzerinde ciddi farklılıklar yaratır, hem de diske verilerin yazılma biçimlerini buna göre belirlemek faydalı olur. Bütün diskler sıralı okuma işlemini rastgele okuma işleminden daha hızlı yaparlar, ancak örneğin SSD'lerin rastgele okuma ile sıralı okuma işlemleri arasındaki hız farkı çok daha azdır. Bu durumda rastgele okuma işlemini çok yapacak birisi (veritabanı kullananlar, oyun oynayanlar vs.) manyetik diskler yerine SSD kullanmayı tercih edebilir. Öte yandan sıralı okuma işlemi örneğin bazı sıkıştırılmış dosyaların okunmasında kullanılır, veya güvenlik kameralarının verilerinin depolanması gibi konularda kullanılır. Hemen hemen hiçbir durumda bir video stream edilirken rastgele parçalarını yükleme ihtiyacı duymayız, videoyu baştan sona doğru _lineer_ olarak yüklemeyi tercih ederiz. Böyle bir durumda SSD yerine manyetik disk kullanımı tercih edilebilir olur (fiyat/performans açısından).
 

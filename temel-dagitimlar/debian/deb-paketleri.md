@@ -1,18 +1,25 @@
-# deb Paketleri
+# deb Paketleri ve dpkg
 
-Red Hat sistemler üzerindeki **rpm** paketlerinin Debian (ve Ubuntu) sistemler üzerindeki karşılığı **deb** paketleridir.
+Debian ve türevi sistemlerde (Ubuntu, Mint vb.) kullanılan temel paket formatı `.deb` uzantılı dosyalardır. Bu dosyalar, programları, kütüphaneleri, yapılandırma dosyalarını ve ilgili betikleri içerir.
 
-## Yükle
+**dpkg** (Debian Package), `.deb` dosyalarını kurmak, kaldırmak ve sorgulamak için kullanılan düşük seviyeli komut satırı aracıdır.
 
-deb paketlerini yüklemek için **-i** parametresi kullanılır.
+**Önemli Not:** `dpkg`, paketleri doğrudan yönetir ancak **bağımlılıkları otomatik olarak çözmez veya yönetmez**. Paket kurma, kaldırma veya güncelleme gibi işlemler için genellikle `apt` (veya `apt-get`) gibi daha üst seviye paket yöneticilerinin kullanılması **şiddetle tavsiye edilir**. `apt`, depoları kullanarak gerekli bağımlılıkları otomatik olarak indirir ve kurar. `dpkg` daha çok indirilen `.deb` dosyalarını manuel olarak kurmak (ancak bağımlılıkları sağlamak sizin sorumluluğunuzdadır), kurulu paketleri sorgulamak veya düşük seviyeli paket manipülasyonları için kullanılır.
+
+## `dpkg` Komutu ile Sorgulama ve Yönetim
+
+**Paket Kurulumu (Bağımlılıkları Çözmez!):**
+
+İndirilmiş bir `.deb` dosyasını kurmak için `-i` (veya `--install`) kullanılır:
 
 ```bash
-dpkg -i paket-dosyası.deb
+sudo dpkg -i paket-dosyası.deb
 ```
+**Not:** Eğer bu paket, sistemde kurulu olmayan başka paketlere bağımlıysa, `dpkg` hata verecek ve paketi yapılandırmayacaktır. Bu durumda genellikle `sudo apt --fix-broken install` komutu ile eksik bağımlılıkların kurulması gerekir. Yerel bir `.deb` dosyasını bağımlılıklarıyla birlikte kurmanın daha kolay yolu `apt` kullanmaktır: `sudo apt install ./paket-dosyası.deb`.
 
-## Yüklü Paketleri Listele
+**Yüklü Paketleri Listeleme ve Sorgulama:**
 
-Mevcut paketleri liste halinde gösterir.
+Sistemde kurulu paketleri (ve durumlarını) listelemek için `-l` (veya `--list`) kullanılır (`less` ile kullanmak faydalıdır):
 
 ```bash
 # dpkg -l
@@ -41,16 +48,18 @@ ii  apt-utils                                   1.0.1ubuntu2.10                 
 Belirli bir paketin yüklü olup olmadığını görmek için, paket ismi verebilirsiniz.
 
 ```bash
-# dpkg -l htop
-Desired=Unknown/Install/Remove/Purge/Hold
-| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
-|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
-||/ Name               Version        Architecture   Description
-+++-==================-==============-==============-==========================================
-ii  htop               1.0.2-3        amd64          interactive processes viewer
+# Belirli bir paketin durumunu listele (grep ile filtreleyerek)
+dpkg -l | grep htop
+# veya doğrudan paket adıyla:
+dpkg -l htop 
 ```
+Çıktıdaki ilk iki harf (örn. `ii`) paketin durumunu gösterir:
+*   İlk harf (İstenen Durum): `i` (Install), `h` (Hold), `r` (Remove), `p` (Purge).
+*   İkinci harf (Mevcut Durum): `n` (Not installed), `i` (Installed), `c` (Config-files), `U` (Unpacked), `F` (Half-configured), `H` (Half-installed), `W` (Triggers-awaited), `T` (Triggers-pending).
+*   `ii`: İstenen ve mevcut durum "Installed".
+*   `rc`: Paket kaldırılmış (Removed) ancak yapılandırma dosyaları duruyor (Config-files).
 
-Paket hakkında bilgi almak için **-s** seçeneği kullanılabilir. Eğer paket yüklü değilse bunun bilgisini de verecektir.
+Kurulu bir paket hakkında detaylı bilgi almak için `-s` (veya `--status`) kullanılır:
 
 ```bash
 # dpkg -s htop
@@ -82,25 +91,49 @@ Use dpkg --info (= dpkg-deb --info) to examine archive files,
 and dpkg --contents (= dpkg-deb --contents) to list their contents.
 ```
 
-
-## Bir Paketi Kaldırmak
-
-Yüklü bir paketi kaldırmak için **-r** parametresi kullanılabilir.
-
+Kurulu bir paketin sisteme hangi dosyaları yüklediğini listelemek için `-L` (veya `--listfiles`) kullanılır:
 ```bash
-dpkg -r htop
+dpkg -L htop
 ```
 
-Eğer ilgili paketin ayar dosyalarının (configuration files) beraberinde silinmesini istiyorsak, **-p** (purge) ile kaldırılabilir.
-
+Belirli bir dosyanın hangi kurulu pakete ait olduğunu bulmak için `-S` (veya `--search`) kullanılır:
 ```bash
-dpkg -p htop
+dpkg -S /bin/htop
 ```
 
-## Bir Paket Dosyasının İçeriğini Görmek
+**Paket Kaldırma:**
 
-Paket dosyasının içeriğindeki dosyaları görmek için,
+**Uyarı:** Aşağıdaki komutlar bağımlılıkları otomatik yönetmez. Genellikle `apt remove` veya `apt purge` kullanın.
+
+Yüklü bir paketi kaldırmak (yapılandırma dosyaları kalır) için `-r` (veya `--remove`) kullanılır:
+
+```bash
+sudo dpkg -r htop
+```
+
+Bir paketi yapılandırma dosyalarıyla birlikte tamamen kaldırmak için `-P` (veya `--purge`) kullanılır:
+
+```bash
+sudo dpkg -P htop
+```
+
+**Diğer İşlemler:**
+
+Bir `.deb` paket dosyasının içeriğini (kurmadan) listelemek için `-c` (veya `--contents`) kullanılır:
 
 ```bash
 dpkg -c paket-dosyası.deb
 ```
+
+Bir `.deb` paket dosyası hakkında bilgi (kontrol dosyası içeriği) almak için `-I` (veya `--info`) kullanılır:
+```bash
+dpkg -I paket-dosyası.deb
+```
+
+Kurulumu tamamlanmamış veya yarıda kalmış paketleri yapılandırmak için `--configure -a` kullanılır:
+```bash
+sudo dpkg --configure -a
+```
+(Bu işlem genellikle `apt --fix-broken install` komutunun bir parçası olarak da çalıştırılır.)
+
+Özetle, `dpkg` `.deb` paketleriyle düşük seviyede çalışmak için temel araçtır, ancak bağımlılık yönetimi karmaşıklığı nedeniyle günlük kullanımda `apt` komutları tercih edilmelidir.

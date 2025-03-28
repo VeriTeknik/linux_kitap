@@ -22,6 +22,23 @@ Bazı durumlarda ssh sunucusunun portu farklı olabilir. Bu, yaygın güvenlik �
 ssh root@94.103.47.66 -p 2291
 ```
 
+**İpucu:** Sık bağlandığınız sunucular için kullanıcı adı, port, özel anahtar yolu gibi seçenekleri her seferinde yazmak yerine, kullanıcının kendi ev dizinindeki `~/.ssh/config` dosyasında tanımlayabilirsiniz. Bu dosya, bağlantı kısayolları ve özel ayarlar tanımlamak için çok kullanışlıdır.
+
+Örnek `~/.ssh/config` dosyası:
+```
+Host testserver
+    HostName 94.103.47.66
+    User root
+    Port 2291
+    IdentityFile ~/.ssh/id_testserver_ed25519
+
+Host anotherserver
+    HostName domain.adı.com
+    User myuser
+    Port 22
+```
+Bu yapılandırma ile `ssh testserver` komutu otomatik olarak `ssh root@94.103.47.66 -p 2291 -i ~/.ssh/id_testserver_ed25519` komutuna genişleyecektir.
+
 ## Kimlik Doğrulama Yöntemini Seçme
 
 Sunucuya şifreyle bağlanmak yerine, özel anahtarımızla da bağlanabiliriz. İlerleyen bölümlerde bunu nasıl yapacağımızı göreceğiz. Ama şimdilik anahtar yüklü bir sisteme bağlanırken kimlik doğrulama yöntemini nasıl seçeceğimizi görebiliriz.
@@ -62,7 +79,9 @@ RSA key fingerprint is c2:54:d7:77:57:76:a1:78:f8:82:8b:48:de:89:71:c5.
 Are you sure you want to continue connecting (yes/no)?
 ```
 
-Burada ssh, bağlanacağınız sunucunun RSA parmak izine bakıp gerçekten doğru sunucu olup olmadığını bildiğinizi sorar. Tabii ki bu rakamları ezberlemenizin imkanı yoktur dolayısıyla ilk bağlandığınızda genellikle buna **yes** demek normaldir.
+Burada SSH istemcisi, daha önce bağlanmadığınız bu sunucunun kimliğini (`94.103.47.66`) sunduğu genel anahtarın parmak izi (fingerprint) ile birlikte size gösterir. Bu mekanizmanın amacı, ortadaki adam (Man-in-the-Middle - MitM) saldırılarını önlemektir. İlk bağlantıda sunucunun parmak izini doğrulamanız (örneğin sunucu yöneticisinden teyit alarak) ve `yes` diyerek kabul etmeniz beklenir. Kabul ettiğinizde, sunucunun adresi ve genel anahtarı sizin `~/.ssh/known_hosts` dosyanıza kaydedilir.
+
+**Not:** Örnekte RSA anahtarı gösterilmiştir. Modern SSH sunucuları genellikle daha güvenli ve performanslı olan Ed25519 veya ECDSA anahtarlarını tercih eder ve sunar. Parmak izi formatı da anahtar türüne göre değişebilir (örn. SHA256 tabanlı).
 
 Ancak daha sonra bu soruyu sormaz, çünkü artık RSA parmak izini kenara not etmiştir SSH.
 
@@ -75,7 +94,7 @@ Warning: Permanently added '94.103.47.66' (RSA) to the list of known hosts.
 root:@94.103.47.66's password
 ```
 
-İlerleyen zamanlarda eğer yine bu sunucuya bağlanacak olursanız ve sunucunun RSA parmak izi değişmiş olursa farklı bir uyarı verir.
+İlerleyen zamanlarda aynı sunucuya tekrar bağlanmaya çalıştığınızda, SSH istemcisi sunucudan gelen genel anahtarı `known_hosts` dosyanızdaki kayıtlı anahtarla karşılaştırır. Eğer anahtarlar eşleşmezse (sunucu yeniden kurulmuş olabilir, anahtarı değişmiş olabilir veya gerçekten bir MitM saldırısı olabilir), SSH bağlantıyı durdurur ve aşağıdaki gibi bir uyarı verir:
 
 ```bash
 eaydin@dixon ~ $ ssh root:@94.103.47.66
@@ -132,15 +151,13 @@ Original contents retained as /home/eaydin/.ssh/known_hosts.old
 
 Yukarıdaki örneklerde `-o` parametresiyle bağlantı sırasında bazı seçenekleri açıp kapattık. Aslında burada yaptığımız, ssh istemcinin tanımlanmış ayarlarında bazılarını kullanmayıp o an belirttiklerimizi zorlamaktı.
 
-Sözkonusu istemci ayarları sistem üzerinde `/etc/ssh/ssh_config` yolunda yer alır.
+SSH istemcisinin davranışını etkileyen ayarlar iki ana dosyada bulunur:
+1.  **`/etc/ssh/ssh_config`**: Sistem genelindeki varsayılan ayarlar.
+2.  **`~/.ssh/config`**: Kullanıcıya özel ayarlar. Bu dosyadaki ayarlar, sistem genelindeki ayarları geçersiz kılar (override eder). Sık kullanılan bağlantılar için kısayollar ve özel seçenekler tanımlamak için idealdir.
 
-Örneğin bu dosyada `StrictHostKeyChecking no` yaptığımız takdirde yukarıdaki **yes/no** sorusuyla karşılaşmayız. \(Tavsiye edilmez!\) Benzer şekilde kullanılacak özel anahtarların yolu, şifre kullanımına izin verilmesi, port belirtilmediği takdirde hangi portun kullanılacağı \(öntanımlı değer 22\) gibi bir çok seçenek ayarlanabilir.
+Örneğin, `/etc/ssh/ssh_config` dosyasında veya `~/.ssh/config` dosyasında `StrictHostKeyChecking no` ayarı yapılırsa, SSH bilinmeyen veya değişmiş anahtarlar için soru sormaz (güvenlik açısından **tavsiye edilmez**). Benzer şekilde, varsayılan kullanıcı, port, kullanılacak kimlik dosyaları (`IdentityFile`), bağlantı zaman aşımı (`ConnectTimeout`) gibi birçok seçenek bu dosyalarda `Host` blokları altında veya genel olarak tanımlanabilir.
 
-ssh\_config hakkında yardım dosyalarını okumak için
-
+Detaylı bilgi için `ssh_config(5)` man sayfasına bakabilirsiniz:
 ```bash
 man 5 ssh_config
 ```
-
-
-

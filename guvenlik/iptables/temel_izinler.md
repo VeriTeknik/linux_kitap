@@ -1,2 +1,0 @@
-# Temel İzinler
-

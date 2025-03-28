@@ -1,6 +1,13 @@
 # wget\*
 
-Bu kitapçıkta daha önce de karşılaştığımız komutlardan **wget**, internetten dosya çekmeye yarayan, **Web GET** sözcüklerinin kısaltması olan bir program.
+Bu kitapçıkta daha önce de karşılaştığımız komutlardan **wget**, internetten dosya ve web sayfalarını indirmek için kullanılan güçlü ve esnek bir komut satırı aracıdır. İsmi **Web GET** sözcüklerinin kısaltmasıdır. Özellikle toplu indirmeler, yarım kalan indirmeleri devam ettirme ve web sitelerini yansıtma (mirroring) gibi işlemler için kullanışlıdır.
+
+**`wget` vs `curl`:**
+`wget` ile benzer işlevleri gören bir diğer popüler araç `curl`'dür. İkisi de URL'lerden veri aktarımı yapar ancak farklı kullanım amaçları ve felsefeleri vardır:
+*   **`wget`:** Genellikle dosyaları indirmek ve web sitelerini özyinelemeli (recursive) olarak indirmek için tasarlanmıştır. Varsayılan olarak dosyaları diske kaydeder.
+*   **`curl`:** Daha çok tek bir URL ile etkileşim kurmak, veriyi standart çıktıya (stdout) yazdırmak (bu da pipe ile başka komutlara bağlanmasını kolaylaştırır) ve çok çeşitli protokolleri (HTTP, HTTPS, FTP, SCP, LDAP, SMTP vb.) desteklemek üzerine odaklanmıştır. API testleri ve betiklerde sıkça kullanılır.
+
+Her iki aracın da kendine özgü güçlü yanları vardır ve genellikle sistem yöneticileri her ikisini de kullanır. Bu bölümde `wget`'e odaklanacağız.
 
 İnternetten herhangi bir dosyayı indirmek için dosya adresini wget'e parametre olarak vermek yeterlidir.
 
@@ -218,4 +225,3 @@ Son olarak wget ile anonim ve şifreli FTP kullanımı göreceğiz.
 ```
 
 \*FreeBSD Sisteminde wget yerine fetch kullanılmaktadır.
-

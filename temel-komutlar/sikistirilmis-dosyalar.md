@@ -64,11 +64,11 @@ Benzer şekilde sıkıştırılmış bir dosyayı açacağımız zaman da `-z` i
 tar -xvzf tarball.tar.gz
 ```
 
-Bu parametre ile kullanılan algoritma, GNU Zip algoritması olduğu için, aslında arka planda birazdan göreceğimiz `gzip` programını kullanır. Bu yüzden genellikle GNU Zip ile sıkıştırılmış tarball dosyalarına `.tar.gz` uzantısı verilir.
+Bu parametre ile kullanılan algoritma, GNU Zip algoritması olduğu için, aslında arka planda birazdan göreceğimiz `gzip` programını kullanır. Bu yüzden genellikle GNU Zip ile sıkıştırılmış tarball dosyalarına `.tar.gz` veya `.tgz` uzantısı verilir.
 
 ### tar.bz2
 
-Eğer sıkıştırma algoritması olarak GNU Zip yerine bzip2 kullanılmasını istersek, `-z` yerine `-j` parametresini hem tarball oluşturulurken, hem de açılırken kullanmak gerekir.
+Eğer sıkıştırma algoritması olarak GNU Zip yerine `bzip2` kullanılmasını istersek, `-z` yerine `-j` parametresini hem tarball oluşturulurken, hem de açılırken kullanmak gerekir. Bu format için yaygın uzantılar `.tar.bz2` veya `.tbz2`'dir.
 
 ```bash
 tar -cvjf tarball.tar.bz2 03-debug.txt putty.log
@@ -77,6 +77,33 @@ tar -cvjf tarball.tar.bz2 03-debug.txt putty.log
 ```bash
 tar -xvjf tarball.tar.bz2
 ```
+
+### tar.xz
+
+Daha yüksek sıkıştırma oranı sunan `xz` algoritmasını kullanmak için `-J` parametresi kullanılır. Uzantı olarak genellikle `.tar.xz` veya `.txz` kullanılır.
+
+```bash
+tar -cvJf tarball.tar.xz *.log
+```
+```bash
+tar -xvJf tarball.tar.xz
+```
+
+### tar.zst
+
+Modern ve hızlı bir sıkıştırma algoritması olan `zstd` (Zstandard) kullanmak için genellikle `-I zstd` veya `--zstd` parametresi kullanılır (kullanılan `tar` sürümüne bağlı olabilir). Uzantı olarak `.tar.zst` veya `.tzst` kullanılır.
+
+```bash
+# --zstd kullanımı (daha yeni tar sürümlerinde)
+tar -cv --zstd -f tarball.tar.zst *.log
+tar -xv --zstd -f tarball.tar.zst
+
+# -I kullanımı (bazı eski sürümlerde de çalışabilir)
+# tar -cv -I zstd -f tarball.tar.zst *.log
+# tar -xv -I zstd -f tarball.tar.zst
+```
+
+**Önemli Not:** Modern `tar` sürümleri, bir arşivi açarken (`-x` kullanılırken) sıkıştırma türünü genellikle otomatik olarak algılayabilir. Bu nedenle, çoğu zaman `-z`, `-j`, `-J` gibi sıkıştırma belirtme parametrelerini açma işlemi sırasında kullanmak gerekmeyebilir. Sadece `-xvf arsiv_dosyasi` komutu yeterli olabilir. Ancak, oluştururken doğru sıkıştırma parametresini belirtmek önemlidir.
 
 ## Sıkıştırılmış Dosyalar
 
@@ -126,7 +153,7 @@ bunzip putty.log.bz2
 bzip2 -d putty.log.bz2
 ```
 
-tar, gz, bz2 dosyaları için kullanabileceğiniz bir cheat-sheet [şurada](http://www.cyberciti.biz/howto/question/general/compress-file-unix-linux-cheat-sheet.php) mevcut.
+tar, gz, bz2 dosyaları için kullanabileceğiniz bir cheat-sheet [şurada](http://www.cyberciti.biz/howto/question/general/compress-file-unix-linux-cheat-sheet.php) mevcut. (Not: Bu kaynakta `xz` ve `zstd` gibi daha yeni formatlar bulunmayabilir.)
 
 ### zip ve unzip
 
@@ -177,10 +204,10 @@ Details: RAR 4
 ```bash
 unrar e arsiv.rar
 ```
+**Not:** `rar` formatı ve sıkıştırma aracı tescilli bir yazılımdır. `unrar` aracı genellikle ücretsiz olarak sunulsa da, `rar` dosyası oluşturmak için lisans gerekebilir. Diğer formatlar (`gz`, `bz2`, `xz`, `zst`, `zip`) genellikle açık kaynaklı ve ücretsiz araçlarla yönetilir.
 
 ## Z Komutları
 
 GNU/Linux sistemlerde özellikle log dosyalarının sıkıştırılarak saklanması yaygın tekniklerdir. Sıkıştırılmış bu dosyalar içinde arama yapmak, dosyanın bir kısmını okumak veya dosyalar arası farklılıkları incelemek gerekebilir. Bu tip işlemler için sıkça kullanılan komutların **z** ile başlayan versiyonları geliştirilmiştir.
 
 `zcat`, `zless`, `zmore`, `zgrep`, `zegrep`, `zdiff` komutlarını bu tip dosyalar üzerinde çalışmak için kullanabilirsiniz.
-

@@ -1,65 +1,30 @@
 # traceroute
 
-traceroute komutu bir sunucuya erişene kadar gidilen yolu tespit etmeye yarar. Bunun için bu yol boyunca uğradığı bütün sunuculara ICMP paketleri gönderir. Van Jacobson traceroute programını 1987'de geliştirmiştir ve aslında ping'in yaptığından farklı neredeyse hiçbir şey yoktur. Sadece ping'i doğru şekilde kullanarak çok faydalı bir araç geliştirmiştir. İlerleyen yıllarda Mike Muss \(ping'in gelişricisi\) bu kullanım şeklini atladığını, bu fikri geliştirdiği için de Van Jacobson'ı resmen kıskandığını ifade etmiştir.
+`traceroute` komutu (veya Windows'taki `tracert`), bir ağ paketinin yerel makinenizden hedef bir sunucuya ulaşana kadar geçtiği yönlendiricileri (routers veya hops) ve her bir atlama noktasındaki gecikme sürelerini keşfetmek için kullanılan bir ağ tanılama aracıdır. Ağ bağlantısındaki sorunların veya yavaşlıkların kaynağını belirlemede çok kullanışlıdır.
 
-> I was insanely jealous when Van Jacobson of LBL used my kernel ICMP support to write TRACEROUTE, by realizing that he could get ICMP Time-to-Live Exceeded messages when pinging by modulating the IP time to life \(TTL\) field. I wish I had thought of that! :-\) Of course, the real traceroute uses UDP datagrams because routers aren't supposed to generate ICMP error messages for ICMP messages.
+Van Jacobson tarafından 1987'de geliştirilen `traceroute`, temel olarak `ping` komutunun kullandığı ICMP protokolünü ve IP paketlerindeki TTL (Time To Live) alanını akıllıca kullanarak çalışır.
 
-Nasıl çalıştığını anlamak için ping komutunda karşımıza çıkan \(ancak üstünde durmadığımız\) TTL \(Time To Live\) mekanizmasını anlamak gerekir.
+## Çalışma Prensibi: TTL Manipülasyonu
 
-## TTL
+TTL (Time To Live) değeri, bir IP paketinin ağda ne kadar süre (daha doğrusu kaç yönlendirici/hop) boyunca dolaşabileceğini belirten bir sayaçtır. Paket bir yönlendiriciden geçtiğinde, yönlendirici genellikle TTL değerini bir azaltır. TTL değeri 0'a ulaştığında, yönlendirici paketi daha fazla iletmez ve paketin kaynağına bir ICMP "Time Exceeded" (Zaman Aşıldı) hata mesajı gönderir. Bu hata mesajı, yönlendiricinin kendi IP adresini içerir.
 
-TTL basitçe, gönderdiğimiz paketin kaç noktadan geçmesine izin verdiğimizi ifade eder. Ping programını incelerken kullandığımız örneklerde genellikle bu değerin 54 olduğunu gördük. Bu şu anlama geliyor, "bu paket en fazla 54 noktadan geçebilir, daha fazlasına iletilmemeli."
+`traceroute`, bu mekanizmayı kullanarak hedefe giden yolu adım adım keşfeder:
+1.  Hedefe TTL=1 olan bir paket (genellikle UDP veya ICMP) gönderir.
+2.  İlk yönlendirici paketi alır, TTL'i 0 yapar, paketi atar ve kaynağa kendi IP adresini içeren bir ICMP "Time Exceeded" mesajı gönderir. `traceroute` bu yanıtı alır ve ilk hop'un adresini kaydeder.
+3.  Hedefe TTL=2 olan bir paket gönderir.
+4.  İlk yönlendirici TTL'i 1 yapar ve paketi ikinci yönlendiriciye iletir. İkinci yönlendirici TTL'i 0 yapar, paketi atar ve kaynağa kendi IP adresini içeren bir ICMP "Time Exceeded" mesajı gönderir. `traceroute` ikinci hop'un adresini kaydeder.
+5.  Bu işlem, TTL değeri artırılarak devam eder. Paket hedefe ulaştığında, hedef TTL'i azaltır ancak süre dolmadığı için "Time Exceeded" göndermez. Bunun yerine, `traceroute`'un kullandığı protokole bağlı olarak farklı bir yanıt verir (örn. UDP için ICMP "Port Unreachable", ICMP Echo için "Echo Reply", TCP SYN için "SYN/ACK" veya "RST"). `traceroute` bu yanıtı aldığında hedefe ulaştığını anlar ve işlemi sonlandırır.
 
-Ağ'daki \(internet veya yerel ağ, fark etmez\) her nokta \(sunucu, router vb.\) kendisine gelen paketin TTL'ine bakar, eğer bu değer 1'den büyükse, değeri 1 azaltıp bir sonraki  noktaya iletir, eğer değer 1'se, o zaman paketi göz ardı, eder, ICMP hata pakedi gönderir ve bu bilgi içerisinde kendi IP adresi de yer alır.
+`traceroute`, her hop için genellikle 3 paket göndererek ortalama gecikme süresini (RTT - Round Trip Time) de ölçer.
 
-Öyleyse uzaktaki bir sunucuya ping atarken, eğer TTL değerimizi aradaki router sayısından daha küçük tutarsak, bu paket hedef sunucuya asla ulaşmaz, ancak arada bir noktadan cevap alırız.
+## Temel Kullanım
 
-Örneğin google.com sunucusuna ping atmak istersek, ancak TTL değerini 1 tutarsak,
-
+Kullanımı oldukça basittir:
 ```bash
-eaydin@dixon ~ $ ping -t 1 google.com
-PING google.com (216.58.208.110) 56(84) bytes of data.
-From 192.168.100.1 icmp_seq=1 Time to live exceeded
+traceroute <hedef_ip_veya_hostname>
 ```
-
-TTL değerimizi 2'ye çıkardığımızda,
-
+Örnek Çıktı:
 ```bash
-eaydin@dixon ~ $ ping -t 2 google.com
-PING google.com (216.58.208.110) 56(84) bytes of data.
-From 81.212.171.130.static.turktelekom.com.tr (81.212.171.130) icmp_seq=1 Time to live exceeded
-```
-
-Giderek artırırsak, Google'a ulaşana kadar geçtiğimiz yolu deşifre edebiliriz...
-
-```bash
-eaydin@dixon ~ $ ping -t 3 google.com
-PING google.com (216.58.208.110) 56(84) bytes of data.
-From 93.155.0.184 icmp_seq=1 Time to live exceeded
-```
-
-```bash
-eaydin@dixon ~ $ ping -t 4 google.com
-PING google.com (216.58.208.110) 56(84) bytes of data.
-From 81.212.106.225.static.turktelekom.com.tr (81.212.106.225) icmp_seq=4 Time to live exceeded
-```
-
-```bash
-eaydin@dixon ~ $ ping -t 5 google.com
-PING google.com (216.58.208.110) 56(84) bytes of data.
-From 195.175.173.172.06-ulus-xrs-t2-2.06-ulus-t3-7.statik.turktelekom.com.tr (195.175.173.172) icmp_seq=1 Time to live exceeded
-```
-
-Yukarıdaki örneklerde, Google'a ping pakedi \(ICMP echo\) gönderdik, ancak TTL'ini sırayla 3, 4, 5 yaptık. Yani "paket yola çıksın ama 3 router/hop noktası geçebilsin en fazla" dedik. 4. hata noktasında da bize cevap gönderdi. Aynı işlemi birer birer artırarak her hata aldığımız router/hop noktasından cevap toplamış olduk.
-
-Traceroute programı da aslında arka planda bu mantığı uygular. Sırasıyla ICMP paketlerimizin TTL'ini artırarak ilgili noktaya ulaşana kadar bu işi tekrar eder.
-
-## Kullanımı
-
-Kullanımı gayet basittir ve çıktısı aşağıdaki gibidir.
-
-```bash
-eaydin@dixon ~ $ traceroute google.com
 traceroute to google.com (216.58.209.14), 30 hops max, 60 byte packets
  1  192.168.100.1 (192.168.100.1)  8.191 ms  8.391 ms  8.403 ms
  2  81.212.171.130.static.turktelekom.com.tr (81.212.171.130)  42.977 ms  45.323 ms  45.343 ms
@@ -74,99 +39,39 @@ traceroute to google.com (216.58.209.14), 30 hops max, 60 byte packets
 11  sof01s12-in-f14.1e100.net (216.58.209.14)  76.291 ms  52.555 ms  52.308 ms
 ```
 
-Yukarıdaki çıktıyı incelediğimizde, 11 noktadan sonra Google'a erişebildiğimiz görüyoruz. Gerçekten de TTL 11 ile ping atarsak, Google'un cevap vereceğini görebiliriz.
+Yukarıdaki çıktıyı incelediğimizde, 11 atlama (hop) sonrasında `google.com`'a ulaşıldığı görülmektedir. Her satır, bir yönlendiriciyi temsil eder ve o yönlendiriciye gönderilen 3 paketin gidiş-dönüş süreleri (RTT - Round Trip Time) milisaniye cinsinden gösterilir.
 
-```bash
-eaydin@dixon ~ $ ping -t 11 google.com
-PING google.com (216.58.209.14) 56(84) bytes of data.
-64 bytes from sof01s12-in-f14.1e100.net (216.58.209.14): icmp_seq=1 ttl=54 time=51.5 ms
-```
+Aradaki `* * *` işaretleri, o hop'taki yönlendiricinin belirli bir süre içinde yanıt vermediği anlamına gelir. Bu durum, yönlendiricinin ICMP Time Exceeded mesajı göndermeyecek şekilde yapılandırılmış olmasından veya ağdaki yoğunluktan kaynaklanabilir. Bir satırda üç yerine daha az zaman değeri olması, o hop için gönderilen bazı paketlerin kaybolduğu veya zaman aşımına uğradığı anlamına gelir.
 
-Ancak arada bazı noktalarda "\*" işaretleri mevcut. Bu işaretler, ilgili sunucuya giderken pinglenen noktaların cevap vermediği, veya DNS çözümlemesinde hata yaşandığı gibi pek çok şeyi ifade edebilir.
+## Yaygın Seçenekler
 
-Farkındaysanız 9. satırda başta bir "\*" işareti var, sonra satır normal devam ediyor. Bunun sebebi, traceroute her noktayı pinglerken, 3 defa deniyor. Belli ki denemelerinden birinde başarısız olmuş. Her satır için 3 farklı ms değeri olması, ancak 9. satırda sadece 2 farklı ms değeri olması da bundan kaynaklanmaktadır.
+*   **`-n`**: IP adresleri için ters DNS çözümlemesi yapma, sadece numerik IP adreslerini göster. Genellikle işlemi hızlandırır.
+*   **`-q <sayı>`**: Her hop için gönderilecek sorgu (probe) paketlerinin sayısını belirler (varsayılan 3).
+*   **`-f <ilk_ttl>`**: Taramaya başlanacak ilk TTL değerini belirler (varsayılan 1).
+*   **`-m <maks_ttl>`**: Maksimum denenecek hop sayısını belirler (varsayılan genellikle 30 veya 64).
+*   **`-w <saniye>`**: Her bir sorgu için beklenecek maksimum yanıt süresini saniye cinsinden belirler (varsayılan genellikle 5).
+*   **`-I` veya `-M icmp`**: ICMP Echo paketleri kullanarak tarama yapmaya zorlar (ping gibi).
+*   **`-T` veya `-M tcp`**: TCP SYN paketleri kullanarak tarama yapmaya zorlar.
+    *   **`-p <port>`**: TCP metodu kullanılırken hedef portu belirtir (varsayılan 80). Firewall'ları aşmak için sıkça kullanılır (örn. `-T -p 80` veya `-T -p 443`).
+*   **`-U` veya `-M udp`**: UDP datagramları kullanarak tarama yapmaya zorlar (Linux'ta genellikle varsayılan).
+    *   **`-p <port>`**: UDP metodu kullanılırken hedef portu belirtir (varsayılan 33434'ten başlar ve artar).
+*   **`-6`**: IPv6 kullanarak tarama yapar (eğer sistemde IPv6 yapılandırılmışsa). `traceroute6` komutu da genellikle aynı işlevi görür.
 
-Her nokta \(hop\) için yapılacak pingleme \(query\) miktarını `-q` parametresiyle değiştirebilirsiniz. Ayrıca hostname çözümlemesi yapmayıp, doğrudan çıktıda IP adreslerinin görünmesini de `-n` ile sağlayabilirsiniz.
+## ICMP, UDP ve TCP Kullanım Metotları
 
-```bash
-eaydin@dixon ~ $ traceroute google.com -n -q 1
-traceroute to google.com (216.58.211.14), 30 hops max, 60 byte packets
- 1  192.168.100.1  5.363 ms
- 2  81.212.171.130  33.504 ms
- 3  93.155.0.184  35.415 ms
- 4  81.212.106.225  35.994 ms
- 5  195.175.174.42  37.083 ms
- 6  *
- 7  195.175.174.59  45.340 ms
- 8  72.14.197.192  53.157 ms
- 9  209.85.248.54  60.998 ms
-10  64.233.175.34  76.644 ms
-11  216.239.47.189  82.119 ms
-12  216.58.211.14  77.069 ms
-```
+`traceroute`, hedefe ulaşmaya çalışırken farklı protokoller kullanabilir. Hangi metodun çalışacağı, ağdaki güvenlik duvarı kurallarına bağlıdır.
 
-Traceroute algoritmasında TTL değerinin 1'den başladığını ifade etmiştik. Dilerseniz bu değeri 1'den başlatmak yerine farklı değerle taramaya başlayabilirsiniz.
+*   **UDP (Varsayılan - Linux):** `traceroute` varsayılan olarak, hedefin kullanmadığı düşünülen yüksek numaralı UDP portlarına (33434'ten başlayarak artan) datagramlar gönderir. Hedefe ulaşıldığında, hedef makine bu portu dinlemediği için bir ICMP "Port Unreachable" mesajı gönderir ve `traceroute` hedefe ulaştığını anlar. Birçok firewall UDP trafiğini engelleyebileceği için bu yöntem her zaman çalışmayabilir.
+*   **ICMP (`-I`):** Bu yöntem, `ping` gibi ICMP Echo Request paketleri gönderir. Hedefe ulaşıldığında, hedef ICMP Echo Reply ile yanıt verir. Birçok ağ yöneticisi güvenlik nedeniyle dışarıdan gelen ICMP Echo Request'leri engellediği için bu yöntem de her zaman başarılı olmayabilir. (Windows'taki `tracert` varsayılan olarak bu yöntemi kullanır).
+*   **TCP (`-T`):** Bu yöntem, hedefe TCP SYN paketleri gönderir. Genellikle hedef port olarak web sunucularının kullandığı 80 (HTTP) veya 443 (HTTPS) gibi, güvenlik duvarlarında açık olma olasılığı yüksek portlar seçilir (`-p` ile).
+    *   Aradaki yönlendiriciler TTL dolduğunda ICMP Time Exceeded gönderir.
+    *   Hedefe ulaşıldığında, eğer belirtilen port açıksa, hedef SYN/ACK ile yanıt verir. `traceroute` bu yanıtı aldığında hedefe ulaştığını anlar ve bağlantıyı tamamlamak yerine bir RST (Reset) paketi göndererek bağlantıyı hemen kapatır ("half-open" tekniği).
+    *   Eğer hedef port kapalıysa, hedef RST paketi gönderir ve `traceroute` yine hedefe ulaştığını anlar.
+    TCP metodu, ICMP veya UDP'nin engellendiği durumlarda genellikle daha başarılı sonuç verir.
 
-```bash
-eaydin@dixon ~ $ traceroute google.com -n -f 5
-traceroute to google.com (216.58.211.14), 30 hops max, 60 byte packets
- 5  195.175.174.42  34.707 ms  35.731 ms  37.701 ms
- 6  195.175.166.204  44.291 ms  44.878 ms  44.895 ms
- 7  * * *
- 8  72.14.197.194  55.306 ms 72.14.197.192  55.963 ms  55.967 ms
- 9  209.85.248.54  65.153 ms  67.279 ms  69.913 ms
-10  64.233.175.34  78.079 ms  68.314 ms  76.712 ms
-11  216.239.47.189  79.059 ms  88.210 ms  89.261 ms
-12  216.58.211.14  69.281 ms  78.807 ms  78.197 ms
-```
+## Alternatif Araçlar
 
-## ICMP, UDP ve TCP Kullanımı
+*   **`mtr` (My Traceroute):** `ping` ve `traceroute`'u birleştiren, sürekli güncellenen interaktif bir araçtır. Her hop için paket kaybı ve gecikme istatistiklerini dinamik olarak gösterir. Genellikle `mtr <hedef>` şeklinde kullanılır.
+*   **`tracepath`:** `traceroute`'a benzer, ancak genellikle root yetkisi gerektirmez (ICMP yerine UDP kullanır) ve yol üzerindeki MTU (Maximum Transmission Unit) değerini keşfetmeye çalışır.
 
-traceroute'un çalışma prensibini anlamak için ping komutunu farklı TTL'ler kullanarak denedik. Aslında traceroute komutu, parametre belirtilmediğinde ping atarak bu işlemi gerçekleştirmez, ancak mekanizmanın rahat anlaşılması için bu yöntemi tercih ettik.
-
-traceroute programı, parametre kullanılmadığında UDP ile yol çıkarmaya çalışır. Bunu nasıl yaptığını ve sebebini aşağıda inceleyeceğiz, ancak traceroute ile istediğimiz metodu kullanarak yol çıkarmak mümkün, yeter ki ağ yapısı buna müsaade etsin.
-
-Bağlantı tipini belirlemek için `-M` \(method\) parametresi kullanılır. Örneğin TCP yöntemini seçmek için
-
-```bash
-traceroute google.com -M tcp
-```
-
-**NOT:** MS Windows sistemlerde traceroute programı `tracert` ismiyle bulunur. Bunun sebebi, eski DOS sistemlerinde dosya isimlerine getirilen kısıtlamadır. Eski DOS sistemlerinde dosya adları en fazla 8 karakter olabilir, dosya uzantıları ise 3 karakter olabilirdi. Bunun için programı `tracert.exe` olarak isimlendirmişlerdir. Bu programın bir diğer farklılığı, standart tarama mekanizması olarak UDP değil, ICMP paketleri kullanmasıdır.
-
-### UDP ile Kullanımı
-
-Daha önce belirttiğimiz gibi, traceroute programı GNU/Linux üzerindeki dağıtımında parametre belirtilmeyince bu tekniği kullanır. UDP taramasıyla program, karşı tarafın UDP üzerinde bir servis çalıştığı "düşünülmeyen" portlarına datagram gönderir. Eğer karşı tarafta gerçekten bu portlarda bir servis çalışmıyorsa, cevap olarak "Destination Port Unreachable" içerikli bir ICMP paketi gönderir.
-
-traceroute UDP üzerinden tarama yaparken, 33434 portundan başlar, her hop'ta değeri bir artırır.
-
-### ICMP ile Kullanımı
-
-Bu yöntemi kullanmak için `-M icmp` veya `-I` parametreleri tanımlanır. traceroute programının algoritmasını anlatırken belirttiğimiz gibi ICMP paketleri kullanır, özetle karşı tarafı ping'leyebiliyorsanız, bu yöntemi kullanabilirsiniz.
-
-### TCP ile Kullanımı
-
-Aslında çok sık kullanılması gereken bu yöntem, biraz tecrübe gerektirdiğinden standart olarak sunulmaz, bu durum bir çok kişinin yol çıkarma işlemini doğru yapamamasına sebep olur. Pek çok firewall UDP paketlerini belirli port aralığı haricinde \(DNS vb.\) engeller, ICMP paketlerinin de engellenmesi çok sık karşılaşılan bir durumdur. Ancak ağ yöneticilerinin neredeyse her zaman izin verdiği bir takım servisler TCP üzerinden çalışır. Örneğin tarayacağımız ağ üzerinde çok büyük ihtimalle HTTP protokolünün standart portu olan TCP 80 izin veriliyordur. Bu durumdan faydalanarak firewall engellerini aşabiliriz. 80 en yaygın kullanılan olduğu için, standart port olarak belirlenmiş, ancak farklı port belirtmek de mümkün.
-
-```bash
-traceroute google.com -T -p 453
-```
-
-TCP taraması yapılırken, karşı tarafta bir bağlantı açmış olmayız. Normal şartlar altında bir TCP bağlantısı şu şekilde gerçekleştirilir:
-
-1. Karşı tarafa SYN paketi gönderilir
-2. Karşı taraftan SYN+ACK paketi alınır
-3. Karşı tarafa ACK paketi gönderilir
-
-Yukarıda tanımlanan "three-way handshake" ile iki sunucu arasında bir TCP bağlantısı kurulmuş olur. Son aşamada, ACK paketi geldikten sonra bağlantı başlayacağından, sunucu üzerindeki bir yazılım ancak bu aşamada bir bağlantı geldiğinden haberdar olur.
-
-Ancak traceroute aşağıdaki yöntemi izler.
-
-1. Karşı tarafa SYN paketi gönderilir
-2. Karşı taraftan SYN+ACK paketi alınır
-3. Karşı tarafa RST paketi gönderilir
-
-Son aşamada RST paketi gönderdiğimiz için karşı taraftaki hiçbir yazılım bizim SYN paketi veya RST paketi gönderdiğimizi görmez. Ancak network trafiğinin detaylı analiziyle \(veya firewall yardımıyla\) bu mümkün olur. Traceroute programının kullandığı bu bağlantı biçmine "half-open" \(yarı-açık\) teknik denilir.
-
-"Half-open" tekniği yerine programın gerçek bir TCP bağlantısı sunan, yani SYN -&gt; SYN+ACK -&gt; ACK şeklinde bağlantı kuran parametresi de mevcuttur. `-M tcpconn` ile bu sağlanabilir. Ancak bu durum tavsiye edilmez, hem karşı tarafta dinleyen servis gelen rastgele pakete ne cevap vereceğini bilmeyebilir, hem de application seviyesinde bağlantı kurduğunuz karşı tarafın loglarında yer alır.
-
+`traceroute` ve benzeri araçlar, ağ bağlantı sorunlarının yerini tespit etmek için vazgeçilmezdir.

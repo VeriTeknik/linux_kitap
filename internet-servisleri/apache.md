@@ -1,185 +1,173 @@
-# Apache
+# Apache HTTP Sunucusu
 
-Apache Web Sunucusu, Apache Vakfı tarafından sunulan, ücretsiz, Apache lisansı ile dağıtılan bir sunucu yazılımıdır. Temel olarak RFC2616\* direktifleri ve türevlerinin direktifleri doğrultusunda Web Yayım Hizmeti gerçekleştirir. HTTP OSI ISO katmanı 7'de anlamlı bilgi ve her türlü medyayı içeren dijital yayın hizmetinin temel ilkelerini belirler. Apache bu protokolün içeriğine katkıda bulunmadan, en güvenli, hızlı ve doğru biçimde sunulmasını sağlayan açık kaynak kodlu yazılımlardan biridir. Rakiplerine göre kullanım yaygınlığı, taşınabilirlik ve uyumluluk avantajları vardır.
+Apache HTTP Sunucusu (genellikle kısaca "Apache" veya RHEL tabanlı sistemlerde "httpd" olarak anılır), dünyanın en yaygın kullanılan açık kaynaklı web sunucusu yazılımlarından biridir. Apache Software Foundation tarafından geliştirilir ve Apache Lisansı altında dağıtılır. HTTP ve HTTPS protokolleri üzerinden web içeriği sunmak için kullanılır.
 
-Adını Amerikan Yerli'lerinden alan bu yazılım, NCSA httpd'nin 1.3 sürmünü temel alan ilk sürümünü 1995 yılında yapmıştır. Genişletilebilirlik için modüler API sunması rakipleri ile arasındaki farkın açılmasına neden olmuş ve liderlik koltuğunu kapmıştır. Bu yazı yazılırken (2015) halen liderlik Apache'dedir\*\*.
+## Temel Özellikler
 
-Apache'yi kaynak kodundan kurabileceğiniz gibi, sisteminize uygun binary arşivini de bulmanız mümkündür, kaynak koddan derlemenin günümüzde pek bir faydası olmayacağı aşikar olmakla birlikte, gerçekten kodun içerisine girip kendi yamalarınızı yapmayı düşünüyorsanız, tavsiye ederiz. Biz yine de kaynak kod derlemesinin nasıl yapıldığını göstereceğiz:
+*   **Modüler Yapı:** Apache'nin işlevselliği, dinamik olarak yüklenebilen modüller aracılığıyla genişletilebilir (örn. SSL/TLS, URL yeniden yazma, proxy, kimlik doğrulama modülleri).
+*   **Esnek Yapılandırma:** Direktif tabanlı yapılandırma dosyaları (`httpd.conf`, `.htaccess`) ile detaylı kontrol imkanı sunar.
+*   **Sanal Ana Bilgisayarlar (Virtual Hosts):** Tek bir sunucu üzerinde birden fazla web sitesini barındırmaya olanak tanır.
+*   **Platform Bağımsızlığı:** Çeşitli Unix benzeri sistemlerde (Linux, BSD) ve Windows üzerinde çalışabilir.
+*   **Geniş Topluluk Desteği:** Yaygın kullanımı sayesinde geniş bir kullanıcı topluluğuna ve bol miktarda belgeye sahiptir.
 
-Öncelikle gerekli olabilecek paketleri yükleyin, daha sonra bu paketleri kaldırabilirsiniz:\
-Yüklemek için
+## Kurulum (Paket Yöneticisi ile - Önerilen)
 
-```bash
-yum groupinstall "Development Tools"
-yum install cmake wget ncurses-devel openssl-devel \
-pcre-devel libxml2-devel curl-devel gd-devel libxslt-devel
-```
+Apache'yi kaynak koddan derlemek yerine, dağıtımınızın paket yöneticisini kullanmak **şiddetle tavsiye edilir**. Bu, kurulumu basitleştirir, güncellemeleri kolaylaştırır ve sistemle uyumluluğu sağlar.
 
-En son kararlı sürümü indirmek için [http://ftp.itu.edu.tr/Mirror/Apache/httpd/](http://ftp.itu.edu.tr/Mirror/Apache/httpd/) adresini ziyaret ediniz.
+*   **RHEL Tabanlı (CentOS Stream, Rocky, AlmaLinux, Fedora):**
+    Paket adı genellikle `httpd`'dir. SSL modülü (`mod_ssl`) ayrı kurulabilir.
+    ```bash
+    sudo dnf install httpd mod_ssl -y
+    ```
+*   **Debian Tabanlı (Debian, Ubuntu, Mint):**
+    Paket adı genellikle `apache2`'dir. SSL modülü genellikle varsayılan olarak gelir veya `a2enmod ssl` ile etkinleştirilir.
+    ```bash
+    sudo apt update
+    sudo apt install apache2 -y
+    ```
 
-```bash
-wget http://ftp.itu.edu.tr/Mirror/Apache/httpd/httpd-2.2.31.tar.gz
-tar zxvf httpd-2.2.31.tar.gz
-cd httpd-2.2.31
-```
+## Servis Yönetimi (`systemctl`)
 
-Tüm özellikleri ile çalışan temel Apache sürümü için aşağıdaki config yapısını kullanabilirsiniz:
+Apache servisi systemd ile yönetilir. Servis adı dağıtıma göre değişir:
 
-```bash
-./configure \
-        "--prefix=/etc/httpd" \
-        "--exec-prefix=/etc/httpd" \
-        "--bindir=/usr/bin" \
-        "--sbindir=/usr/sbin" \
-        "--sysconfdir=/etc/httpd/conf" \
-        "--enable-so" \
-        "--enable-dav" \
-        "--enable-info" \
-        "--enable-dav-fs" \
-        "--enable-dav-lock" \
-        "--enable-suexec" \
-        "--enable-deflate" \
-        "--enable-unique-id" \
-        "--enable-mods-static=most" \
-        "--enable-reqtimeout" \
-        "--with-mpm=prefork" \
-        "--with-suexec-caller=apache" \
-        "--with-suexec-docroot=/" \
-        "--with-suexec-gidmin=100" \
-        "--with-suexec-logfile=/var/log/httpd/suexec_log" \
-        "--with-suexec-uidmin=100" \
-        "--with-suexec-userdir=public_html" \
-        "--with-suexec-bin=/usr/sbin/suexec" \
-        "--with-included-apr" \
-        "--with-pcre=/usr" \
-        "--includedir=/usr/include/apache" \
-        "--libexecdir=/usr/lib/apache" \
-        "--datadir=/var/www" \
-        "--localstatedir=/var" \
-        "--enable-logio" \
-        "--enable-ssl" \
-        "--enable-rewrite" \
-        "--enable-proxy" \
-        "--enable-expires" \
-        "--with-ssl=/usr" \
-        "--enable-headers"
-```
-
-configure hatasız bir şekilde tamamlandıktan sonra, "make" ile derleyip, "make install" ile yüklemeyi tamamlayabilirsiniz.
+*   **RHEL Tabanlı:** `httpd.service`
+*   **Debian Tabanlı:** `apache2.service`
 
 ```bash
-make
-make install
+# Servisi başlatma
+sudo systemctl start httpd # veya apache2
+
+# Servisi durdurma
+sudo systemctl stop httpd # veya apache2
+
+# Servisi yeniden başlatma
+sudo systemctl restart httpd # veya apache2
+
+# Yapılandırmayı yeniden yükleme (daha hızlı)
+sudo systemctl reload httpd # veya apache2
+
+# Servisin durumunu kontrol etme
+sudo systemctl status httpd # veya apache2
+
+# Sistem başlangıcında otomatik çalışmasını sağlama
+sudo systemctl enable httpd # veya apache2
+
+# Sistem başlangıcında otomatik çalışmasını engelleme
+sudo systemctl disable httpd # veya apache2
 ```
 
-Yükleme tamamlanınca her derlemede olduğu gibi README dosyasını okumayı unutmayınız. Yükleme tamamlanınca PREFIX/bin/apachectl start komutu ile yazılımı çalıştırabilir ya da init scripti ile başlangıçta açılacak şekilde ayarlayabilirsiniz
+## Yapılandırma Dosyaları ve Yapısı
 
-```bash
-apachectl start
-ps -aux | grep httpd #ile calisip calismadigini test edebilirsiniz.
-#loglari kontrol edelim
-cat /var/log/error.log
-#[Tue Dec 08 01:21:37 2015] [warn] Init: Session Cache is not configured [hint: SSLSessionCache]
-#[Tue Dec 08 01:21:37 2015] [notice] suEXEC mechanism enabled (wrapper: /usr/sbin/suexec)
-#[Tue Dec 08 01:21:38 2015] [notice] Apache/2.2.31 (Unix) mod_ssl/2.2.31 OpenSSL/1.0.1e-fips DAV/2 configured -- \
-# resuming normal operations
-```
+Apache'nin yapılandırma dosyalarının konumu ve organizasyonu dağıtım aileleri arasında farklılık gösterir:
 
-Apache yüklendiğinde, /etc/httpd içerisine conf dosyalarını atar, ana ayar dosyası /etc/httpd/conf içerisindeki httpd.conf dosyasıdır. Bu dosya gayet düz, okunabilir ve yapısaldır. Biraz sabırla okursanız tüm ayarları öğrenebilirsiniz. Sunucu direktifleri tek bir host için ayaralanıyormuş hissi uyandırırsa, tahminlerinizde yanılmazsınız. Bu servis ilk tasarlandığında bir IP adresi ya da sunucuda birden çok web sitesi tutulabileceği düşünülmemişti. Bu nedenle conf dosyasının %80'i varsayılan web sitesinin ayarlarını içermektedir.
+**1. RHEL Tabanlı Sistemler (`/etc/httpd/`)**
 
-Daha sonraki yıllarda kullanılmaya başlayan virtual\_host direktifi ile kullanıcılar için oluşturacağınız web sitelerinin ayarlarını barındırabilirsiniz.
+*   **Ana Yapılandırma:** `/etc/httpd/conf/httpd.conf`
+*   **Modül Yapılandırmaları:** `/etc/httpd/conf.modules.d/`
+*   **Ek Yapılandırmalar/Sanal Ana Bilgisayarlar:** `/etc/httpd/conf.d/`
+    *   Genellikle sanal ana bilgisayar (Virtual Host) tanımları bu dizine `.conf` uzantılı dosyalar halinde eklenir (örn. `/etc/httpd/conf.d/vhost-example.com.conf`).
+    *   `httpd.conf` dosyasının sonunda genellikle `IncludeOptional conf.d/*.conf` satırı bulunur.
 
-Paket Yöneticisi ile Kurulum
+**2. Debian Tabanlı Sistemler (`/etc/apache2/`)**
 
-Paket yükleyicisi ile kurulum oldukça kolaydır, tercih ettiğiniz sürüme göre yüklemeyi şu şekilde yapabilirsiniz:
+*   **Ana Yapılandırma:** `/etc/apache2/apache2.conf`
+*   **Portlar:** `/etc/apache2/ports.conf`
+*   **Modüller:**
+    *   Mevcut Modüller: `/etc/apache2/mods-available/`
+    *   Etkin Modüller: `/etc/apache2/mods-enabled/` (buradakiler `mods-available`'a sembolik linklerdir)
+    *   Etkinleştirme/Devre Dışı Bırakma: `a2enmod <modül_adı>`, `a2dismod <modül_adı>`
+*   **Site Yapılandırmaları (Sanal Ana Bilgisayarlar):**
+    *   Mevcut Siteler: `/etc/apache2/sites-available/` (örn. `example.com.conf`)
+    *   Etkin Siteler: `/etc/apache2/sites-enabled/` (buradakiler `sites-available`'a sembolik linklerdir)
+    *   Etkinleştirme/Devre Dışı Bırakma: `a2ensite <site_dosya_adı>`, `a2dissite <site_dosya_adı>`
+*   **Ek Yapılandırma Parçaları:**
+    *   Mevcut Yapılandırmalar: `/etc/apache2/conf-available/`
+    *   Etkin Yapılandırmalar: `/etc/apache2/conf-enabled/`
+    *   Etkinleştirme/Devre Dışı Bırakma: `a2enconf <conf_dosya_adı>`, `a2disconf <conf_dosya_adı>`
 
-```
-#CentOS
-yum install httpd mod_ssl
-#Debian, Pardus
-apt-get install apache2
-```
+Debian tabanlı sistemlerdeki bu yapı, yapılandırmayı daha modüler hale getirir ve siteleri/modülleri kolayca etkinleştirip devre dışı bırakmayı sağlar.
 
-### Virtual Host
+## Temel Sanal Ana Bilgisayar (Virtual Host) Yapılandırması (Apache 2.4+)
 
-Öncelikle kullanıcı oluşturalım:
+Aşağıda, `example.com` alan adı için basit bir sanal ana bilgisayar tanımı örneği verilmiştir (Apache 2.4 ve sonrası sözdizimi ile).
 
-```bash
-useradd web
-passwd web
-chmod 755 /home/web
-mkdir /home/web/{public_html,logs}
-touch /home/web/logs/{error.log,access.log,php_error.log}
-#ilk sayfanizi da olusturun
-echo "Merhaba Dunya" > /home/web/public_html/index.html
-chown -R web:web /home/web/
-chown daemon:daemon /home/web/logs/php_error.log # config dosyasından kullanıcıyı değiştirebilirsiniz.
-```
+**RHEL Tabanlı (`/etc/httpd/conf.d/example.com.conf`):**
+```apache
+<VirtualHost *:80>
+    ServerAdmin webmaster@example.com
+    ServerName example.com
+    ServerAlias www.example.com # İsteğe bağlı ek alan adları
 
-Sanal sunucu eklemek için "/etc/httpd/conf/extra" içerisindeki "httpd-vhosts.conf" dosyasını değiştirmeniz gerekir. Ben bu dosyayı değiştirmek yerine "/etc/httpd/conf.d/" içerisine kendi dosyalarımı atıyorum, bu şekilde ayar dosyalarınız daha taşınabilir şekilde oluyor. Yeni lokasyonun Apache tarafından taranması için "/etc/httpd/conf/httpd.conf" içerisine şu komut ile direktifi ekleyin:
+    DocumentRoot /var/www/example.com/html # Web sitesi dosyalarının konumu
 
-```bash
-echo "Include conf.d/*.conf" >> /etc/httpd/conf/httpd.conf
-mkdir /etc/httpd/conf.d
-#digerini de silin
-mv /etc/httpd/conf/extra/httpd-vhosts.conf /etc/httpd/conf/extra/httpd-vhosts.conf.old
-```
+    ErrorLog /var/log/httpd/example.com-error.log
+    CustomLog /var/log/httpd/example.com-access.log combined
 
-Yeni direktif dosyaınızı oluşturun, dosyanız asgari şu komutları içermelidir:
-
-```bash
-vi /etc/httpd/conf.d/z_web.conf
-NameVirtualHost __IPADRESI__:80
-
-<VirtualHost __IPADRESI__:80>
-    ServerAdmin root@veriteknik.com
-    DocumentRoot /home/web/public_html
-    ServerName apachetest.veriteknik.com 
-    ServerAlias apachetest2.veriteknik.local __IPADRESI__
-    ErrorLog /home/web/logs/error.log
-    CustomLog /home/web/logs/access.log common
-
-    <Directory "/home/web/public_html">
-        order deny,allow
-        allow from all
-        Options None
+    <Directory "/var/www/example.com/html">
+        AllowOverride None # .htaccess kullanımını kontrol eder
+        Require all granted # Apache 2.4+ erişim kontrolü
     </Directory>
 </VirtualHost>
 ```
 
-Sanal Sunucunuza IP adresi ile de giriş yapılmasını istiyorsanız NameVirtualHost direktifini kullanmanız gerekir
+**Debian Tabanlı (`/etc/apache2/sites-available/example.com.conf`):**
+```apache
+<VirtualHost *:80>
+    ServerAdmin webmaster@example.com
+    ServerName example.com
+    ServerAlias www.example.com
 
-## Sunucu İzleme
+    DocumentRoot /var/www/example.com/html 
 
-Apache web sunucusunu izlemek için araçlar sunmaktadır, extra dizini altında "httpd-info.conf" dosyasını aşağıdaki şekilde edit ediniz:
+    ErrorLog ${APACHE_LOG_DIR}/example.com-error.log
+    CustomLog ${APACHE_LOG_DIR}/example.com-access.log combined
 
+    <Directory "/var/www/example.com/html">
+        AllowOverride None
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
+*   `<VirtualHost *:80>`: Port 80'e gelen tüm IP adreslerindeki istekler için sanal ana bilgisayarı tanımlar. HTTPS için `<VirtualHost *:443>` kullanılır.
+*   `ServerName`: Sanal ana bilgisayarın birincil alan adı.
+*   `ServerAlias`: İsteğe bağlı ek alan adları.
+*   `DocumentRoot`: Bu siteye ait web dosyalarının bulunduğu kök dizin.
+*   `ErrorLog`, `CustomLog`: Bu siteye özel log dosyaları.
+*   `<Directory ...>`: Belirtilen dizin için erişim izinleri ve seçenekleri tanımlar.
+    *   `AllowOverride None`: `.htaccess` dosyalarının direktifleri geçersiz kılmasına izin verilmez (daha güvenli ve performanslı).
+    *   `Require all granted`: Apache 2.4'te dizine erişime izin verir. Eski `Order allow,deny` ve `Allow from all` direktiflerinin yerini almıştır.
+
+Debian tabanlı sistemlerde, bu dosyayı oluşturduktan sonra siteyi etkinleştirmek gerekir:
 ```bash
-<Location /sunucu-durumu>
-    SetHandler server-status
-    Order deny,allow
-    Deny from all
-    Allow from 192.168.16.
-</Location>
-
-ExtendedStatus On
-
-<Location /sunucu-bilgisi>
-    SetHandler server-info
-    Order deny,allow
-    Deny from all
-    Allow from 192.168.16.
-</Location>
+sudo a2ensite example.com.conf
+sudo systemctl reload apache2
 ```
 
-_\*_ Sunucu bilgisinin çıkabilmesi için mod\_info'nun yüklü ya da statik olarak derlenmiş olması gerekmeketedir, apachectl -l | grep mod\_info sorusuna cevap alabiliyorsanız modül yüklüdür
+## Sunucu Durumu ve Bilgisi (mod_status, mod_info)
 
-```bash
-apachectl -l | grep mod_info
-mod_info.c
+Apache'nin çalışma durumunu (aktif bağlantılar, yük vb.) izlemek için `mod_status`, yapılandırma ve modül bilgilerini görmek için `mod_info` modülleri kullanılabilir. Bu modüller genellikle ayrı yapılandırma dosyalarıyla etkinleştirilir ve güvenlik nedeniyle erişimleri kısıtlanmalıdır.
+
+**Örnek Yapılandırma (Debian: `/etc/apache2/conf-available/server-status.conf`):**
+```apache
+<IfModule mod_status.c>
+    <Location /server-status>
+        SetHandler server-status
+        Require local # Sadece localhost'tan erişime izin ver
+        # Require ip 192.168.1.0/24 # Belirli bir IP bloğuna izin ver
+    </Location>
+    ExtendedStatus On # Daha detaylı bilgi göster
+</IfModule>
 ```
+Etkinleştirmek için:
+```bash
+sudo a2enconf server-status
+sudo a2enmod status # Gerekliyse modülü de etkinleştir
+sudo systemctl reload apache2
+```
+Ardından `http://localhost/server-status` adresinden erişilebilir. `mod_info` için de benzer bir yapılandırma (`<Location /server-info>`) yapılır.
 
-`Module Name kısmı altında, Module Directives kısmında "none" yazıyorsa bu modülü kullanmıyorsunuz anlamına gelir, kullanmadığınız modülleri güvenle kaldırabilirsiniz`
+## HTTPS/TLS (SSL)
 
-#### \* Bkz: [https://tools.ietf.org/html/rfc2616](https://tools.ietf.org/html/rfc2616)
+Güvenli web siteleri için HTTPS (HTTP over TLS/SSL) kullanmak zorunludur. Apache'de HTTPS'i etkinleştirmek için `mod_ssl` modülünün aktif olması, 443 portunun dinlenmesi ve bir SSL sertifikasının (genellikle Let's Encrypt ile ücretsiz alınabilir) yapılandırılması gerekir. Sanal ana bilgisayar tanımı `<VirtualHost *:443>` bloğu içinde yapılır ve `SSLEngine on`, `SSLCertificateFile`, `SSLCertificateKeyFile` gibi direktifler eklenir.
 
-#### \*\* [http://news.netcraft.com/archives/category/web-server-survey/](http://news.netcraft.com/archives/category/web-server-survey/)
+Apache, esnekliği ve geniş modül ekosistemi ile güçlü bir web sunucusudur. Alternatifi olarak Nginx, özellikle yüksek trafikli sitelerde ve ters proxy olarak popülerlik kazanmıştır.

@@ -1,46 +1,87 @@
-# Repo Ayarları
+# DNF Depo (Repository) Ayarları
 
-yum ile sistemimize kurduğumuz RPM paketlerini indirdiğimiz kaynağa Linux sistemler üzerinde *repository* ismi verilmektedir. Repositoryler dağıtımların resmi kaynakları olabileceği gibi, farklı firma veya şahısların geliştirdiği yazılımları dağıtmak için çeşitlendirilebilir de.
+`dnf` paket yöneticisi, RPM paketlerini **depo** (repository) adı verilen kaynaklardan indirir. Bu depolar, dağıtımın resmi paketlerini barındıran sunucular olabileceği gibi, üçüncü parti yazılımları veya güncel sürümleri içeren ek depolar da olabilir.
 
-Repository (kısaca *repo*) ayarları Red Hat tabanlı sistemlerde ```/etc/yum.repos.d``` dizini altındaki dosyalarda saklanır.
+## Depo Yapılandırma Dosyaları (`.repo`)
 
-Örneğin EPEL (Extra Packages for Enterprice Linux) repoları, resmen Redhat/CentOS parçası olmamakla birlikte, Linux kullanıcıları topluluğunun sağladığı pek çok pakedi barındırır.
+Yazılım depoları, `/etc/yum.repos.d/` dizini altında bulunan `.repo` uzantılı metin dosyaları ile tanımlanır. Her bir `.repo` dosyası bir veya daha fazla depo bölümü içerebilir.
 
-EPEL reposunu sistemimize eklediğimizde, daha önce erişemediğimiz pek çok pakete (örneğin *redis*) erişebiliriz.
+Bir depo bölümü genellikle aşağıdaki gibi görünür:
 
-EPEL reposunu sistemimize eklemek için, *wget* ile rpm dosyasını edinmek, arından bu rpm dosyasını sistemimize *yüklemek* gerekir.
-
-```bash
-## RHEL/CentOS 6 64-Bit ##
-[root@emre ~]# wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-[root@emre ~]# rpm -ivh epel-release-6-8.noarch.rpm
+```ini
+[repo-id]
+name=Deponun Açıklayıcı Adı
+baseurl=http://depo.sunucusu/yol/mimari/
+# veya mirrorlist=http://ayna.listesi.sunucusu/?release=$releasever&arch=$basearch&repo=repo-id
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-repo-id
 ```
 
-Yukarıdaki komutun ardından sistemimizde EPEL reposu aktif olacaktır. Örneğimiz için kullandığımız rpm dosyasının RedHat/CentOS 6 için ve 64bit mimariler için olduğunu unutmayın. Kendi sisteminiz farklılık gösteriyorsa, farklı dosya indirmeniz gerekecektir.
+*   **`[repo-id]`**: Depo için benzersiz bir kimlik (ID). Köşeli parantez içinde yazılır.
+*   **`name`**: Deponun insan tarafından okunabilir adı.
+*   **`baseurl`**: Deponun bulunduğu ana URL. Birden fazla `baseurl` satırı olabilir. `$releasever` (örn. 8, 9) ve `$basearch` (örn. x86_64, aarch64) gibi değişkenler içerebilir.
+*   **`mirrorlist`**: `baseurl` yerine, coğrafi olarak en yakın veya en hızlı depoyu bulmak için kullanılan bir ayna listesi URL'si.
+*   **`enabled`**: Deponun aktif olup olmadığını belirtir (`1` aktif, `0` pasif).
+*   **`gpgcheck`**: Paketlerin GPG imzalarının kontrol edilip edilmeyeceğini belirtir (`1` evet, `0` hayır). Güvenlik için genellikle `1` olması önerilir.
+*   **`gpgkey`**: Paketleri doğrulamak için kullanılacak GPG anahtarının URL'si veya dosya yolu. `gpgcheck=1` ise bu gereklidir.
 
-Reponun sisteminize dahil olduğuna emin olmak için aşağıdaki komutun çıktısına bakabilirsiniz.
+## Depoları Listeleme ve Yönetme
 
+**Aktif Depoları Listeleme:**
+Sistemde tanımlı ve aktif (enabled) olan depoları listelemek için:
 ```bash
-yum repolist
+sudo dnf repolist
 ```
 
-Bazı repolar geliştirilme süreçleri için kullanılırlar, böyle olmayan repolar genellikle kendiliğinden "enabled" durumda olurlar. Eğer enabled değillerse, bir paketi o repoyu kullanarak aramak için *yum* parametresi verilebilir.
-
+**Tüm Depoları Listeleme (Aktif ve Pasif):**
 ```bash
-yum --enablerepo="epel" list zmap
+sudo dnf repolist all
 ```
 
-Sisteminizde birden fazla repo aktifse ve sadece bir repo üzerindeki paketleri listelemek istiyorsanız, aşağıdaki gibi bir komut kullanabilirsiniz.
-
+**Depoları Etkinleştirme/Devre Dışı Bırakma (Geçici - Komut Bazında):**
+Bir `dnf` komutunu çalıştırırken belirli depoları geçici olarak etkinleştirmek veya devre dışı bırakmak için `--enablerepo` ve `--disablerepo` seçenekleri kullanılır:
 ```bash
-yum --disablerepo="*" --enablerepo="epel" list available
+# epel deposunu geçici olarak etkinleştirerek zmap paketini ara
+sudo dnf --enablerepo=epel search zmap
+
+# base ve updates dışındaki tüm depoları devre dışı bırakarak sadece bu depolardaki paketleri listele
+sudo dnf --disablerepo="*" --enablerepo="base,updates" list available 
 ```
 
-Sisteminizden bir yum reposunu kaldırmak isterseniz, ```/etc/yum.conf.d/``` altındaki repo dosyasından ilgili reponun rpm paketini bulmanız, sonra rpm ile bu paketi kaldıracağınızı belirtmeniz gerekir.
-
+**Depoları Etkinleştirme/Devre Dışı Bırakma (Kalıcı - `dnf config-manager`):**
+`dnf-plugins-core` paketi ile gelen `dnf config-manager` aracı, depoları kalıcı olarak yönetmek için kolay bir yol sunar (eğer kurulu değilse `sudo dnf install dnf-plugins-core` ile kurun):
 ```bash
-[root@emre ~]# rpm -qf /etc/yum.repos.d/epel.repo
-epel-release-6-8.noarch
-[root@emre ~]# yum remove epel-release
-```
+# epel deposunu kalıcı olarak etkinleştir
+sudo dnf config-manager --set-enabled epel
 
+# epel deposunu kalıcı olarak devre dışı bırak
+sudo dnf config-manager --set-disabled epel
+
+# Yeni bir depo URL'si ekle
+sudo dnf config-manager --add-repo http://ornek.com/yeni/depo.repo
+```
+Alternatif olarak, ilgili `.repo` dosyasındaki `enabled=1` veya `enabled=0` satırını manuel olarak da düzenleyebilirsiniz.
+
+## Örnek: EPEL Deposunu Ekleme
+
+EPEL (Extra Packages for Enterprise Linux), Fedora topluluğu tarafından yönetilen ve RHEL tabanlı dağıtımlar için birçok ek paket içeren popüler bir depodur.
+
+Modern RHEL, CentOS Stream, Rocky Linux, AlmaLinux sürümlerine EPEL eklemek için genellikle ilgili `epel-release` paketini kurmak yeterlidir:
+```bash
+# EPEL deposunu kur ve etkinleştir
+sudo dnf install epel-release -y
+
+# Depo listesini kontrol et
+sudo dnf repolist
+```
+Bu komut, gerekli `.repo` dosyasını ve GPG anahtarını `/etc/yum.repos.d/` altına otomatik olarak ekler.
+
+## Depo Kaldırma
+
+Bir depo genellikle onu ekleyen paket (örneğin `epel-release`) kaldırılarak sistemden kaldırılır:
+```bash
+# EPEL deposunu kaldır
+sudo dnf remove epel-release
+```
+Eğer depo manuel olarak bir `.repo` dosyası ile eklenmişse, ilgili `.repo` dosyasını `/etc/yum.repos.d/` dizininden silmek veya `enabled=0` olarak ayarlamak yeterlidir. Depo kaldırıldıktan veya devre dışı bırakıldıktan sonra `dnf clean all` komutu ile önbelleği temizlemek iyi bir pratik olabilir.

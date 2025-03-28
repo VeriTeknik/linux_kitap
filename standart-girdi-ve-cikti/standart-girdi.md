@@ -126,9 +126,25 @@ mysql
 wordpress
 ```
 
+**Here Documents (`<<`)**
+
+`<<<` (here string) tek satırlık veya basit girdiler için kullanışlıdır. Birden fazla satırdan oluşan girdiyi doğrudan komut satırında veya bir betik içinde standart girdi olarak sağlamak için "here document" (`<<`) yapısı kullanılır. Bu yapıda, bir sınırlayıcı (delimiter) belirlenir ve bu sınırlayıcı tekrar tek başına bir satırda yazılana kadar arasındaki tüm satırlar komuta standart girdi olarak gönderilir.
+
+Örnek:
+
+```bash
+# 'EOF' sınırlayıcı olarak kullanılıyor
+mysql << EOF
+show databases;
+use wordpress;
+show tables;
+EOF
+```
+
+Bu komut çalıştırıldığında, `show databases;`, `use wordpress;` ve `show tables;` komutları sırasıyla `mysql` programına standart girdi olarak gönderilir. Sınırlayıcı (`EOF`) herhangi bir kelime olabilir, ancak genellikle `EOF` (End Of File) kullanılır.
+
 Hatırlarsanız bu bölümde `cat` programına parametrik kullanım ve standart girdi ile veri sağlanmasının kullanıcı açısından pek bir fark yaratmadığını, ancak ufak bir farklılığı olduğundan bahsetmiştik.
 
 `cat dosya-ismi` kullanımında, önce `cat` programı çalıştırılır, `cat` programı da parametreleri hangi sırada nasıl okuyorsa ona göre ilgili işlemleri yapar. Ancak `cat < dosya-ismi` kullanımında, kabuk \(_shell_\) önce `dosya-ismi` dosyasını yüklemeye çalışır, eğer bu dosya mevcut değil veya kullanıcı tarafından erişilemez durumdaysa, hata verir ve `cat` programını hiç çalıştırmaz bile. Bu, özellikle `cat` gibi küçük programlarda hissedilmeyen etkilere sebep olur ancak `mysql` veya çok daha büyük bir programın her defasında boş yere çağırılmasına engel olabileceği için, aslında kabuk programlamada mümkünse kullanılması gereken yöntemlerden birisidir ve doğru kullanıldığında bazı noktalarda sisteminizin daha verimli çalışmasını sağlayabilir.
 
 Standart girdinin **&lt;** notasyonu ile kullanımı, yıllarca UNIX sistemler yönetmiş bir kişinin bile çok nadir karşılaştığı durumlar olabilir. Bu kitapta da özellikle **crontab** ve **netcat** bölümlerinde birkaç örneği dışında denk gelmemeniz olası. Ancak standart girdinin ne işe yaradığının anlaşılması, özellikle birazdan göreceğimiz **pipe** mekanizmasının anlaşılmasında belkemiği görevi görmektedir.
-
