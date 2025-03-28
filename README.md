@@ -72,4 +72,4 @@ Terimler Türkçe karşılıkları belirtilerek çoğunlukla İngilizce olarak k
 
 ... Veri her yerde ...
 
-Copyright 2015-2018 VeriTeknik Bilişim, Basın ve Yayın Ltd. Şti. İzinsiz alıntı yapılamaz, kopyalanamaz ve çoğaltılamaz.
+Copyright 2015-2025 VeriTeknik Bilişim, Basın ve Yayın Ltd. Şti. İzinsiz alıntı yapılamaz, kopyalanamaz ve çoğaltılamaz.
