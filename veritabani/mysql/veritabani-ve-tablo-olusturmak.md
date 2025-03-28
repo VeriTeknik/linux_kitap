@@ -1,10 +1,24 @@
 # Veritabanı ve Tablo Oluşturmak
 
-MySQL üzerindeki veritabanlarını yönetmek için bir çok yönetim aracı olsa da biz kabuk üzerinden yöneteceğiz. Yönetim araçlarının çoğu da yazacağımız komutları bizim yerimize kabuktan yazmak dışında bir işlem yapmıyor.
+MySQL veya MariaDB sunucusundaki veritabanlarını ve tabloları yönetmek için komut satırı istemcisi (`mysql` veya `mariadb`) kullanılır. Grafiksel araçlar da mevcut olsa da, temel işlemleri komut satırından yapmak önemlidir.
 
-`mysql -u root -p` komutuyla MySQL kabuğuna bağlanalım.
+**MySQL/MariaDB Kabuğuna Bağlanma:**
 
--u parametresi ile kullanıcı adımızı, -p parametresi ile de parola ile giriş yapacağımızı belirttik.
+Genellikle `root` kullanıcısı ile bağlanılır. Bağlantı yöntemi, kurulum sırasında belirlenen kimlik doğrulama yöntemine göre değişir:
+
+*   **Şifre ile:**
+    ```bash
+    mysql -u root -p 
+    ```
+    Bu komut `root` kullanıcısının şifresini soracaktır. `-u` kullanıcı adını, `-p` şifre sorulacağını belirtir.
+*   **Unix Soket Kimlik Doğrulaması ile (Yaygın):**
+    Modern kurulumlarda `root` kullanıcısı genellikle şifre yerine sistemin `root` kullanıcısı ile eşleştirilir (örn. `auth_socket` veya `unix_socket` eklentisi ile). Bu durumda `sudo` kullanarak şifresiz bağlanılabilir:
+    ```bash
+    sudo mysql 
+    # veya sudo mariadb
+    ```
+
+Başarıyla bağlandıktan sonra `mysql>` veya `MariaDB [(none)]>` gibi bir istem (prompt) görürsünüz.
 
 ```bash
 [celep@veriteknik ~]$ mysql -u root -p
@@ -24,7 +38,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 Şimdi varolan veritabanlarını listelemek için `SHOW DATABASES;` komutunu kullanalım.
 
-> MySQL'deki her komut noktalı virgül ile biter.
+> **Not:** MySQL/MariaDB kabuğundaki çoğu SQL komutu noktalı virgül (`;`) ile bitirilmelidir. `\g` de alternatif olarak kullanılabilir. `help;` veya `\h` komutu yardım bilgilerini gösterir. `exit` veya `quit` ile kabuktan çıkılır.
 
 ```bash
 mysql> SHOW DATABASES;
@@ -39,14 +53,28 @@ mysql> SHOW DATABASES;
 4 rows in set (0.00 sec)
 ```
 
-Şu an MySQL'in içinde 4 veritabanı görüyoruz. Biz, company adındaki kendi veritabanımızı oluşturacağız. Bunun için `CREATE DATABASE company;` komutunu kullanmamız gerekiyor.
+Şu an MySQL'in içinde varsayılan sistem veritabanlarını görüyoruz (`information_schema`, `mysql`, `performance_schema`, `sys`). Kendi veritabanımızı oluşturalım.
 
+**Veritabanı Oluşturma (`CREATE DATABASE`):**
+
+`company` adında yeni bir veritabanı oluşturalım. Türkçe karakterleri ve modern Unicode desteğini düzgün sağlamak için genellikle `utf8mb4` karakter seti ve uygun bir collation (örn. `utf8mb4_general_ci` veya `utf8mb4_unicode_ci`) belirtmek iyi bir pratiktir.
+
+```sql
+CREATE DATABASE company 
+CHARACTER SET utf8mb4 
+COLLATE utf8mb4_unicode_ci;
 ```
-mysql> CREATE DATABASE company;
+```
 Query OK, 1 row affected (0.00 sec)
 ```
+Komut başarıyla çalıştı. `SHOW DATABASES;` komutuyla `company` veritabanının eklendiğini görebilirsiniz.
 
-Kodumuz başarıyla çalıştı. `SHOW DATABASES;` komutunu kullanarak kontrol edebilirsiniz. İşlemlerimizi bu veritabanı üzerinden yapacağımız için veritabanımıza bağlanalım. Bunun için `USE company;` komutunu kullanacağız.
+**Veritabanını Seçme (`USE`):**
+
+İşlemlerimizi bu veritabanı üzerinde yapmak için onu seçmemiz gerekir:
+```sql
+USE company;
+```
 
 ```
 mysql> USE company;
@@ -60,43 +88,67 @@ mysql> SHOW TABLES;
 Empty set (0.00 sec)
 ```
 
-Gördüğünüz gibi içinde herhangi bir tablo yok. Tablo oluşturmak için `CREATE TABLE member(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(20), last_name VARCHAR(20), e_mail VARCHAR(50), birthday date, reg_date TIMESTAMP);` komutunu kullanacağız. Çalıştırmadan önce bu komutu inceleyelim. Herhangi bir komutu çalıştırmadan önce okumalısınız, asla kopyala yapıştır yaparak komut çalıştırmayın.
+Gördüğünüz gibi içinde herhangi bir tablo yok. Şimdi `member` adında bir tablo oluşturalım.
 
-`CREATE TABLE person(`  person adında bir tablo oluşturacağımızı belirttik. Parantez içerisinde de kolonları ve kolonların özelliklerini belirtmemizi bekliyorlar.
+**Tablo Oluşturma (`CREATE TABLE`):**
 
-`id INT NOT NULL PRIMARY KEY AUTO_INSCREMENT,` id adındaki kolonundaki verilerin Integer yani tam sayı olacağını, bu veriyi bizim göndermeyeceğimizi sistemin kendisinin otomatik arttıracağını belirttik.
+`CREATE TABLE` komutu ile tablonun adı ve içereceği sütunlar (kolonlar) tanımlanır. Her sütun için bir ad, bir veri tipi ve isteğe bağlı kısıtlamalar (constraints) belirtilir.
 
-`first_name VARCHAR(20), last_name VARCHAR(20), e_mail VARCHAR(50),` burada en fazla 20 karakter olabilecek isim ve soyisim kolonlarını, en fazla 50 karakter olabilecek e-posta kolonuna ve
+```sql
+CREATE TABLE member (
+    id INT NOT NULL AUTO_INCREMENT,         -- Otomatik artan tam sayı ID
+    first_name VARCHAR(50) NOT NULL,        -- İsim (Boş olamaz)
+    last_name VARCHAR(50) NOT NULL,         -- Soyisim (Boş olamaz)
+    email VARCHAR(100) UNIQUE,              -- E-posta (Benzersiz olmalı)
+    birthday DATE NULL,                     -- Doğum tarihi (Boş olabilir)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Kayıt oluşturma zamanı (varsayılan: şu an)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Kayıt güncelleme zamanı
+    PRIMARY KEY (id)                        -- 'id' sütununu birincil anahtar yap
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci; 
+```
 
-`birthday date,` MySQL, bu kolona girilecek verinin YYYY-MM-DD formatında olmasını bekliyor.
+**Açıklamalar:**
 
-`reg_Date TIMESTAMP);`  kullanıcının kayıt olduğu tarihi zaman damgasıyla tabloya kaydediyoruz. MySQL sunucu saatine göre, her satırda yıl-ay-gün saat-dakika-saniye olarak bu veriyi otomatik olarak bu bilgiyi kaydediyor.
+*   `id INT NOT NULL AUTO_INCREMENT`: `id` adında, tam sayı (`INT`), boş olamayan (`NOT NULL`), her yeni kayıtta otomatik olarak artan (`AUTO_INCREMENT`) bir sütun. Genellikle birincil anahtar olarak kullanılır.
+*   `first_name VARCHAR(50) NOT NULL`: En fazla 50 karakter uzunluğunda metin (`VARCHAR`), boş olamaz.
+*   `email VARCHAR(100) UNIQUE`: En fazla 100 karakter uzunluğunda metin, bu sütundaki değerler benzersiz (`UNIQUE`) olmalıdır (aynı e-posta iki kez girilemez).
+*   `birthday DATE NULL`: Tarih (`YYYY-MM-DD` formatında), boş (`NULL`) olabilir.
+*   `created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP`: Zaman damgası (`YYYY-MM-DD HH:MM:SS` formatında). Kayıt eklendiğinde varsayılan olarak o anki zaman damgasını alır (`DEFAULT CURRENT_TIMESTAMP`).
+*   `updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`: Zaman damgası. Kayıt eklendiğinde varsayılan olarak o anki zamanı alır ve kayıt her güncellendiğinde otomatik olarak o anki zaman damgasıyla güncellenir (`ON UPDATE CURRENT_TIMESTAMP`).
+*   `PRIMARY KEY (id)`: `id` sütununu tablonun birincil anahtarı olarak tanımlar. Birincil anahtar, tablodaki her satırı benzersiz şekilde tanımlar ve genellikle `NOT NULL` olmalıdır.
+*   `ENGINE=InnoDB`: Kullanılacak depolama motorunu belirtir. `InnoDB` varsayılan ve en yaygın kullanılan motordur; ACID uyumluluğu (transactions), satır seviyesinde kilitleme ve yabancı anahtar (foreign key) desteği sunar. Eski `MyISAM` motoru genellikle özel durumlar dışında tercih edilmez.
+*   `DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`: Tablo için varsayılan karakter setini ve karşılaştırma (collation) kurallarını belirler. `utf8mb4` modern Unicode karakterlerini (emoji dahil) destekler ve genellikle önerilir.
 
-```bash
-mysql> CREATE TABLE member(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-     > first_name VARCHAR(20), last_name VARCHAR(20), e_mail VARCHAR(50),
-     > birthday date, reg_date TIMESTAMP);
+```
 Query OK, 0 rows affected (0.03 sec)
 ```
 
-Tablomuzu başarıyla oluşturduk.
+Tablomuz başarıyla oluşturuldu. `SHOW TABLES;` komutu artık `member` tablosunu listelemelidir.
 
-`DESCRIBE member;` komutunu kullanarak tablomuzun içindeki kolonları görebiliriz.
+**Tablo Yapısını Görme (`DESCRIBE` veya `SHOW COLUMNS`):**
+
+Oluşturulan tablonun sütunlarını ve özelliklerini görmek için `DESCRIBE` veya `SHOW COLUMNS FROM` komutları kullanılır:
+```sql
+DESCRIBE member;
+-- veya
+SHOW COLUMNS FROM member;
+```
 
 ```
 mysql> DESCRIBE member;
-+------------+-------------+------+-----+-------------------+-----------------------------+
-| Field      | Type        | Null | Key | Default           | Extra                       |
-+------------+-------------+------+-----+-------------------+-----------------------------+
-| id         | int(11)     | NO   | PRI | NULL              | auto_increment              |
-| first_name | varchar(20) | YES  |     | NULL              |                             |
-| last_name  | varchar(20) | YES  |     | NULL              |                             |
-| e_mail     | varchar(50) | YES  |     | NULL              |                             |
-| birthday   | date        | YES  |     | NULL              |                             |
-| reg_date   | timestamp   | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
-+------------+-------------+------+-----+-------------------+-----------------------------+
-6 rows in set (0.01 sec)
++------------+--------------+------+-----+---------------------+-------------------------------+
+| Field      | Type         | Null | Key | Default             | Extra                         |
++------------+--------------+------+-----+---------------------+-------------------------------+
+| id         | int          | NO   | PRI | NULL                | auto_increment                |
+| first_name | varchar(50)  | NO   |     | NULL                |                               |
+| last_name  | varchar(50)  | NO   |     | NULL                |                               |
+| email      | varchar(100) | YES  | UNI | NULL                |                               |
+| birthday   | date         | YES  |     | NULL                |                               |
+| created_at | timestamp    | YES  |     | CURRENT_TIMESTAMP   |                               |
+| updated_at | timestamp    | YES  |     | CURRENT_TIMESTAMP   | on update CURRENT_TIMESTAMP |
++------------+--------------+------+-----+---------------------+-------------------------------+
+7 rows in set (0.00 sec)
+
 ```
 
 Sıradaki bölümde tablomuza veri ekleyeceğiz.
-

@@ -4,35 +4,47 @@ SSH protokolünü kullanarak güvenli dosya transferi sağlamak mümkündür. Bu
 
 ## rsync
 
-rsync Linux sistemlerin vazgeçilmez arşivleme, kopyalama ve transfer yazılımıdır, hafif mimarisi ve hızı ile vazgeçilmez bir araçtır, kullanımı oldukça kolay olan yazılımın işlem yapılacak her iki sunucuda da yüklü olması gerekmektedir. Kaynaktan ya da hedeften kolayca kullanılabilir, en temel eşitleme komutu aşağıdaki gibidir:
+`rsync` (remote sync), dosyaları ve dizinleri yerel olarak veya uzak sistemler arasında verimli bir şekilde senkronize etmek için kullanılan çok güçlü bir araçtır. Sadece değişen dosya bölümlerini transfer eden delta transfer algoritması sayesinde özellikle yedekleme ve büyük veri transferleri için çok popülerdir.
 
-Kaynaktan çalışıtılırsa:
+`rsync`, varsayılan olarak SSH protokolünü kullanarak güvenli bir bağlantı kurar, ancak kendi `rsync` daemon protokolü üzerinden veya yerel dosya sistemleri arasında da çalışabilir. Kullanımı oldukça esnektir.
 
-```bash
-rsync -arzgopv /dizin/* root@HEDEF_IPADRESI:/dizin/
-```
+**Temel Kullanım (SSH üzerinden):**
 
-Hedeften çalışıtılırsa:
+*   **Yerelden Uzak Sunucuya:**
+    ```bash
+    # /yerel/dizin içeriğini uzak sunucudaki /uzak/dizin içine kopyala/eşitle
+    # -a: arşiv modu (izinleri, zamanları, sembolik linkleri vb. korur, -rlptgoD ile eşdeğer)
+    # -v: verbose (detaylı çıktı)
+    # -z: transfer sırasında sıkıştırma uygula
+    rsync -avz /yerel/dizin/ root@UZAK_SUNUCU:/uzak/dizin/ 
+    ```
+    **Not:** Kaynak dizinin sonundaki `/` işareti önemlidir. `/yerel/dizin/` kullanıldığında dizinin *içeriği* hedefe kopyalanır. `/yerel/dizin` kullanıldığında ise dizinin *kendisi* (ve içeriği) hedefin içine kopyalanır (yani `/uzak/dizin/dizin` oluşur).
 
-```bash
-rsync -arzgopv root@KAYNAK_IPADRESI:/dizin/* /dizin/
-```
+*   **Uzak Sunucudan Yerele:**
+    ```bash
+    rsync -avz root@UZAK_SUNUCU:/uzak/dizin/ /yerel/dizin/
+    ```
 
-EKleri:
+*   **SSH Portu Belirtme:**
+    ```bash
+    rsync -avz -e 'ssh -p 2222' /yerel/dizin/ root@UZAK_SUNUCU:/uzak/dizin/
+    ```
 
-* a: Arşiv modu, -rlptgoD ile aynı işlevi vardır
-* r: alt dizinleri de dahil eder
-* z: transfer sırasında veriyi sıkıştırır
-* g: Grup bilgisini korur
-* o: \(owner\) sahip bilgisini korur
-* p: \(perm\) izinleri korur
-* v: \(verbosity\) yapılan işlemin detaylarını görüntüler
+*   **Simülasyon (Dry Run):** `-n` veya `--dry-run` seçeneği ile hangi dosyaların transfer edileceğini görebilir, ancak gerçek transferi yapmazsınız.
+    ```bash
+    rsync -avzn /yerel/dizin/ root@UZAK_SUNUCU:/uzak/dizin/
+    ```
+
+*   **Hedefte Olmayan Dosyaları Silme:** `--delete` seçeneği, kaynakta bulunmayan dosyaların hedef dizinden silinmesini sağlar (dikkatli kullanılmalıdır!).
+    ```bash
+    rsync -avz --delete /yerel/dizin/ root@UZAK_SUNUCU:/uzak/dizin/
+    ```
 
 rsync, argüman sayısının fazlalığından dolayı \(1 milyon ve üzeri\) "rm" komutunun dahi silemediği dosyaları kolaylıkla siler. Bu dosyaları silmek için hedefteki dizini boş bir dizin ile eşleştirmeniz yeterlidir.
 
-## scp
+## scp (Secure Copy)
 
-scp \(secure copy\) doğrudan SSH protokolü üzerinden dosya transferi sağlar. Böylece sisteme farklı mekanizmalarla \(FTP vb.\) erişmenize gerek olmaz.
+`scp`, SSH protokolünü kullanarak dosyaları yerel ve uzak sistemler arasında güvenli bir şekilde kopyalamak için kullanılan klasik bir komuttur. Kullanımı `cp` komutuna benzer.
 
 Uzak sunucudan dosya indirmek için
 
@@ -64,11 +76,20 @@ scp -3 root@sunucu1:/var/log/syslog root@sunucu2:/root/backups
 
 Yukarıdaki yöntem ile dosyalar doğrudan transfer edilecektir. Ancak bunun için OpenSSH versiyonunun 5.7+ olması gerekmektedir.
 
-## sftp
+**Not:** Modern OpenSSH sürümlerinde `scp` komutu, arka planda genellikle SFTP protokolünü kullanır. Bu, eski `scp` protokolünün bazı sınırlamalarını (örn. hata bildirme) ortadan kaldırır. Ancak `scp` komutunun sözdizimi ve temel işlevi aynı kalmıştır.
 
-scp'nin bazı limitlerinden dolayı sftp geliştirilmiştir. scp ile benzer şekilde SSH protokolünü kullanır, ancak dosya transferi için alışıla gelmiş FTP komutlarını destekler.
+## sftp (SSH File Transfer Protocol)
 
-SFTP ile birden fazla dosyanın transferi daha rahat gerçekleştirilebilir, yarım kalan transferler devam ettirilebilir. scp'nin transfer hızı, algoritma farklılığından dolayı sftp'den daha hızlı olabilir.
+`sftp`, SSH üzerinden güvenli dosya transferi yapmak için tasarlanmış ayrı bir protokoldür ve genellikle `scp`'ye göre daha fazla özellik sunan interaktif bir komut satırı istemcisi (`sftp`) ile birlikte gelir. FTP komutlarına benzer bir arayüz sunar.
+
+**Avantajları:**
+*   İnteraktif oturum: Bağlantı kurulduktan sonra `ls`, `cd`, `get`, `put`, `mkdir`, `rm` gibi komutlarla uzak dosya sistemi üzerinde gezinebilir ve işlem yapabilirsiniz.
+*   Dosya listeleme, dizin oluşturma/silme, yeniden adlandırma gibi dosya sistemi işlemleri yapabilme.
+*   Yarım kalan transferleri devam ettirme (`reget`, `reput` - sunucu ve istemci desteğine bağlı).
+
+**Dezavantajları:**
+*   `scp`'ye göre bazı durumlarda biraz daha yavaş olabilir (protokol ek yükü nedeniyle).
+*   Basit tek dosya transferleri için `scp` kadar hızlı olmayabilir.
 
 Bir sunucuya SFTP bağlantısı kurmak için aşağıdaki gibi bir yol izlenir.
 
@@ -136,8 +157,5 @@ sr0     11:0    1  1024M  0 rom
 ```
 
 * Ayrıca mevcut sistemde bazı yerel komutlar çalıştırmak için komutun başına **l** harfi \(**l**ocal\) konulur. Örneğin `!cd` çalışmayacağı için, `lcd` kullanılır.
-* Dosya indirmek \(download\) için `get` ve `mget` komutları kullanılır. Yarım kalan dosya indirme işlemlerini devam ettirmek için `reget` kullanılır.
-* Dosya yüklemek \(upload\) için `put` ve `mput` komutları kullanılır.
-
-
-
+* Dosya indirmek \(download\) için `get` komutu kullanılır. `mget` (multiple get) genellikle joker karakterlerle birden fazla dosya indirmek için kullanılır (bazı istemcilerde desteklenmeyebilir). Yarım kalan dosya indirme işlemlerini devam ettirmek için `reget` kullanılır.
+* Dosya yüklemek \(upload\) için `put` komutu kullanılır. `mput` (multiple put) benzer şekilde birden fazla dosya yüklemek için kullanılır. Yarım kalan yüklemeleri devam ettirmek için `reput` kullanılır.

@@ -1,20 +1,27 @@
-# CentOS 7 tam sistem kurulumu
+# CentOS 7 Tam Sistem Kurulumu (Arşiv Amaçlı)
 
-Web Hosting için eksiksiz sistem kurulumu bu kitabın bir sonucu olarak burada anlatılmıştır, mümkün olduğunca ek paket kullanmadan dahili reponun izin verdiği sürümler tercih edilmiştir.
+**UYARI:** CentOS Linux 7, 30 Haziran 2024 tarihinde **ömrünü tamamlamıştır (End-of-Life - EOL)**. Bu tarihten sonra güvenlik güncellemeleri almamaktadır ve **üretim ortamlarında kullanılması kesinlikle önerilmez**. Bu bölümdeki bilgiler sadece **tarihsel referans ve arşiv amacıyla** korunmaktadır. Modern sistemler için güncel RHEL tabanlı dağıtımlar (örn. Rocky Linux, AlmaLinux) veya diğer güncel Linux dağıtımları kullanılmalıdır.
 
-Gerekli optimizasyonların da yapıldığı sistem "üretim ortamı" için uygundur.
+Bu bölümde, CentOS 7 üzerine temel bir web hosting ortamı kurmak için izlenen adımlar özetlenmiştir.
 
-Sistem CD'den yüklendikten sonra uygulanacak adımlar şunlardır
+Sistem CD/ISO'dan kurulduktan sonra uygulanacak temel adımlar şunlardır:
 
-## Sistem optimizasyonu
+## Sistem Güncelleme ve Temel Ayarlar
 
+```bash
+# SELinux'u permissive moda al (veya enforcing bırakıp kuralları ayarlayın - disabled önerilmez)
+# sudo sed -i 's/SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config 
+# Geçici olarak: sudo setenforce 0
+
+# Sistemi güncelle (yum CentOS 7'de hala kullanılır, ancak dnf daha moderndir)
+sudo yum update -y 
+
+# Gereksiz bazı servisleri kaldır (isteğe bağlı)
+# sudo yum remove avahi-autoipd avahi-libs avahi NetworkManager-libnm -y
 ```
-sed -i 's/SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
-yum upgrade
-yum remove avahi-autoipd avahi-libs avahi NetworkManager-libnm
-```
+**Not:** SELinux'u tamamen devre dışı bırakmak yerine `permissive` modda çalıştırmak veya kuralları doğru şekilde ayarlamak (`enforcing` mod) güvenlik açısından daha iyidir.
 
-## firewall ayarları
+## Güvenlik Duvarı Ayarları (`firewalld`)
 
 ```bash
 systemctl enable firewalld.service
@@ -23,9 +30,9 @@ firewall-cmd --zone=public --permanent --add-service=https
 systemctl start firewalld.service
 ```
 
-## Kullanıcı ve Güvenlik ayarları
+## Kullanıcı ve SSH Güvenlik Ayarları
 
-Kullanıcıyı açın, gerekirse şifre verin ve FTP sunucusu yükleyin, tavsiyemiz FTP sunucusunu ihtiyacınız olduğu zaman kullanmanızdır.
+Web sitesi dosyalarını barındırmak için ayrı bir kullanıcı oluşturmak iyi bir pratiktir. FTP yerine daha güvenli olan SFTP (SSH üzerinden) genellikle yeterlidir.
 
 ```bash
 useradd web
@@ -34,22 +41,33 @@ passwd web
 sed -i 's/#MaxAuthTries.*/MaxAuthTries 3/' /etc/ssh/sshd_config
 ```
 
-## PHP Yüklemesi
+## Web Sunucusu ve PHP Kurulumu
 
-PHP'yi remi repo üzerinden yüklemenizi tavsiye ederiz, hem yüklemesi kolaydır hem de "yum-config-manager --enable remi-php7X" şeklindeki komut ile PHP versiyonları üzerinde kolayca geçiş sağlayabiliriz, varsayılan olarak PHP72 seçmiş olalım, bu komut sayesinde versiyon kodu ile yüklemek zorunda kalmazsınız, örneğin PHP-7.2 yüklemek için "yum install php70-php-fpm" yerine her seferinde "yum install php-fpm" demeniz yeterli olacaktır. Böylelikle kolayca versiyonlar arasında geçiş sağlayabilirsiniz, ayrıca versiyona bağlı dizinlerden de kurtulmuş olursunuz. Tüm PHP dosyaları varsayılan yerinde duracaktır, /opt/remi/php72/etc/php.ini yerine /etc/php.ini gibi. Versiyon değişikliği yaparken eski versiyonu da kaldırmayı unutmamalısınız: --enable remi-php71 gibi
+**Not:** Aşağıdaki PHP 7.2 kurulumu **çok eskidir** ve güvenlik açıkları içerir. Modern uygulamalar için PHP 8.x sürümleri kullanılmalıdır. Bu adımlar sadece tarihsel referans içindir.
 
+REMI deposu gibi üçüncü parti depolar, CentOS 7 için daha güncel PHP sürümleri sağlıyordu.
+```bash
+# Gerekli depoları ekle (EPEL ve REMI)
+sudo yum install epel-release yum-utils -y
+sudo yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
+
+# Gerekliyse RHEL Optional deposunu etkinleştir (bazı bağımlılıklar için)
+# sudo subscription-manager repos --enable=rhel-7-server-optional-rpms 
+
+# REMI deposundan PHP 7.2'yi etkinleştir
+sudo yum-config-manager --enable remi-php72
+
+# Gerekli paketleri kur (Apache httpd, MariaDB, PHP 7.2 ve modülleri, yardımcı araçlar)
+sudo yum install httpd mariadb-server php php-fpm php-mysqlnd php-gd php-xml php-mbstring wget bind-utils net-tools lsof iptraf atop -y
+
+# (İsteğe bağlı) Avahi servisini kapat
+# sudo systemctl stop avahi-daemon.socket avahi-daemon.service
+# sudo systemctl disable avahi-daemon.socket avahi-daemon.service
 ```
-yum install epel-release yum-utils
-yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-subscription-manager repos --enable=rhel-7-server-optional-rpms
-yum-config-manager --enable remi-php72
-yum install php-fpm php-mysql php-gd php-xml httpd \
-mariadb-server wget bind-utils net-tools lsof iptraf atop
-systemctl stop avahi-daemon.socket avahi-daemon.service
-systemctl disable avahi-daemon.socket avahi-daemon.service
-```
 
-Eğer dikkatinizi çektiyse, bir web sunucusu kurmanızı gerektirecek yüklemelerin yanı sıra atop, lsof, iptraf, bind-utils ve net-tools gibi her zaman işinize yarayacak paketleri de pratikte sunucuya kurmayı seviyoruz. Bu sayede sistem takibi kolaylaşmakla birlikte, soruna müdahale etmenizi gerektirecek durumlarda bu paketlerin yüklenmesi için gereken süreden de tasarruf sağlamış olursunuz. Bu kütüphaneler içerisindeki komutları özet geçecek olursak:
+Kurulumla birlikte gelen Apache (`httpd`) ve MariaDB (`mariadb`) servislerinin yanı sıra PHP-FPM (`php-fpm`) servisi de kurulmuş olur. Bu servislerin yapılandırılması ve başlatılması ilgili bölümlerde anlatılmıştır.
+
+Ayrıca `atop`, `lsof`, `iptraf`, `bind-utils` (`dig` içerir) ve `net-tools` (`netstat` içerir, `ss` daha modern alternatifidir) gibi sistem izleme ve ağ tanılama araçlarının kurulması da faydalıdır:
 
 **lsof:** bir prosesin id'si ile ya da port ile açılmış dosyaları bulmak\
 için kullanılır, örneğin:
@@ -67,10 +85,9 @@ detaylı bilgi: dig +trace veriteknik.com, belli bir
 DNS sunucusundan: dig veriteknik.com @127.0.0.1 gibi
 ```
 
-**netstat:** Tüm network trafiğinin özet bilgilerini görüntüler: örneğin
-
-```
-netstat -apn ya da netstat -tulpn gibi
+**netstat:** Ağ bağlantılarını, yönlendirme tablolarını, arayüz istatistiklerini vb. gösterir (Modern alternatif: `ss`). Örneğin:
+```bash
+netstat -tulnp 
 ```
 
 **iptraf:** Gerçek zamanlı IP trafik izleme aracı, Wireshark'ın dos versiyonu gibi düşünebilirsiniz.

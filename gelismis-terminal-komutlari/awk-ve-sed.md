@@ -99,6 +99,23 @@ G
 Perl
 ```
 
+**`awk` Dahili Değişkenler ve Bloklar:**
+
+`awk` ayrıca birçok dahili değişkene sahiptir:
+*   `NR`: O an işlenen kaydın (genellikle satırın) numarası.
+*   `NF`: O an işlenen kayıttaki alan (field) sayısı.
+*   `$0`: Tüm satırın içeriği.
+
+Ayrıca özel `BEGIN` ve `END` blokları bulunur:
+*   `BEGIN { ... }`: `awk` herhangi bir girdi satırını okumadan *önce* çalıştırılır. Başlık yazdırmak veya değişkenleri başlatmak için kullanılır.
+*   `END { ... }`: `awk` tüm girdi satırlarını okuduktan *sonra* çalıştırılır. Toplamları yazdırmak veya özet bilgi vermek için kullanılır.
+
+Örnek:
+```bash
+# Dosyadaki her satırın numarasını ve alan sayısını yazdır, sonunda toplam satır sayısını belirt
+awk '{ print "Satır No:", NR, "Alan Sayısı:", NF, $0 } END { print "Toplam Satır:", NR }' liste
+```
+
 ## sed
 
 sed dosyalar veya standart girdi üzerinde değişiklik yapmaya yarayan bir araçtır. Regular expression desteklediği gibi basit işlemler için de sıklıkla kullanılır. Örneğin yukarıda kullandığımız **liste** dosyasında içinde PHP geçen satırı **\#** ile açıklama satırı haline getirmek isteseydik
@@ -155,6 +172,33 @@ Perl
 ```
 
 Gördüğünüz gibi bu örneklerde, bulduğumuz satırı ifade eden karakter **&** ile gösteriliyor.
+
+**Global Değişiklik (`g` flagi):**
+
+Varsayılan olarak, `sed`'in `s` komutu bir satırda bulduğu *ilk* eşleşmeyi değiştirir. Eğer satırdaki *tüm* eşleşmeleri değiştirmek istiyorsanız, komutun sonuna `g` (global) bayrağını eklemelisiniz:
+
+```bash
+# 'liste' dosyasındaki tüm 'P' harflerini 'X' ile değiştir
+sed 's/P/X/g' liste 
+```
+
+**Yerinde Düzenleme (`-i` seçeneği):**
+
+`sed` normalde sonucu standart çıktıya yazar, orijinal dosyayı değiştirmez. Değişiklikleri doğrudan orijinal dosyaya uygulamak için `-i` seçeneği kullanılır.
+
+**DİKKAT:** `-i` seçeneği tehlikeli olabilir, çünkü orijinal dosyanın üzerine yazar. Yanlış bir komutla dosyanızı bozabilirsiniz. Kullanmadan önce komutunuzu test etmeniz veya bir yedek oluşturmanız şiddetle tavsiye edilir.
+
+Bazı `sed` sürümleri, `-i` ile birlikte bir uzantı belirterek otomatik yedekleme yapmanıza olanak tanır:
+
+```bash
+# Değişiklikleri doğrudan 'liste' dosyasına uygula, orijinalini 'liste.bak' olarak yedekle
+sed -i.bak 's/PHP/Hypertext Preprocessor/' liste 
+```
+Eğer yedek istemiyorsanız (ve dikkatliyseniz) sadece `-i` kullanabilirsiniz:
+```bash
+# Değişiklikleri doğrudan 'liste' dosyasına uygula (YEDEK YOK!)
+# sed -i 's/PHP/Hypertext Preprocessor/' liste 
+```
 
 ### Yaygın Sed Kullanımları
 
@@ -316,6 +360,8 @@ eaydin@dixon ~/calisma $ sed = liste | sed 'N;s/\n/\t/'
 4    Go
 5    Perl
 ```
-
-
-
+**Not:** Basit satır numaralandırma için genellikle `nl` veya `cat -n` komutları daha pratik olabilir:
+```bash
+nl liste
+cat -n liste
+```

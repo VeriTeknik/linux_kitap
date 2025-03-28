@@ -44,24 +44,32 @@ eaydin@dixon ~/calisma/bash $ cat yukle.sh
 #!/bin/bash
 # yukle.sh dosya icerigi
 
-if [ $(id -u) -ne 0 ]; then
-    echo "root yetkisi ile calistirilmali"
+# Root yetkisi kontrolü (Modern Yöntem: $EUID)
+if [[ "$EUID" -ne 0 ]]; then
+    echo "Hata: Bu betik root yetkisi ile çalıştırılmalıdır." >&2 # Hata mesajını stderr'e yaz
     exit 1
 fi
-echo "Yukleme basliyor..."
-apt-get install htop
+
+echo "Yükleme başlıyor..."
+# Modern Debian/Ubuntu paket yöneticisi: apt
+apt install -y htop # -y ile onayı otomatik ver
+
+# Betiğin başarıyla tamamlandığını belirt
 exit 0
 ```
 
 ```bash
 eaydin@dixon ~/calisma/bash $ ./yukle.sh 
-root yetkisi ile calistirilmali
+Hata: Bu betik root yetkisi ile çalıştırılmalıdır.
 ```
 
 Yukarıdaki satırların üzerinden geçecek olursak:
 
-* id -u komutu ile mevcut kullanıcının id'si alınıyor. Eğer bu değer 0'a eşit değilse (`-ne` : not equal) if şartı sağlanmış oluyor. Linux üzerinde sadece root kullanıcısının id'si 0'dır.
-* Eğer root kullanıcısı değilse, exit 1 ile programdan çıkıyoruz. Eğer root kullanıcısıysak, exit 0 ile çıkıyoruz. Buradaki 1 ve 0 değerleri exit mesajlarıdır. Linux'ta programlar başarıyla işlerini yerine getirmişse 0 ile çıkarlar, bir hatayla çıkarlarsa 1 veya farklı değerler alırlar.
+*   `[[ "$EUID" -ne 0 ]]`: Betiği çalıştıran kullanıcının etkili kullanıcı kimliğinin (Effective User ID) 0 (yani root) olup olmadığını kontrol eder. `[[ ... ]]` modern Bash test yapısıdır. `$EUID` değişkeni genellikle `$(id -u)`'dan daha pratiktir.
+*   `>&2`: Hata mesajlarının standart çıktı (stdout) yerine standart hataya (stderr) yönlendirilmesi iyi bir pratiktir.
+*   `exit 1`: Betiğin bir hata koduyla (genellikle 0 olmayan bir değer) sonlanmasını sağlar.
+*   `apt install -y htop`: `apt-get` yerine modern `apt` komutu kullanılır. `-y` seçeneği, kurulum sırasında sorulacak onay sorularına otomatik olarak "evet" yanıtı verir.
+*   `exit 0`: Betiğin başarıyla tamamlandığını belirtir.
 
 Yukarıdaki programın nasıl sonuçlandığını (exit mesajını) almak için aşağıdaki yöntemi kullanabiliriz.
 
@@ -98,37 +106,30 @@ Setting up htop (1.0.2-3) ...
 
 Programımızı tekrar çalıştırırsak, htop'un zaten yüklü olduğunu göreceğiz. Öyleyse programımız bunu da kontrol etsin.
 
-Kullanacağımız yöntemlerden birisi, dpkg ile yüklü paketlerimizi inceleyip, sonuçları grep'lemek olacaktır.
+Bir paketin kurulu olup olmadığını kontrol etmenin daha güvenilir yolu, paket yöneticisinin kendi sorgulama mekanizmasını kullanmaktır. `grep` ile filtrelemek, paket adının başka bir paketin açıklamasında geçmesi gibi durumlarda yanıltıcı olabilir.
 
-```bash
-eaydin@dixon ~/calisma/bash $ dpkg -l | grep htop
-ii  htop    1.0.2-3      amd64        interactive processes viewer
-eaydin@dixon ~/calisma/bash $ echo $?
-0
-eaydin@dixon ~/calisma/bash $ dpkg -l | grep olmayanpaketismi
-eaydin@dixon ~/calisma/bash $ echo $?
-1
-```
-
-Yukarıdan, grep'in bir sonuç yakaladığında **0** ile exit verdiğini görebilirsiniz. Öyleyse bu bilgiyi kullanabiliriz.
+*   **Debian/Ubuntu:** `dpkg -s <paket_adı>` komutunun çıkış kodunu kontrol edebiliriz. Paket kuruluysa komut 0 ile çıkar, kurulu değilse 0 olmayan bir kodla çıkar.
+*   **RHEL/CentOS/Fedora:** `rpm -q <paket_adı>` komutunun çıkış kodunu kontrol edebiliriz. Paket kuruluysa 0, değilse 0 olmayan bir kodla çıkar.
 
 ```bash
 #!/bin/bash
 # yukle.sh dosya icerigi
 
-# Root yetkiniz var mi?
-if [ $(id -u) -ne 0 ]; then
-    echo "root yetkisi ile calistirilmali"
+# Root yetkisi kontrolü
+if [[ "$EUID" -ne 0 ]]; then
+    echo "Hata: Bu betik root yetkisi ile çalıştırılmalıdır." >&2
     exit 1
 fi
 
-# htop zaten yuklu mu?
-dpkg -l | grep htop > /dev/null
-if [ $? -eq 1 ]; then
-    echo "Yukleme basliyor..."
-    apt-get install htop
+PACKAGE_NAME="htop"
+
+# htop zaten yuklu mu? (dpkg -s kullanarak)
+# Çıktıyı ve hatayı /dev/null'a yönlendir (&>) ve sadece çıkış kodunu kontrol et ($?)
+if dpkg -s "$PACKAGE_NAME" &> /dev/null; then
+    echo "$PACKAGE_NAME zaten kurulu."
 else
-    echo "htop zaten yuklu"
+    echo "$PACKAGE_NAME kuruluyor..."
+    apt install -y "$PACKAGE_NAME"
 fi
 
 exit 0
@@ -151,19 +152,22 @@ if [ $(id -u) -ne 0 ]; then
 fi
 
 # Parametre sayisi kontrol ediliyor
-if [ $# -lt 1 ]; then
-    echo "Parametre vermediniz"
-    echo "Kullanım: yukle.sh program-adi"
+# $# değişkeni betiğe verilen argüman sayısını tutar
+if [[ "$#" -lt 1 ]]; then
+    echo "Hata: Lütfen kurulacak paket adını belirtin." >&2
+    echo "Kullanım: $0 <paket_adı>" >&2 # $0 betiğin kendi adını verir
     exit 1
 fi
 
-# program zaten yuklu mu?
-dpkg -l | grep $1 > /dev/null
-if [ $? -eq 1 ]; then
-    echo "Yukleme basliyor..."
-    apt-get install $1
+# İlk argümanı bir değişkene ata (daha okunaklı)
+PACKAGE_NAME="$1" # Değişkenleri çift tırnak içinde kullanmak önemlidir
+
+# program zaten yuklu mu? (dpkg -s kullanarak)
+if dpkg -s "$PACKAGE_NAME" &> /dev/null; then
+    echo "$PACKAGE_NAME zaten kurulu."
 else
-    echo "$1 zaten yuklu"
+    echo "$PACKAGE_NAME kuruluyor..."
+    apt install -y "$PACKAGE_NAME"
 fi
 
 exit 0
@@ -235,35 +239,36 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-# Eger sistem Debian ise
-if [ -f /etc/debian_version ]; then
-
+# Eger sistem Debian/Ubuntu ise
+if [[ -f /etc/debian_version ]]; then
+    echo "Debian/Ubuntu tabanlı sistem algılandı."
     # program zaten yuklu mu?
-    dpkg -l | grep $1 > /dev/null
-    if [ $? -eq 1 ]; then
-         echo "Yukleme basliyor..."
-         apt-get install $1
+    if dpkg -s "$PACKAGE_NAME" &> /dev/null; then
+        echo "$PACKAGE_NAME zaten kurulu."
     else
-        echo "$1 zaten yuklu"
+         echo "$PACKAGE_NAME kuruluyor (apt)..."
+         apt update # Kurulumdan önce listeyi güncellemek iyi bir pratik
+         apt install -y "$PACKAGE_NAME"
     fi
-# Eger sistem Red Hat ise
-elif [ -f /etc/redhat-release ]; then
+# Eger sistem RHEL/CentOS/Fedora ise
+elif [[ -f /etc/redhat-release ]]; then
+    echo "Red Hat tabanlı sistem algılandı."
     # program zaten yuklu mu?
-    rpm -qa | grep $1 > /dev/null
-    if [ $? -eq 1 ]; then
-        echo "Yukleme basliyor..."
-        yum install $1
+    if rpm -q "$PACKAGE_NAME" &> /dev/null; then
+        echo "$PACKAGE_NAME zaten kurulu."
     else
-        echo "$1 zaten yuklu"
+        echo "$PACKAGE_NAME kuruluyor (dnf)..."
+        dnf install -y "$PACKAGE_NAME"
     fi
-# Tanimadigimiz sistem
+# Tanımlanamayan sistem
 else
-    echo "Tanimadigimiz bir sistem?"
+    echo "Hata: Desteklenmeyen veya tanımlanamayan Linux dağıtımı." >&2
     exit 1
 fi
 
 exit 0
 ```
+(Not: Dağıtımı belirlemek için `/etc/os-release` dosyasını kontrol etmek daha modern bir yöntemdir, ancak bu örnek için dosya varlığı kontrolü yeterlidir.)
 
 ## Fonksiyonlar
 
@@ -277,59 +282,70 @@ Yükleme işlemimizi fonksiyonlara bölüp programın son halini görelim.
 #!/bin/bash
 # yukle.sh dosya icerigi
 
-# Debian Yukleme Fonksiyonu
-debian_yukle () {
+# Debian/Ubuntu Yukleme Fonksiyonu
+debian_yukle() {
+    local pkg_name="$1" # Fonksiyon içi yerel değişken kullan
     # program zaten yuklu mu?
-    dpkg -l | grep $1 > /dev/null
-    if [ $? -eq 1 ]; then
-         echo "Yukleme basliyor..."
-         apt-get install $1
+    if dpkg -s "$pkg_name" &> /dev/null; then
+        echo "$pkg_name zaten kurulu."
     else
-        echo "$1 zaten yuklu"
+         echo "$pkg_name kuruluyor (apt)..."
+         apt update 
+         apt install -y "$pkg_name"
     fi
-
-    return 0
+    # Fonksiyonun çıkış kodunu apt install'dan al (başarı/hata)
+    return $? 
 }
 
-redhat_yukle () {
+# RHEL/CentOS/Fedora Yukleme Fonksiyonu
+redhat_yukle() {
+    local pkg_name="$1"
     # program zaten yuklu mu?
-    rpm -qa | grep $1 > /dev/null
-    if [ $? -eq 1 ]; then
-        echo "Yukleme basliyor..."
-        yum install $1
+    if rpm -q "$pkg_name" &> /dev/null; then
+        echo "$pkg_name zaten kurulu."
     else
-        echo "$1 zaten yuklu"
+        echo "$pkg_name kuruluyor (dnf)..."
+        dnf install -y "$pkg_name"
     fi
-
-    return 0
+    return $?
 }
 
-# Root yetkiniz var mi?
-if [ $(id -u) -ne 0 ]; then
-    echo "root yetkisi ile calistirilmali"
+# === Ana Betik Mantığı ===
+
+# Root yetkisi kontrolü
+if [[ "$EUID" -ne 0 ]]; then
+    echo "Hata: Bu betik root yetkisi ile çalıştırılmalıdır." >&2
     exit 1
 fi
 
-# Parametre sayisi kontrol ediliyor
-if [ $# -lt 1 ]; then
-    echo "Parametre vermediniz"
-    echo "Kullanım: yukle.sh program-adi"
+# Parametre sayısı kontrolü
+if [[ "$#" -lt 1 ]]; then
+    echo "Hata: Lütfen kurulacak paket adını belirtin." >&2
+    echo "Kullanım: $0 <paket_adı>" >&2
     exit 1
 fi
 
-# Eger sistem Debian ise
-if [ -f /etc/debian_version ]; then
-    debian_yukle $1
+# Kurulacak paketi değişkene ata
+PACKAGE_TO_INSTALL="$1"
 
-# Eger sistem Red Hat ise
-elif [ -f /etc/redhat-release ]; then
-    redhat_yukle $1
+# Dağıtımı kontrol et ve ilgili fonksiyonu çağır
+if [[ -f /etc/debian_version ]]; then
+    echo "Debian/Ubuntu tabanlı sistem algılandı."
+    debian_yukle "$PACKAGE_TO_INSTALL" # Değişkeni tırnak içinde kullan
+    exit_code=$? # Fonksiyonun çıkış kodunu yakala
 
-# Tanimadigimiz sistem
+elif [[ -f /etc/redhat-release ]]; then
+    echo "Red Hat tabanlı sistem algılandı."
+    redhat_yukle "$PACKAGE_TO_INSTALL" # Değişkeni tırnak içinde kullan
+    exit_code=$?
+
 else
-    echo "Tanimadigimiz bir sistem?"
+    echo "Hata: Desteklenmeyen veya tanımlanamayan Linux dağıtımı." >&2
     exit 1
 fi
 
-exit 0
+# Fonksiyonun çıkış koduna göre betiğin çıkış kodunu ayarla
+exit $exit_code
 ```
+
+Bu örnekler, Bash betiklerinin temellerini (değişkenler, koşullar, fonksiyonlar, komut çalıştırma, çıkış kodları) göstermektedir. Daha karmaşık görevler için döngüler, dizi değişkenler, metin işleme gibi konular [Döngüler ve Diğer Kontrol Yöntemleri](doengueler-ve-diger-kontrol-yoentemleri.md) bölümünde ele alınacaktır.

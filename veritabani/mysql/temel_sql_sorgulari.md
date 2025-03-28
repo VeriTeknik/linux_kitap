@@ -1,4 +1,0 @@
-# Temel SQL Sorguları
-
-
-

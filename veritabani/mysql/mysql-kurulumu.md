@@ -1,55 +1,97 @@
-# CentOS'a MySQL Kurulumu
+# MySQL / MariaDB Kurulumu
 
-CentOS repolarında MySQL bulunmuyor. Bu yüzden RPM paketini MySQL'den indirmemiz gerek.
+MySQL veya onun popüler topluluk çatalı olan MariaDB'yi Linux sisteminize kurmak için genellikle dağıtımınızın paket yöneticisini kullanabilirsiniz. Çoğu modern dağıtım (Debian, Ubuntu, Fedora, RHEL 8+, CentOS Stream 8+, AlmaLinux, Rocky Linux) varsayılan olarak MariaDB'yi sunar. Oracle'ın resmi MySQL Community Server sürümünü kurmak isterseniz, genellikle önce Oracle'ın kendi yazılım deposunu sisteme eklemeniz gerekir.
 
-`https://dev.mysql.com/downloads/repo/yum`
+Bu bölümde her iki veritabanı sunucusunun yaygın dağıtımlardaki temel kurulum adımları ve ilk güvenlik yapılandırması ele alınacaktır.
 
-Bu adrese giriş yaparak, en güncel versiyonun ne olduğunu kontrol edelim.
+## 1. MariaDB Kurulumu (Yaygın Dağıtım Depolarından)
 
-CentOS 7'ye kurulum yapacağımızdan RedHat 7 için olanı kullanabiliriz. Kurulum yapmamız gereken paketin altında son paketin adı açık olarak gözüküyor, `mysql-57-community-release-el7-11.noarch.rpm` bunu kopyalayarak `https://dev.mysql.com/get/`  bu adresin sonuna ekleyebilir veya download kısmına tıklayarak, açılan sayfada "No thanks, just start my download." linkine farenin sağ tuşuyla tıklayıp "Copy Link Location"\(Bağlantı adresini kopyala\)'a tıklarsanız güncel RPM paketinin adresini kopyalamış olursunuz.
+MariaDB genellikle dağıtımın ana depolarında bulunur ve kurulumu basittir.
 
-```
-yum install wget
-wget https://dev.mysql.com/get/mysql-57-community-release-el7-11.noarch.rpm
-sudo rpm -ivh mysql-57-community-release-el7-11.noarch.rpm 
-sudo yum install mysql-server
-```
+*   **RHEL Tabanlı (dnf):**
+    ```bash
+    # MariaDB sunucusunu ve istemcisini kur
+    sudo dnf install mariadb-server -y
 
-Bütün sorulara y ile cevap veriyoruz.
+    # Servisi başlat ve sistem başlangıcında etkinleştir
+    sudo systemctl start mariadb
+    sudo systemctl enable mariadb
 
-MySQL servisini çalıştıralım.
+    # İlk güvenlik ayarlarını yap (root şifresi belirle, test db kaldır vb.)
+    sudo mariadb-secure-installation 
+    ```
+*   **Debian Tabanlı (apt):**
+    ```bash
+    # MariaDB sunucusunu ve istemcisini kur
+    sudo apt update
+    sudo apt install mariadb-server -y
 
-`sudo systemctl start mysqld`
+    # Servisin otomatik başlamış ve etkinleştirilmiş olması gerekir, kontrol et:
+    # sudo systemctl status mariadb
 
-Kontrol etmek için de  `sudo systemctl status mysqld` komutunu kullanmamız gerekiyor.
+    # İlk güvenlik ayarlarını yap
+    sudo mariadb-secure-installation
+    ```
 
-```
-● mysqld.service - MySQL Server
-   Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; vendor preset: disabled)
-   Active: active (running) since Mon 2018-03-12 07:57:56 UTC; 1min 34s ago
-     Docs: man:mysqld(8)
-           http://dev.mysql.com/doc/refman/en/using-systemd.html
-  Process: 9008 ExecStart=/usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid $MYSQLD_OPTS (code=exited, status=0/SUCCESS)
-  Process: 8931 ExecStartPre=/usr/bin/mysqld_pre_systemd (code=exited, status=0/SUCCESS)
- Main PID: 9013 (mysqld)
-   CGroup: /system.slice/mysqld.service
-           └─9013 /usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid
+**`mariadb-secure-installation` Betiği:**
+Bu betik, kurulumdan sonra çalıştırılması **şiddetle tavsiye edilen** interaktif bir güvenlik yapılandırma aracıdır. Size aşağıdaki adımlarda yol gösterir:
+*   Mevcut root şifresini sorma (ilk kurulumda genellikle boştur, Enter ile geçilir).
+*   Root kullanıcısı için bir şifre belirleme veya Unix soket kimlik doğrulamasını kullanma seçeneği sunma.
+*   Anonim kullanıcıları kaldırma.
+*   Root kullanıcısının uzaktan bağlanmasını engelleme (önerilir).
+*   Test veritabanını ve erişimini kaldırma.
+*   Yetki tablolarını yeniden yükleme.
 
-Mar 12 07:57:51 veriteknik systemd[1]: Starting MySQL Server...
-Mar 12 07:57:56 veriteknik systemd[1]: Started MySQL Server.
-```
+Genellikle tüm sorulara 'Y' (Evet) yanıtı vermek iyi bir başlangıç noktasıdır.
 
-MySQL artık çalışıyor. MySQL bizim için geçici bir parola üretti. Bunu okumak için
+## 2. MySQL Community Server Kurulumu (Oracle Deposundan)
 
-```
-grep 'temporary password' /var/log/mysqld.log
-```
+Oracle'ın resmi MySQL sürümünü kurmak için genellikle önce MySQL APT veya YUM deposunu sisteme eklemeniz gerekir.
 
-Bu komutu çalıştırmamız yeterli olacak.
+1.  **MySQL Depo RPM/DEB Paketini İndirme:**
+    MySQL Community İndirme sayfasından (`https://dev.mysql.com/downloads/repo/`) sisteminize uygun depo yapılandırma paketini (.rpm veya .deb) indirin. Örneğin:
+    ```bash
+    # RHEL/CentOS/Fedora için (örnek, güncel sürümü kontrol edin)
+    wget https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm 
 
-```
-2018-03-12T07:57:52.832878Z 1 [Note] A temporary password is generated for celep@localhost: _hergTy<b4-j
-```
+    # Debian/Ubuntu için (örnek, güncel sürümü kontrol edin)
+    wget https://dev.mysql.com/get/mysql-apt-config_0.8.29-1_all.deb
+    ```
+2.  **Depo Paketini Kurma:**
+    ```bash
+    # RHEL/CentOS/Fedora
+    sudo rpm -ivh mysql80-community-release-el9-1.noarch.rpm
 
-Bu parolayı şimdilik kaydetmemiz gerekiyor, az sonra lazım olacak.
+    # Debian/Ubuntu
+    sudo dpkg -i mysql-apt-config_0.8.29-1_all.deb
+    # (Kurulum sırasında hangi MySQL sürümünü istediğinizi soran bir ekran çıkabilir)
+    sudo apt update # Depo eklendikten sonra listeyi güncelle
+    ```
+3.  **MySQL Server Kurulumu:**
+    ```bash
+    # RHEL/CentOS/Fedora
+    sudo dnf install mysql-community-server -y
 
+    # Debian/Ubuntu
+    sudo apt install mysql-server -y 
+    # (Kurulum sırasında root şifresi belirlemeniz istenebilir)
+    ```
+4.  **Servisi Başlatma ve Etkinleştirme:**
+    ```bash
+    sudo systemctl start mysqld # Servis adı genellikle mysqld'dir
+    sudo systemctl enable mysqld
+    ```
+5.  **İlk Güvenlik Ayarları (`mysql_secure_installation`):**
+    MySQL kurulumundan sonra bu betiği çalıştırmak **çok önemlidir**.
+    ```bash
+    sudo mysql_secure_installation
+    ```
+    Bu betik, `mariadb-secure-installation`'a benzer şekilde çalışır:
+    *   Validate Password Component'i etkinleştirme seçeneği sunar (güçlü şifre politikası).
+    *   Root şifresini belirlemenizi veya değiştirmenizi ister. (MySQL 5.7+ sürümlerinde kurulum sırasında geçici bir şifre `/var/log/mysqld.log` dosyasına yazılmış olabilir, ilk girişte bu sorulabilir).
+    *   Anonim kullanıcıları kaldırır.
+    *   Uzaktan root girişini engeller.
+    *   Test veritabanını kaldırır.
+    *   Yetki tablolarını yeniden yükler.
+
+Kurulum tamamlandıktan ve güvenlik ayarları yapıldıktan sonra, veritabanı sunucunuz kullanıma hazırdır. Bir sonraki adım genellikle [servisi yönetmek](mysql-servisini-calistirmak.md) ve [veritabanları/tablolar oluşturmaktır](veritabani-ve-tablo-olusturmak.md).

@@ -1,6 +1,10 @@
 # Imagemagick ve Görüntü Dosyaları
 
-GNU/Linux komut satırında birden fazla görüntü dosyası üzerinde işlem yapmak için en uygun paketlerden birisi **imagemagick** paketidir. İçerisinde temel işlemleriniz için pek çok araç barındırır.
+GNU/Linux komut satırında birden fazla görüntü dosyası üzerinde işlem yapmak için en uygun paketlerden birisi **ImageMagick** paketidir. İçerisinde `convert`, `mogrify`, `identify`, `composite`, `montage` gibi temel işlemleriniz için pek çok araç barındırır.
+
+**Not:** ImageMagick'in modern sürümleri (versiyon 7 ve sonrası), genellikle tüm işlevleri tek bir `magick` komutu altında birleştirmiştir. Eski komutlar (`convert`, `identify` vb.) çoğu zaman geriye dönük uyumluluk için `magick` komutuna bir sembolik link olarak bulunur. Örneklerde eski komutlar kullanılsa da, bunların yerine `magick convert ...`, `magick identify ...` gibi kullanımların da mümkün olduğunu unutmayın. Örneğin:
+`convert logo.png logo.jpg` yerine `magick logo.png logo.jpg`
+`identify logo.png` yerine `magick identify logo.png`
 
 ## Tip Dönüşümü
 

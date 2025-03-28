@@ -50,4 +50,18 @@ birinci satir
 ikinci baska satir
 ```
 
-Gördüğünüz gibi artık test.txt dosyasının içeriği, test2.txt dosyasının içeriği ile aynı oldu.
+Gördüğünüz gibi artık `test.txt` dosyasının içeriği, `test2.txt` dosyasının içeriği ile aynı oldu.
+
+**Patch'i Geri Alma:**
+
+Uygulanan bir patch'i geri almak için `patch` komutuna `-R` (reverse) parametresi verilebilir:
+
+```bash
+eaydin@dixon ~/calisma $ patch -R < test1-2.patch 
+patching file test.txt
+eaydin@dixon ~/calisma $ cat test.txt 
+birinci satir
+ikinci satir
+ucuncu satir
+```
+Bu komut, `test.txt` dosyasını patch uygulanmadan önceki orijinal haline geri döndürür. `diff` ve `patch` komutları, özellikle yazılım geliştirme süreçlerinde kod değişikliklerini paylaşmak ve uygulamak için yaygın olarak kullanılır.

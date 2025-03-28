@@ -120,6 +120,18 @@ eaydin@dixon ~/calisma $ echo {0..9} | xargs -n 3
 9
 ```
 
+## Paralel Çalıştırma (`-P`)
+
+`xargs`'ın güçlü özelliklerinden biri de, komutları paralel olarak çalıştırabilmesidir. `-P max-procs` seçeneği ile aynı anda kaç işlem çalıştırılacağı belirtilebilir. Bu, özellikle CPU-yoğun veya I/O-yoğun işlemleri çok sayıda dosya üzerinde yaparken performansı önemli ölçüde artırabilir.
+
+Örneğin, bir dizindeki tüm `.jpg` dosyalarını `convert` komutuyla yeniden boyutlandırmak istediğimizi varsayalım. Bu işlem her dosya için ayrı ayrı zaman alacaktır. `xargs -P` ile bu işlemi paralel yapabiliriz:
+
+```bash
+# Aynı anda 4 işlem çalıştırarak tüm jpg dosyalarını 800x600 boyutuna getir
+find . -name "*.jpg" -print0 | xargs -0 -P 4 -I {} convert {} -resize 800x600 resized/{} 
+```
+Burada `-P 4`, `xargs`'ın aynı anda en fazla 4 `convert` işlemi başlatacağını belirtir. Sistemdeki CPU çekirdek sayısına uygun bir değer seçmek genellikle iyi bir başlangıç noktasıdır.
+
 ## Maksimum Argüman Sayısı
 
 Kabuk ortamınızda kullanabileceğiniz maksimum argüman sayısı sisteminize göre değişiklik gösterebilir. Aşağıdaki komutu yazarak öğrenebilirsiniz.

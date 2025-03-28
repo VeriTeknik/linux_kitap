@@ -1,106 +1,65 @@
-# Güvenlik
+# Linux Güvenliği Temelleri
 
-Bilişim sektöründe güvenlik en önemli konulardan birisi olmakla birlikte pazar payı da oldukça büyüktür. Ağa bağlı olan tüm cihazların güvenliğini etkliyen faktörleri şu şekilde açıklayabiliriz:
+Linux sistemlerinin güvenliği, modern bilişim altyapılarının temel taşlarından biridir. Ancak güvenlik, tek seferlik bir işlem değil, sürekli dikkat ve güncelleme gerektiren bir süreçtir. Güvenlik açıkları çeşitli nedenlerle ortaya çıkabilir:
 
-* Teknolojiye bağlı değişimler,&#x20;
-* Kullanıcı hataları,
-* Eksik sistem yapılandırması
+*   **Teknolojik Değişimler:** Yazılımlarda ve protokollerde zamanla keşfedilen yeni zafiyetler (örn. kütüphanelerdeki açıklar, işlemci açıkları).
+*   **Yapılandırma Hataları:** Servislerin veya sistemin yanlış veya eksik yapılandırılması (örn. gereksiz açık portlar, zayıf şifreler, yanlış izinler).
+*   **Kullanıcı Hataları:** Güvenli olmayan yazılımların kullanılması, kimlik bilgilerinin zayıf olması veya paylaşılması, sosyal mühendislik saldırıları.
 
-Teknolojiye bağlı değişimler, zaman içerisinde uygulama ya da yazılımlarda çıkabilecek açıklar nedeniyle oluşmaktadır, örneğin son zamanlarda Intel yonga setlerinde çıkan açık nedeniyle neredeyse tüm işletim sistemleri saldırılara açık hale gelmiştir. Bunun yanı sıra SSL gibi güvenli veri iletişimi kurulmasını sağlayan protokoller de birer birer kullanımdan kalkmaktadır, siz her ne kadar iyi bir şekilde de güvenlik ayarlarını yapsanız da zaman zaman bu gibi nedenlerden dolayı zaman zaman sistemlerinizde beklenmedik güvenlik açıkları oluşabilmektedir.
+Bu bölümde, Linux sistemlerinin güvenliğini artırmak için alınabilecek temel önlemler ve dikkat edilmesi gereken noktalar ele alınacaktır. Bu öneriler %100 güvenlik garantisi vermese de, yaygın saldırıların ve hataların büyük bir kısmını engellemeye yardımcı olabilir.
 
-Kullanıcı hataları, günümüzde yazılım hizmetlerinin bir "fast-food" mahiyetinde hızlı üretilip, hızlı tüketilmesi sonucunda malesef hem güvenlik hem de optimizasyon çoğu zaman göz ardı edilmekte, yazılımlar içerisinde de yeteri kadar loglama yapılmamaktadır.
+## Genel Güvenlik Önerileri
 
-Eksik sistem yapılandırması, çoğu sistem yöneticisi kurulum ve kullanım kolaylığı açısında Linux yüklemelerinden sonra selinux ve firewall'u kapatmaktadır, ne var ki yeniden kullanabileceğiniz küçük betikler ile bu sistem yapılandırmalarını kolayca yapmanız mümkündür. VeriTeknik GitHub reposunda bu betiklerin örneklerinden bulabilirsiniz.
+**1. Ağ Güvenliği ve Güvenlik Duvarı (Firewall)**
 
-Aşağıda anlatılan güvenlik önerileri size %100 güvenlik sağlayamayabilir ancak ne var ki sistemlerinize de lise düzeyinde yapılacak bir çok saldırıdan da korumuş olacaktır.
+*   **Firewall Kullanımı:** Sunucu üzerinde mutlaka bir güvenlik duvarı (firewall) etkinleştirilmelidir. Modern dağıtımlar genellikle `firewalld` (RHEL tabanlı) veya `ufw` (Uncomplicated Firewall - Debian/Ubuntu tabanlı) gibi daha kullanıcı dostu araçlar sunar. Bunlar arka planda `iptables` veya `nftables` gibi çekirdek mekanizmalarını yönetir.
+    *   **Prensip:** Varsayılan olarak tüm gelen bağlantıları engelle (`DROP` veya `REJECT`) ve sadece gerekli olan servislere (örn. SSH - 22, HTTP - 80, HTTPS - 443) belirli kaynaklardan izin ver (`ACCEPT`).
+    *   İçeriden dışarıya giden trafiği de kısıtlamak (egress filtering) güvenliği artırabilir.
+    *   [Firewalld ile Güvenlik Duvarı Yönetimi](firewalld.md)
+    *   [IPTables](iptables/README.md) (Daha düşük seviyeli, güçlü ama karmaşık)
+*   **Donanımsal Firewall/Ağ Segmentasyonu:** Mümkünse, sunucuları donanımsal bir güvenlik duvarının arkasına yerleştirin. Farklı işlevlere sahip sunucuları (örn. web, veritabanı, yönetim) ayrı ağ segmentlerine (VLAN'lar) ayırın ve aralarındaki trafiği firewall ile kontrol edin. NAT kullanımı da dışarıdan doğrudan erişimi kısıtlayarak ek bir katman sağlayabilir.
+*   **Gereksiz Servisleri Kapatma/Kaldırma:** Sistemde çalışmasına gerek olmayan servisleri durdurun ve başlangıçtan kaldırın (`systemctl disable <servis>`) veya tamamen kaldırın (`dnf remove`, `apt remove`). Hangi portların dinlendiğini `ss -tulnp` veya `netstat -tulnp` komutlarıyla kontrol edin.
+*   **Yerel Servisleri Kısıtlama:** Sadece sunucunun kendisinden erişilmesi gereken servisleri (örn. veritabanı, bazı yönetim arayüzleri) sadece localhost'a (127.0.0.1, ::1) bağlanacak şekilde yapılandırın.
 
-Genel Öneriler:
+**2. Sistem Sertleştirme (Hardening)**
 
-**Firewall kullanımı:** Mümkünse mutlaka bir donanımsal firewall kullanmanızı tavsiye ederiz, firewall'da yeni nesil teknolojileri kullanmıyor dahi olsanız, farklı servisler için kullandığınız sunucuların bölgeleri arasında ayrım yapmanız dahi önemli bir güvenlik sağlayacaktır, firewall arkasında NAT kullanmanız bir çok dış saldırıdan sizi koruyacaktır, aynı zamanda içeriden dışarıya sadece tanımlanmış hedeflere ve portlara izin vermeniz durumunda, sunucuya bir şekilde sızmış olan truva atları dahi dışarı çıkacak yol bulamaz. Genelde güncellemelerin kolay yapılabilmesi için içeriden dışarıya tam yetki verildiğini gözlemlemekteyiz, yum gibi bir çok güncelleme aracı en yakın yansı üzerinden güncelleme yapmaya çalışmaktadır, bizim tavsiyemiz size yakın olduğunu bildiğiniz bir yansı seçip, fastest mirror türündeki eklentileri kapatıp tek bir nokta üzerinden güncelleme yapmanızdır, aynı şekilde Windows sunucularda da merkezi bir WSUS sistemi kurabilirsiniz.
+*   **Güçlü Şifre Politikaları:** Tüm kullanıcılar için güçlü ve benzersiz şifreler kullanılmasını zorunlu kılın (PAM modülleri ile ayarlanabilir). Şifrelerin düzenli aralıklarla değiştirilmesini sağlayın.
+*   **SSH Güvenliği:**
+    *   Şifre ile girişi devre dışı bırakıp sadece anahtar tabanlı kimlik doğrulamayı kullanın (`PasswordAuthentication no` in `sshd_config`).
+    *   Doğrudan root girişini engelleyin (`PermitRootLogin no`).
+    *   Standart olmayan bir port kullanın (`Port <port_no>`).
+    *   Gerekmiyorsa protokol 1'i devre dışı bırakın (`Protocol 2`).
+    *   Belirli kullanıcılara veya gruplara erişimi kısıtlayın (`AllowUsers`, `AllowGroups`).
+    *   Başarısız giriş denemelerini sınırlayın (`MaxAuthTries`).
+    *   `fail2ban` gibi araçlarla brute-force saldırılarını otomatik olarak engelleyin.
+*   **`/tmp` Güvenliği:** `/tmp` dizinini (ve `/var/tmp`, `/dev/shm` gibi diğer geçici alanları) ayrı bir bölümde tutmak ve `noexec`, `nosuid`, `nodev` seçenekleriyle bağlamak (mount etmek), bu dizinlere yüklenen betiklerin çalıştırılmasını ve yetki yükseltme saldırılarını zorlaştırır. `/etc/fstab` dosyasında ilgili satırı düzenleyin:
+    ```
+    # Örnek /etc/fstab satırı
+    UUID=...    /tmp    ext4    defaults,rw,nosuid,nodev,noexec    0    2 
+    ```
+    Değişikliği uygulamak için `sudo mount -o remount /tmp` komutunu çalıştırın veya sistemi yeniden başlatın.
+*   **SELinux / AppArmor:** Mümkünse, dağıtımınızın sunduğu Zorunlu Erişim Kontrolü (MAC - Mandatory Access Control) sistemini (SELinux veya AppArmor) etkinleştirin ve yapılandırın. Bu sistemler, standart dosya izinlerinin ötesinde, süreçlerin hangi kaynaklara erişebileceğini kısıtlayarak potansiyel zararı sınırlar.
+    *   [SELinux](selinux.md)
+*   **Gereksiz Yazılımları Kaldırma:** Kullanılmayan derleyicileri, kütüphaneleri ve araçları sistemden kaldırın.
 
-**Sunucunuza iç ve dış sızma testleri uygulayın:** Yaygın olarak kullanılan ücretsiz sızma testi uygulamaları İnternet'te yaygın şekilde kullanılmaktadır, bunlardan en çok kullanılanı Kali Linux distrosudur, sanal olarak ta kurabileceğiniz bu sistem üzerinde popüler sızma testi araçları ile birlikte gelmektedir. Çoğu bir kaç tıklama ile çalıştırılabilen bu uygulamalar sistem güvenliğinizin büyük bir ölçüde iyileşmesine yardımcı olacaktır.
+**3. Güncellemeler ve Yama Yönetimi**
 
-**Gereksiz tüm servislerin silinmesi:** Temel dağıtımların bir çoğu ihtiyacınız olmayacak uygulamalar ve servislerle birlikte paketlenmektedir. İlk kurulum yaptığınızda özellikle dış ağlara açık uygulamaları kapatmanızda fayda vardır, bu uygulamaları kolaylıkla "netstat" komutu ile görebilirsiniz.
+*   **Düzenli Güncelleme:** İşletim sistemini ve kurulu tüm paketleri düzenli olarak güncelleyin. Güvenlik yamaları kritik öneme sahiptir.
+*   **Otomatik Güncellemeler:** Güvenlik güncellemelerinin otomatik olarak uygulanmasını sağlayan araçları (örn. `dnf-automatic` (RHEL/CentOS), `unattended-upgrades` (Debian/Ubuntu)) yapılandırın. Dikkat: Otomatik güncellemeler nadiren de olsa uyumluluk sorunlarına yol açabilir, bu nedenle kritik sistemlerde dikkatli olunmalıdır.
+*   **Kararlı Sürümler:** Mümkünse, dağıtımınızın uzun süreli destek (LTS) veya kararlı sürümlerini kullanın. Alpha, beta veya geliştirme sürümlerinden kaçının. Abonelik tabanlı dağıtımlar (RHEL, CloudLinux) genellikle daha hızlı güvenlik yamaları sunabilir.
 
-**Host uygulamalarının gereksiz komutlarının kapatılması:** Özellikle PHP ve Apache Web Sunucusunda bir çok fonksiyon ve servis açık durumda gelmektedir. Apache üzerinde http-info modülünü açarak kullanılmayan modulleri bulabilirsiniz, ayar dosyasında Extended Status'ün açık olmasına dikkat ediniz, işlemi tamamladıktan sonra bu modülü tekrar kapatabilirsiniz. PHP'de ise özellikle sistem kaynaklarına ve komutlarına erişim sağlayan fonksiyonları kapalı tutulmasında fayda vardır, kullanmış olduğunuz php.ini dosyasını bulun:
+**4. İzleme ve Denetim**
 
-```
-php -i | grep php.ini
-```
+*   **Merkezi Log Yönetimi:** Birden fazla sunucunuz varsa, logları merkezi bir sistemde toplamak (örn. rsyslog/syslog-ng ile uzak sunucuya gönderme, ELK Stack, Graylog) ve analiz etmek önemlidir.
+*   **NTP Senkronizasyonu:** Tüm sunucuların saatlerinin NTP ile senkronize olduğundan emin olun. Bu, logların ilişkilendirilmesi ve olayların doğru zaman sırasına konulması için kritiktir.
+*   **Dosya Bütünlüğü İzleme:** `aide` veya `tripwire` gibi araçlarla önemli sistem dosyalarının değiştirilip değiştirilmediğini düzenli olarak kontrol edin.
+*   **Sızma Testleri:** Periyodik olarak iç ve dış sızma testleri yaparak veya yaptırarak sistemlerinizdeki potansiyel açıkları tespit edin. Kali Linux gibi dağıtımlar bu amaçla birçok araç içerir.
+*   **Güvenlik Taramaları:** `nmap` ile ağ taramaları, `OpenVAS` veya `Nessus` gibi araçlarla zafiyet taramaları yapın.
 
-bu dosya içerisinde disable\_functions içeriğini aşağıdaki gibi değiştirin:
+**5. Uygulama Güvenliği**
 
-```
-disable_functions = "apache_get_modules,apache_get_version,apache_getenv,apache_note, apache_setenv,disk_free_space,
-diskfreespace,dl, highlight_file,ini_alter,ini_restore,openlog,passthru,phpinfo, proc_nice,shell_exec,show_source,
-symlink,system, exec, proc_close,proc_open,popen,escapeshellarg,escapeshellcmd,myshellexec,c99_buff_prepare,
-c99_sess_ put,fpassthru"
-```
+*   **Web Uygulamaları:** SQL Injection, Cross-Site Scripting (XSS), CSRF gibi yaygın web zafiyetlerine karşı önlem alın. Güvenli kodlama pratiklerini uygulayın. Web Application Firewall (WAF) kullanmayı değerlendirin.
+*   **Veritabanı Güvenliği:** Güçlü şifreler kullanın, gereksiz kullanıcıları kaldırın, ağ erişimini kısıtlayın, düzenli yedek alın.
+*   **Konfigürasyon Yönetimi:** Uygulamaların (Apache, Nginx, PHP, MySQL vb.) yapılandırma dosyalarını gözden geçirin, gereksiz modülleri/fonksiyonları devre dışı bırakın, güvenlik ayarlarını sıkılaştırın.
 
-**Otomatik güncellemeleri açın:** yum gibi bir çok güncelleyici son zamanlarda otomatik güncelleme için destek getirmiş durumda, otomatik güncellemeleri almanız için yum-cron paketini yüklemeniz gerekmektedir, /etc/yum/yum-cron.conf içerisinde tercihinize göre bir düzenlemeyi ayarlamanız mümkündür, hiç bir ayar yapmazsanız sistem genel güncellemeleri indirecektir ancak yamaları yapmayacaktır.
-
-**tmp partisyonlarından çalıştırma iznini kaldırın:** LINUX Sistemlerde PHP gibi birçok script(betik) dili session, upload ve cache gibi geçici belgeleri /tmp partisyonunda tutar. Saldırgan tarafından bu dizine erişim sağlanmışsa buraya atılmış olan betikler bu noktadan çalıştırılabilir, bu şekilde bütün sistemin dosyalarına erişim sağlanabilir ya da root erişimine sahip olunabilir. /tmp partisyonuna atılan dosyaların çalıştırılmamasını sağlamak için /tmp partisyonu mount edilirken çalıştırma hakkının verilmemesi gerekir, bu nedenle sistem kurulumu sırasında /tmp dizinini ayrı bir partisyon olarak kurmanızı tavsiye ederiz, bu şekilde güvenlik ayarlarını yapmanız çok kolaylaşacaktır.
-
-Bu işlemi yapabilmek için sisteminizi kurarken /tmp partisyonunu ayrı bir partisyon olarak belirtmiş olmanız gerekmektedir. Bu şekilde bir ayar yapıp yapmadığınızı görmek için komut satırından "df -h" ya da "mount" komutuyla kontrol ediniz. /tmp ayrı bir mount noktası olarak belirlenmemişse aşağıdaki yöntem ile kendinize yeni bir disk dosya sistemi oluşturabilirsiniz:
-
-```
-cd /dev/
-dd if=/dev/zero of=Tmp bs=1024 count=250000
-mkfs -t ext3 /dev/Tmp
-cd /
-cp -aR  /tmp  /tmp_backup
-mount  -o  loop,noexec,nosuid,rw  /dev/Tmp  /tmp
-cp -aR /tmp_backup/* /tmp/
-chmod 0777 /tmp
-chmod +t  /tmp
-```
-
-Bir sonraki açılışta yeni oluşturduğunuz partisyonun aktif olabilmesi için aşağıdaki komutu /etc/fstab içerisine ekleyin
-
-```
-/dev/Tmp          /tmp          ext3          loop,rw,nosuid,noexec     0 0
-```
-
-Zaten bir /tmp partisyonuna sahipseniz /etc/fstab içerisinde tmp karşısındaki "defaults" değerini aşağıdaki değerle değiştirmeniz yeterli olacaktır.
-
-```
-/dev/VolGroup00/LogVol02 /tmp                    ext3     rw,nosuid,noexec 1 2
-```
-
-Değişikliklerin hemen geçerli olması için ve aynı zamanda açılışta bir problemle karşılaşmamak için aşağıdaki komut ile test yapabilirsiniz:
-
-```
-mount -oremount loop,rw,nosuid,noexec /tmp
-```
-
-Bu komut bir hata olmaması durumunda çıktı vermeden çalışacak ve mount işlemini gerçekleştirecektir.
-
-**Kod ve değişken özgünlüğü:** Mümkün olduğunca özgün kod kullanmaya çalışın, İnternet'te kolayca bulunabilen bir çok kod örneği ya da CMS sistemlerinin kırılması özgün kodun kırılmasından daha kolaydır, sistemlerin maruz kaldığı atakların bir çoğu çoğunluk tarafından kullanılan sistemlere yapılmaktadır. Açık kaynak kodlu sistemlerde ise yönetim arayüzünün URL linklerini değiştirmekte fayda vardır, örneğin veriteknik.com/admin yerine veriteknik.com/ytnm daha doğru bir tercih olacaktır, oluşturduğunuz bu dizin ismini robots.txt'ye yazmamanızı tavsiye ederiz, bir çok hacker indexlenmemesini istediğiniz dizinleri incelemek için bu dosyayı kontrol edecektir.
-
-![](../.gitbook/assets/sql\_injection.jpe)
-
-SQL Yapısı bilinen bir sisteme yapılan saldırı
-
-**Standart kullanıcıları kullanmayın:** Hem işletim sistemlerinde hem de yönetim arayüzlerinde admin, administrator gibi standart yöneticilerin erişimini kapatın, mümkünse sisteme giriş yapan tüm kullanıcılar için hesap açın.
-
-**Her sunucunun bir işlevi olması:** İmkanlar dahilinde her servis için bir sunucu kullanın (sanal ya da fiziksel), bu sunucuların firewall'da zone ayrımlarını gerçekleştirdikten sonra sadece hizmete erişmesi gereken sunucuların bu sunucu ile bağlantı kurmasına izin verin.
-
-**Merkezi log sistemi kurun:** Özellikle Linux sistemlerde loglar temel bir işlevsellik oluşturmaktadır, sorun çözümünden analizlere kadar bir çok şeyi loglar üzeriden takip etmeniz mümkündür ancak küme yapısındaki sistemlerde bu logları incelemek hem zahmetli hem de zaman alıcıdır. Kaldı ki incelediğiniz loglar içerisinde aradığınız şeyi bulmak ta kolay olmayabilir. Ossec gibi açık kaynak kodlu log servisleri bu açıdan hayat kurtarıcıdır. Firewall'dan sunuculara kadar her türlü cihazın loglarını Ossec'e gönderip, özel filtreler ile kendinize özel uyarılar oluşturabilirsiniz. 1 den 10'a kadar farklı öncelikler verebileceğiniz bu logların belli bir önem düzeyinden yüksek olanlarının alarm oluşturmasını ve bu alarmların size e-mail kanalıyla gelmesini sağlayabilirsiniz.
-
-**NTP Senkronizasyonu:** Merkezi loglamadan bahsetmişken, log sunucusuna gönderilen kayıtların sıralı ve ilişkilendirilebilir olması için tüm sununucuların aynı zaman dilimi olması ve zamanın eşitlenmiş olması gerekmektedir. NTP sunucuları yapısı itibari ile sanal sunuculara kurulmamaktadır. Sanal sunucuya kurduğunuz NTP sunucusunun donanımsal saate yazma izni olmadığından, sunucu yeniden başlatıldığında sorun yaşamanız olasıdır, ntp1 ve ntp2.veriteknik.com'u bu ihtiyaçlarınız için kullanabilirsiniz.
-
-**Mümkünse Abonelik sistemi olan bir sürüm kullanın:** Cloudlinux ve RedHat gibi, güvenlik açıklarına daha hızlı yama yapabilen sürümleri kritik güvenlik düzeyi olan sunucularda kullanmanızı tavsiye ederiz, bu sürümlerden daha hızlı açıkları kapatmaktadır. Böyle bir imkanınız yoksa sürümlerin ve servislerin kararlı sürümlerini seçmeye özen gösterin, **alpha**, **beta** ya da **Release Candidate** versiyonları kullanmayın.
-
-* Yedek dizinlerinin okuma erişimlerinin kaldırılması
-* sadece yerel erişim gereken servislerin loopback arayüzüne çekilmesi
-* özel anahtarların HSM içerisinde tutulması
-
-## Öneriler
-
-FTP servisini sürekli kapalı tutun, bunun için bir cron oluşturun, açmış olsanız bile kendiliğinden kapanmasını sağlayabilirsiniz.
-
-```bash
-11 0 * * * /etc/init.d/vsftpd stop
-```
-
-[http://www.veriportal.com/linux-guvenlik](http://www.veriportal.com/linux-guvenlik)
+Güvenlik sürekli bir çaba gerektirir. Yeni tehditler ve zafiyetler ortaya çıktıkça sistemlerinizi güncel tutmak ve yapılandırmalarınızı gözden geçirmek önemlidir.

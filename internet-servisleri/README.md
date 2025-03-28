@@ -1,18 +1,32 @@
 # İnternet Servisleri
 
-GNU/Linux işletim sistemleri hafif çekirdek yapısı sayesinde her türlü servisi büyükten küçüğe her türlü donanım üzerinden sunabilecek yapıya sahiptir, bu servisler Raspberry pi gibi sistemlerde çalışabildiği gibi, çok işlemcili mimarilerde de çalışabilmektedir. En sık kullanılan servisler Web \(http/hhtps\), mail, DNS, SNMP ve NTP'dir. IoT'nin gelişimi ile birlikte bir çok M2M \(Makinadan-Makinaya\) servisler de sıkça kullanılmaya başlanmıştır. Ancak sonuç pek değişmemektedir, kullanım kolaylığı açısından DNS yönlendirmede ve HTTPS ise güvenli iletişimi sağlamakta diğer bütün servislere kolayca ev sahipliği yapabilmektedir. Aşağıdaki tabloda sıkça kullanılan servisler ve açıklamaları yer almaktadır, kitap içerisinde de derince anlatılan bu konular kolay erişilebilirlik açısından burada kısaca değinilmiştir:
+GNU/Linux işletim sistemleri, esnek ve güçlü yapısı sayesinde çeşitli internet servislerini (ağ hizmetlerini) sunmak için yaygın olarak kullanılır. Bu servisler, basit bir Raspberry Pi'den güçlü sunucu kümelerine kadar farklı donanımlar üzerinde çalışabilir. Bu bölümde, en sık kullanılan internet servislerinden bazıları ve temel kavramları ele alınacaktır.
 
-| Servis | Protokol/Port | Açıklama | Kullanım Alanları |
-| :--- | :--- | :--- | :--- |
-| HTTP | TCP\(80\) | Şifrelenmemiş Web servisleri | Web içeriği, Web Servisleri |
-| HTTPS | TCP\(443\) | Şifrelenmiş Web Servisleri | Web içeriği, Web Servisleri |
-| DNS | UDP\(53\), TCP\(53\) | Karmaşık IP adreslerinin sabit bir alan adı ile eşleştirilmesinde kullanılır. | Alan adına karşılık gelen IPv4 ya da IPv6 adresini verir |
-| NTP | UDP\(123\) | Zaman Sunucusu | Tüm sunucuların aynı zaman senkronizasyonunda kalmasını sağlar |
-| SMTP | TCP\(25,587\) | E-Posta gönderim servisi | E-Posta iletim servisidir |
+En yaygın servisler arasında Web (HTTP/HTTPS), E-posta (SMTP/POP3/IMAP), Alan Adı Sistemi (DNS) ve Zaman Senkronizasyonu (NTP) bulunur. Güvenli iletişim için **HTTPS** kullanımı artık standart hale gelmiştir ve şifrelenmemiş HTTP'den **kaçınılmalıdır**.
 
-Web sitenizi servis etmek için sadece HTTP ve HTTPS yeterlidir, diğer servisleri harici bir servis sağlayıcıdan almanız mümkündür, yine de web siteniz form doldurulması neticesinde email gönderiyorsa basit bir MTA \(sendmail gibi\) kurmanız gerekecektir, ayrıca isterseniz DNS hizmetini de kendi sunucunuzdan verebilirsiniz.
+Aşağıdaki tabloda sıkça kullanılan bazı servisler, varsayılan portları ve temel işlevleri özetlenmiştir:
 
-DNS hizmetini kendi sunucunuzdan verecekseniz bu sunucunun alan adınız için bir otorite olması gerekmektedir, bu otorite ilişkisini sağlamak için alan adını aldığınız sağlayıcıdan bu alan adı için alt nameserver oluşturmanız gerekecektir. Bu alt alan adlarının tipik isimleri ise ns1, ns2,..nsx şeklindedir. Bu isimlerin karşılığına da sunucunuzun IP adresini yazabilirsiniz. Daha sonra alan adınız için nameserver ayarlarına ise bu sunuculara verdiğiniz isimleri girmelisiniz.
+| Servis        | Protokol/Port        | Açıklama                                                              | Yaygın Yazılımlar        |
+| :------------ | :------------------ | :-------------------------------------------------------------------- | :----------------------- |
+| HTTP          | TCP(80)             | Web içeriği sunma (şifrelenmemiş)                                     | Apache, Nginx            |
+| HTTPS         | TCP(443)            | Web içeriği sunma (TLS/SSL ile şifrelenmiş)                           | Apache, Nginx            |
+| DNS           | UDP(53), TCP(53)    | Alan adı - IP adresi çözümlemesi                                      | BIND, Unbound, Knot, PowerDNS |
+| NTP           | UDP(123)            | Ağ Zaman Protokolü (Zaman senkronizasyonu)                            | ntpd, chronyd            |
+| SMTP          | TCP(25, 587, 465)   | E-posta Gönderme (Simple Mail Transfer Protocol)                      | Postfix, Exim, Sendmail  |
+| POP3          | TCP(110, 995)       | E-posta Alma (Post Office Protocol v3)                                | Dovecot, Courier         |
+| IMAP          | TCP(143, 993)       | E-posta Alma/Yönetme (Internet Message Access Protocol)               | Dovecot, Courier         |
+| FTP           | TCP(21, 20)         | Dosya Transfer Protokolü (şifrelenmemiş)                              | vsftpd, ProFTPD          |
+| FTPS          | TCP(21, 990, 989)   | TLS/SSL üzerinden FTP (şifrelenmiş)                                   | vsftpd, ProFTPD          |
+| SFTP (SSH)    | TCP(22)             | SSH Dosya Transfer Protokolü (SSH üzerinden, FTP ile ilgisi yoktur)   | OpenSSH sshd             |
 
-Sunucunuza MTA kurmanız durumunda, bu sunucunun dışarıya doğrudan e-posta atmasından ziyade, belirlenmiş olan bir smarthost'a e-postaları iletmesinde fayda vardır, bu şekilde sunucunuzdan herhangi bir şekilde SPAM çıkışının önüne geçmiş olursunuz ama en doğru çözüm hiç MTA kurmadan SMTP üzerinden doğrudan posta sunucuna posta göndermektir. Artık neredeyse bütün betik dillerinde SMTP kütüphanesi standart olarak gelmektedir.
+Bir web sitesi sunmak için genellikle bir web sunucusuna (Apache veya Nginx gibi) ve dinamik içerik için PHP-FPM gibi bir uygulama sunucusuna ihtiyaç duyulur. DNS ve E-posta gibi hizmetler harici servis sağlayıcılardan alınabilir veya kendi sunucunuzda kurulabilir. Web sitenizden e-posta gönderimi gerekiyorsa, basit bir Mail Transfer Agent (MTA) kurmak (örn. Postfix'in sadece gönderme yapacak şekilde yapılandırılması) veya doğrudan harici bir SMTP sunucusu üzerinden göndermek (daha yaygın ve önerilen) gerekebilir.
 
+Kendi DNS sunucunuzu çalıştırmak, alan adınız için nameserver kayıtlarını (NS) alan adı kayıt firmanız (registrar) üzerinden doğru şekilde yapılandırmanızı ve sunucunuzun ilgili alan adı için yetkili (authoritative) olmasını gerektirir.
+
+**Bu Bölümdeki Konular:**
+
+*   [Bir Sayfanın İnternetteki Serüveni](bir-sayfanin-internetteki-serueveni.md): Bir web sayfasına erişim sürecinin (DNS, HTTP vb.) genel akışı.
+*   [Nameserver (DNS) Servisleri](nameserver-servisleri.md): DNS'in çalışma mantığı ve temel kavramlar.
+*   [Apache Web Sunucusu](apache.md): Apache'nin kurulumu ve temel yapılandırması.
+*   [PHP-FPM](php-fpm.md): PHP betiklerini Apache veya Nginx ile çalıştırmak için PHP-FPM kullanımı.
+*   [FTP Servisleri](ftp/README.md): FTP, FTPS ve SFTP protokolleri ve sunucuları (vsftpd, ProFTPD).

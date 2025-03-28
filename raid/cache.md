@@ -1,6 +1,8 @@
-# Cache
+# RAID Önbellek (Cache) Mekanizmaları
 
-RAID kontrol kartları tıpkı küçük birer bilgisayar gibi çeşitli bileşenlerden oluşurlar. Bunlar arasında bir işlemci ve bir tampon bellek (_cache_) de bulunur. Söz konusu tampon bellek, standart diskler kadar yavaş değildir, üzerinde çok daha küçük bir alan bulunur ancak bu bölgeye veri yazıp okumak çok daha hızlı olur. Verilerin yazılma ve okunma işlemlerinde performans kazancı sağlamak için RAID kartı bu tampon belleği kullanır, ancak bu bölgeyi kullanma stratejisi farklılıklar gösterebilir. RAID kartının tampon belleği kullanma stratejisi sistemden beklenen güvenilirlik seviyesinden, okuma/yazma işlemlerinin yoğunluğunun oranına, sıralı veri okuma ihtiyacının olup olmayışından yazılan verinin yakın zamanda okunup okunmayacağına göre değişkenlik gösterir. Bu ihtiyaçlara yönelik hemen her RAID kartı üreticisinin desteklediği ortak stratejiler bulunur ve bunlara RAID Cache Mekanizmaları (_RAID Caching Mechanisms_) denilebilir.
+Donanımsal RAID kontrol kartları, performansı artırmak için genellikle kendi üzerlerinde bulunan hızlı bir tampon bellek (önbellek - cache) kullanırlar. Bu önbellek, disk I/O işlemlerini hızlandırmak için çeşitli stratejilerle kullanılır. Yazılımsal RAID (`mdadm`) ise genellikle işletim sisteminin genel sayfa önbelleğini (page cache) kullanır, ancak ZFS gibi bazı çözümler kendi gelişmiş önbellekleme mekanizmalarına (ARC, L2ARC) sahiptir.
+
+Donanımsal RAID kartlarındaki yaygın önbellek mekanizmaları şunlardır:
 
 ## Write-Through Cache
 
@@ -22,13 +24,14 @@ Burada önemli olan nokta, yazılan verinin hala Cache'de olmasıdır. Bu işlem
 
 Yukarıdaki şekil, yazma işlemi gerçekleştirildikten sonra, işletim sisteminin "biraz önce yazılan veriyi" istediği takdirde izleyeceği yolları göstermektedir. Kırmızı oklar yazma işlemi, yeşil oklar ise okuma işlemini göstermektedir. Buradan görüleceği üzere, yeni yazılan veri hala cache üzerinde olduğu sürece, okuma işleminde disklere ihtiyaç olmayacaktır. Bu durum çok ciddi bir performans artışına sebep olur. Ancak istenilen verinin cache'de olmaması durumunda tabii ki disklerden veri okunacaktır.
 
-Write-Through Cache'leme mekanizması
+Write-Through Cache mekanizması, yazma işlemlerinde güvenliği ön planda tutar ancak yazma hızında belirgin bir artış sağlamaz. Okuma performansı, yazılan verinin hemen ardından tekrar okunması durumunda artar.
 
 ## Write-Around Cache
 
-Bu mekanizma da yine adından anlaşılabileceği üzere, yazma işlemlerinde "cache'nin etrafından dolanmaktadır". Kısacası yazma işlemleri cache kullanılmadan yapılmakta, ancak (eğer ayarlanmışsa) okuma işlemlerinde cache kullanılmaktadır. Bu durum özellikle okumanın yoğun olduğu sistemlerde verimli olabilir, çünkü cache'nin tamamı okuma işlemine ayrılmış olur. Ancak burada okunan verinin henüz yazılmış veri olmaması gerekmektedir. Eğer yeni yazdığımız veriyi okuyacaksak, bu verinin cache'de kalması hızlı erişim için ciddi avantajlar sağlar.
+Bu mekanizmada yazma işlemleri önbelleği **kullanmaz**; veri doğrudan disklere yazılır. Önbellek sadece okuma işlemleri için kullanılır. Bir veri diskten okunduğunda, bir kopyası önbelleğe alınır ve sonraki okuma istekleri önbellekten karşılanabilir.
 
-![](../.gitbook/assets/cache-write-around1-small.png)
+*   **Avantajı:** Önbelleğin tamamı okuma işlemleri için kullanılabilir, bu da okuma ağırlıklı iş yüklerinde performansı artırabilir. Yazma işlemleri önbelleği "kirletmez".
+*   **Dezavantajı:** Yazma işleminden hemen sonra aynı veriyi okumak gerektiğinde bir hızlanma sağlamaz, çünkü veri henüz önbellekte değildir.
 
 Yukarıdaki örnekte gerçekleşen adımlar şu şekildedir:
 
@@ -57,22 +60,10 @@ Görüldüğü üzere, tekrar okuma işleminde (eğer daha önce okunan veri tal
 
 Cache mekanizmaları arasındaki en verimli, ancak en güvensiz yöntemlerden birisidir. Bu yöntem temel olarak RAID kartının cache'sine güvenir, ve gelen yazma isteğini cache'ye yazmayı tamamladığı anda işletim sistemine "yazmayı tamamladım" sinyalini gönderir. Ardından cache'deki veriyi disklere yazma işlemini gerçekleştirir.
 
-![](../.gitbook/assets/cache-write-back-small.png)
+*   **Avantajı:** Yazma işlemleri, verinin sadece hızlı önbelleğe yazılmasıyla tamamlandığı için işletim sistemi açısından **çok hızlıdır**. Disk yazma gecikmesi hissedilmez.
+*   **Dezavantajı:** **Veri kaybı riski yüksektir.** Veri önbelleğe yazıldıktan sonra ancak henüz disklere yazılamadan önce bir güç kesintisi olursa, önbellekteki (genellikle volatile RAM) veri kaybolur.
 
-1. İşletim sistemi yazma talebini RAID kartına gönderir.
-2. CPU yazılacak bilgiyi cache'ye yazar.
-3. RAID kartı işletim sistemine "verileri diske yazdım" sinyali gönderir.
-4. RAID kartı cache'deki veriyi disklere yazar.
-
-Bu mekanizmanın avantajı ortada, işletim sistemi açısından yazma işlemi son derece hızlı gerçekleşir çünkü RAID kartının cache'sine yazma hızı kendisi için limit olur. Eğer İşletim sisteminin yazma talepleri, cache ile diskler arasındaki bağlantının yetişemeyeceği hıza çıkarsa, cache'nin dolmasından dolayı performans en fazla Write-Through Cache mekanizmasında olduğu haline kadar gerileyebilir.
-
-Bu mekanizma çok uygun görünse de, verinin disklere güvenli bir biçimde yazılmadan önce işletim sisteminin verinin yazdığını varsaymasını sağlar. Eğer cache'deki veri tamamen disklere yazılmadan önce sistemin elektiriği kesilirse, cache üzerindeki veri disklere aktarılamayacaktır. Bu durum ciddi veri kayıplarına neden olur.
-
-RAID kartı ve benzeri kartlardaki cache tampon bellekleri genellikler bilgisayarların RAM'lerine benzer yapıya sahiptirler. Bu tip belleklere _kırılgan_ oldukları için _volatile memory_ denilir. Sisteme elektrik sağlandığı takdirde bellekteki veriler güvendedir, ancak elektrik kesildiği anda bellekteki veriler tamamen kaybolur. Bu tip belleklerin son derece hızlı olmasının yanında getirdiği bir dezavantajdır. Özellikle RAID kartlarında cache üzerindeki elektiriğin kesilmesi durumunda bütün sistemi etkileyecek veri kayıplarına neden olacağı için, bu tip kartlara pil konulur. Olası bir elektrik kesintisinde pil cache'yi besler, böylece cache üzerindeki veriler _pilin ömrü yettiği sürece_ silinmez. RAID kartı sisteme yeniden elektrik verildiğini tespit ettiği takdirde cache'deki verileri disklere yazmaya çalışır, böylece veri kaybı yaşanmaz.
-
-Bu senaryo her ne kadar ideal gibi görünse de, bütün şartlar beklendiği gibi olmamaktadır. Bazı durumlarda pilin ömrü çok kısa olabilmekte, bazen sistem yeniden ayağa kalktığında işletim sistemi çok fazla disk okuma/yazma işlemine ihtiyaç duyduğu için darboğazlara sebep olabilmektedir. Ayrıca beklenmedik elektrik kesintileri en çok disklere zarar vermektedir. Disklerin elektrik kesintisi sonucu kurtarılamaz durumda zarar görmesi rastlanan durumlardandır.
-
-Özellikle RAID kartındaki pilin kullanımı konusunda kart üreticileri çeşitli yöntemler geliştirmiştir. Örneğin çoğu üretici write-back mekanizmasını desteklediği halde, RAID kartının pili olmaması durumunda bu özelliği kullanılmaz hale getirmekte ve write-through modunda çalışmaktadır. Bazı üreticilerse pilin kalan ömrünü ölçüp, eğer elektrik kesintisinde 24 saat dayanabilecek durumda değilse write-back mekanizması devredışı bırakmaktadır.
+Bu riski azaltmak için Write-Back önbelleğe sahip RAID kontrolcüleri genellikle bir **Pil Yedekleme Birimi (BBU - Battery Backup Unit)** veya **süper kapasitör** ile birlikte gelir. Güç kesildiğinde BBU, önbelleğe güç sağlayarak içindeki verinin korunmasını sağlar. Güç geri geldiğinde, kontrolcü önbellekteki veriyi disklere yazar. BBU olmayan veya pili bitmiş bir kontrolcüde Write-Back modunu kullanmak **çok risklidir** ve genellikle kontrolcü tarafından otomatik olarak Write-Through moduna geçilir. Bazı modern kartlar veriyi kalıcı olarak saklayabilen **NVRAM (Non-Volatile RAM)** önbellekler kullanabilir.
 
 ## Read Ahead Cache
 
@@ -80,19 +71,11 @@ Bu cache'leme stratejisi yazma ile ilgili değil, okuma işlemleri ile ilgilidir
 
 Öte yandan, eğer verilerimizde çoğunlukla sıralı okuma yapıyorsak, veya bir bloğa ulaştığımızda çoğunlukla o bloktan sonra gelen bloğa erişme ihtiyacı duyuyorsak, işletim sistemi herhangi bir parçayı RAID kartından istediğinde, RAID kartı akıllı davranıp "ondan sonra gelen parçaları da" okuyup cache'ye alabilir. Aşağıdaki örnek fikir verecektir.
 
-![](../.gitbook/assets/cache-readahead-small.png)
-
-1. İşletim sistemi RAID kartından **A** verisini istemektedir.
-2. RAID kartı Cache'ye bakar, burada **A** bulunmadığı için Disklerden kopyalama işlemi başlatılır.
-3. Bu noktada Read Ahead açıksa, Disklerden sadece **A** verisi değil, **A** verisinden sonra gelen birkaç veri daha cache'ye kopyalanır. Bu örnekte **ABCDEF** kopyalanmakta.
-4. Cache **A** verisinin kopyalanma işinin bittiğini söyler.
-5. RAID kartı ilgili veriyi işletim sistemine gönderir.
-
-Eğer işletim sistemi bir sonraki okuma işlemini (veya cache boşaltılıncaya kadar herhangi bir zamanda) **B** veya **C** verisini talep edecek olursa, bu verileri diskten okumakla zaman kaybetmemiş oluruz, cache bu bilgileri sağlar.
-
-Bu senaryo bazı durumlarda dezavantaj yaratabilir. Birincisi, eğer sıralı okuma yapıyorsak bile, belki genellikle **A**'yı okumak istediğimizde, sonrasında **B** ve **C**'yi okumak bizim için yetiyor. Ancak cache'de **DEF** verilerini de saklayarak boş yere cache'de yer işgal etmiş olduk. Bazı RAID kartları read ahead cache mekanizması yapılırken, "ne kadar ilerideki veriyi tampon belleğe aktaracağımızı" seçmemizi de sağlamaktadır. Ancak bu her kartın sunduğu bir özellik olmayabilir.
-
-Bir diğer nokta, boş yere okunan veriler cache'de yer işgal etmekten ötürü, fiziksel disklerden de boş yere okuma işlemine sebep oldu. Disklerin okuma hızı limitleri var ve biz boş yere disk hızını işgal etmiş olduk. Ayrıca, disklerin fiziksel işlem yaptığını unutmamak lazım. **AB** okumak yerine **ABCDEF** okuyarak diski 4 kat kullanmış olacağımız için disklerin ömrünü etkileyeceğini, fiziksel problemlere daha kısa sürede sebep olabileceğini göz önünde bulundurmak gerekir.
+*   **Avantajı:** Sıralı okuma yapılan durumlarda (örn. büyük dosya okuma, video streaming), bir sonraki istenmesi muhtemel veriler önbellekte hazır olduğu için okuma performansı artar.
+*   **Dezavantajı:**
+    *   Eğer erişim rastgele ise (örn. veritabanı sorguları), önceden okunan veriler muhtemelen kullanılmaz ve boş yere önbellek alanı işgal edilmiş, disk I/O yapılmış olur.
+    *   Gereğinden fazla veri okumak diskler üzerinde ek yük oluşturabilir.
+    *   Bazı kontrolcüler ne kadar ilerisinin okunacağını ayarlama imkanı sunar.
 
 ## Adaptive Read Ahead
 

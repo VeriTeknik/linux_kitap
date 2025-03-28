@@ -2,11 +2,15 @@
 
 Bu bölümde iki sunucu arasındaki ağ kullanımının test edilmesi için birkaç teknikten bahsedeceğiz. Bu tekniklerin bazıları GNU/Linux dağıtımlarının çoğunda halihazırda yüklü olan araçları kullanırken, bazıları yeni programların yüklenmesini gerektirebilir.
 
-## dd ve netcat
+## `dd` ve `netcat` Kullanımı
 
-Daha önce gördüğümüz iki program. dd sistemlerde standart olarak gelen bir araç olmasına rağmen, netcat'i genellikle yüklemek gerekir. Ancak daha önce belirttiğimiz gibi, netcat günlük kullandığınız araçlar arasında olmazsa olmazlardan olduğu için genellikle sunuculara yüklemekte fayda var.
+Bu yöntem, iki makine arasında ham TCP veya UDP aktarım hızını ölçmek için temel Linux araçlarını kullanır. Bir makinede `netcat` sunucu olarak dinlerken, diğer makinede `dd` ile belirli miktarda veri oluşturulup `netcat` istemcisi aracılığıyla sunucuya gönderilir. `dd` komutunun çıktısı, transfer süresini ve hızını gösterir.
 
-Diyelim ki 192.168.16.30 \(client\) makinasından 192.168.16.40 \(server\) sunucusuna veri transferinin hızını test etmek istiyoruz. Bu durumda 192.168.16.40 üzerinde belirli bir portu dinleyen bir netcat process'i çalıştırırız.
+**Uyarı:** Bu yöntem veriyi **şifrelemeden** aktarır. Güvenilmeyen ağlarda kullanılmamalıdır.
+
+**Adımlar:**
+
+1.  **Sunucu Tarafı (`192.168.16.40`):** Belirli bir portu (`5566`) dinle ve gelen veriyi `/dev/null`'a göndererek yok say:
 
 ```
 # 192.168.16.40 makinası üzerinde
@@ -54,11 +58,13 @@ Gördüğünüz gibi bağlantı client tarafından kapatılınca server da kapat
 [root@server ~]# nc -v -k -l 5566 > /dev/null
 ```
 
-Bu testlerin tamamının TCP ile gerçekleştirildiğini hatırlatalım. Eğer UDP test etmek isterseniz, hem server hem de client tarafında `-u` parametresini kullanmanız gerekir.
+Bu test varsayılan olarak TCP üzerinden yapılır. UDP hızını test etmek için hem sunucu hem de istemci tarafında `nc` komutuna `-u` parametresini eklemeniz gerekir. Ancak UDP bağlantısız olduğu için, bu test paket kaybı gibi faktörleri tam olarak yansıtmayabilir ve `iperf` gibi araçlar UDP testi için genellikle daha uygundur.
 
-## iperf
+## `iperf` / `iperf3`
 
-Bağlantı testi için standartlaşmış araçlardan birisi. Repolarda iki versiyonunu görebilirsiniz, iperf ve iperf3. Kullandıkları default portlar dahil bir takım farklılıklar var. Aşağıdaki ölçümleri iperf3 ile gerçekleştirdik ancak eski versiyonu ile de benzer sonuçlar elde edebilirsiniz. Sadece iki tarafta da \(server ve client\) aynı versiyonu kullanmaya özen göstermekte fayda var \(teknik olarak buna mecbur olmasanız da\).
+`iperf` (ve modern versiyonu `iperf3`), ağ bant genişliği performansını ölçmek için özel olarak tasarlanmış standart bir araçtır. TCP ve UDP testlerini destekler, çeşitli parametrelerle testin süresini, paralel akış sayısını, raporlama aralığını vb. ayarlama imkanı sunar.
+
+Genellikle istemci-sunucu modunda çalışır. Test edilecek iki makineye de kurulması gerekir (`sudo apt install iperf3` veya `sudo dnf install iperf3`).
 
 Sunucu tarafında aşağıdaki komutu çalıştırdığınızda kendisi zaten default port üzerinden dinlemeye başlar:
 
@@ -94,13 +100,42 @@ Connecting to host 94.103.33.50, port 5201
 iperf Done.
 ```
 
-Standart portları kullanmak istemiyorsanız `-p` ile port belirtebilirsiniz. Ayrıca server tarafındaki sonuçları almak için `--get-server-output` işe yarayabilir. Bir diğer kullanışlı özelliği, testi tersine çevirebiliyorsunuz. Yani serverdan sizin upload hızınızı değil, download hızınızı test etmesini talep edebilirsiniz, bunun için `-R` parametresi \(reverse\) kullanılabilir.
+**Yaygın Seçenekler:**
 
-## speedtest-cli
+*   `-s`: Sunucu modunda çalıştırır.
+*   `-c <sunucu_ip>`: İstemci modunda çalıştırır ve belirtilen sunucuya bağlanır.
+*   `-p <port>`: Kullanılacak port numarasını belirtir (iperf3 için varsayılan 5201).
+*   `-u`: UDP testi yapar.
+    *   `-b <hız>`: UDP için hedef bant genişliğini belirtir (örn. `100M` = 100 Mbit/s).
+*   `-P <sayı>`: Paralel istemci akışı (stream) sayısını belirtir.
+*   `-t <saniye>`: Test süresini belirtir (varsayılan 10 saniye).
+*   `-i <saniye>`: Raporlama aralığını belirtir.
+*   `-R`: Test yönünü tersine çevirir (sunucu gönderir, istemci alır - download testi).
+*   `--get-server-output`: İstemci tarafında sunucu tarafının raporunu da gösterir.
 
-Pratik bir şekilde bir sunucunun internet hızını ölçmek istiyorsanız kullanışlı bir program. Tarayıcınızdan speedtest.net adresine girdiğinizde yaptığınız ölçüm benzerini gerçekleştirir. Doğrudan github üzerinden `curl` veya `wget` ile yükleyebilir ve test edebilirsiniz. Veya dağıtımınızın repository'lerinde varsa indirip kullanabilirsiniz.
+## `speedtest-cli`
 
-`curl` ile programı hiç indirmeden, tek seferde test edip sonuç almak için:
+Bir sunucunun genel internet bağlantı hızını (download/upload ve ping) popüler Speedtest.net hizmetini kullanarak ölçmek için kullanılan bir komut satırı aracıdır.
+
+**Kurulum:**
+Genellikle dağıtım depolarında bulunur:
+```bash
+# Debian/Ubuntu
+sudo apt install speedtest-cli
+
+# RHEL/CentOS/Fedora (EPEL veya başka bir depo gerekebilir)
+sudo dnf install speedtest-cli 
+```
+Alternatif olarak, Python pip ile veya doğrudan GitHub'dan (`https://github.com/sivel/speedtest-cli`) indirilebilir, ancak depo sürümü genellikle daha kolaydır.
+
+**Kullanım:**
+Basitçe komutu çalıştırın:
+```bash
+speedtest-cli
+```
+Komut, en yakın Speedtest.net sunucusunu bulur, ping süresini ölçer, ardından indirme ve yükleme hızlarını test eder ve sonuçları gösterir.
+
+`curl` ile programı hiç indirmeden, tek seferde test edip sonuç almak için (GitHub'daki betiği kullanarak - URL değişebilir):
 
 ```
 eaydin@eaydin-vt ~ curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -
@@ -126,6 +161,3 @@ Download: 817.31 Mbit/s
 Testing upload speed................................................................................................
 Upload: 589.59 Mbit/s
 ```
-
-
-

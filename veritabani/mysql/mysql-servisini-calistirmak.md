@@ -1,59 +1,96 @@
-# MySQL servisini çalıştırmak
+# MySQL / MariaDB Servisini Çalıştırmak ve Yönetmek
 
-MySQL servisini kontrol etmek için,
+MySQL veya MariaDB sunucusu kurulduktan sonra, bir sistem servisi olarak çalışır. Modern Linux dağıtımlarında bu servis `systemd` tarafından yönetilir. Servis adı genellikle `mysqld` (MySQL için) veya `mariadb` (MariaDB için)'dir.
 
-`sudo systemctl status mysql` komutunu kullanabiliriz.
+Servisleri yönetmek için `systemctl` komutu kullanılır (`sudo` yetkisi gereklidir):
 
+**Servis Durumunu Kontrol Etme:**
 ```bash
-[celep@veriteknik ~]$ sudo systemctl status mysql
-● mysqld.service - MySQL Community Server
-   Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; vendor preset: disabled)
-   Active: active (running) since Tue 2018-02-27 10:59:37 UTC; 1min 13s ago
-  Process: 3816 ExecStartPost=/usr/bin/mysql-systemd-start post (code=exited, status=0/SUCCESS)
-  Process: 3753 ExecStartPre=/usr/bin/mysql-systemd-start pre (code=exited, status=0/SUCCESS)
- Main PID: 3815 (mysqld_safe)
-   CGroup: /system.slice/mysqld.service
-           ├─3815 /bin/sh /usr/bin/mysqld_safe --basedir=/usr
-           └─3980 /usr/sbin/mysqld --basedir=/usr --datadir=/var/lib/mysql --plugin-dir=/usr/lib64/mysql/plugin --log-error=/var/log/mysqld.log --pid-file=/var/run/mysqld/mysq...
+sudo systemctl status mariadb 
+# veya
+sudo systemctl status mysqld 
+```
+Bu komut, servisin aktif (`active (running)`) olup olmadığını, ne zamandır çalıştığını ve son log mesajlarını gösterir.
 
-Feb 27 10:59:34 veriteknik mysql-systemd-start[3753]: which will also give you the option of removing the test
-Feb 27 10:59:34 veriteknik mysql-systemd-start[3753]: databases and anonymous user created by default.  This is
-Feb 27 10:59:34 veriteknik mysql-systemd-start[3753]: strongly recommended for production servers.
-Feb 27 10:59:34 veriteknik mysql-systemd-start[3753]: See the manual for more instructions.
-Feb 27 10:59:34 veriteknik mysql-systemd-start[3753]: Please report any problems at http://bugs.mysql.com/
-Feb 27 10:59:34 veriteknik mysql-systemd-start[3753]: The latest information about MySQL is available on the web at
-Feb 27 10:59:34 veriteknik mysql-systemd-start[3753]: http://www.mysql.com
-Feb 27 10:59:35 veriteknik mysqld_safe[3815]: 180227 10:59:35 mysqld_safe Logging to '/var/log/mysqld.log'.
-Feb 27 10:59:35 veriteknik mysqld_safe[3815]: 180227 10:59:35 mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
-Feb 27 10:59:37 veriteknik systemd[1]: Started MySQL Community Server.
+Örnek Çıktı (MariaDB):
+```
+● mariadb.service - MariaDB 10.5.15 database server
+     Loaded: loaded (/lib/systemd/system/mariadb.service; enabled; vendor preset: enabled)
+     Active: active (running) since Fri 2023-10-27 10:30:00 +03; 5min ago
+       Docs: man:mariadbd(8)
+             https://mariadb.com/kb/en/library/systemd/
+   Main PID: 1234 (mariadbd)
+     Status: "Taking your SQL requests now..."
+      Tasks: 15 (limit: 4617)
+     Memory: 100.0M
+        CPU: 500ms
+     CGroup: /system.slice/mariadb.service
+             └─1234 /usr/sbin/mariadbd
+...
 ```
 
-Gördüğünüz gibi sağlık bir şekilde çalışıyor. Eğer çalışmıyor olsaydı, `sudo systemctl start mysql` komutunu kullanarak başlatacaktık.
-
-Eğer daha detaylı bilgi almak istiyorsanız `mysqladmin -u root -p version` komutunu kullanabilirsiniz.
-
+**Servisi Başlatma:**
+Eğer servis çalışmıyorsa, başlatmak için:
 ```bash
-[celep@veriteknik ~]$ mysqladmin -u root -p version
-Enter password: 
-mysqladmin  Ver 8.42 Distrib 5.6.39, for Linux on x86_64
-Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+sudo systemctl start mariadb 
+# veya
+sudo systemctl start mysqld
+```
 
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+**Servisi Durdurma:**
+```bash
+sudo systemctl stop mariadb 
+# veya
+sudo systemctl stop mysqld
+```
 
-Server version          5.6.39
+**Servisi Yeniden Başlatma:**
+Yapılandırma değişikliklerinden sonra veya sorun giderme amacıyla:
+```bash
+sudo systemctl restart mariadb 
+# veya
+sudo systemctl restart mysqld
+```
+
+**Sistem Başlangıcında Etkinleştirme/Devre Dışı Bırakma:**
+Servisin sistem açıldığında otomatik olarak başlamasını sağlamak için:
+```bash
+sudo systemctl enable mariadb 
+# veya
+sudo systemctl enable mysqld
+```
+Otomatik başlamasını engellemek için:
+```bash
+sudo systemctl disable mariadb 
+# veya
+sudo systemctl disable mysqld
+```
+
+## `mysqladmin` ile Durum Kontrolü
+
+`mysqladmin` komutu, çalışan bir MySQL/MariaDB sunucusu hakkında bilgi almak ve bazı temel yönetim görevlerini yapmak için kullanılan bir istemci aracıdır. Bağlantı için kullanıcı adı ve şifre gerektirir.
+
+Sunucu sürümünü ve durumunu kontrol etmek için:
+```bash
+mysqladmin -u root -p version status
+```
+Komut sizden root kullanıcısının şifresini isteyecektir.
+
+Örnek Çıktı:
+```
+mysqladmin  Ver 9.1 Distrib 10.5.15-MariaDB, for debian-linux-gnu on x86_64
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Server version          10.5.15-MariaDB-0+deb11u1
 Protocol version        10
 Connection              Localhost via UNIX socket
-UNIX socket             /var/lib/mysql/mysql.sock
-Uptime:                 7 min 0 sec
+UNIX socket             /run/mysqld/mysqld.sock
+Uptime:                 10 min 5 sec
 
-Threads: 1  Questions: 4  Slow queries: 0  Opens: 67  Flush tables: 1  Open tables: 60  Queries per second avg: 0.009
+Threads: 7  Questions: 123  Slow queries: 0  Opens: 34  Flush tables: 1  Open tables: 27  Queries per second avg: 0.203
+Uptime: 605  Threads: 7  Questions: 123  Slow queries: 0  Opens: 34  Flush tables: 1  Open tables: 27  Queries per second avg: 0.203
 ```
 
-Şu an MySQL servisimiz çalışır halde fakat bu haliyle canlı sunucularında kullanılabilir halde değil. Güvenlik zafiyetine yer vermemek adına diğer bütün kurulumlarda olduğu gibi sistem sıkılaştırması yapmanızı ve bunun için de OWASP'ın hazırladığı MySQL sıkılaştırma dökümanını kullanmanızı tavsiye ediyoruz.
+## Güvenlik Ayarları
 
-OWASP Backend Security Project MySQL Hardening,
-
-[https://www.owasp.org/index.php/OWASP\_Backend\_Security\_Project\_MySQL\_Hardening](https://www.owasp.org/index.php/OWASP_Backend_Security_Project_MySQL_Hardening "OWASP Backend Security Project MySQL Hardening")
-
+Veritabanı sunucusu kurulduktan sonra çalışır durumda olsa bile, canlı ortamlarda kullanmadan önce temel güvenlik ayarlarının yapılması **çok önemlidir**. Bu işlem genellikle kurulum bölümünde bahsedilen `mariadb-secure-installation` veya `mysql_secure_installation` betikleri aracılığıyla yapılır. Bu betikler root şifresini ayarlamanıza, anonim kullanıcıları kaldırmanıza, uzaktan root girişini engellemenize ve test veritabanını kaldırmanıza yardımcı olur. Bu adımları atlamadığınızdan emin olun.

@@ -1,10 +1,8 @@
-# nslookup
+# `nslookup` (Eski DNS Sorgu Aracı)
 
-"Name Server Lookup" anlamına gelen nslookup, BIND paketleri içerisinde en eskilerindendir. Bir dönem Internet Systems Consortium (ISC) nslookup'ın kullanımını kaldırmayı planlasa da (deprecate) 2004'te bu kararlarından vazgeçmiştir ve geliştirmeye devam etmiştir.
+`nslookup` (Name Server Lookup), DNS sorguları yapmak için kullanılan eski bir komut satırı aracıdır. `BIND` paketinin bir parçası olarak uzun süre standart olmuştur. Ancak günümüzde, daha esnek, daha güçlü ve daha detaylı çıktı veren **`dig` komutunun kullanımı genellikle tercih edilir.**
 
-Bugün nslookup ile yapabileceğiniz her şeyi ve daha fazlasını dig ile gerçekleştirebilirsiniz, bu yüzden dig kullanımını tavsiye ederiz. ISC'nin nslookup desteğini kaldırıp dig kullanımına teşvik etme kararı, dig'in isim çözümlemede işletim sistemi kaynaklarına göre davranmasına, nslookup'ın ise bu işi kendi içinde halletmesine bağlanıyordu. İlerleyen versiyonlarda nslookup'ın bu bağımlılığını kaldırdılar.
-
-Her ne kadar dig kullanımını tavsiye etsek de, bağlandığınız bazı sistemlerde dig bulunmayabilir, nslookup kullanmanız gerekebilir. Bu sebeple burada temel kullanımını göreceğiz.
+`nslookup` hala birçok sistemde bulunur ve basit sorgular için kullanılabilir, ancak `dig`'in sunduğu kontrol ve bilgi seviyesine ulaşamaz. Bu bölümde temel kullanımı, özellikle eski sistemlerle karşılaşıldığında veya `dig`'in bulunmadığı durumlarda faydalı olması amacıyla anlatılacaktır.
 
 ## Interactive Mode
 
@@ -33,11 +31,11 @@ Authoritative answers can be found from:
 > exit
 ```
 
-Etkileşimli mod bir sistem yöneticisi için çok pratik olmadığından pek kullanılmaz. Örneğin yazdığınız scriptlerin zaman zaman çıktıları çözümlemesi gerekebilir, bu tip durumlar için etkileşimsiz mod kullanılmalıdır.
+Etkileşimli mod, birden fazla sorgu yapmak veya sunucu/tip ayarlarını değiştirmek için kullanılabilir, ancak betikler (scripting) için uygun değildir. Betikler ve tek seferlik sorgular için etkileşimsiz mod kullanılır.
 
-## Non-Interactive Mode
+## Etkileşimsiz (Non-Interactive) Mod
 
-Yukarıdaki sorgunun aynısını terminalden şu şekile yapabilirdik.
+Komut satırında sorgulanacak alan adı (ve isteğe bağlı olarak sorgu tipi veya sunucu) belirtilir.
 
 ```bash
 eaydin@dixon ~ $ nslookup veritech.net

@@ -10,31 +10,55 @@ Benzer şekilde private anahtarınızı kimseyle paylaşmamalısınız. Aksi tak
 
 Oluşturulan private ve public anahtar çiftleri farklı kriptolama teknikleri kullanır.
 
-## Kriptolama Teknikleri
+## Kriptolama Teknikleri ve Anahtar Oluşturma (`ssh-keygen`)
 
-Sunucularımızda kullandığımız OpenSSH yazılımı, RSA, DSA ve ECDSA şifreleme tekniklerini destekleyebilir. Nasıl çalıştıklarını anlatmak bu kitabın konusu dışında olduğundan detaya girmeyeceğiz.
+OpenSSH, kimlik doğrulama için çeşitli açık anahtar algoritmalarını destekler. Geçmişte RSA ve DSA yaygın olarak kullanılmış olsa da, günümüzde güvenlik ve performans açısından **Ed25519** algoritması **şiddetle tavsiye edilmektedir**. ECDSA da iyi bir alternatiftir. RSA hala kullanılabilir (özellikle eski sistemlerle uyumluluk için), ancak en az 3072 veya 4096 bit anahtar uzunluğu önerilir. DSA ise artık güvensiz kabul edilmektedir ve kullanılmamalıdır.
 
-ECDSA'nın OpenSSH 5.7 versiyonunda desteklenmeye başladığı ve bugün çoğu sistemin bu versiyona geçmediği (örneğin CentOS 6 sunucularda bulunmaz) düşünülürse, tercih edilmemesi yerinde olur.
+SSH anahtar çifti (private ve public) oluşturmak için standart araç `ssh-keygen` programıdır.
 
-Ayrıca DSA algoritmaları daha eski olduğu için eski sistemlerde denk gelmek olasıdır, ancak artık çok güvenilir olduğu düşünülmüyor. Örneğin OpenSSH 7.0 versiyonunda DSA desteğini öntanımlı olarak kapalı biçimde tanımladı. Her ne kadar konfigürasyon dosyalarından DSA kullanımı tekrar çalıştırılabilir hale getirilse de ileride bu desteği tamamen kaldırılacağı [belirtiliyor. ](https://www.gentoo.org/support/news-items/2015-08-13-openssh-weak-keys.html)
-
-Bütün bu parametreler göz önünde bulundurulunca bugün en yaygın kullanılan SSH kriptolama tekniği RSA oluyor. Biz de kitabımızda bu teknik ile anahtarlama anlatacağız.
-
-## RSA Anahtar Çiftleri Oluşturma
-
-RSA kriptolama algoritması, Ron Rivest, Adi Shamir ve Leonard Adleman tarafından 1997'de [yayımlandı.](https://people.csail.mit.edu/rivest/Rsapaper.pdf) Bu yöntem ile birlikte amaç, özellikle ileride yaygınlaşacağı öngörülen eposta trafiğinde kişilerin kriptolu iletişim sağlamasını, ayrıca okunan mesajların doğru kaynaktan geldiğinin teyit edilmesini sağlamaktı. Bugün yeterince yüksek asal sayılar kullanıldığında RSA'nin kriptolama mekanizması kırılamamıştır. Bu açıdan RSA'yi en güvenilir kriptolama mekanizmalarından biri yapar.
-
-**NOT:** RSA'yi geliştirenlerden biri olan Adi Shamir'in de dahil olduğu bir ekip 4096-bit RSA şifrelemeyi **dolaylı yoldan** kırmayı [başarmıştır.](http://www.cs.tau.ac.il/~tromer/acoustic/) Teknik olarak algoritmanın bir açığından faydalanılmamıştır, dolayısıyla yöntem RSA'in bir zaafiyetini göstermemektedir. Dolaylı yoldan şifre kırma yöntemlerinde şifreleme yöntemine saldırılmaz, ancak ilgili bilgiyi edinmek için sistemin farklı zaafiyetlerinden faydalanılır. Örneğin telefon şifrenizi öğrenmek için telefonunuzun ekranında parmaklarınızın bıraktığı yağ/kir miktarına bakarak şifrenizi elde etmek, şifreleme mekanizmanızın bir zaafiyeti değil, sistemin bir zaafiyetidir. Adi Shamir, Daniel Genkin ve Eran Tromer de benzer şekilde RSA şifreleme kullanan sistemlerin işlemcilerinin çok yüksek frekansta çıkardığı gürültüyü özel cihazlarla dinleyip, analiz edip, bu gürültüden elde ettikleri periyodik desenlerle RSA anahtarlarının desenlerini karşılaştırarak 4096-bit'lik anahtarları çözmüşlerdir. *Acoustic cryptoanalysis* adı verilen bu inceleme yöntemiyle aslında dinlenen gürültü doğrudan işlemciden kaynaklanmamaktadır, ancak işlemciyi besleyen elektronik bileşenlerden kaynaklanmaktadır. Araştırmacılar basit bir cep telefonunu bir laptoptan 30 cm uzakta tutarak bu gürültünün algılanabildildiğini, hassas bir parabolik mikrofon kullanaraksa 4 metre uzaktaki bir cihazın işlemci gürültüsünü tespit ederek şifreyi kırabildiklerini belirtmişlerdir. Ayrıca gürültü elektrik voltaj dalgalanmalarından kaynaklandığı için, benzer desenlerin bilgisayarın VGA, USB veya Ethernet kablolarının topraklama hatlarından algılanabildiğini belirtmişlerdir. Konu hakkındaki makaleye [şuradan](http://www.cs.tau.ac.il/~tromer/papers/acoustic-20131218.pdf), CRYPTO 2014'te yöntemi tanıttıkları video sunumuna ise [şuradan](https://www.youtube.com/watch?v=DU-HruI7Q30) erişebilirsiniz.
-
-### ssh-keygen
-
-SSH anahtar çifti oluşturmak için pek çok progrma bulunur. Linux üzerinde bunu yapmanın standart yolu ssh-keygen programını kullanmaktır.
-
+**Ed25519 Anahtarı Oluşturma (Önerilen):**
 ```bash
-ssh-keygen -t rsa -b 4096 -C "egitim@veriteknik.com"
+ssh-keygen -t ed25519 -C "kullanici@makine_adi"
 ```
+*   `-t ed25519`: Anahtar türünü Ed25519 olarak belirtir.
+*   `-C "..."`: Anahtara bir yorum ekler (genellikle e-posta adresi veya kullanıcı@makine formatında). Bu yorum, anahtarı tanımlamaya yardımcı olur ancak işlevsel bir etkisi yoktur.
 
-Yukarıdaki komut ile 4096-bit'lik bir RSA anahtarı oluşturulur. Eğer parametre olarak rsa belirtmeseydik de ssh-keygen programı kriptolama algoritması olarak RSA'yı tercih edecekti. -C ile belirttiğimiz e-posta adresi aslında bir açıklama satırıdır. Çoğunlukla bu satırlar hangi anahtarın kime ait olduğunu hatırlamakta kullanılırlar. Açıklama satırı belirtmemekte sakınca yoktur.
+**RSA Anahtarı Oluşturma (Eski Sistemlerle Uyumlu):**
+```bash
+ssh-keygen -t rsa -b 4096 -C "kullanici@makine_adi"
+```
+*   `-t rsa`: Anahtar türünü RSA olarak belirtir.
+*   `-b 4096`: Anahtar uzunluğunu bit cinsinden belirtir (RSA için en az 3072 veya 4096 önerilir).
+
+`ssh-keygen` komutu çalıştırıldığında size birkaç soru soracaktır:
+
+1.  **Dosya Yolu:** Anahtarın nereye kaydedileceğini sorar. Varsayılan yol genellikle kullanıcının ev dizinindeki `~/.ssh/` klasörüdür (örn. `~/.ssh/id_ed25519` veya `~/.ssh/id_rsa`). Varsayılanı kabul etmek için Enter'a basabilir veya farklı bir yol/isim belirtebilirsiniz.
+2.  **Parola (Passphrase):** Özel anahtarınızı korumak için bir parola belirlemenizi ister. **Güçlü bir parola belirlemek şiddetle tavsiye edilir.** Bu parola, özel anahtarınızın çalınması durumunda bile kullanılmasını engeller. Parola olmadan anahtar oluşturmak için bu adımı boş geçebilirsiniz (Enter'a iki kez basın), ancak bu daha az güvenlidir.
+
+Örnek Ed25519 anahtar oluşturma adımları:
+```bash
+$ ssh-keygen -t ed25519 -C "test@example.com"
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/user/.ssh/id_ed25519): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/user/.ssh/id_ed25519
+Your public key has been saved in /home/user/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:aBcDeFgHiJkLmNoPqRsTuVwXyZ1234567890abcDef user@hostname
+The key's randomart image is:
++--[ED25519 256]--+
+|        . .. .   |
+|       . + ..    |
+|      . =.o ..   |
+|     . *.*o..    |
+|    . = S=o.     |
+|   . =.B.B .     |
+|    =o*.B . .    |
+|   =o=o= . .     |
+|  .E+*+..        |
++----[SHA256]-----+
+```
 
 Anahtar çifti oluşturmak istediğimiz belirttikten sonra program bize dosyayı nereye kaydedeceğini sorar, standart yolu kullanıcının ev dizininin altındaki ```.ssh``` dizini'dir.
 
@@ -66,15 +90,35 @@ The key's randomart image is:
 +-----------------+
 ```
 
-Anahtarınızı oluşturduktan sonra ekranda görülen grafik, anahtarınızın görsel ifadesidir. OpenSSH 5.1 versiyonuyla [gelen](http://lists.mindrot.org/pipermail/openssh-unix-dev/2008-July/026693.html) bu özellik, sıkça bağlandığınız makinaların SSH anahtarlarının değişimini görsel olarak daha rahat hatırlamanız için geliştirilmiştir. Aslında bir sunucuya her bağlandığınızda bunu görmeyi sağlayabilirsiniz, ```-o VisualHostKey=yes``` seçeneği bunu sağlar, ancak her defasında görmemenizin sebebi, genellikle ```/etc/ssh/ssh_config``` dosyasında disable edilmiş olmasıdır.
+Bu işlemlerin ardından iki dosya oluşur:
+*   `id_ed25519` (veya belirttiğiniz isim): **Özel (Private) Anahtar**. Bu dosyayı **gizli tutmalı** ve kimseyle paylaşmamalısınız. İzinleri genellikle `600` (`-rw-------`) olmalıdır.
+*   `id_ed25519.pub` (veya belirttiğiniz isim`.pub`): **Açık (Public) Anahtar**. Bu dosyanın içeriğini, şifresiz bağlanmak istediğiniz uzak sunuculardaki ilgili kullanıcının `~/.ssh/authorized_keys` dosyasına eklemelisiniz. Bu anahtarı başkalarıyla paylaşmanızda genellikle bir sakınca yoktur.
 
-Yukarıdaki işlemlerin ardından iki dosyamız oluşmuştur. ```egitim_rsa``` ve ```egitim_rsa.pub``` dosyaları anahtar çiftimizdir. Uzak sunucuya ```egitim_rsa.pub``` dosyasının içeriğini yerleştirdiğimizde, artık ```egitim_rsa``` anahtarını kullanarak karşı sunucuya bağlanabiliriz.
+### `authorized_keys` Dosyası ve İzinler
 
-### authorized_keys
+Uzak sunucuda, bağlanmak istediğiniz kullanıcının ev dizini altında `~/.ssh/authorized_keys` dosyası bulunur. Bu dosya, o kullanıcı olarak sunucuya bağlanmasına izin verilen kişilerin **açık (public)** anahtarlarını içerir (her anahtar genellikle tek bir satırda yer alır).
 
-Karşı sunucuda yer alan ```authorized_keys``` dosyası, bu sunucuya bağlanmaya yetkili kişilerin public anahtarlarının tutulduğu yerdir. İlgili kullanıcıların ssh dizinlerinin altında bulunabilir. Örneğin: ```/root/.ssh/authorized_keys``` dosyası, root kullanıcısı olarak bağlanabilecek kişilerin ssh anahtarlarının tutulduğu dosyadır.
+Yerel makinenizde oluşturduğunuz `.pub` uzantılı dosyanın içeriğini kopyalayıp, uzak sunucudaki ilgili kullanıcının `~/.ssh/authorized_keys` dosyasının sonuna eklemeniz gerekir.
 
-Bu dosyaya ilgili satırı eklemek için SSH ile bir kez bağlanmak, veya sunucu başında bu işi yapmak gerekmektedir. Eğer sunucuya erişim için şifresini biliyorsanız bağlanıp ilgili satırı ekleyebilirsiniz. Öte yandan ```ssh-copy-id``` komutu bu işi sizin için yapar.
+**Önemli Dosya İzinleri:** SSH anahtar tabanlı kimlik doğrulamanın çalışması için uzak sunucudaki dosya ve dizin izinleri çok önemlidir:
+*   Kullanıcının ev dizini (`~`) grup veya diğer kullanıcılar tarafından yazılabilir olmamalıdır (`drwxr-xr-x` veya `755` genellikle uygundur).
+*   `.ssh` dizininin izinleri `700` (`drwx------`) olmalıdır (sadece sahip okuyabilir, yazabilir, çalıştırabilir).
+*   `authorized_keys` dosyasının izinleri `600` (`-rw-------`) olmalıdır (sadece sahip okuyabilir, yazabilir).
+
+Bu izinler doğru ayarlanmazsa, SSH sunucusu güvenlik nedeniyle anahtar tabanlı kimlik doğrulamayı reddedebilir.
+
+### Açık Anahtarı Sunucuya Kopyalama (`ssh-copy-id`)
+
+Açık anahtarınızı (`.pub` dosyasının içeriğini) manuel olarak kopyalayıp `authorized_keys` dosyasına eklemek yerine, `ssh-copy-id` komutunu kullanmak daha kolay ve genellikle daha güvenli bir yoldur. Bu komut, belirtilen sunucuya şifre ile bağlanır (eğer şifre tabanlı giriş açıksa) ve yerel makinenizdeki açık anahtarı otomatik olarak uzak sunucudaki doğru `authorized_keys` dosyasına ekler, ayrıca gerekli dizin ve dosya izinlerini de ayarlamaya çalışır.
+
+```bash
+# Varsayılan anahtarı (örn. ~/.ssh/id_ed25519.pub) kopyala
+ssh-copy-id kullanici@uzak_sunucu_adresi
+
+# Belirli bir anahtarı (-i) ve portu (-p) kullanarak kopyala
+ssh-copy-id -i ~/.ssh/baska_bir_anahtar.pub -p 2299 kullanici@uzak_sunucu_adresi
+```
+Komut sizden uzak sunucudaki kullanıcının şifresini isteyecektir. Başarıyla tamamlandıktan sonra, artık o sunucuya şifre yerine SSH anahtarınızla (ve eğer belirlediyseniz anahtar parolanızla) bağlanabilirsiniz.
 
 ```bash
 eaydin@dixon ~ $ ssh-copy-id root@test-centos1
@@ -89,21 +133,4 @@ Now try logging into the machine, with:   "ssh 'root@test-centos1'"
 and check to make sure that only the key(s) you wanted were added.
 ```
 
-Aynı komutu tekrar edersek, program eklemeyeceğini çünkü anahtarı zaten orada bulduğunu belirtecektir.
-
-```bash
-eaydin@dixon ~ $ ssh-copy-id root@test-centos1
-/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
-
-/usr/bin/ssh-copy-id: WARNING: All keys were skipped because they already exist on the remote system.
-```
-
-Yukarıdaki komutlar, kullanıcının standart SSH anahtarlarını kullanıp bunları ekler. Yani yukarıdaki örneklerde ```~/.ssh/id_rsa.pub``` dosyası okunup içeriği karşı tarafa aktarılmıştır. Eğer farklı bir dosya kullanmak istersek, ```-i``` parametresiyle belirtebiliriz. Bu ifadede dosya adının sonunda **.pub** bulunmazsa, program kendisi bu uzantıyı ekleyip dosyayı okumaya çalışır.
-
-```bash
-ssh-copy-id -i /root/farkli_id_dosyasi -p 2299 root@sunucu-ip
-```
-
-Yukarıdaki komut, ```sunucu-ip``` sunucusuna **2299** portundan **root** kullanıcısı ile bağlanıp, yerel makinamızdaki ```/root/farkli_id_dosyasi.pub``` dosyasının içeriğini aktarmaya çalışır.
-
-**Simülasyon:** ssh-copy-id programını ```-n``` ile çalıştırdığınızda, kopyalama işlemlerini gerçekleştirmez ancak simüle eder, böylece bir problemle karşılaşıp karşılaşmayacağınızı test edebilirsiniz.
+`ssh-copy-id` komutu, anahtar zaten `authorized_keys` dosyasında varsa tekrar eklemez. `-n` seçeneği ile kopyalama işlemini yapmadan sadece deneme (dry-run) yapabilirsiniz.

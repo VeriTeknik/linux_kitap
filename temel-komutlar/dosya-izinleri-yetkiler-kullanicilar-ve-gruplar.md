@@ -26,11 +26,30 @@ Buradaki ilk karakter ("-") şimdilik bir kenara bırakırsak, diğer karakterle
 
 Bu yetkiler çeşitli anlamların kısaltmalarıdır. _r_ harfi okuma yetkisi (read), _w_ yazma yetkisi (write) ve _x_ çalıştırma yetkisi (execute) anlamına gelmektedir. Bu durumda sistemimizdeki crc8.py dosyasını herkes okuyabiliyor, dosya içeriğini sadece _eaydin_ kullanıcısı değiştirebiliyor, dosyayı _eaydin_ kullanıcısı ve _plugdev_ grubuna dahil bütün kullanıcılar çalıştırabiliyor demektir.
 
-_rwx_ yetkilendirme kullanımını _chmod_ komutuyla yapabiliriz. Örneğin dosyaya herkesin yazmasını sağlamak istiyorsak aşağıdaki komut yeterli olacaktır.
+_rwx_ yetkilendirme kullanımını `chmod` komutuyla yapabiliriz. `chmod` komutu hem sembolik (harflerle) hem de oktal (rakamlarla) gösterimi destekler.
+
+**Sembolik Gösterim:**
+
+*   **Kimi etkileyecek:** `u` (user/sahip), `g` (group/grup), `o` (others/diğerleri), `a` (all/tümü - varsayılan).
+*   **Ne yapılacak:** `+` (izin ekle), `-` (izin çıkar), `=` (izinleri tam olarak ayarla).
+*   **Hangi izin:** `r` (okuma), `w` (yazma), `x` (çalıştırma).
+
+Örnekler:
 
 ```bash
+# Herkese (a) yazma (+) izni ekle
+chmod a+w crc8.py 
+# veya kısaca (a varsayılan olduğu için):
 chmod +w crc8.py
+
+# Grup (g) ve diğerlerinden (o) çalıştırma (x) iznini kaldır (-)
+chmod go-x crc8.py
+
+# Sahip (u) için okuma ve yazma (rw), grup (g) için sadece okuma (r), diğerleri (o) için hiçbir izin verme (=)
+chmod u=rw,g=r,o= crc8.py 
 ```
+
+**Oktal (Rakamlarla) Gösterim:**
 
 Öte yandan, _rwx_ yetkilendirme biçiminin farklı bir notasyonu bulunmaktadır. Okuma, yazma ve çalıştırma işlemlerinin her biri farklı bir rakamla ifade edilmek üzere, toplamları bir dosya için tüm yetkileri gösterebilir.
 
@@ -80,15 +99,24 @@ Dosya izinlerini incelerken, _ls -l_ komut çıktısının ilk sütunundaki ilk 
 | c        | Dosyanın bir karakter özel dosyası olduğu anlamına gelir. Yani blok dosyalarına benzerdir ancak yazıp okuma işlemlerinde karakter kullanılmalıdır. Örneğin /dev altındaki seri port cihazları bu özelliğe sahiptir. |
 | s        | Soket dosyası. Programların birbirleri ile iletişim kurarken, doğrudan dosya işaretçisi aracılığıyla veri iletmelerini sağlar.                                                                                      |
 
-Öte yandan _setuid_ özelliği, dosyanın çalıştırma izninin yerine geçebilir. Bu yetki verildiğinde, dosyayı çalıştıran kişiler, sanki dosyanın sahibiymiş gibi çalıştırabilirler. Örneğin root kullanıcısına ait ancak **apache** grubuna ait bir dosya, **+s** izni verildiğinde, apache tarafından çalıştırılınca root etkisiyle çalışır. Dikkatli kullanılmazsa sistemde açıklara neden olabilir. Öte yandan setuid izni dizinlerde farklı davranır. Bir dizine **+s** yetkisi verildiğinde, bu dizin içine kim dosya oluşturursa oluştursun, dosya dizin sahibi tarafından yaratılmış gibi davranır. _crc8.py_ dosyamızın setuid olması durumunda _ls -l_ çıktısı aşağıdaki gibi olurdu:
+Öte yandan **setuid** ve **setgid** bitleri, dosyanın çalıştırma izninin yerine geçebilir (`x` yerine `s` veya `S` olarak görünür).
+
+*   **setuid (SUID):** Bir çalıştırılabilir dosyada setuid biti ayarlandığında, dosyayı çalıştıran kişi, dosyayı çalıştırırken geçici olarak dosyanın *sahibinin* yetkilerine sahip olur. Örneğin, `passwd` komutu normal kullanıcıların kendi şifrelerini değiştirebilmesi için setuid root olarak ayarlanmıştır. Dikkatli kullanılmazsa ciddi güvenlik açıklarına neden olabilir.
+*   **setgid (SGID):** Bir çalıştırılabilir dosyada setgid biti ayarlandığında, dosyayı çalıştıran kişi, dosyayı çalıştırırken geçici olarak dosyanın *grubunun* yetkilerine sahip olur.
+*   **setgid (Dizinlerde):** Bir dizine setgid biti (`chmod g+s dizin_adi`) ayarlandığında, o dizin içinde oluşturulan yeni dosyalar ve alt dizinler, otomatik olarak o dizinin grubuna sahip olur (oluşturan kullanıcının birincil grubu yerine). Bu, bir grup projesi için paylaşılan dizinlerde çok kullanışlıdır. Dizinlerde setuid bitinin ise standart bir etkisi yoktur ve genellikle kullanılmaz.
+
+_crc8.py_ dosyamızın setuid (sahip için) ve setgid (grup için) olması durumunda _ls -l_ çıktısı aşağıdaki gibi olurdu:
 
 ```bash
--rwsr-Sr-- 1 eaydin plugdev 1925 Nov  4 01:36 crc8.py
+-rwsr-sr-- 1 eaydin plugdev 1925 Nov  4 01:36 crc8.py 
 ```
+Eğer setuid veya setgid biti ayarlanmışsa ancak ilgili konumda çalıştırma (`x`) izni yoksa, `s` yerine büyük `S` harfi görünür. Bu genellikle anlamsız bir durumu veya bir hatayı belirtir. Örneğin:
+```bash
+-rwSr-Sr-- 1 eaydin plugdev 1925 Nov  4 01:36 crc8.py 
+```
+Yukarıdaki örnekte, hem sahip hem de grup için setuid/setgid bitleri ayarlanmış ancak çalıştırma izni verilmemiştir.
 
-Yukarıdaki örnekte, **s**'lerden birinin küçük, diğerinin büyük harf olduğu dikkatinizi çekmiştir. Büyük harf olan, dosyanın setuid izninin olduğu ancak çalıştırma izninin olmadığı anlamına gelir. Kısacası setuid belirlemek anlamsızdır, dolayısıyla sistem bizi uyarmak için o harfi büyük yapar. Özetle yukarıdaki örnekte crc8.py dosyasının grup izninde setupid tanımlanmış ama çalıştırma izni verilmemiştir.
-
-Bir başka yetki biçimi sticky bit'tir. Dosya izinlerinden bağımsız olarak, sadece sahibinin (ve root'un) dosyayı silebileceği anlamına gelir. Yetki dizininin son karakterinde görülür.
+Bir başka özel yetki biçimi **sticky bit**'tir (`t` veya `T`). Genellikle `/tmp` gibi herkesin yazabildiği dizinlerde kullanılır. Bir dizinde sticky bit ayarlıysa (`chmod +t dizin_adi`), o dizin içindeki bir dosyayı veya alt dizini yalnızca dosyanın/dizinin sahibi, dizinin sahibi veya root kullanıcısı silebilir ya da yeniden adlandırabilir. Yetki dizisinin son karakterinde (`x` yerine) `t` veya `T` olarak görünür (`T` yine çalıştırma izni olmayan durumu belirtir).
 
 ```bash
 drwxrwxrwt 1 eaydin plugdev    144 Nov  7 16:00 crc
@@ -152,12 +180,18 @@ groupdel eaydin
 groupdel: cannot remove the primary group of user 'eaydin'
 ```
 
-**eaydin** kullanıcısını **veriteknik** grubundan silmek için **deluser** komutu kullanılır.
+Bir kullanıcıyı belirli bir ikincil gruptan silmek için genellikle `gpasswd` komutu kullanılır (bu komut çoğu dağıtımda bulunur):
 
 ```bash
-deluser eaydin veriteknik
-Removing user `eaydin' from group `veriteknik' ...
-Done.
+# eaydin kullanıcısını veriteknik grubundan sil
+gpasswd -d eaydin veriteknik 
+```
+Debian/Ubuntu tabanlı sistemlerde `deluser` komutu da bu iş için kullanılabilir:
+```bash
+# Debian/Ubuntu'da alternatif:
+# deluser eaydin veriteknik
+# Removing user `eaydin' from group `veriteknik' ...
+# Done.
 ```
 
 Bir kullanıcıyı, _primary group_ haricindeki tüm gruplardan (yani tüm _secondary group_lardan) silmek içinse aşağıdaki komut uygulanabilir.
@@ -177,3 +211,5 @@ Benzer şekilde sistemdeki tüm kullanıcıları aşağıdaki gibi görüntüley
 ```bash
 cut -d: -f1 /etc/passwd
 ```
+
+Bu bilgiler doğrudan `/etc/group` (gruplar için) ve `/etc/passwd` (kullanıcılar için) dosyalarında saklanır. Ancak bu dosyaları doğrudan düzenlemek yerine kullanıcı/grup yönetimi komutlarını (useradd, usermod, userdel, groupadd, groupmod, groupdel, gpasswd vb.) kullanmak genellikle daha güvenli ve tutarlıdır. `getent passwd` ve `getent group` komutları da bu dosyaların içeriğini (ve potansiyel olarak diğer veritabanlarını, örneğin LDAP) sorgulamak için kullanılabilir.

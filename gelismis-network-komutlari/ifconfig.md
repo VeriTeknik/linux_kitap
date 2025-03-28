@@ -1,14 +1,14 @@
-# ifconfig
+# `ifconfig` (Eski Ağ Yapılandırma Aracı)
 
-Bugün GNU/Linux kullanan sistem yöneticilerinin çoğu eski alışkanlıklarından dolayı ağ cihazlarını \(NIC\) ayarlamak için `ifconfig` komutunu kullanırlar, ancak ifconfig uzun süredir geliştirilmeyen ve artık terk edilen \(deprecated\) bir yazılımdır. Dolayısıyla kullanmamak daha doğrudur.
+`ifconfig` komutu, geleneksel Unix ve eski Linux sistemlerinde ağ arayüzlerini (NIC - Network Interface Controller) yapılandırmak ve bilgilerini görüntülemek için kullanılan temel araçtı. Ancak, `ifconfig`'in dahil olduğu `net-tools` paketi artık **geliştirilmemektedir** ve modern Linux dağıtımlarında yerini büyük ölçüde `iproute2` paketindeki **`ip` komutuna** bırakmıştır.
 
-Programın geliştirilmesinin durdurulduğu ilk olarak Debian mail listinde paylaşıldı. Bugün CentOS 7 gibi sistemlerde bu komut bulunmamaktadır.
+**Neden `ip` Kullanılmalı?**
+*   `ip` komutu daha yetenekli ve esnektir (IPv6, policy routing, tüneller vb. için daha iyi destek).
+*   Daha tutarlı bir sözdizimine sahiptir (`ip link ...`, `ip addr ...`, `ip route ...`).
+*   Aktif olarak geliştirilmektedir.
+*   `ifconfig` bazı modern dağıtımlarda varsayılan olarak kurulu gelmeyebilir.
 
-Duyuruyu şuradan görebilirsiniz: [https://lists.debian.org/debian-devel/2009/03/msg00780.html](https://lists.debian.org/debian-devel/2009/03/msg00780.html)
-
-ifconfig'in artık geliştirilmemesinin pek çok sebebi vardır, ve bunun yerine `ip` komutunun kullanımı tavsiye edilir. Örneğin netmask tanımlanmasına CIDR notasyonu desteklenmez, `255.255.255.248` yerine `/29` yazamazsınız.
-
-Öte yandan, bazı eski sistemlerde veya gömülü sistemlerde `ip` komutu bulunmayabilir. Bunun için nasıl çalıştığı hakkında fikir sahibi olmakta fayda var.
+Bu bölümde `ifconfig` komutunun temel kullanımı, özellikle eski sistemlerle karşılaşıldığında veya tarihsel bilgi amacıyla anlatılacaktır. **Yeni yapılandırmalar ve betikler için `ip` komutunu kullanmanız şiddetle tavsiye edilir.**
 
 ## Mevcut Cihazları Listelemek
 
@@ -66,25 +66,9 @@ Bazı durumlarda cihazların tamamı listelenmeyebilir. Özellikle DOWN durumda 
 
 `ifconfig -a`
 
-Komut bazı bilgileri `/proc` altındaki dosyalardan öğrenir. Aşağıda birkaç örneğini görebilirsiniz.
+### `iwconfig` (Eski Kablosuz Yapılandırma Aracı)
 
-```bash
-eaydin@dixon ~ $ cat /proc/net/dev
-Inter-|   Receive                                                |  Transmit
- face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed
-eth0:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0
-lo: 3925336    8112    0    0    0     0          0         0  3925336    8112    0    0    0     0       0          0
-```
-
-```bash
-eaydin@dixon ~ $ cat /proc/net/if_inet6
-00000000000000000000000000000001 01 80 10 80       lo
-fe800000000000008256f2fffe5badab 03 40 20 80    wlan0
-```
-
-### iwconfig
-
-Hangi cihazın kablosuz arayüzünün olduğunu \(wireless extension\) anlamak için `iwconfig` komutu kullanılabilir.
+`ifconfig`'in kablosuz ağlara özel versiyonu gibidir. Kablosuz arayüzlerin ESSID, mod, frekans gibi özel ayarlarını görüntülemek ve (geçici olarak) değiştirmek için kullanılır.
 
 ```bash
 eth0      no wireless extensions.
@@ -110,7 +94,10 @@ Inter-| sta-|   Quality        |   Discarded packets               | Missed | WE
  wlan0: 0000   44.  -66.  -256        0      0      0   1716   1712        0
 ```
 
-iwconfig komutu ifconfig ile aynı şekilde kullanılabilir. ifconfig ile kullanacağınız bütün parametreleri iwconfig ile kullıp kablosuz cihazlarınızı ayarlayabilirsiniz.
+```bash
+iwconfig wlan0
+```
+`iwconfig` de `net-tools` paketinin bir parçasıdır ve modern sistemlerde yerini `iw` komutuna bırakmıştır. Kablosuz ağ yönetimi için genellikle NetworkManager gibi üst düzey araçlar kullanılır.
 
 ## Temel Komutlar
 
@@ -118,95 +105,57 @@ Aşağıda ifconfig ile temel cihaz ayarlamalarının nasıl yapıldığını g�
 
 **ÖNEMLİ NOT**: Bu ayarlar sistemi doğrudan etkiler, reboot gerektirmez. Dolayısıyla cihazın IP adresini veya benzer bilgileri değiştirirseniz internet erişimini etkileyebilirsiniz. Uzaktan bağlı olduğunuz cihazlarda bu komutları kullanırken dikkatli olmanızı tavsiye ederiz. Bu ayarlar sistem reboot olduğunda kaybolur, yani `/etc/network/interfaces` veya `/etc/sysconfig/network-scripts/ifcfg-eth0` gibi dosyaları düzenlediğinizde olduğu gibi kalıcı değildir.
 
-### Cihaz Açıp Kapatmak
+### Cihaz Açıp Kapatmak (`up`/`down`)
 
-Cihazları \(örn. eth0\) aktif hale getirmek için
-
+Bir arayüzü etkinleştirmek veya devre dışı bırakmak için:
 ```bash
-ifconfig eth0 up
+# Etkinleştirme
+sudo ifconfig eth0 up 
+# Modern Karşılığı: sudo ip link set eth0 up
+
+# Devre Dışı Bırakma
+sudo ifconfig eth0 down
+# Modern Karşılığı: sudo ip link set eth0 down
 ```
+`ifup` ve `ifdown` komutları ise genellikle `/etc/network/interfaces` (Debian) gibi yapılandırma dosyalarını okuyarak arayüzleri yöneten daha üst seviye betiklerdir.
 
-veya
+### IP Adresi, Netmask, Broadcast Atamak
 
+Bir arayüze IP adresi, alt ağ maskesi ve yayın (broadcast) adresi atamak için:
 ```bash
-ifup eth0
+sudo ifconfig eth0 192.168.42.5 netmask 255.255.255.0 broadcast 192.168.42.255
 ```
-
-Pasif hale getirmek içinse
-
-```bash
-ifconfig eth0 down
-```
-
-veya
-
-```bash
-ifdown eth0
-```
-
-### IP Adresi Atamak
-
-Bir cihaza IP adresi atamak için cihaz isminden sonra doğrudan IP'yi yazabilirsiniz.
-
-```bash
-ifconfig eth0 192.168.42.5
-```
-
-### Netmask Atamak
-
-Cihazın netmaskını belirtmek için kullanılır, daha önce belirttiğimiz gibi CIDR notasyonunu desteklemez.
-
-```bash
-ifconfig eth0 netmask 255.255.255.0
-```
-
-### Broadcast Tanımlamak
-
-Netmask tanımlamaya oldukça benzerdir.
-
-```bash
-ifconfig eth0 broadcast 192.168.42.2555
-```
-
-### IP Adresi, Netmask ve Broadcast'i Aynı Anda Tanımlamak
-
-Genellikle yukarıdaki işlemler tek komut ile gerçekleştirilir.
-
-```bash
-ifconfig eth0 192.168.42.5 netmask 255.255.255.0 broadcast 192.168.42.255
-```
+*   **Modern Karşılığı:** `sudo ip addr add 192.168.42.5/24 broadcast 192.168.42.255 dev eth0`
+    (Broadcast adresi genellikle otomatik hesaplanır ve belirtilmesi gerekmez).
+*   `ifconfig` CIDR notasyonunu (`/24`) **desteklemez**.
 
 ### MTU Ayarlamak
 
-MTU \(Maximum Transmission Unit - Maksimum Aktarım Birimi\) ayarlanabilir. Bu ayarı her kart desteklemeyebilir, çoğunlukla değiştirmenize de gerek olmaz. Ancak bir sebepten değiştirmek isterseniz aşağıdaki şekilde ayarlayabilirsiniz. Buradaki MTU birimi Byte cinsindendir.
-
+Arayüzün Maksimum İletim Birimi'ni (MTU) ayarlamak için:
 ```bash
-ifconfig eth0 mtu 900
+sudo ifconfig eth0 mtu 1492
 ```
+*   **Modern Karşılığı:** `sudo ip link set eth0 mtu 1492`
 
-### Promiscuous Mode
+### Promiscuous Mod
 
-Ethernet kartınız destekliyorsa \(son yıllarda büyük çoğunluğu destekliyor\) kartınıza gelen ancak sizi ilgilendirmeyen paketleri de CPU'ya gönderip işlemenize olanak sağlayabilirsiniz. Böylece ağınızdaki trafik hakkında fikir sahibi olabilirsiniz.
-
-Açmak için
-
+Arayüzü, sadece kendine ait olmayan paketleri de alacak şekilde karışık (promiscuous) moda almak için (paket analizi vb. için):
 ```bash
-ifconfig eth0 promisc
-```
+# Etkinleştirme
+sudo ifconfig eth0 promisc
+# Modern Karşılığı: sudo ip link set eth0 promisc on
 
-Kapatmak için
-
-```bash
-ifconfig eth0 -promisc
+# Devre Dışı Bırakma
+sudo ifconfig eth0 -promisc
+# Modern Karşılığı: sudo ip link set eth0 promisc off
 ```
 
 ### MAC Adresini Değiştirmek
 
-Cihazınızın MAC adresini değiştirebilirsiniz. Genellikle ağdaki ARP tablolarının karışmasına sebep olacaktır bu yüzden dikkatli kullanmanızda fayda var.
-
+Arayüzün donanım (MAC) adresini değiştirmek için (dikkatli kullanılmalıdır):
 ```bash
-ifconfig eth0 hw ether AA:BB:CC:DD:EE:FF
+sudo ifconfig eth0 hw ether AA:BB:CC:DD:EE:FF
 ```
+*   **Modern Karşılığı:** `sudo ip link set dev eth0 address AA:BB:CC:DD:EE:FF`
 
-
-
+Özetle, `ifconfig` eski sistemlerde temel ağ bilgilerini görmek veya geçici ayarlar yapmak için hala işe yarayabilir, ancak modern Linux yönetimi için `ip` komutunu öğrenmek ve kullanmak daha doğrudur.

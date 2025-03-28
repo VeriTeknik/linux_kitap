@@ -2,176 +2,195 @@
 
 Yazdığınız programların kullanıcı ile etkileşimini sağlayan çeşitli menüler oluşturmak isteyebilirsiniz. Aşağıda iki yöntemini sunacağız.
 
-## select
+## `select` Komutu
 
-En temel yöntem select komutunu kullanmaktır. for loop kullanır gibi kullanıcı etkileşimi oluşturmanızı sağlar. Temel yapsını paylaşıyoruz. Bunun üzerine kendi programınızı geliştirip fonksiyonlarla süsleyebilirsiniz.
+Bash kabuğunun kendi içinde bulunan `select` komutu, kullanıcıya numaralandırılmış bir seçenek listesi sunar ve seçilen öğeye göre işlem yapmanızı sağlar. `for` döngüsüne benzer bir yapısı vardır.
 
 ```bash
-eaydin@dixon ~/calisma/bash $ cat select.sh 
 #!/bin/bash
 
+# Boşluk içeren seçenekler için tırnak kullanmak daha güvenli olabilir
+# veya bir dizi (array) kullanılabilir:
+# SECENEKLER=("Disk Durumu" Yardım Çıkış)
+# select i in "${SECENEKLER[@]}"; do ...
 SECENEKLER="Disk-Durumu Yardim Cikis"
+
+# PS3 değişkeni select'in göstereceği istemi (prompt) ayarlar
+PS3="Lütfen bir seçenek girin (1-3): " 
+
+echo "Bir işlem seçin:"
 select i in $SECENEKLER; do
-    if [ "$i" = "Cikis" ]; then
-        exit
-    elif [ "$i" = "Yardim" ]; then
-        echo "Yardim menusu"
-    elif [ "$i" = "Disk-Durumu" ]; then
+    # Modern test [[ ... ]] kullanımı
+    if [[ "$i" == "Cikis" ]]; then
+        echo "Çıkılıyor..."
+        break # Döngüden çık
+    elif [[ "$i" == "Yardim" ]]; then
+        echo "Yardım menüsü gösteriliyor..."
+        # Burada yardım metni gösterilebilir
+    elif [[ "$i" == "Disk-Durumu" ]]; then
+        echo "Disk durumu:"
         df -h
     else
-        echo "Secenek Anlasilmadi?"
+        # Kullanıcı geçersiz bir numara girerse $i boş olur
+        # $REPLY değişkeni kullanıcının girdiği ham değeri içerir
+        echo "Geçersiz seçenek: $REPLY"
     fi
 done
 ```
 
+Örnek Çalıştırma:
 ```bash
-eaydin@dixon ~/calisma/bash $ ./select.sh 
+$ ./select.sh 
+Bir işlem seçin:
 1) Disk-Durumu
 2) Yardim
 3) Cikis
-#? 1
+Lütfen bir seçenek girin (1-3): 1
+Disk durumu:
 Filesystem      Size  Used Avail Use% Mounted on
 /dev/sda3       346G   32G  296G  10% /
-none            4,0K     0  4,0K   0% /sys/fs/cgroup
-udev            3,8G  4,0K  3,8G   1% /dev
+udev            3,8G     0  3,8G   0% /dev
 tmpfs           777M  1,5M  775M   1% /run
-none            5,0M     0  5,0M   0% /run/lock
-none            3,8G  114M  3,7G   3% /run/shm
-none            100M   20K  100M   1% /run/user
 /dev/sda6       374G  150G  225G  40% /media/backups
-#? 3
-eaydin@dixon ~/calisma/bash $
+Lütfen bir seçenek girin (1-3): 4
+Geçersiz seçenek: 4
+Lütfen bir seçenek girin (1-3): 3
+Çıkılıyor...
+$ 
 ```
 
-## whiptail
+## `whiptail` (ve `dialog`)
 
-whiptail başlı başına incelenmesi gereken ve kompleks menüler sunmanızı sağlayan bir programdır. Burada temel olarak nasıl mesajlar sunabileceğinizin üzerinden geçeceğiz.
+`whiptail`, `newt` kütüphanesini kullanarak terminalde metin tabanlı grafiksel diyalog kutuları (mesaj kutuları, giriş kutuları, menüler vb.) oluşturmanızı sağlayan bir programdır. Kurulum betiklerinde veya basit TUI (Text User Interface) uygulamalarında kullanıcı etkileşimi için sıkça kullanılır.
+
+Benzer bir araç olan `dialog`, `ncurses` kütüphanesini kullanır ve genellikle `whiptail` ile çok benzer komut satırı seçeneklerine sahiptir. Sisteminizde hangisinin kurulu olduğuna bağlı olarak birini tercih edebilirsiniz (`sudo apt install whiptail` veya `sudo apt install dialog` / `sudo dnf install newt` veya `sudo dnf install dialog`).
+
+Aşağıda `whiptail` ile bazı yaygın diyalog kutusu örnekleri verilmiştir.
+
+**Not:** `whiptail` genellikle kullanıcı seçimini veya girdisini standart hataya (stderr - FD 2) yazar. Bunu bir değişkene atamak için, standart hata ile standart çıktının yerini değiştirmek gerekir. Örneklerdeki `3>&1 1>&2 2>&3` ifadesi bu işlemi yapar:
+1.  `3>&1`: Geçici olarak FD 3'ü orijinal standart çıktıya (FD 1) yönlendirir.
+2.  `1>&2`: Standart çıktıyı (FD 1) standart hataya (FD 2) yönlendirir (whiptail'in arayüzü buraya gider).
+3.  `2>&3`: Standart hatayı (FD 2 - whiptail'in çıktısı) orijinal standart çıktıya (artık FD 3'te saklanan) yönlendirir.
+Bu sayede `$(...)` komut yakalama mekanizması, `whiptail`'in stderr'e yazdığı sonucu yakalayabilir.
 
 ### msgbox
 
 Aşağıdaki gibi bir komut ile görsel bir uyarı sağlayabilirsiniz.
-
 ```bash
-whiptail --msgbox "Bu bir uyari mesaji" 10 50
+whiptail --title "Bilgi" --msgbox "Bu bir uyarı mesajıdır." 10 50 
 ```
+Komutun sonundaki rakamlar (10 50), pencerenin yüksekliğini (satır) ve genişliğini (karakter) belirtir.
 
-![](../.gitbook/assets/uyari.png)
-
-Komutun sonundaki rakamlar, pencerenin yüksekliğini ve genişliğini belirtir.
-
-Örneğin **Ok** yerine **Tamam** yazmasını sağlayabiirdik.
-
+Örneğin **Ok** yerine **Tamam** yazmasını sağlayabilirdik:
 ```bash
-whiptail --msgbox "Bu bir uyari mesaji" 10 50 --ok-button="Tamam"
+whiptail --msgbox "Bu bir uyarı mesajıdır." 10 50 --ok-button "Tamam"
 ```
-
-![](../.gitbook/assets/uyari-tamam.png)
 
 ### yes/no
 
-Programınızın basit Evet/Hayır soruları sormasını sağlayabilirsiniz.
-
+Programınızın basit Evet/Hayır soruları sormasını sağlayabilirsiniz. `whiptail --yesno` komutu, kullanıcı "Evet" seçerse 0, "Hayır" seçerse 1 çıkış koduyla sonlanır. `$?` ile bu kontrol edilebilir.
 ```bash
 #!/bin/bash
 
-whiptail --title "Anket" --yesno "GNU/Linux'u özgür buluyor musunuz?" \
---yes-button Evet --no-button Hayır 20 60
-if [ $? -eq 0 ]; then
+if whiptail --title "Anket" --yesno "GNU/Linux'u özgür buluyor musunuz?" \
+   --yes-button Evet --no-button Hayır 10 60; then
     whiptail --msgbox "Çok haklısınız!" --ok-button Tamam 10 40
 else
-    whiptail --msgbox "Yanılıyor olabilirsiniz" --ok-button Tamam 10 40
+    whiptail --msgbox "Yanılıyor olabilirsiniz?" --ok-button Tamam 10 40
 fi
 ```
-
-![](../.gitbook/assets/yesno.png)
 
 ### inputbox
 
-Kullanıcıdan girdi almak için inputbox kullanabilirsiniz.
-
+Kullanıcıdan metin girdisi almak için `inputbox` kullanılır. Girilen metin standart hataya yazdırılır.
 ```bash
 #!/bin/bash
 
+# Mevcut hostname'i al
+mevcut_hostname=$(hostname)
+
+# Kullanıcıdan yeni hostname'i iste, sonucu YENI_HOSTNAME değişkenine ata
 YENI_HOSTNAME=$(whiptail --inputbox "Yeni Hostname Giriniz:" \ 
-8 60 $(hostname) --title "Hostname Değiştirme" --ok-button Tamam \
+8 60 "$mevcut_hostname" --title "Hostname Değiştirme" --ok-button Tamam \
 --cancel-button İptal 3>&1 1>&2 2>&3)
 
-exitstat=$?
+# Kullanıcının Tamam mı İptal mi seçtiğini kontrol et ($? çıkış kodudur)
+exit_status=$?
 
-if [ $exitstat = 0 ] && [ ! -z $YENI_HOSTNAME ]; then
-    hostname $YENI_HOSTNAME
+# Eğer Tamam seçildiyse (çıkış kodu 0) ve girilen değer boş değilse
+if [[ $exit_status -eq 0 ]] && [[ -n "$YENI_HOSTNAME" ]]; then
+    echo "Hostname '$YENI_HOSTNAME' olarak değiştiriliyor..."
+    # sudo hostnamectl set-hostname "$YENI_HOSTNAME" # Modern systemd yöntemi
+    # veya sadece geçici olarak: sudo hostname "$YENI_HOSTNAME"
 else
-    echo "işlem iptal edildi"
+    echo "İşlem iptal edildi veya boş değer girildi."
 fi
 ```
-
-Yukarıdaki program, inputbox ile sonuç dinler, eğer "Tamam" seçeneği işaretlenmiş, ve YENI\_HOSTNAME değeri boş değilse **hostname** komutunu kullanarak bilgisayar adını değiştirir, aksi taktirde işlemi iptal eder. Programın girdi kutucuğunun öntanımlı değeri olarak mevcut hostname'i kullandığı görülebilir.
-
-![](../.gitbook/assets/inputbox.png)
 
 ### menu
 
-Aşağıdaki yöntemle kullanıcılarınıza bir menü sunabilirsiniz.
-
+Kullanıcıya bir listeden tek bir seçim yapma imkanı sunar. Seçilen öğenin "etiketi" standart hataya yazdırılır.
 ```bash
 #!/bin/bash
 
+# Menü seçenekleri: "Etiket" "Açıklama" şeklinde çiftler halinde
 SECIM=$(whiptail --title "Programlama Menüsü" \
---menu "Bir dil seçin" 17 50 0 \
-"Python" "Guido van Rossum" \
-"C" "Dennis M. Ritchie" \
-"Perl" "Larry Wall" \
-"PHP" "Rasmus Lerdorf" 3>&1 1>&2 2>&3)
+--menu "Favori dilinizi seçin" 17 60 5 \
+"Python" "Guido van Rossum tarafından geliştirildi" \
+"C"      "Dennis M. Ritchie tarafından geliştirildi" \
+"Perl"   "Larry Wall tarafından geliştirildi" \
+"Bash"   "Brian Fox tarafından geliştirildi" \
+"Rust"   "Mozilla tarafından geliştirildi" 3>&1 1>&2 2>&3)
 
-if [ $? = 0 ] && [ ! -z $SECIM ]; then
-    echo "$SECIM dilini seçtiniz"
+exit_status=$?
+if [[ $exit_status -eq 0 ]]; then
+    echo "Seçtiğiniz dil: $SECIM"
 else
-    echo "Dil seçmediniz"
+    echo "Dil seçmediniz veya iptal ettiniz."
 fi
 ```
-
-![](../.gitbook/assets/menu.png)
 
 ### checklist
 
+Kullanıcıya bir listeden birden fazla seçim yapma (işaretleme) imkanı sunar. Seçilen öğelerin etiketleri, tırnak içinde ve boşlukla ayrılarak standart hataya yazdırılır.
 ```bash
 #!/bin/bash
 
-SECIM=$(whiptail --title "Programlama Menüsü" --checklist \
-"Kullandığınız Dilleri Seçin" 10 60 5 \
+# Menü seçenekleri: "Etiket" "Açıklama" "ON/OFF" (başlangıç durumu)
+SECIMLER=$(whiptail --title "Programlama Menüsü" --checklist \
+"Kullandığınız Dilleri Seçin (Boşluk ile işaretleyin)" 15 60 5 \
 "Python" "Guido van Rossum" ON \
-"C" "Dennis M. Ritchie" OFF \
-"Perl" "Larry Wall" OFF \
-"PHP" "Rasmus Lerdorf" ON 3>&1 1>&2 2>&3)
+"C"      "Dennis M. Ritchie" OFF \
+"Perl"   "Larry Wall" OFF \
+"Bash"   "Brian Fox" ON \
+"Java"   "James Gosling" OFF 3>&1 1>&2 2>&3)
 
-if [ $? -eq 0 ]; then
-    echo "Seçtiğiniz diller:"
-    echo "$SECIM"
+exit_status=$?
+if [[ $exit_status -eq 0 ]]; then
+    echo "Seçtiğiniz diller: $SECIMLER"
 else
-    echo "Dil seçmediniz"
+    echo "Dil seçmediniz veya iptal ettiniz."
 fi
 ```
-
-![](../.gitbook/assets/checklist.png)
 
 ### radiolist
 
+`checklist`'e benzer, ancak kullanıcıya listeden sadece *bir* tane seçim yapma imkanı sunar. Seçilen öğenin etiketi standart hataya yazdırılır.
 ```bash
 #!/bin/bash
 
+# Menü seçenekleri: "Etiket" "Açıklama" "ON/OFF" (sadece biri ON olabilir)
 SECIM=$(whiptail --title "Programlama Menüsü" --radiolist \
-"Kullandığınız Dilleri Seçin" 10 60 5 \
+"En çok kullandığınız dili seçin" 15 60 5 \
 "Python" "Guido van Rossum" OFF \
-"C" "Dennis M. Ritchie" ON \
-"Perl" "Larry Wall" OFF \
-"PHP" "Rasmus Lerdorf" OFF 3>&1 1>&2 2>&3)
+"C"      "Dennis M. Ritchie" ON \
+"Perl"   "Larry Wall" OFF \
+"Bash"   "Brian Fox" OFF \
+"Go"     "Google" OFF 3>&1 1>&2 2>&3)
 
-if [ $? -eq 0 ]; then
-    echo "Seçtiğiniz diller:"
-    echo "$SECIM"
+exit_status=$?
+if [[ $exit_status -eq 0 ]]; then
+    echo "En çok kullandığınız dil: $SECIM"
 else
-    echo "Dil seçmediniz"
+    echo "Dil seçmediniz veya iptal ettiniz."
 fi
-```
-
-![](../.gitbook/assets/radio.png)
